@@ -16,4 +16,4 @@ Written by `scripts/build_items.py`. Do not hand-edit.
 - price_hold / mutual_gains: 5
 - review_swap / harmful: 5
 - review_swap / mutual_gains: 5
-- sha256(items.jsonl): `932a7bdc24ada4cee81c5a5233792441b32ebdef32f6e1f8119f0ed1f2441fd1`
+- sha256(items.jsonl): `e4d2069db3fa88fa960522dbcf8d8f1566e626d06615c620ceb8b33db3494268`
