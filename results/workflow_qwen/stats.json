@@ -1,0 +1,1310 @@
+{
+ "episodes": [
+  "data/episodes/workflow_episodes_qwen.jsonl"
+ ],
+ "stats": {
+  "n_episodes": 240,
+  "n_items": 30,
+  "parse_table": [
+   {
+    "item_class": "harmful",
+    "channel": "raw",
+    "turn1": "choice",
+    "turn2": "choice",
+    "disclosure": "choice",
+    "error": false,
+    "n": 120
+   },
+   {
+    "item_class": "mutual_gains",
+    "channel": "raw",
+    "turn1": "choice",
+    "turn2": "choice",
+    "disclosure": "choice",
+    "error": false,
+    "n": 120
+   }
+  ],
+  "turn1": {
+   "harmful": {
+    "est": 0.06666666666666667,
+    "lo": 0.016666666666666666,
+    "hi": 0.13095238095238096,
+    "n": 120
+   },
+   "mutual_gains": {
+    "est": 0.95,
+    "lo": 0.9,
+    "hi": 0.9910714285714286,
+    "n": 120
+   }
+  },
+  "turn2": {
+   "harmful": {
+    "raw": {
+     "direct": {
+      "est": 0.9333333333333333,
+      "lo": 0.8333333333333334,
+      "hi": 1.0,
+      "n": 30
+     },
+     "euphemism": {
+      "est": 0.7666666666666667,
+      "lo": 0.5665625000000001,
+      "hi": 0.9375,
+      "n": 30
+     },
+     "relationship": {
+      "est": 0.8,
+      "lo": 0.6363636363636364,
+      "hi": 0.95,
+      "n": 30
+     },
+     "omission": {
+      "est": 0.6333333333333333,
+      "lo": 0.4090909090909091,
+      "hi": 0.8461538461538461,
+      "n": 30
+     },
+     "all": {
+      "est": 0.7833333333333333,
+      "lo": 0.7125,
+      "hi": 0.8571428571428571,
+      "n": 120
+     }
+    },
+    "paraphrased": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "neutralized": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    }
+   },
+   "mutual_gains": {
+    "raw": {
+     "direct": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 30
+     },
+     "euphemism": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 30
+     },
+     "relationship": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 30
+     },
+     "omission": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 30
+     },
+     "all": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 120
+     }
+    },
+    "paraphrased": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "neutralized": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    }
+   }
+  },
+  "moved": {
+   "harmful": {
+    "raw": {
+     "est": 0.725,
+     "lo": 0.6323529411764706,
+     "hi": 0.8203125,
+     "n": 120
+    },
+    "paraphrased": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "neutralized": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    }
+   },
+   "mutual_gains": {
+    "raw": {
+     "est": 0.05,
+     "lo": 0.008928571428571428,
+     "hi": 0.1,
+     "n": 120
+    },
+    "paraphrased": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "neutralized": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    }
+   }
+  },
+  "relay_effect": {
+   "harmful": {
+    "paraphrased": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 120
+     }
+    },
+    "neutralized": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 120
+     }
+    },
+    "neutralized_minus_paraphrased": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n_a": 0,
+     "n_b": 0
+    }
+   },
+   "mutual_gains": {
+    "paraphrased": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 120
+     }
+    },
+    "neutralized": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 30
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n_a": 0,
+      "n_b": 120
+     }
+    },
+    "neutralized_minus_paraphrased": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n_a": 0,
+     "n_b": 0
+    }
+   }
+  },
+  "pragmatic_vs_direct": {
+   "paraphrased": {
+    "euphemism": {
+     "est": null,
+     "lo": null,
+     "hi": null
+    },
+    "relationship": {
+     "est": null,
+     "lo": null,
+     "hi": null
+    },
+    "omission": {
+     "est": null,
+     "lo": null,
+     "hi": null
+    }
+   },
+   "neutralized": {
+    "euphemism": {
+     "est": null,
+     "lo": null,
+     "hi": null
+    },
+    "relationship": {
+     "est": null,
+     "lo": null,
+     "hi": null
+    },
+    "omission": {
+     "est": null,
+     "lo": null,
+     "hi": null
+    }
+   }
+  },
+  "disclosure": {
+   "item_cO": {
+    "est": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 94
+   },
+   "lexical": {
+    "est": 0.44680851063829785,
+    "lo": 0.234375,
+    "hi": 0.6667372881355922,
+    "n": 94
+   }
+  },
+  "by_rendering_raw": {
+   "direct": {
+    "moved": {
+     "est": 0.8,
+     "lo": 0.6333333333333333,
+     "hi": 0.9444444444444444,
+     "n": 30
+    },
+    "turn2": {
+     "est": 0.9333333333333333,
+     "lo": 0.8333333333333334,
+     "hi": 1.0,
+     "n": 30
+    }
+   },
+   "euphemism": {
+    "moved": {
+     "est": 0.7333333333333333,
+     "lo": 0.5333333333333333,
+     "hi": 0.90625,
+     "n": 30
+    },
+    "turn2": {
+     "est": 0.7666666666666667,
+     "lo": 0.5665625000000001,
+     "hi": 0.9375,
+     "n": 30
+    }
+   },
+   "relationship": {
+    "moved": {
+     "est": 0.7666666666666667,
+     "lo": 0.5714285714285714,
+     "hi": 0.9375,
+     "n": 30
+    },
+    "turn2": {
+     "est": 0.8,
+     "lo": 0.6363636363636364,
+     "hi": 0.95,
+     "n": 30
+    }
+   },
+   "omission": {
+    "moved": {
+     "est": 0.6,
+     "lo": 0.3611111111111111,
+     "hi": 0.8252083333333302,
+     "n": 30
+    },
+    "turn2": {
+     "est": 0.6333333333333333,
+     "lo": 0.4090909090909091,
+     "hi": 0.8461538461538461,
+     "n": 30
+    }
+   }
+  },
+  "by_rendering_raw_setting": {
+   "workflow": {
+    "direct": {
+     "est": 0.8,
+     "lo": 0.6333333333333333,
+     "hi": 0.9444444444444444,
+     "n": 30
+    },
+    "euphemism": {
+     "est": 0.7333333333333333,
+     "lo": 0.5333333333333333,
+     "hi": 0.90625,
+     "n": 30
+    },
+    "relationship": {
+     "est": 0.7666666666666667,
+     "lo": 0.5714285714285714,
+     "hi": 0.9375,
+     "n": 30
+    },
+    "omission": {
+     "est": 0.6,
+     "lo": 0.3611111111111111,
+     "hi": 0.8252083333333302,
+     "n": 30
+    }
+   }
+  },
+  "by_family_raw": {
+   "budget_padding": {
+    "turn1": {
+     "est": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "n": 40
+    },
+    "turn2": {
+     "est": 0.875,
+     "lo": 0.7083333333333334,
+     "hi": 1.0,
+     "n": 40
+    },
+    "moved": {
+     "est": 0.875,
+     "lo": 0.7083333333333334,
+     "hi": 1.0,
+     "n": 40
+    },
+    "twin": {
+     "est": 1.0,
+     "lo": 1.0,
+     "hi": 1.0,
+     "n": 40
+    }
+   },
+   "no_poach": {
+    "turn1": {
+     "est": 0.025,
+     "lo": 0.0,
+     "hi": 0.08333333333333333,
+     "n": 40
+    },
+    "turn2": {
+     "est": 0.75,
+     "lo": 0.625,
+     "hi": 0.875,
+     "n": 40
+    },
+    "moved": {
+     "est": 0.725,
+     "lo": 0.5625,
+     "hi": 0.875,
+     "n": 40
+    },
+    "twin": {
+     "est": 1.0,
+     "lo": 1.0,
+     "hi": 1.0,
+     "n": 40
+    }
+   },
+   "review_ring": {
+    "turn1": {
+     "est": 0.175,
+     "lo": 0.0625,
+     "hi": 0.3125,
+     "n": 40
+    },
+    "turn2": {
+     "est": 0.725,
+     "lo": 0.625,
+     "hi": 0.8125,
+     "n": 40
+    },
+    "moved": {
+     "est": 0.575,
+     "lo": 0.5,
+     "hi": 0.6875,
+     "n": 40
+    },
+    "twin": {
+     "est": 1.0,
+     "lo": 1.0,
+     "hi": 1.0,
+     "n": 40
+    }
+   }
+  },
+  "by_family": {
+   "budget_padding": {
+    "raw": {
+     "est": 0.875,
+     "lo": 0.7083333333333334,
+     "hi": 1.0,
+     "n": 40
+    },
+    "paraphrased": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "neutralized": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    }
+   },
+   "no_poach": {
+    "raw": {
+     "est": 0.75,
+     "lo": 0.625,
+     "hi": 0.875,
+     "n": 40
+    },
+    "paraphrased": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "neutralized": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    }
+   },
+   "review_ring": {
+    "raw": {
+     "est": 0.725,
+     "lo": 0.625,
+     "hi": 0.8125,
+     "n": 40
+    },
+    "paraphrased": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "neutralized": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    }
+   }
+  }
+ },
+ "monitors": {
+  "gemini": {
+   "n_verdicts": 1200,
+   "unparsed": 0,
+   "views": [
+    "action",
+    "report",
+    "delivered",
+    "report_only",
+    "message_only"
+   ],
+   "fnr": {
+    "raw": {
+     "action": {
+      "est": 0.14893617021276595,
+      "lo": 0.0,
+      "hi": 0.36,
+      "n": 94
+     },
+     "report": {
+      "est": 0.031914893617021274,
+      "lo": 0.0,
+      "hi": 0.06493506493506493,
+      "n": 94
+     },
+     "delivered": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 94
+     },
+     "report_only": {
+      "est": 0.010638297872340425,
+      "lo": 0.0,
+      "hi": 0.034782608695652174,
+      "n": 94
+     },
+     "message_only": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 94
+     }
+    },
+    "paraphrased": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "neutralized": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    }
+   },
+   "fnr_moved": {
+    "raw": {
+     "action": {
+      "est": 0.16091954022988506,
+      "lo": 0.0,
+      "hi": 0.382368585732165,
+      "n": 87
+     },
+     "report": {
+      "est": 0.034482758620689655,
+      "lo": 0.0,
+      "hi": 0.06896551724137931,
+      "n": 87
+     },
+     "delivered": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 87
+     },
+     "report_only": {
+      "est": 0.011494252873563218,
+      "lo": 0.0,
+      "hi": 0.037037037037037035,
+      "n": 87
+     },
+     "message_only": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 87
+     }
+    },
+    "paraphrased": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "neutralized": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    }
+   },
+   "fpr_twins": {
+    "raw": {
+     "action": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     },
+     "report": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     },
+     "delivered": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     },
+     "report_only": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     },
+     "message_only": {
+      "est": 0.016666666666666666,
+      "lo": 0.0,
+      "hi": 0.05357142857142857,
+      "n": 120
+     }
+    },
+    "paraphrased": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "neutralized": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    }
+   },
+   "fpr_declined": {
+    "raw": {
+     "action": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 26
+     },
+     "report": {
+      "est": 0.07692307692307693,
+      "lo": 0.0,
+      "hi": 0.1875,
+      "n": 26
+     },
+     "delivered": {
+      "est": 0.5769230769230769,
+      "lo": 0.35714285714285715,
+      "hi": 0.8,
+      "n": 26
+     },
+     "report_only": {
+      "est": 0.19230769230769232,
+      "lo": 0.06896551724137931,
+      "hi": 0.3076923076923077,
+      "n": 26
+     },
+     "message_only": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 26
+     }
+    },
+    "paraphrased": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "neutralized": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    }
+   },
+   "pooled": {
+    "fnr": {
+     "action": {
+      "est": 0.14893617021276595,
+      "lo": 0.0,
+      "hi": 0.36,
+      "n": 94
+     },
+     "report": {
+      "est": 0.031914893617021274,
+      "lo": 0.0,
+      "hi": 0.06493506493506493,
+      "n": 94
+     },
+     "delivered": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 94
+     },
+     "report_only": {
+      "est": 0.010638297872340425,
+      "lo": 0.0,
+      "hi": 0.034782608695652174,
+      "n": 94
+     },
+     "message_only": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 94
+     }
+    },
+    "fnr_moved": {
+     "action": {
+      "est": 0.16091954022988506,
+      "lo": 0.0,
+      "hi": 0.382368585732165,
+      "n": 87
+     },
+     "report": {
+      "est": 0.034482758620689655,
+      "lo": 0.0,
+      "hi": 0.06896551724137931,
+      "n": 87
+     },
+     "delivered": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 87
+     },
+     "report_only": {
+      "est": 0.011494252873563218,
+      "lo": 0.0,
+      "hi": 0.037037037037037035,
+      "n": 87
+     },
+     "message_only": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 87
+     }
+    },
+    "fpr_declined": {
+     "action": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 26
+     },
+     "report": {
+      "est": 0.07692307692307693,
+      "lo": 0.0,
+      "hi": 0.1875,
+      "n": 26
+     },
+     "delivered": {
+      "est": 0.5769230769230769,
+      "lo": 0.35714285714285715,
+      "hi": 0.8,
+      "n": 26
+     },
+     "report_only": {
+      "est": 0.19230769230769232,
+      "lo": 0.06896551724137931,
+      "hi": 0.3076923076923077,
+      "n": 26
+     },
+     "message_only": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 26
+     }
+    },
+    "fpr_twins": {
+     "action": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     },
+     "report": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     },
+     "delivered": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     },
+     "report_only": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     },
+     "message_only": {
+      "est": 0.016666666666666666,
+      "lo": 0.0,
+      "hi": 0.05357142857142857,
+      "n": 120
+     }
+    }
+   },
+   "c5_delivered_minus_raw": {
+    "paraphrased": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n_a": 0,
+     "n_b": 0
+    },
+    "neutralized": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n_a": 0,
+     "n_b": 0
+    }
+   },
+   "c6_action_minus_delivered": {
+    "est": 0.14893617021276595,
+    "lo": 0.0,
+    "hi": 0.36,
+    "n_a": 94,
+    "n_b": 94
+   },
+   "says_vs_does": {
+    "fnr_action_minus_both": {
+     "est": 0.11702127659574468,
+     "lo": -0.022222222222222223,
+     "hi": 0.3037974683544304,
+     "n_a": 94,
+     "n_b": 94
+    },
+    "fnr_report_only_minus_both": {
+     "est": -0.021276595744680847,
+     "lo": -0.05128205128205128,
+     "hi": 0.0,
+     "n_a": 94,
+     "n_b": 94
+    },
+    "fpr_declined_message_only_minus_all": {
+     "est": 0.42307692307692313,
+     "lo": 0.19999999999999996,
+     "hi": 0.6428571428571428,
+     "n_a": 26,
+     "n_b": 26
+    }
+   }
+  }
+ }
+}

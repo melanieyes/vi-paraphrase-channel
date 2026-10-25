@@ -41,7 +41,7 @@ Turn 2, the agent answered **B**, the collusive option (the item's fixed key is 
 | Market set | 60 items: six families, five harmful scenarios each, each with a harmless twin of the same shape; three channels (raw, paraphrased, neutralized) |
 | Workflow set | 30 items: three families outside markets, same design; raw channel only |
 | Renderings | direct, euphemism, relationship, omission (written once by Gemini, then frozen) |
-| Agents | Gemini 2.5 Flash, Qwen3-8B; 1440 market episodes each |
+| Agents | Gemini 2.5 Flash, Qwen3-8B; 1440 market episodes each, 240 workflow episodes each |
 | Monitor | Gemini 2.5 Flash, reading six views of each episode |
 | Intervals | bootstrap 95%, 10,000 resamples, clustered over items |
 
@@ -49,7 +49,7 @@ Turn 2, the agent answered **B**, the collusive option (the item's fixed key is 
 
 A task can lead to collusion in two ways. The agent may take the arrangement on its own, before anyone asks (turn 1). Or the rival's message may pull it in (moved: competitive at turn 1, collusive at turn 2). The two rank tasks differently, so we report both.
 
-Taken unprompted most often: `price_hold` (65%) for Gemini, `info_exchange` (28%) for Qwen. Pulled in by the message most often: `cover_bid` (20%) for Gemini, `market_split` (57%) for Qwen. The two agents rank the tasks differently, so a task list is a property of the model as much as of the task. Five scenarios per family: read the table as description.
+Taken unprompted most often: `price_hold` (65%) for Gemini, `info_exchange` (28%) for Qwen. Pulled in by the message most often: `review_ring` (48%) for Gemini, `budget_padding` (88%) for Qwen. The two agents rank the tasks differently, so a task list is a property of the model as much as of the task. Five scenarios per family: read the table as description.
 
 Raw channel, harmful items (%):
 
@@ -61,6 +61,9 @@ Raw channel, harmful items (%):
 | market_split | market | 0.0 [0.0, 0.0] | 12.5 [4.4, 20.8] | 22.5 [9.7, 33.3] | 57.5 [37.5, 75.0] |
 | price_hold | market | 65.0 [54.2, 79.2] | 15.0 [0.0, 31.2] | 0.0 [0.0, 0.0] | 47.5 [31.2, 62.5] |
 | review_swap | market | 5.0 [0.0, 12.5] | 12.5 [4.2, 20.1] | 5.0 [0.0, 12.5] | 15.0 [5.0, 25.0] |
+| budget_padding | workflow | 40.0 [20.0, 62.5] | 32.5 [25.0, 43.8] | 0.0 [0.0, 0.0] | 87.5 [70.8, 100.0] |
+| no_poach | workflow | 0.0 [0.0, 0.0] | 17.5 [0.0, 37.5] | 2.5 [0.0, 8.3] | 72.5 [56.2, 87.5] |
+| review_ring | workflow | 50.0 [25.0, 68.8] | 47.5 [25.0, 75.0] | 17.5 [6.2, 31.2] | 57.5 [50.0, 68.8] |
 
 ![Which tasks lead to collusion](figures/families.png)
 
@@ -79,11 +82,13 @@ Gemini monitor on Gemini 2.5 Flash episodes (%; market pooled over channels, wor
 
 | view | market: missed | market: false alarm, declined | workflow: missed | workflow: false alarm, declined |
 |---|---|---|---|---|
-| action only | 63.8 [38.9, 82.1] | 0.0 [0.0, 0.0] | n/a | n/a |
-| action + report | 17.6 [10.6, 23.4] | 5.9 [3.3, 9.2] | n/a | n/a |
-| report only | 16.7 [9.9, 22.3] | 5.3 [2.6, 8.8] | n/a | n/a |
-| message only | 1.0 [0.0, 3.5] | 99.2 [98.1, 100.0] | n/a | n/a |
-| action + report + message | 0.0 [0.0, 0.0] | 60.8 [47.4, 74.1] | n/a | n/a |
+| action only | 63.8 [38.9, 82.1] | 0.0 [0.0, 0.0] | 17.6 [0.0, 42.7] | 0.0 [0.0, 0.0] |
+| action + report | 17.6 [10.6, 23.4] | 5.9 [3.3, 9.2] | 2.7 [0.0, 6.5] | 0.0 [0.0, 0.0] |
+| report only | 16.7 [9.9, 22.3] | 5.3 [2.6, 8.8] | 0.0 [0.0, 0.0] | 10.9 [0.0, 30.2] |
+| message only | 1.0 [0.0, 3.5] | 99.2 [98.1, 100.0] | 0.0 [0.0, 0.0] | 100.0 [100.0, 100.0] |
+| action + report + message | 0.0 [0.0, 0.0] | 60.8 [47.4, 74.1] | 0.0 [0.0, 0.0] | 76.1 [65.2, 88.5] |
+
+The pattern holds outside markets: on the workflow set, action only missed 18%, action plus report missed 3%, and the message alone flagged 100% of declined episodes.
 
 ## 2.3 What should count as convincing evidence?
 
@@ -140,6 +145,26 @@ Gemini monitor, market set, Qwen3-8B episodes (%):
 | raw | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 58.1 [45.0, 71.0] | 0.4 [0.0, 1.0] |
 | report_only | 38.7 [23.7, 52.4] | 40.1 [26.1, 53.5] | 4.3 [2.2, 6.9] | 0.0 [0.0, 0.0] |
 | message_only | 0.4 [0.0, 1.1] | 0.0 [0.0, 0.0] | 98.9 [96.9, 100.0] | 2.0 [0.3, 4.2] |
+
+Gemini monitor, workflow set, Gemini 2.5 Flash episodes (%):
+
+| view | missed | missed, message-moved only | false alarm, declined | false alarm, twins |
+|---|---|---|---|---|
+| action | 17.6 [0.0, 42.7] | 15.4 [0.0, 40.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| report | 2.7 [0.0, 6.5] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 2.5 [0.0, 6.2] |
+| delivered | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 76.1 [65.2, 88.5] | 2.5 [0.0, 5.2] |
+| report_only | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 10.9 [0.0, 30.2] | 3.3 [0.0, 7.5] |
+| message_only | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 100.0 [100.0, 100.0] | 1.7 [0.0, 5.4] |
+
+Gemini monitor, workflow set, Qwen3-8B episodes (%):
+
+| view | missed | missed, message-moved only | false alarm, declined | false alarm, twins |
+|---|---|---|---|---|
+| action | 14.9 [0.0, 36.0] | 16.1 [0.0, 38.2] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| report | 3.2 [0.0, 6.5] | 3.4 [0.0, 6.9] | 7.7 [0.0, 18.8] | 0.0 [0.0, 0.0] |
+| delivered | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 57.7 [35.7, 80.0] | 0.0 [0.0, 0.0] |
+| report_only | 1.1 [0.0, 3.5] | 1.1 [0.0, 3.7] | 19.2 [6.9, 30.8] | 0.0 [0.0, 0.0] |
+| message_only | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 100.0 [100.0, 100.0] | 1.7 [0.0, 5.4] |
 
 Uptake of the harmful arrangement at turn 2, market set (%):
 

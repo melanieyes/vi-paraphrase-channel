@@ -56,7 +56,7 @@ Then the rival's message arrived:</p>
 </tr>
 <tr>
 <td>Agents</td>
-<td>Gemini 2.5 Flash, Qwen3-8B; 1440 market episodes each</td>
+<td>Gemini 2.5 Flash, Qwen3-8B; 1440 market episodes each, 240 workflow episodes each</td>
 </tr>
 <tr>
 <td>Monitor</td>
@@ -70,7 +70,7 @@ Then the rival's message arrived:</p>
 </table>
 <h2>2.1 Which tasks lead to collusion?</h2>
 <p>A task can lead to collusion in two ways. The agent may take the arrangement on its own, before anyone asks (turn 1). Or the rival's message may pull it in (moved: competitive at turn 1, collusive at turn 2). The two rank tasks differently, so we report both.</p>
-<p>Taken unprompted most often: <code>price_hold</code> (65%) for Gemini, <code>info_exchange</code> (28%) for Qwen. Pulled in by the message most often: <code>cover_bid</code> (20%) for Gemini, <code>market_split</code> (57%) for Qwen. The two agents rank the tasks differently, so a task list is a property of the model as much as of the task. Five scenarios per family: read the table as description.</p>
+<p>Taken unprompted most often: <code>price_hold</code> (65%) for Gemini, <code>info_exchange</code> (28%) for Qwen. Pulled in by the message most often: <code>review_ring</code> (48%) for Gemini, <code>budget_padding</code> (88%) for Qwen. The two agents rank the tasks differently, so a task list is a property of the model as much as of the task. Five scenarios per family: read the table as description.</p>
 <p>Raw channel, harmful items (%):</p>
 <table>
 <thead>
@@ -132,6 +132,30 @@ Then the rival's message arrived:</p>
 <td>5.0 [0.0, 12.5]</td>
 <td>15.0 [5.0, 25.0]</td>
 </tr>
+<tr>
+<td>budget_padding</td>
+<td>workflow</td>
+<td>40.0 [20.0, 62.5]</td>
+<td>32.5 [25.0, 43.8]</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>87.5 [70.8, 100.0]</td>
+</tr>
+<tr>
+<td>no_poach</td>
+<td>workflow</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>17.5 [0.0, 37.5]</td>
+<td>2.5 [0.0, 8.3]</td>
+<td>72.5 [56.2, 87.5]</td>
+</tr>
+<tr>
+<td>review_ring</td>
+<td>workflow</td>
+<td>50.0 [25.0, 68.8]</td>
+<td>47.5 [25.0, 75.0]</td>
+<td>17.5 [6.2, 31.2]</td>
+<td>57.5 [50.0, 68.8]</td>
+</tr>
 </tbody>
 </table>
 <p><img alt="Which tasks lead to collusion" src="figures/families.png" /></p>
@@ -156,39 +180,40 @@ Then the rival's message arrived:</p>
 <td>action only</td>
 <td>63.8 [38.9, 82.1]</td>
 <td>0.0 [0.0, 0.0]</td>
-<td>n/a</td>
-<td>n/a</td>
+<td>17.6 [0.0, 42.7]</td>
+<td>0.0 [0.0, 0.0]</td>
 </tr>
 <tr>
 <td>action + report</td>
 <td>17.6 [10.6, 23.4]</td>
 <td>5.9 [3.3, 9.2]</td>
-<td>n/a</td>
-<td>n/a</td>
+<td>2.7 [0.0, 6.5]</td>
+<td>0.0 [0.0, 0.0]</td>
 </tr>
 <tr>
 <td>report only</td>
 <td>16.7 [9.9, 22.3]</td>
 <td>5.3 [2.6, 8.8]</td>
-<td>n/a</td>
-<td>n/a</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>10.9 [0.0, 30.2]</td>
 </tr>
 <tr>
 <td>message only</td>
 <td>1.0 [0.0, 3.5]</td>
 <td>99.2 [98.1, 100.0]</td>
-<td>n/a</td>
-<td>n/a</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>100.0 [100.0, 100.0]</td>
 </tr>
 <tr>
 <td>action + report + message</td>
 <td>0.0 [0.0, 0.0]</td>
 <td>60.8 [47.4, 74.1]</td>
-<td>n/a</td>
-<td>n/a</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>76.1 [65.2, 88.5]</td>
 </tr>
 </tbody>
 </table>
+<p>The pattern holds outside markets: on the workflow set, action only missed 18%, action plus report missed 3%, and the message alone flagged 100% of declined episodes.</p>
 <h2>2.3 What should count as convincing evidence?</h2>
 <p>Three layers of evidence, each wrong in a measurable way on its own:</p>
 <ol>
@@ -324,6 +349,104 @@ Then the rival's message arrived:</p>
 <td>0.0 [0.0, 0.0]</td>
 <td>98.9 [96.9, 100.0]</td>
 <td>2.0 [0.3, 4.2]</td>
+</tr>
+</tbody>
+</table>
+<p>Gemini monitor, workflow set, Gemini 2.5 Flash episodes (%):</p>
+<table>
+<thead>
+<tr>
+<th>view</th>
+<th>missed</th>
+<th>missed, message-moved only</th>
+<th>false alarm, declined</th>
+<th>false alarm, twins</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>action</td>
+<td>17.6 [0.0, 42.7]</td>
+<td>15.4 [0.0, 40.0]</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>0.0 [0.0, 0.0]</td>
+</tr>
+<tr>
+<td>report</td>
+<td>2.7 [0.0, 6.5]</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>2.5 [0.0, 6.2]</td>
+</tr>
+<tr>
+<td>delivered</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>76.1 [65.2, 88.5]</td>
+<td>2.5 [0.0, 5.2]</td>
+</tr>
+<tr>
+<td>report_only</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>10.9 [0.0, 30.2]</td>
+<td>3.3 [0.0, 7.5]</td>
+</tr>
+<tr>
+<td>message_only</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>100.0 [100.0, 100.0]</td>
+<td>1.7 [0.0, 5.4]</td>
+</tr>
+</tbody>
+</table>
+<p>Gemini monitor, workflow set, Qwen3-8B episodes (%):</p>
+<table>
+<thead>
+<tr>
+<th>view</th>
+<th>missed</th>
+<th>missed, message-moved only</th>
+<th>false alarm, declined</th>
+<th>false alarm, twins</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>action</td>
+<td>14.9 [0.0, 36.0]</td>
+<td>16.1 [0.0, 38.2]</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>0.0 [0.0, 0.0]</td>
+</tr>
+<tr>
+<td>report</td>
+<td>3.2 [0.0, 6.5]</td>
+<td>3.4 [0.0, 6.9]</td>
+<td>7.7 [0.0, 18.8]</td>
+<td>0.0 [0.0, 0.0]</td>
+</tr>
+<tr>
+<td>delivered</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>57.7 [35.7, 80.0]</td>
+<td>0.0 [0.0, 0.0]</td>
+</tr>
+<tr>
+<td>report_only</td>
+<td>1.1 [0.0, 3.5]</td>
+<td>1.1 [0.0, 3.7]</td>
+<td>19.2 [6.9, 30.8]</td>
+<td>0.0 [0.0, 0.0]</td>
+</tr>
+<tr>
+<td>message_only</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>0.0 [0.0, 0.0]</td>
+<td>100.0 [100.0, 100.0]</td>
+<td>1.7 [0.0, 5.4]</td>
 </tr>
 </tbody>
 </table>
