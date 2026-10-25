@@ -58,7 +58,7 @@ def read(jobs: list[dict], rc: dict, base_url: str | None) -> list[dict]:
     def one(j):
         try:
             rep = client.chat([{"role": "user", "content": j["prompt"]}],
-                              temperature=rc["temperature"], reasoning=False)
+                              temperature=rc["temperature"], reasoning=rc.get("reasoning", False))
             return {"key": j["key"], "reply": rep.text, "error": None,
                     "stop_reason": (rep.raw or {}).get("stop_reason"),
                     "usage": (rep.raw or {}).get("usage")}
@@ -70,7 +70,7 @@ def read(jobs: list[dict], rc: dict, base_url: str | None) -> list[dict]:
 
 
 @app.local_entrypoint()
-def main(reader: str = "gpt", harmful_only: bool = False) -> None:
+def main(reader: str = "gpt", harmful_only: bool = False, limit: int = 0) -> None:
     from src import prompts as P
     from src.episode import load_items, load_stimuli, options
     from src.run_meta import config_hash, git_commit, load_cfg
@@ -87,12 +87,15 @@ def main(reader: str = "gpt", harmful_only: bool = False) -> None:
         opt_a, opt_b, _ = options(it, 0)
         jobs.append({"key": key, "prompt": P.GATE_PROMPT.format(**it, opt_a=opt_a, opt_b=opt_b,
                                                                  text=s["text"])})
+    if limit:
+        jobs = jobs[:limit]
     print(f"second reader {rc['model']} on {len(jobs)} stimuli")
     base_url = None
     if rc["client"] == "vllm":
         base_url = modal.Function.from_name(rc["app"], "serve").get_web_url().rstrip("/") + "/v1"
     out = read.remote(jobs, rc, base_url)
-    dest = ROOT / f"data/stimuli/reader_{reader}.jsonl"
+    dest = ROOT / (f"data/stimuli/reader_{reader}.jsonl" if not limit
+                   else f"data/stimuli/smoke_reader_{reader}_{limit}.jsonl")
     with dest.open("w") as fh:
         fh.write(json.dumps({"_meta": {"reader": rc, "config_hash": config_hash(cfg),
                                        "git_commit": git_commit(),

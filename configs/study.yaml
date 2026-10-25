@@ -48,6 +48,11 @@ readers:
     model: google/gemma-3-27b-it
     temperature: 0.0
     max_tokens: 400
+  gemini_pro:
+    client: gemini
+    model: gemini-3.1-pro-preview   # no plain gemini-3-pro on this key (models.list, 2026-10-25)
+    temperature: 1.0
+    reasoning: true                 # Pro models do not run with thinking off
   opus:
     client: anthropic          # secret `anthropic-key`, created by the human
     model: claude-opus-5-5
