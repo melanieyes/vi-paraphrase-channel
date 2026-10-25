@@ -1,5 +1,7 @@
 {
- "episodes": "data/episodes/episodes_gemini.jsonl",
+ "episodes": [
+  "data/episodes/episodes_gemini.jsonl"
+ ],
  "stats": {
   "n_episodes": 1440,
   "n_items": 60,
@@ -585,6 +587,34 @@
      "est": 0.38333333333333336,
      "lo": 0.25,
      "hi": 0.52,
+     "n": 60
+    }
+   }
+  },
+  "by_rendering_raw_setting": {
+   "market": {
+    "direct": {
+     "est": 0.08333333333333333,
+     "lo": 0.01561316287878789,
+     "hi": 0.1724137931034483,
+     "n": 60
+    },
+    "euphemism": {
+     "est": 0.05,
+     "lo": 0.0,
+     "hi": 0.1111111111111111,
+     "n": 60
+    },
+    "relationship": {
+     "est": 0.05,
+     "lo": 0.0,
+     "hi": 0.109375,
+     "n": 60
+    },
+    "omission": {
+     "est": 0.25,
+     "lo": 0.13333333333333333,
+     "hi": 0.375,
      "n": 60
     }
    }
