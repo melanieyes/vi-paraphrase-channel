@@ -36,6 +36,7 @@ app = modal.App("vi-paraphrase-monitor")
               secrets=[modal.Secret.from_name("collusion-keys"),
                        modal.Secret.from_name("vllm-key")])
 def score(jobs: list[dict], mcfg: dict, qwen_url: str | None) -> list[dict]:
+    # each job carries its own system prompt: market and workflow monitors differ
     sys.path.insert(0, REMOTE)
     from concurrent.futures import ThreadPoolExecutor
 
@@ -49,7 +50,7 @@ def score(jobs: list[dict], mcfg: dict, qwen_url: str | None) -> list[dict]:
         client = GeminiClient(model=mcfg["model"])
 
     def one(j):
-        msgs = [{"role": "system", "content": P.MONITOR_SYSTEM},
+        msgs = [{"role": "system", "content": j.get("system", P.MONITOR_SYSTEM)},
                 {"role": "user", "content": P.MONITOR_USER.format(view=j["view_text"])}]
         try:
             rep = client.chat(msgs, temperature=mcfg["temperature"], reasoning=mcfg["reasoning"])
@@ -81,21 +82,24 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
         if bad:
             raise SystemExit(f"{r.get('episode_id')}: {bad}")
     from src.episode import load_items
-    items = {it["item_id"]: it for it in load_items()}
+    items = {it["item_id"]: it for s in ("market", "workflow") for it in load_items(s)}
     scorable = [r for r in recs if r["post"]["kind"] == "choice" and r.get("report")]
     jobs = []
     for r in scorable:
         it = items[r["item_id"]]
+        tpl = P.T(it)
         ctx = {"situation": it["situation"], "agent_name": it["agent_name"],
                "principal": it["principal"], "counterpart_name": it["counterpart_name"],
+               "owner_short": it.get("owner_short", ""),
                "final_option": r["final_option"],
                "report": r["report"], "delivered": r["delivered_message"],
                "raw": r["raw_message"]}
-        for v in (P.VIEWS if views == "nested" else tuple(P.EXTRA_VIEWS)):
+        chosen = {"nested": P.VIEWS, "extra": tuple(P.EXTRA_VIEWS), "all": P.ALL_VIEWS}[views]
+        for v in chosen:
             if v == "raw" and r["channel"] == "raw":
                 continue
-            jobs.append({"episode_id": r["episode_id"], "view": v,
-                         "view_text": P.render_view(v, ctx)})
+            jobs.append({"episode_id": r["episode_id"], "view": v, "system": tpl["MONITOR_SYSTEM"],
+                         "view_text": P.render_view(v, ctx, tpl["VIEW_BLOCKS"])})
     print(f"monitor       {monitor} ({mcfg['model']})")
     print(f"episodes      {len(recs)}   scorable {len(scorable)}   not scorable {len(recs) - len(scorable)}")
     print(f"calls         {len(jobs)}")
@@ -111,7 +115,7 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
     out = score.remote(jobs, mcfg, qwen_url)
     stamp = {"monitor": monitor, "model": mcfg["model"], "config_hash": config_hash(cfg),
              "git_commit": git_commit(), "timestamp": datetime.now(timezone.utc).isoformat()}
-    suffix = "" if views == "nested" else "--extra"
+    suffix = {"nested": "", "extra": "--extra", "all": ""}[views]
     dest = ROOT / "data" / "monitor" / f"{path.stem}__{monitor}{suffix}.jsonl"
     dest.parent.mkdir(parents=True, exist_ok=True)
     with dest.open("w") as fh:

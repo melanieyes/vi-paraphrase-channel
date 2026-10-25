@@ -158,3 +158,35 @@ def test_extra_views_drop_the_action():
         assert "OPTION" not in P.render_view(v, ctx)
     assert "R" in P.render_view("report_only", ctx) and "“D”" not in P.render_view("report_only", ctx)
     assert "“D”" in P.render_view("message_only", ctx)
+
+
+def test_market_prompts_unchanged_against_the_main_run():
+    """Regenerate the four user turns of real main-run episodes with today's code.
+    Any byte of drift in the market instrument fails here."""
+    import json
+    from pathlib import Path
+    from src.episode import load_items, options
+    path = Path(__file__).resolve().parent.parent / "data/episodes/episodes_gemini.jsonl"
+    if not path.exists():
+        pytest.skip("main run not present")
+    items = {i["item_id"]: i for i in load_items("market")}
+    recs = [json.loads(l) for l in path.read_text().splitlines()[1:40]]
+    for r in recs:
+        it = items[r["item_id"]]
+        opt_a, opt_b, _ = options(it, r["order"])
+        fmt = {**it, "opt_a": opt_a, "opt_b": opt_b}
+        tpl = P.T(it)
+        want = [P.CHOICE_TURN.format(**fmt), P.MESSAGE_TURN.format(**fmt, message=r["delivered_message"]),
+                tpl["REPORT_TURN"].format(**fmt), tpl["DISCLOSURE_TURN"].format(**fmt)]
+        assert [t["user"] for t in r["turns"]] == want
+
+
+def test_workflow_items_use_their_own_frame_and_raw_only():
+    from src.episode import build_jobs, load_items
+    wf = load_items("workflow")
+    P.assert_prompt_controls(wf, None)
+    assert {j["channel"] for j in build_jobs(wf, 1)} == {"raw"}
+    assert len(build_jobs(wf, 1)) == 30 * 4 * 2
+    for it in wf:
+        sys_prompt = P.T(it)["SYSTEM"].format(**it)
+        assert "gian hàng" not in sys_prompt and "MuaNhanh" not in sys_prompt

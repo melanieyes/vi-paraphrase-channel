@@ -38,6 +38,7 @@ image = (
     .add_local_dir(ROOT / "configs", f"{REMOTE}/configs")
     .add_local_dir(ROOT / "data" / "items", f"{REMOTE}/data/items")
 )
+
 app = modal.App("vi-paraphrase-stimuli")
 
 
@@ -61,7 +62,7 @@ def build(items: list[dict], cfg: dict, qwen_url: str) -> dict:
 
     def render(job):
         it, r = job
-        prompt = P.RENDER_PROMPT.format(**it, style=P.RENDER_STYLES[r])
+        prompt = P.T(it)["RENDER_PROMPT"].format(**it, style=P.RENDER_STYLES[r])
         attempts = []
         for _ in range(3):
             try:
@@ -100,7 +101,7 @@ def build(items: list[dict], cfg: dict, qwen_url: str) -> dict:
     def gate(s):
         it = by_id[s["item_id"]]
         opt_a, opt_b, coll = options(it, 0)
-        prompt = P.GATE_PROMPT.format(**it, opt_a=opt_a, opt_b=opt_b, text=s["text"])
+        prompt = P.T(it)["GATE_PROMPT"].format(**it, opt_a=opt_a, opt_b=opt_b, text=s["text"])
         try:
             rep = gem_gate.chat([{"role": "user", "content": prompt}],
                                 temperature=gc["temperature"], reasoning=gc["reasoning"])
@@ -118,28 +119,33 @@ def build(items: list[dict], cfg: dict, qwen_url: str) -> dict:
     with ThreadPoolExecutor(16) as ex:
         raws = list(ex.map(render, [(it, r) for it in items for r in P.RENDERINGS]))
         ok = [r for r in raws if r["text"]]
-        relays = list(ex.map(relay, [(r, ch) for r in ok for ch in P.RELAYED]))
+        relays = list(ex.map(relay, [(r, ch) for r in ok for ch in P.RELAYED
+                                     if ch in P.T(by_id[r["item_id"]])["CHANNELS"]]))
         stim = raws + relays
         gates = list(ex.map(gate, [s for s in stim if s["text"]]))
     return {"stimuli": stim, "gates": gates}
 
 
 @app.local_entrypoint()
-def main(dry_run: bool = False) -> None:
+def main(dry_run: bool = False, items: str = "market") -> None:
     import difflib
 
     from src import prompts as P
     from src.episode import load_items
     from src.run_meta import config_hash, git_commit, load_cfg
 
+    from src.episode import stimuli_dir
+    item_set = items
     cfg = load_cfg()
-    items = load_items()
+    items = load_items(item_set)
     P.assert_prompt_controls(items, None)
     n_raw = len(items) * len(P.RENDERINGS)
+    n_relay = sum(len([c for c in P.T(it)["CHANNELS"] if c in P.RELAYED]) for it in items) * len(P.RENDERINGS)
     qwen_url = modal.Function.from_name(cfg["paraphraser"]["app"], "serve").get_web_url()
-    print(f"items         {len(items)}  raw messages {n_raw}  relays {n_raw * len(P.RELAYED)}")
+    print(f"item set      {item_set}")
+    print(f"items         {len(items)}  raw messages {n_raw}  relays {n_relay}")
     print(f"renderer      {cfg['renderer']['model']}   relay {cfg['paraphraser']['model']} at {qwen_url}")
-    print(f"gate calls    {n_raw * len(P.CHANNELS)} on {cfg['gate']['model']}")
+    print(f"gate calls    {n_raw + n_relay} on {cfg['gate']['model']}")
     print(f"config_hash   {config_hash(cfg)}   git {git_commit()}")
     if dry_run:
         print("--dry-run: controls asserted, no call made.")
@@ -149,7 +155,7 @@ def main(dry_run: bool = False) -> None:
     meta = {"_meta": {"config_hash": config_hash(cfg), "git_commit": git_commit(),
                       "renderer": cfg["renderer"], "paraphraser": cfg["paraphraser"],
                       "gate": cfg["gate"], "timestamp": datetime.now(timezone.utc).isoformat()}}
-    d = ROOT / "data" / "stimuli"
+    d = stimuli_dir(item_set)
     d.mkdir(parents=True, exist_ok=True)
     for name, rows in (("stimuli.jsonl", out["stimuli"]), ("gate.jsonl", out["gates"])):
         with (d / name).open("w") as fh:
@@ -164,6 +170,8 @@ def main(dry_run: bool = False) -> None:
     for ch in P.RELAYED:
         for r in P.RENDERINGS:
             rows = [s for s in stim.values() if s["channel"] == ch and s["rendering"] == r]
+            if not rows:
+                continue
             same = sum(1 for s in rows if s["text"].strip() == s["source_message"].strip())
             sim = sum(difflib.SequenceMatcher(None, s["source_message"], s["text"]).ratio()
                       for s in rows) / max(1, len(rows))

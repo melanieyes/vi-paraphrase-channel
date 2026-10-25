@@ -12,19 +12,29 @@ from src import prompts as P
 from src.scoring import classify, code_report, parse_yes_no
 
 ROOT = Path(__file__).resolve().parent.parent
-ITEMS = ROOT / "data" / "items" / "items.jsonl"
-STIMULI = ROOT / "data" / "stimuli" / "stimuli.jsonl"
+# Item sets. `market` is the main study; `workflow` (Track 2.1) runs raw only.
+ITEM_SETS = {"market": ("items.jsonl", "stimuli"),
+             "workflow": ("items_workflow.jsonl", "stimuli_workflow")}
 
 
-def load_items() -> list[dict[str, Any]]:
-    return [json.loads(l) for l in ITEMS.read_text().splitlines() if l.strip()]
+def items_path(item_set: str = "market") -> Path:
+    return ROOT / "data" / "items" / ITEM_SETS[item_set][0]
 
 
-def load_stimuli() -> dict[str, dict[str, Any]] | None:
-    if not STIMULI.exists():
+def stimuli_dir(item_set: str = "market") -> Path:
+    return ROOT / "data" / ITEM_SETS[item_set][1]
+
+
+def load_items(item_set: str = "market") -> list[dict[str, Any]]:
+    return [json.loads(l) for l in items_path(item_set).read_text().splitlines() if l.strip()]
+
+
+def load_stimuli(item_set: str = "market") -> dict[str, dict[str, Any]] | None:
+    path = stimuli_dir(item_set) / "stimuli.jsonl"
+    if not path.exists():
         return None
     out = {}
-    for line in STIMULI.read_text().splitlines():
+    for line in path.read_text().splitlines():
         if line.strip():
             rec = json.loads(line)
             if "_meta" not in rec:
@@ -39,7 +49,7 @@ def build_jobs(items: list[dict[str, Any]], k: int, smoke: int = 0) -> list[dict
     jobs = []
     for idx, it in enumerate(items):
         for r in P.RENDERINGS:
-            for ch in P.CHANNELS:
+            for ch in P.T(it)["CHANNELS"]:
                 for order in (0, 1):
                     for rep in range(k):
                         jobs.append({"item_index": idx, "rendering": r,
@@ -85,7 +95,8 @@ def run_episode(client: Any, item: dict[str, Any], job: dict[str, Any],
     raw = stimuli[P.stimulus_key(item["item_id"], job["rendering"], "raw")]["text"]
     delivered = stimuli[P.stimulus_key(item["item_id"], job["rendering"], job["channel"])]["text"]
 
-    messages = [{"role": "system", "content": P.SYSTEM.format(**item)}]
+    tpl = P.T(item)
+    messages = [{"role": "system", "content": tpl["SYSTEM"].format(**item)}]
     turns: list[dict[str, Any]] = []
     error = None
 
@@ -115,8 +126,8 @@ def run_episode(client: Any, item: dict[str, Any], job: dict[str, Any],
     try:
         pre = ask(P.CHOICE_TURN.format(**fmt))
         post = ask(P.MESSAGE_TURN.format(**fmt, message=delivered))
-        report = ask(P.REPORT_TURN.format(**fmt))
-        disc = ask(P.DISCLOSURE_TURN.format(**fmt))
+        report = ask(tpl["REPORT_TURN"].format(**fmt))
+        disc = ask(tpl["DISCLOSURE_TURN"].format(**fmt))
     except RuntimeError as exc:
         error = str(exc)
 
@@ -136,6 +147,7 @@ def run_episode(client: Any, item: dict[str, Any], job: dict[str, Any],
         "episode_id": episode_id(item, job),
         "item_id": item["item_id"], "item_class": item["item_class"],
         "family": item["family"], "pair_id": item["pair_id"],
+        "setting": item.get("setting", "market"),
         "rendering": job["rendering"], "channel": job["channel"],
         "order": job["order"], "rep": job["rep"],
         "opt_a": opt_a, "opt_b": opt_b, "collusive_letter": coll,

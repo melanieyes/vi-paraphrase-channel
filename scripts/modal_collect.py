@@ -34,6 +34,7 @@ image = (
     .add_local_dir(ROOT / "configs", f"{REMOTE}/configs")
     .add_local_dir(ROOT / "data" / "items", f"{REMOTE}/data/items")
     .add_local_dir(ROOT / "data" / "stimuli", f"{REMOTE}/data/stimuli")
+    .add_local_dir(ROOT / "data" / "stimuli_workflow", f"{REMOTE}/data/stimuli_workflow")
 )
 vol = modal.Volume.from_name("vi-paraphrase-episodes", create_if_missing=True)
 app = modal.App("vi-paraphrase-collect")
@@ -46,7 +47,7 @@ _STATE: dict[str, Any] = {}
               max_containers=CONTAINERS, retries=0)
 @modal.concurrent(max_inputs=PER_CONTAINER)
 def run_one(job: dict, *, cfg: dict, agent: str, base_url: str | None, meta: dict,
-            run_id: str) -> dict:
+            run_id: str, item_set: str = "market") -> dict:
     sys.path.insert(0, REMOTE)
     from src import prompts as P
     from src.clients import get_client
@@ -54,7 +55,7 @@ def run_one(job: dict, *, cfg: dict, agent: str, base_url: str | None, meta: dic
     from src.schema import validate_episode
 
     if "items" not in _STATE:
-        items, stimuli = load_items(), load_stimuli()
+        items, stimuli = load_items(item_set), load_stimuli(item_set)
         P.assert_prompt_controls(items, stimuli)  # again, inside the container
         a = cfg["agents"][agent]
         if a["client"] == "vllm":
@@ -80,21 +81,23 @@ def run_one(job: dict, *, cfg: dict, agent: str, base_url: str | None, meta: dic
 
 @app.local_entrypoint()
 def main(agent: str = "gemini", smoke: int = 0, confirm: bool = False, dry_run: bool = False,
-         resume: bool = False) -> None:
+         resume: bool = False, items: str = "market") -> None:
     from src import prompts as P
     from src.episode import build_jobs, episode_id, load_items, load_stimuli
     from src.run_meta import config_hash, estimate_episode_cost, git_commit, load_cfg
     from src.schema import validate_episode
 
+    item_set = items
     cfg = load_cfg()
-    items, stimuli = load_items(), load_stimuli()
+    items, stimuli = load_items(item_set), load_stimuli(item_set)
     if stimuli is None:
         raise SystemExit("no data/stimuli/stimuli.jsonl: run scripts/modal_stimuli.py first")
     report = P.assert_prompt_controls(items, stimuli)
     jobs = build_jobs(items, cfg["k"], smoke)
     acfg = cfg["agents"][agent]
-    out = ROOT / "data" / "episodes" / (f"smoke_{len(jobs)}_{agent}.jsonl" if smoke
-                                        else f"episodes_{agent}.jsonl")
+    prefix = "" if item_set == "market" else f"{item_set}_"
+    out = ROOT / "data" / "episodes" / (f"{prefix}smoke_{len(jobs)}_{agent}.jsonl" if smoke
+                                        else f"{prefix}episodes_{agent}.jsonl")
     done: set[str] = set()
     if resume and out.exists():
         for line in out.read_text().splitlines():
@@ -110,9 +113,11 @@ def main(agent: str = "gemini", smoke: int = 0, confirm: bool = False, dry_run: 
         base_url = modal.Function.from_name(acfg["app"], "serve").get_web_url().rstrip("/") + "/v1"
     run_id = f"run-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}"
     meta = {"config_hash": chash, "git_commit": commit, "agent": agent, "model": acfg["model"],
+            "item_set": item_set,
             "temperature": cfg["temperature"], "run_id": run_id}
 
     print(f"agent         {agent} ({acfg['model']})  reasoning={cfg['reasoning']}  T={cfg['temperature']}")
+    print(f"item set      {item_set}")
     print(f"items         {len(items)}   episodes {len(jobs)}" + (f"  (resume: {len(done)} done)" if resume else ""))
     print(f"CONTROLS      {report}")
     print(f"config_hash   {chash}   git {commit}")
@@ -133,7 +138,7 @@ def main(agent: str = "gemini", smoke: int = 0, confirm: bool = False, dry_run: 
                                        "controls": report}}) + "\n")
         for res in run_one.map(jobs, order_outputs=False, return_exceptions=True,
                                kwargs={"cfg": cfg, "agent": agent, "base_url": base_url,
-                                       "meta": meta, "run_id": run_id}):
+                                       "meta": meta, "run_id": run_id, "item_set": item_set}):
             if isinstance(res, Exception):
                 failed.append(repr(res)[:200])
                 continue
