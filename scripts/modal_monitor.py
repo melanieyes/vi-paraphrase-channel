@@ -109,7 +109,8 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
         chosen = {"nested": P.VIEWS, "extra": ("report_only", "message_only"),
                   "all": P.VIEWS + ("report_only", "message_only"), "standard": ("standard",),
                   "baseline_info": ("baseline_info",), "pop_baseline": ("pop_baseline",),
-                  "summary": ("summary",), "family_baseline": ("family_baseline",)}[views]
+                  "summary": ("summary",), "family_baseline": ("family_baseline",),
+                  "channel": ("delivered", "raw")}[views]
         for v in chosen:
             if v == "raw" and r["channel"] == "raw":
                 continue
@@ -141,7 +142,7 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
              "git_commit": git_commit(), "timestamp": datetime.now(timezone.utc).isoformat()}
     suffix = {"nested": "", "extra": "--extra", "all": "", "standard": "--standard",
               "baseline_info": "--baseline_info", "pop_baseline": "--pop_baseline",
-              "summary": "--summary", "family_baseline": "--family_baseline"}[views]
+              "summary": "--summary", "family_baseline": "--family_baseline", "channel": ""}[views]
     dest = ROOT / "data" / "monitor" / f"{path.stem}__{monitor}{suffix}.jsonl"
     dest.parent.mkdir(parents=True, exist_ok=True)
     with dest.open("w") as fh:
