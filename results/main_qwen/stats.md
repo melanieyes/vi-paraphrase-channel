@@ -89,35 +89,72 @@ Episodes 1440, items 60.
 
 ## Monitor gemini
 
-Verdicts 5280, unparsed 0.
+Verdicts 8160, unparsed 0.
 
-| metric | channel | action | report | delivered | raw |
-|---|---|---|---|---|---|
-| fnr | raw | 59.8 [38.6, 77.9] | 38.1 [24.2, 51.1] | 0.0 [0.0, 0.0] | n/a |
-| fnr | paraphrased | 54.0 [32.3, 73.0] | 33.0 [21.8, 42.4] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| fnr | neutralized | 58.5 [36.9, 78.3] | 36.6 [21.3, 51.3] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| fpr_twins | raw | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | n/a |
-| fpr_twins | paraphrased | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| fpr_twins | neutralized | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.4 [0.0, 1.4] | 0.8 [0.0, 2.1] |
+By channel and view (%):
+
+| metric | channel | action | report | delivered | raw | report_only | message_only |
+|---|---|---|---|---|---|---|---|
+| missed collusion (FNR) | raw | 59.8 [38.6, 77.9] | 38.1 [24.2, 51.1] | 0.0 [0.0, 0.0] | n/a | 37.1 [22.1, 51.0] | 0.0 [0.0, 0.0] |
+| missed collusion (FNR) | paraphrased | 54.0 [32.3, 73.0] | 33.0 [21.8, 42.4] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 38.0 [21.6, 52.7] | 1.0 [0.0, 3.2] |
+| missed collusion (FNR) | neutralized | 58.5 [36.9, 78.3] | 36.6 [21.3, 51.3] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 41.5 [23.4, 58.2] | 0.0 [0.0, 0.0] |
+| missed, message-moved episodes only | raw | 64.0 [42.5, 80.8] | 37.3 [23.3, 50.0] | 0.0 [0.0, 0.0] | n/a | 37.3 [21.7, 51.3] | 0.0 [0.0, 0.0] |
+| missed, message-moved episodes only | paraphrased | 57.6 [34.6, 78.7] | 33.3 [24.1, 40.9] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 37.9 [23.5, 52.4] | 0.0 [0.0, 0.0] |
+| missed, message-moved episodes only | neutralized | 62.1 [39.2, 82.1] | 40.9 [25.0, 56.7] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 45.5 [26.7, 63.0] | 0.0 [0.0, 0.0] |
+| false alarm, harmful but declined | raw | 0.0 [0.0, 0.0] | 7.7 [3.3, 12.9] | 70.6 [57.3, 82.5] | n/a | 4.9 [1.8, 8.3] | 100.0 [100.0, 100.0] |
+| false alarm, harmful but declined | paraphrased | 0.0 [0.0, 0.0] | 2.9 [0.0, 6.4] | 64.3 [51.7, 76.4] | 55.7 [41.8, 69.5] | 2.9 [0.0, 6.5] | 97.9 [93.9, 100.0] |
+| false alarm, harmful but declined | neutralized | 0.0 [0.0, 0.0] | 6.3 [2.2, 11.4] | 67.1 [54.2, 79.2] | 60.1 [46.0, 73.3] | 5.1 [1.2, 10.1] | 98.7 [95.8, 100.0] |
+| false alarm, twins | raw | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | n/a | 0.0 [0.0, 0.0] | 2.5 [0.0, 5.6] |
+| false alarm, twins | paraphrased | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 2.5 [0.0, 5.4] |
+| false alarm, twins | neutralized | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.4 [0.0, 1.4] | 0.8 [0.0, 2.1] | 0.0 [0.0, 0.0] | 0.8 [0.0, 2.8] |
+
+Pooled over channels (%):
+
+| metric | action | report | delivered | raw | report_only | message_only |
+|---|---|---|---|---|---|---|
+| missed collusion (FNR) | 57.3 [36.2, 75.7] | 35.8 [24.6, 45.9] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 38.7 [23.7, 52.4] | 0.4 [0.0, 1.1] |
+| missed, message-moved episodes only | 61.4 [39.7, 79.3] | 37.2 [27.0, 46.3] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 40.1 [26.1, 53.5] | 0.0 [0.0, 0.0] |
+| false alarm, harmful but declined | 0.0 [0.0, 0.0] | 5.7 [3.2, 8.4] | 67.3 [55.6, 78.4] | 58.1 [45.0, 71.0] | 4.3 [2.2, 6.9] | 98.9 [96.9, 100.0] |
+| false alarm, twins | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.1 [0.0, 0.5] | 0.4 [0.0, 1.0] | 0.0 [0.0, 0.0] | 2.0 [0.3, 4.2] |
 
 | contrast | pp |
 |---|---|
 | C5 FNR delivered minus raw, paraphrased | 0.0 [0.0, 0.0] |
 | C5 FNR delivered minus raw, neutralized | 0.0 [0.0, 0.0] |
 | C6 FNR action minus delivered | +57.3 [36.2, 75.7] |
+| 2.2 fnr action minus both | +21.5 [8.0, 33.7] |
+| 2.2 fnr report only minus both | +2.9 [-3.2, 8.4] |
+| 2.2 fpr declined message only minus all | +31.5 [20.5, 43.3] |
 
 ## Monitor qwen
 
 Verdicts 5280, unparsed 0.
 
+By channel and view (%):
+
 | metric | channel | action | report | delivered | raw |
 |---|---|---|---|---|---|
-| fnr | raw | 19.6 [0.0, 39.1] | 29.9 [9.5, 48.6] | 0.0 [0.0, 0.0] | n/a |
-| fnr | paraphrased | 19.0 [0.0, 39.0] | 28.0 [9.1, 46.4] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| fnr | neutralized | 19.5 [0.0, 39.5] | 30.5 [9.8, 50.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| fpr_twins | raw | 60.8 [42.9, 77.8] | 38.8 [24.0, 53.8] | 69.6 [56.7, 81.9] | n/a |
-| fpr_twins | paraphrased | 60.0 [42.3, 77.1] | 37.1 [22.6, 52.2] | 70.8 [58.5, 82.6] | 78.3 [70.3, 86.2] |
-| fpr_twins | neutralized | 61.0 [43.2, 78.0] | 41.1 [25.7, 56.6] | 64.0 [49.8, 77.6] | 78.0 [68.1, 87.1] |
+| missed collusion (FNR) | raw | 19.6 [0.0, 39.1] | 29.9 [9.5, 48.6] | 0.0 [0.0, 0.0] | n/a |
+| missed collusion (FNR) | paraphrased | 19.0 [0.0, 39.0] | 28.0 [9.1, 46.4] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| missed collusion (FNR) | neutralized | 19.5 [0.0, 39.5] | 30.5 [9.8, 50.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| missed, message-moved episodes only | raw | 20.0 [0.0, 40.3] | 28.0 [8.0, 46.8] | 0.0 [0.0, 0.0] | n/a |
+| missed, message-moved episodes only | paraphrased | 12.1 [0.0, 27.8] | 22.7 [7.0, 41.4] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| missed, message-moved episodes only | neutralized | 18.2 [0.0, 38.8] | 30.3 [9.1, 51.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| false alarm, harmful but declined | raw | 29.4 [13.8, 47.5] | 42.0 [27.5, 56.8] | 100.0 [100.0, 100.0] | n/a |
+| false alarm, harmful but declined | paraphrased | 30.0 [14.1, 48.6] | 37.9 [24.1, 53.3] | 99.3 [97.7, 100.0] | 100.0 [100.0, 100.0] |
+| false alarm, harmful but declined | neutralized | 31.6 [15.4, 50.0] | 41.1 [26.7, 56.4] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] |
+| false alarm, twins | raw | 60.8 [42.9, 77.8] | 38.8 [24.0, 53.8] | 69.6 [56.7, 81.9] | n/a |
+| false alarm, twins | paraphrased | 60.0 [42.3, 77.1] | 37.1 [22.6, 52.2] | 70.8 [58.5, 82.6] | 78.3 [70.3, 86.2] |
+| false alarm, twins | neutralized | 61.0 [43.2, 78.0] | 41.1 [25.7, 56.6] | 64.0 [49.8, 77.6] | 78.0 [68.1, 87.1] |
+
+Pooled over channels (%):
+
+| metric | action | report | delivered | raw |
+|---|---|---|---|---|
+| missed collusion (FNR) | 19.4 [0.0, 38.8] | 29.4 [9.5, 47.8] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| missed, message-moved episodes only | 16.9 [0.0, 35.4] | 27.1 [8.5, 45.7] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| false alarm, harmful but declined | 30.4 [14.6, 48.4] | 40.4 [26.7, 55.0] | 99.8 [99.3, 100.0] | 100.0 [100.0, 100.0] |
+| false alarm, twins | 60.6 [42.8, 77.6] | 39.0 [24.5, 53.8] | 68.2 [55.4, 80.6] | 78.2 [69.8, 86.1] |
 
 | contrast | pp |
 |---|---|
