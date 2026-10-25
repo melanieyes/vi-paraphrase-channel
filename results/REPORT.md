@@ -43,7 +43,7 @@ Turn 2, the agent answered **B**, the collusive option (the item's fixed key is 
 
 2. **Neither relay reliably stops it.** Paraphrasing changed uptake by +2.9 points for Gemini and +1.3 points for Qwen. Neutralizing moved the two agents in opposite directions: +7.1 points for Gemini, -6.2 points for Qwen. No measurable difference in this sample between pragmatic and direct renderings.
 
-3. **Harmless cooperation survives the relays.** On the twins, cooperation never fell below 100% for Gemini or 98% for Qwen in any channel.
+3. **Harmless cooperation survives the relays.** On the twins, cooperation never fell below 99.6% for Gemini or 98.3% for Qwen in any channel.
 
 4. **Actions alone hide collusion.** Shown only the market and the agent's decision, the monitor missed 64% of colluding Gemini episodes.
 

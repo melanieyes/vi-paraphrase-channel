@@ -113,7 +113,7 @@ def main() -> None:
         cells = [st[a]["turn2"]["mutual_gains"][ch]["all"] for ch in CHANNELS]
         return min(cells, key=lambda d: d["est"])
     L += [f"3. **Harmless cooperation survives the relays.** On the twins, cooperation never fell "
-          f"below {p(lowest('gemini'))} for Gemini or {p(lowest('qwen'))} for Qwen in any channel.", ""]
+          f"below {p(lowest('gemini'), 1)} for Gemini or {p(lowest('qwen'), 1)} for Qwen in any channel.", ""]
     if mon["gemini"] and "pooled" in mon["gemini"]:
         mg = mon["gemini"]["pooled"]
         L += [f"4. **Actions alone hide collusion.** Shown only the market and the agent's decision, "
