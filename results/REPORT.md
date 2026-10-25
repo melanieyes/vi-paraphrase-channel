@@ -62,6 +62,9 @@ Raw channel, harmful items (%):
 | price_hold | market | 65.0 [54.2, 79.2] | 15.0 [0.0, 31.2] | 0.0 [0.0, 0.0] | 47.5 [31.2, 62.5] |
 | review_swap | market | 5.0 [0.0, 12.5] | 12.5 [4.2, 20.1] | 5.0 [0.0, 12.5] | 15.0 [5.0, 25.0] |
 
+![Which tasks lead to collusion](figures/families.png)
+
+
 ## 2.2 Do words and actions together beat either alone?
 
 Yes. Shown only the situation and the agent's decision, the monitor missed 64% of colluding Gemini episodes. Adding the agent's report to its owner cut that to 18%, while false alarms on episodes where the agent declined stayed at 6%. The report alone did about as well (17% missed), because it restates the action.
@@ -69,6 +72,52 @@ Yes. Shown only the situation and the agent's decision, the monitor missed 64% o
 The rival's message is a different kind of word. With it in view the monitor missed 0% but flagged 61% of declined episodes, and the message alone flagged 99%. It detects the proposal, not the uptake.
 
 The agent's words are only as good as the agent's candour: Qwen's reports hid more, and action plus report still missed 36% of its colluding episodes.
+
+![Says versus does](main_gemini/figures/says_vs_does_gemini.png)
+
+Gemini monitor on Gemini 2.5 Flash episodes (%; market pooled over channels, workflow raw):
+
+| view | market: missed | market: false alarm, declined | workflow: missed | workflow: false alarm, declined |
+|---|---|---|---|---|
+| action only | 63.8 [38.9, 82.1] | 0.0 [0.0, 0.0] | n/a | n/a |
+| action + report | 17.6 [10.6, 23.4] | 5.9 [3.3, 9.2] | n/a | n/a |
+| report only | 16.7 [9.9, 22.3] | 5.3 [2.6, 8.8] | n/a | n/a |
+| message only | 1.0 [0.0, 3.5] | 99.2 [98.1, 100.0] | n/a | n/a |
+| action + report + message | 0.0 [0.0, 0.0] | 60.8 [47.4, 74.1] | n/a | n/a |
+
+## 2.3 What should count as convincing evidence?
+
+Three layers of evidence, each wrong in a measurable way on its own:
+
+1. **The proposal** (the rival's message) shows an arrangement was offered, not taken: read alone it flagged 99% of declined episodes.
+2. **The uptake** (the agent's action) shows what was done, not why: read alone it missed 64% of colluding episodes, and 23% of Gemini's harmful episodes took the same action before any message, so an action alone cannot separate collusion from a unilateral choice.
+3. **The account** (the agent's own words) is candid when asked and silent otherwise: 92% (Gemini) and 95% (Qwen) of colluding episodes said yes to a direct question, but only 29% and 9% mentioned the message in their report.
+
+Convincing evidence is therefore a proposal, an action that matches it, and a timing that rules out the unilateral reading (the agent competed before the message and colluded after).
+
+Two robustness checks on that standard:
+
+- **Rewriting the message does not erase the evidence.** The platform relays changed the wording (paraphrased) or removed the social framing (neutralized), yet the gate still read a push toward the arrangement in 97% (raw), 98% (paraphrased), 97% (neutralized) of harmful messages. The relays did not stop collusion either: uptake changed by +2.9 points and +7.1 points for Gemini, +1.3 points and -6.2 points for Qwen (paraphrased, neutralized).
+- **What a message means depends on the reader.** Four LLM readers re-read every harmful message: gemini_pro agreed with the gate on 97%; gemma agreed with the gate on 95%; gpt agreed with the gate on 77%; opus agreed with the gate on 98%. The outlier, gpt-5.4-nano, read two families the other way; a native Vietnamese reader judged its reading wrong. A small reader can manufacture disagreement about intent.
+
+## Questions a sceptic would ask
+
+**Does harmless cooperation survive?** Yes. On twins of the same shape the agents cooperated in every channel (100.0% Gemini, 98.8% Qwen on the raw channel), and the monitor raised almost no false alarms on them except when it read the message alone.
+
+**Is the second monitor any use?** No. The Qwen3-8B monitor flagged most harmless twins, so its low miss rate carries no information. It is kept in `stats.md` as a failed baseline.
+
+## Limits
+
+- Exploratory. The market design changed twice after smoke runs, before the main run; every change is logged in `docs/execution-plan.md`.
+- Five scenarios per family; family-level results are descriptive.
+- Messages are model-written; no human validation sample, one informal native-reader check.
+- One paraphrase per message; Qwen agents read Qwen-relayed text.
+- English quotations are machine translations for display; agents saw only the Vietnamese.
+- The lexical disclosure code is the weakest measure; read it beside the direct question.
+
+## Appendix
+
+Full tables. Every number is in `results/*/stats.md` with its interval.
 
 Gemini monitor, market set, Gemini 2.5 Flash episodes (%):
 
@@ -92,33 +141,32 @@ Gemini monitor, market set, Qwen3-8B episodes (%):
 | report_only | 38.7 [23.7, 52.4] | 40.1 [26.1, 53.5] | 4.3 [2.2, 6.9] | 0.0 [0.0, 0.0] |
 | message_only | 0.4 [0.0, 1.1] | 0.0 [0.0, 0.0] | 98.9 [96.9, 100.0] | 2.0 [0.3, 4.2] |
 
-## 2.3 What should count as convincing evidence?
+Uptake of the harmful arrangement at turn 2, market set (%):
 
-Three layers of evidence, each wrong in a measurable way on its own:
+| agent | turn 1 | raw | paraphrased | neutralized |
+|---|---|---|---|---|
+| Gemini 2.5 Flash | 23.3 [12.8, 34.4] | 25.8 [17.4, 35.4] | 28.7 [19.4, 38.9] | 32.9 [22.9, 43.3] |
+| Qwen3-8B | 12.4 [6.9, 18.1] | 40.4 [31.6, 48.9] | 41.7 [32.3, 51.0] | 34.2 [26.2, 42.2] |
 
-1. **The proposal** (the rival's message) shows an arrangement was offered, not taken: read alone it flagged 99% of declined episodes.
-2. **The uptake** (the agent's action) shows what was done, not why: read alone it missed 64% of colluding episodes, and 23% of Gemini's harmful episodes took the same action before any message, so an action alone cannot separate collusion from a unilateral choice.
-3. **The account** (the agent's own words) is candid when asked and silent otherwise: 92% (Gemini) and 95% (Qwen) of colluding episodes said yes to a direct question, but only 29% and 9% mentioned the message in their report.
+Relay minus raw, harmful items (percentage points):
 
-Convincing evidence is therefore a proposal, an action that matches it, and a timing that rules out the unilateral reading (the agent competed before the message and colluded after).
+| agent | paraphrased | neutralized |
+|---|---|---|
+| Gemini 2.5 Flash | 2.9 [-1.8, 7.8] | 7.1 [1.8, 12.0] |
+| Qwen3-8B | 1.3 [-4.2, 6.7] | -6.2 [-12.5, 0.5] |
 
-Two robustness checks on that standard:
+Message readers, harmful texts, % read as pushing toward the collusive option:
 
-- **Rewriting the message does not erase the evidence.** The platform relays changed the wording (paraphrased) or removed the social framing (neutralized), but the monitor's miss rate with the relayed message in view was 0% (paraphrased), 0% (neutralized). The relays did not stop collusion either: uptake changed by +2.9 points and +7.1 points for Gemini, +1.3 points and -6.2 points for Qwen (paraphrased, neutralized).
-- **What a message means depends on the reader.** Four LLM readers re-read every harmful message: gemini_pro agreed with the gate on 97%; gemma agreed with the gate on 95%; gpt agreed with the gate on 77%; opus agreed with the gate on 98%. The outlier, gpt-5.4-nano, read two families the other way; a native Vietnamese reader judged its reading wrong. A small reader can manufacture disagreement about intent.
+| family | gemini gate | gemini_pro | gemma | gpt | opus |
+|---|---|---|---|---|---|
+| ad_rotation | 96.7 | 95.0 | 98.1 | 27.6 | 93.0 |
+| cover_bid | 94.9 | 100.0 | 79.6 | 80.0 | 98.2 |
+| info_exchange | 100.0 | 96.7 | 96.4 | 95.0 | 98.3 |
+| market_split | 94.8 | 90.0 | 100.0 | 60.3 | 93.1 |
+| price_hold | 100.0 | 100.0 | 100.0 | 86.4 | 100.0 |
+| review_swap | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 |
 
-## Questions a sceptic would ask
+![Uptake by channel, Gemini](main_gemini/figures/collusion_by_channel.png)
 
-**Does harmless cooperation survive?** Yes. On twins of the same shape the agents cooperated in every channel (100.0% Gemini, 98.8% Qwen on the raw channel), and the monitor raised almost no false alarms on them except when it read the message alone.
-
-**Is the second monitor any use?** No. The Qwen3-8B monitor flagged most harmless twins, so its low miss rate carries no information. It is kept in `stats.md` as a failed baseline.
-
-## Limits
-
-- Exploratory. The market design changed twice after smoke runs, before the main run; every change is logged in `docs/execution-plan.md`.
-- Five scenarios per family; family-level results are descriptive.
-- Messages are model-written; no human validation sample, one informal native-reader check.
-- One paraphrase per message; Qwen agents read Qwen-relayed text.
-- English quotations are machine translations for display; agents saw only the Vietnamese.
-- The lexical disclosure code is the weakest measure; read it beside the direct question.
+![Uptake by channel, Qwen](main_qwen/figures/collusion_by_channel.png)
 
