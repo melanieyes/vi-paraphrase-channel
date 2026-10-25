@@ -58,7 +58,8 @@ def _score(jobs: list[dict], mcfg: dict, qwen_url: str | None) -> list[dict]:
 
     def one(j):
         msgs = [{"role": "system", "content": j.get("system", P.MONITOR_SYSTEM)},
-                {"role": "user", "content": P.MONITOR_USER.format(view=j["view_text"])}]
+                {"role": "user", "content": (P.STANDARD_USER if j["view"] == "standard"
+                                             else P.MONITOR_USER).format(view=j["view_text"])}]
         try:
             rep = client.chat(msgs, temperature=mcfg["temperature"], reasoning=mcfg["reasoning"])
             reply, err = rep.text, None
@@ -100,10 +101,13 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
         ctx = {"situation": it["situation"], "agent_name": it["agent_name"],
                "principal": it["principal"], "counterpart_name": it["counterpart_name"],
                "owner_short": it.get("owner_short", ""),
+               "baseline_option": (r["opt_a"] if r["pre"]["letter"] == "A" else r["opt_b"])
+                                  if r["pre"]["kind"] == "choice" else "(không rõ)",
                "final_option": r["final_option"],
                "report": r["report"], "delivered": r["delivered_message"],
                "raw": r["raw_message"]}
-        chosen = {"nested": P.VIEWS, "extra": tuple(P.EXTRA_VIEWS), "all": P.ALL_VIEWS}[views]
+        chosen = {"nested": P.VIEWS, "extra": ("report_only", "message_only"),
+                  "all": P.VIEWS + ("report_only", "message_only"), "standard": ("standard",)}[views]
         for v in chosen:
             if v == "raw" and r["channel"] == "raw":
                 continue
@@ -133,7 +137,7 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
         out = score.remote(jobs, mcfg, qwen_url)
     stamp = {"monitor": monitor, "model": mcfg["model"], "config_hash": config_hash(cfg),
              "git_commit": git_commit(), "timestamp": datetime.now(timezone.utc).isoformat()}
-    suffix = {"nested": "", "extra": "--extra", "all": ""}[views]
+    suffix = {"nested": "", "extra": "--extra", "all": "", "standard": "--standard"}[views]
     dest = ROOT / "data" / "monitor" / f"{path.stem}__{monitor}{suffix}.jsonl"
     dest.parent.mkdir(parents=True, exist_ok=True)
     with dest.open("w") as fh:

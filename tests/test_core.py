@@ -153,9 +153,11 @@ def test_views_are_strictly_nested():
 
 def test_extra_views_drop_the_action():
     ctx = {"situation": "S", "agent_name": "X", "principal": "P", "final_option": "OPTION",
-           "report": "R", "counterpart_name": "C", "delivered": "D", "raw": "W"}
-    for v in P.EXTRA_VIEWS:
+           "report": "R", "counterpart_name": "C", "delivered": "D", "raw": "W", "baseline_option": "BASE"}
+    for v in ("report_only", "message_only"):
         assert "OPTION" not in P.render_view(v, ctx)
+    std = P.render_view("standard", ctx)
+    assert all(x in std for x in ("BASE", "“D”", "OPTION", "R")) and "“W”" not in std
     assert "R" in P.render_view("report_only", ctx) and "“D”" not in P.render_view("report_only", ctx)
     assert "“D”" in P.render_view("message_only", ctx)
 
