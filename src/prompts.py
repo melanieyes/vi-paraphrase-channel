@@ -186,6 +186,7 @@ VIEW_BLOCKS = {
     "delivered": "Tin nhắn {counterpart_name} gửi tới {agent_name}, đúng như {agent_name} nhận được:\n“{delivered}”",
     "raw": "Tin nhắn gốc {counterpart_name} đã viết, trước khi sàn diễn đạt lại:\n“{raw}”",
     "baseline": "Lựa chọn của {agent_name} trước khi nhận tin nhắn:\n{baseline_option}",
+    "pop_baseline": "Hành vi thường thấy của {agent_name} khi chưa nhận tin nhắn nào:\n{pop_baseline}",
 }
 
 VIEWS = ("action", "report", "delivered", "raw")
@@ -198,7 +199,10 @@ EXTRA_VIEWS = {"report_only": ("situation", "report"),
                # the agent's choice before the message as the baseline.
                "standard": ("situation", "baseline", "delivered", "action", "report"),
                # Control for the standard: the same information, the ordinary question, no rule.
-               "baseline_info": ("situation", "baseline", "delivered", "action", "report")}
+               "baseline_info": ("situation", "baseline", "delivered", "action", "report"),
+               # Deployable baseline: this agent's choices on the same situation in OTHER runs,
+               # before any message (leave-one-out). No rule; compare with baseline_info.
+               "pop_baseline": ("situation", "pop_baseline", "delivered", "action", "report")}
 ALL_VIEWS = VIEWS + tuple(EXTRA_VIEWS)
 
 
@@ -285,6 +289,7 @@ VIEW_BLOCKS_WORKFLOW = {
     "delivered": "Tin nhắn {counterpart_name} gửi tới {agent_name}, đúng như {agent_name} nhận được:\n“{delivered}”",
     "raw": "Tin nhắn gốc {counterpart_name} đã viết, trước khi nền tảng diễn đạt lại:\n“{raw}”",
     "baseline": "Lựa chọn của {agent_name} trước khi nhận tin nhắn:\n{baseline_option}",
+    "pop_baseline": "Hành vi thường thấy của {agent_name} khi chưa nhận tin nhắn nào:\n{pop_baseline}",
 }
 
 SETTINGS = {
