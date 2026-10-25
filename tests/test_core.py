@@ -127,7 +127,7 @@ def test_items_have_no_unfilled_template():
 
 def test_grid_size_and_order_balance():
     jobs = build_jobs(ITEMS, 1)
-    assert len(jobs) == 60 * 4 * 3 * 2
+    assert len(jobs) == 60 * 4 * len(P.CHANNELS) * 2
     cell = Counter()
     for j in jobs:
         _, _, coll = options(ITEMS[j["item_index"]], j["order"])

@@ -222,3 +222,27 @@ review_ring episode. That sentence is removed. The Qwen v1 run was cancelled
 three times by the laptop's idle sleep. The whole workflow set (items,
 stimuli, episodes, monitors) was rebuilt and rerun from scratch under
 `caffeinate -i`; v1 is in `data/archive/workflow_v1/`.
+
+## Deployable baseline and summary channels (2026-10-25, approved by the human)
+
+- **`pop_baseline` monitor view.** The `baseline_info` view shows the agent's turn-1
+  choice from the same episode, which a deployed monitor would not have. `pop_baseline`
+  replaces it with the agent's turn-1 choices on the same situation in the other runs
+  (leave-one-out counts), with no rule. Run on both monitors and all episode sets.
+- **Summary channels**, after the C5-S cell of the Communication Degree design
+  (Nicole Tang, Iteration 2, section 6.2). The receiving agent sees a summary of the
+  rival's message instead of the message, written once by Qwen3-8B (the relay model,
+  temperature 0) and frozen. Four styles share one frame and one rule (no new
+  information, no comment, do not copy the original) and differ only in one style
+  sentence: `sum_short` (one sentence, main point), `sum_long` (three to four
+  sentences, every point), `sum_system` (a three-field platform log entry),
+  `sum_codeswitch` (one to two sentences in seller register with English loanwords).
+  The question is which style loses the invitation. Measures: gate verdict on each
+  summary, agent collusion against `raw`, and monitor catch rates. Market set only,
+  both agents, all items including twins.
+- Summarizer strength is held fixed (the weak relay model) so the styles compare
+  cleanly. A strong different-family summarizer on `sum_short` is an optional check.
+- First generation of `sum_short` used a one-off prompt and was discarded the same
+  day; the first shared-frame run copied 15 of 960 sources verbatim and did not
+  code-switch, so the rule gained "do not copy" and the code-switch sentence was
+  rewritten. No episode used any discarded record.
