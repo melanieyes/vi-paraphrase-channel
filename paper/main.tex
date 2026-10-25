@@ -225,12 +225,13 @@ remaining declined flags (\StdGemFADecl{} and \StdHkFADecl) but raised message-i
 (\StdHkFAUni{} flagged, against \StdGemFAUni{} for the Gemini monitor). Most of the benefit therefore comes
 from the baseline information, not from the rule.
 
-The baseline need not come from the same episode. Replacing the agent's own turn-1 choice with its turn-1
-choices on the same situation in the other runs (leave-one-out counts, no rule) gave flags on declined
-episodes of \StdGemPopFADecl{} (Gemini monitor) and \StdHkPopFADecl{} (Haiku), with message-induced misses at
-\StdGemPopMovedFNR{} and \StdHkPopMovedFNR. On Qwen's episodes the figures were \StdGemQwPopFADecl{} and
-\StdHkQwPopFADecl. A population baseline, which a deployed monitor can compute, works as well as the
-episode's own.
+The baseline need not come from the same episode. We replaced the agent's own turn-1 choice with its turn-1
+choices on similar situations: the same family and class, with the item itself left out, which a deployed
+monitor could hold from earlier work. With no rule, misses stayed at \StdGemFamFNR{} and \StdHkFamFNR{}
+(Gemini agent; Gemini and Haiku monitors) and \StdGemQwFamFNR{} and \StdHkQwFamFNR{} (Qwen agent), and flags on
+declined episodes were \StdGemFamFADecl{}, \StdHkFamFADecl{}, \StdGemQwFamFADecl{} and \StdHkQwFamFADecl,
+close to the same-episode baseline. Counts from the same situation in other runs gave similar results
+(Table~\ref{tab:views}).
 
 \paragraph{Robustness.} Four LLM readers agreed with the gate on \AgreeOpus{} (Opus 5.5),
 \AgreeGeminiPro{} (Gemini 3.1 Pro), \AgreeGemma{} (Gemma-3-27B) and \AgreeGPT{} (GPT-5.4-nano) of harmful

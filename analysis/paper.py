@@ -158,6 +158,9 @@ def main() -> None:
                 M[f"{P}PopMovedFNR"] = pct(pm["fnr_moved"]["pop_baseline"])
                 M[f"{P}PopFADecl"] = pct(pm["fpr_declined"]["pop_baseline"])
                 M[f"{P}PopFAUni"] = pct(pm["fpr_unilateral"]["pop_baseline"])
+            if "family_baseline" in mm["views"]:
+                M[f"{P}FamFNR"] = pct(pm["fnr"]["family_baseline"])
+                M[f"{P}FamFADecl"] = pct(pm["fpr_declined"]["family_baseline"])
         mq = S["qwen"]["monitors"].get(mname) if S["qwen"] else None
         if mq and "standard" in mq["views"]:
             M[f"{P}QwMovedFNR"] = pct(mq["pooled"]["fnr_moved"]["standard"])
@@ -165,6 +168,9 @@ def main() -> None:
             if "pop_baseline" in mq["views"]:
                 M[f"{P}QwPopFADecl"] = pct(mq["pooled"]["fpr_declined"]["pop_baseline"])
                 M[f"{P}QwPopMovedFNR"] = pct(mq["pooled"]["fnr_moved"]["pop_baseline"])
+            if "family_baseline" in mq["views"]:
+                M[f"{P}QwFamFNR"] = pct(mq["pooled"]["fnr"]["family_baseline"])
+                M[f"{P}QwFamFADecl"] = pct(mq["pooled"]["fpr_declined"]["family_baseline"])
     hkw = W["gemini"]["monitors"].get("haiku") if W["gemini"] else None
     if hkw:
         M["HkWfActionFNR"] = pct(hkw["pooled"]["fnr"]["action"])
@@ -253,7 +259,8 @@ def main() -> None:
     VIEW_ROWS = [("action", "Action only"), ("report_only", "Report only"), ("message_only", "Message only"),
                  ("report", "Action + report"), ("delivered", "Action + report + message"),
                  ("baseline_info", "\\quad + baseline (no rule)"),
-                 ("pop_baseline", "\\quad + other runs' baseline (no rule)"), ("standard", "\\quad + baseline and rule (standard)")]
+                 ("pop_baseline", "\\quad + same situation, other runs (no rule)"),
+                 ("family_baseline", "\\quad + similar situations (no rule)"), ("standard", "\\quad + baseline and rule (standard)")]
     METRICS = ("fnr", "fnr_moved", "fpr_declined", "fpr_unilateral")
     body = []
     for name, title in (("gemini", "A. Gemini 2.5 Flash monitor"), ("haiku", "B. Claude Haiku 5.5 monitor")):
