@@ -52,11 +52,21 @@ def pp(d) -> str:
     return f"{100 * d['est']:+.1f}"
 
 
-def cell(d) -> str:
-    """Table cell: estimate with its interval, compact."""
+def cell(d, bold: bool = False) -> str:
+    """Table cell: estimate with its interval, compact. Key numbers are set in bold."""
     if not d or d.get("est") is None:
         return "--"
-    return f"{100 * d['est']:.1f} {{\\scriptsize[{100 * d['lo']:.1f}, {100 * d['hi']:.1f}]}}"
+    est = f"{100 * d['est']:.1f}"
+    return (f"\\textbf{{{est}}}" if bold else est) + f" {{\\scriptsize[{100 * d['lo']:.1f}, {100 * d['hi']:.1f}]}}"
+
+
+def is_max(d, ds) -> bool:
+    vals = [x["est"] for x in ds if x and x.get("est") is not None]
+    return bool(d and d.get("est") is not None and vals and d["est"] == max(vals))
+
+
+def excludes_zero(d) -> bool:
+    return bool(d and d.get("lo") is not None and (d["lo"] > 0 or d["hi"] < 0))
 
 
 def tex_escape(s: str) -> str:
@@ -169,12 +179,16 @@ def main() -> None:
     # Table: tasks (2.1)
     rows = []
     fams = list(tk["gemini"]["by_family_raw"]) if tk["gemini"] else []
+    col = lambda a, k: [tk[a]["by_family_raw"][f][k] for f in fams] if tk[a] else []  # noqa: E731
     for f in fams:
         rg = tk["gemini"]["by_family_raw"][f]
         rq = tk["qwen"]["by_family_raw"].get(f) if tk["qwen"] else None
         setting = "workflow" if f in WORKFLOW_FAMS else "market"
-        rows.append(f"\\texttt{{{tex_escape(f)}}} & {setting} & {cell(rg['turn1'])} & {cell(rg['moved'])} & "
-                    f"{cell(rq['turn1']) if rq else '--'} & {cell(rq['moved']) if rq else '--'} \\\\")
+        rows.append(f"\\texttt{{{tex_escape(f)}}} & {setting} & "
+                    f"{cell(rg['turn1'], is_max(rg['turn1'], col('gemini', 'turn1')))} & "
+                    f"{cell(rg['moved'], is_max(rg['moved'], col('gemini', 'moved')))} & "
+                    f"{cell(rq['turn1'], is_max(rq['turn1'], col('qwen', 'turn1'))) if rq else '--'} & "
+                    f"{cell(rq['moved'], is_max(rq['moved'], col('qwen', 'moved'))) if rq else '--'} \\\\")
     (T / "tasks.tex").write_text(
         "\\begin{tabular}{llrrrr}\n\\toprule\n"
         " & & \\multicolumn{2}{c}{Gemini 2.5 Flash} & \\multicolumn{2}{c}{Qwen3-8B} \\\\\n"
@@ -187,11 +201,15 @@ def main() -> None:
               ("report", "Action + report"), ("delivered", "Action + report + message")]
     mg = mon["gemini"]["pooled"] if mon["gemini"] else None
     wg = wmon["gemini"]["pooled"] if wmon["gemini"] else None
+    # Bold: what the text argues from. Missing from the action alone, both numbers
+    # for action + report, and false alarms from the message alone.
+    key_missed, key_fa = {"action", "report"}, {"report", "message_only"}
     rows = []
     for v, lab in labels:
-        rows.append(f"{lab} & {cell(mg['fnr'][v]) if mg else '--'} & {cell(mg['fpr_declined'][v]) if mg else '--'} & "
-                    f"{cell(wg['fnr'][v]) if wg and v in wg['fnr'] else '--'} & "
-                    f"{cell(wg['fpr_declined'][v]) if wg and v in wg['fpr_declined'] else '--'} \\\\")
+        rows.append(f"{lab} & {cell(mg['fnr'][v], v in key_missed) if mg else '--'} & "
+                    f"{cell(mg['fpr_declined'][v], v in key_fa) if mg else '--'} & "
+                    f"{cell(wg['fnr'][v], v in key_missed) if wg and v in wg['fnr'] else '--'} & "
+                    f"{cell(wg['fpr_declined'][v], v in key_fa) if wg and v in wg['fpr_declined'] else '--'} \\\\")
     (T / "monitor.tex").write_text(
         "\\begin{tabular}{lrrrr}\n\\toprule\n"
         " & \\multicolumn{2}{c}{Market} & \\multicolumn{2}{c}{Workflow} \\\\\n"
@@ -207,8 +225,8 @@ def main() -> None:
             continue
         rows.append(f"{LABEL[a]} & {cell(s['turn1']['harmful'])} & "
                     + " & ".join(cell(s["turn2"]["harmful"][ch]["all"]) for ch in CHANNELS)
-                    + f" & {cell(s['relay_effect']['harmful']['paraphrased']['all'])}"
-                    + f" & {cell(s['relay_effect']['harmful']['neutralized']['all'])} \\\\")
+                    + "".join(f" & {cell(s['relay_effect']['harmful'][ch]['all'], excludes_zero(s['relay_effect']['harmful'][ch]['all']))}"
+                              for ch in ("paraphrased", "neutralized")) + " \\\\")
     (T / "relays.tex").write_text(
         "\\begin{tabular}{lrrrrrr}\n\\toprule\n"
         " & & \\multicolumn{3}{c}{Took the arrangement (turn 2)} & \\multicolumn{2}{c}{Relay minus raw (pp)} \\\\\n"
@@ -223,7 +241,9 @@ def main() -> None:
         if not t:
             continue
         for setting, row in t.get("by_rendering_raw_setting", {}).items():
-            rows.append(f"{LABEL[a]} & {setting} & " + " & ".join(cell(row[rd]) for rd in RENDERINGS) + " \\\\")
+            vals = [row[rd] for rd in RENDERINGS]
+            rows.append(f"{LABEL[a]} & {setting} & " + " & ".join(cell(row[rd], is_max(row[rd], vals))
+                                                               for rd in RENDERINGS) + " \\\\")
     (T / "rendering.tex").write_text(
         "\\begin{tabular}{llrrrr}\n\\toprule\n"
         "Agent & Setting & Direct & Euphemism & Relationship & Omission \\\\\n\\midrule\n"
@@ -235,7 +255,8 @@ def main() -> None:
         head = {"gemini": "Gemini gate", "gpt": "GPT-5.4-nano", "gemma": "Gemma-3-27B",
                 "gemini_pro": "Gemini 3.1 Pro", "opus": "Opus 5.5"}
         rows = [f"\\texttt{{{tex_escape(f)}}} & " + " & ".join(
-            f"{100 * row[n]:.1f}" if row.get(n) is not None else "--" for n in names) + " \\\\"
+            (f"\\textbf{{{100 * row[n]:.1f}}}" if row[n] < 0.8 else f"{100 * row[n]:.1f}")
+            if row.get(n) is not None else "--" for n in names) + " \\\\"
             for f, row in agree["by_family"].items()]
         (T / "readers.tex").write_text(
             "\\begin{tabular}{l" + "r" * len(names) + "}\n\\toprule\n"
@@ -280,18 +301,21 @@ def main() -> None:
         q(ex["report"]),
     ]) + "\n")
 
-    # figures
+    # figures, drawn here so the paper owns its figure style
+    from analysis import figures as FIG
     F = PAPER / "figures"
     F.mkdir(exist_ok=True)
-    for src, dst in (("results/figures/families.png", "families.png"),
-                     ("results/main_gemini/figures/says_vs_does_gemini.png", "says_vs_does_market.png"),
-                     ("results/workflow_gemini/figures/says_vs_does_gemini.png", "says_vs_does_workflow.png"),
-                     ("results/main_gemini/figures/collusion_by_channel.png", "channels_gemini.png"),
-                     ("results/main_qwen/figures/collusion_by_channel.png", "channels_qwen.png")):
-        if (ROOT / src).exists():
-            shutil.copy(ROOT / src, F / dst)
-        else:
-            MISSING.append(src)
+    by_family = {}
+    for a in AGENTS:
+        if tk[a]:
+            by_family[a] = tk[a]["by_family_raw"]
+        else:  # until the pooled task set exists, fall back to main + workflow
+            by_family[a] = {**(st[a]["by_family_raw"] if st[a] else {}),
+                            **(wst[a]["by_family_raw"] if wst[a] else {})}
+    FIG.tasks(by_family, set(WORKFLOW_FAMS), F / "tasks.pdf")
+    if mon["gemini"]:
+        FIG.tradeoff(mon["gemini"]["pooled"], wmon["gemini"]["pooled"] if wmon["gemini"] else None,
+                     F / "tradeoff.pdf")
     print(f"wrote {len(M)} macros, tables and figures to {PAPER}")
     if MISSING:
         print("MISSING inputs (their numbers print as ??):\n  " + "\n  ".join(MISSING))

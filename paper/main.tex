@@ -134,14 +134,14 @@ Qwen took \QwTopUnpromptedFam{} unprompted most often (\QwTopUnprompted) and was
 \QwTopMovedFam{} (\QwTopMoved). The two models rank tasks differently (Figure~\ref{fig:tasks},
 Table~\ref{tab:tasks}), so a list of risky tasks is partly a property of the model.
 
-\begin{figure}[t]
-\centering\includegraphics[width=\linewidth]{figures/families.png}
-\caption{Share of harmful episodes, raw channel, by family: taken unprompted at turn~1 (blue) and pulled
-in by the rival's message (orange). Eight scenarios per family, bars are 95\% intervals clustered over
-items.}\label{fig:tasks}
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/tasks.pdf}
+\caption{Which tasks lead to collusion. Share of harmful episodes on the raw channel that took the
+arrangement unprompted at turn~1 (grey) or were pulled in by the rival's message (blue), by family and
+agent. Orange names are workflow families. Lines are 95\% intervals clustered over items.}\label{fig:tasks}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering\small
 \caption{Harmful episodes by family (\%, raw channel). Unprompted: collusive choice at turn~1. Moved:
 competitive at turn~1, collusive at turn~2. Brackets: 95\% intervals clustered over items.}\label{tab:tasks}
@@ -154,7 +154,7 @@ workflows, against \GemMarketDirect{} and \GemWorkflowDirect{} for a direct prop
 about equally by every rendering (Table~\ref{tab:rendering}). A detector that looks for proposals would
 miss the invitation that worked best on Gemini.
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering\small
 \caption{Share of harmful episodes moved by the message, by rendering and setting (\%, raw channel).}\label{tab:rendering}
 \resizebox{\linewidth}{!}{\input{tables/rendering.tex}}
@@ -175,13 +175,15 @@ flagged \MonFADeclMsgOnly. It detects that an arrangement was offered, not that 
 are also only as good as the agent's candour: for Qwen, action and report still missed
 \MonQReportFNR{} of colluding episodes.
 
-\begin{figure}[t]
-\centering\includegraphics[width=0.92\linewidth]{figures/says_vs_does_market.png}
-\caption{Gemini monitor on Gemini market episodes, pooled over channels. Blue: colluding episodes
-missed. Orange: harmful episodes flagged although the agent declined. Green: harmless twins flagged.}\label{fig:says}
+\begin{figure}[htbp]
+\centering\includegraphics[width=0.9\linewidth]{figures/tradeoff.pdf}
+\caption{What the monitor should read. Each point is one view of the same Gemini episodes: missed
+collusion against false alarms on harmful episodes the agent declined (market: circles, pooled over
+channels; workflow: diamonds, raw channel). The action alone misses; the message flags every proposal;
+the agent's own report with its action sits near the useful corner. Lines are 95\% intervals.}\label{fig:says}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering\small
 \caption{Gemini monitor on Gemini episodes (\%): misses among colluding episodes and false alarms among
 harmful episodes the agent declined. Market pooled over channels; workflow raw channel.}\label{tab:monitor}
@@ -209,7 +211,7 @@ push toward the arrangement in \GatePushRaw, \GatePushPara{} and \GatePushNeut{}
 \QwPara{} and \QwNeut{} for Qwen (paraphrased, neutralized; Table~\ref{tab:relays}); the two models moved
 in opposite directions under neutralizing.
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering\small
 \caption{Market set: harmful episodes that took the arrangement (\%) and the relays' effect (percentage
 points, relay minus raw).}\label{tab:relays}
