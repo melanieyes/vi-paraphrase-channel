@@ -82,7 +82,9 @@ def run_one(job: dict, *, cfg: dict, agent: str, base_url: str | None, meta: dic
 
 @app.local_entrypoint()
 def main(agent: str = "gemini", smoke: int = 0, confirm: bool = False, dry_run: bool = False,
-         resume: bool = False, items: str = "market") -> None:
+         resume: bool = False, items: str = "market", channels: str = "") -> None:
+    """--channels limits the run to those channels and writes to its own file
+    (`summary_episodes_*` for the summary channels), so earlier files stay as reported."""
     from src import prompts as P
     from src.episode import build_jobs, episode_id, load_items, load_stimuli
     from src.run_meta import config_hash, estimate_episode_cost, git_commit, load_cfg
@@ -95,8 +97,13 @@ def main(agent: str = "gemini", smoke: int = 0, confirm: bool = False, dry_run: 
         raise SystemExit("no data/stimuli/stimuli.jsonl: run scripts/modal_stimuli.py first")
     report = P.assert_prompt_controls(items, stimuli)
     jobs = build_jobs(items, cfg["k"], smoke)
+    if channels:
+        keep = set(P.SUMMARIES) if channels == "summaries" else set(channels.split(","))
+        jobs = [j for j in jobs if j["channel"] in keep]
     acfg = cfg["agents"][agent]
     prefix = "" if item_set == "market" else f"{item_set}_"
+    if channels:
+        prefix = ("summary_" if channels == "summaries" else "channels_") + prefix
     out = ROOT / "data" / "episodes" / (f"{prefix}smoke_{len(jobs)}_{agent}.jsonl" if smoke
                                         else f"{prefix}episodes_{agent}.jsonl")
     done: set[str] = set()
