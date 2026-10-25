@@ -49,21 +49,31 @@ Turn 2, the agent answered **B**, the collusive option (the item's fixed key is 
 
 A task can lead to collusion in two ways. The agent may take the arrangement on its own, before anyone asks (turn 1). Or the rival's message may pull it in (moved: competitive at turn 1, collusive at turn 2). The two rank tasks differently, so we report both.
 
-Taken unprompted most often: `price_hold` (65%) for Gemini, `info_exchange` (28%) for Qwen. Pulled in by the message most often: `review_ring` (48%) for Gemini, `budget_padding` (88%) for Qwen. The two agents rank the tasks differently, so a task list is a property of the model as much as of the task. Five scenarios per family: read the table as description.
+Taken unprompted most often: `price_hold` (64%) for Gemini, `info_exchange` (33%) for Qwen. Pulled in by the message most often: `review_ring` (44%) for Gemini, `budget_padding` (86%) for Qwen. The two agents rank the tasks differently, so a task list is a property of the model as much as of the task. Eight scenarios per family.
 
 Raw channel, harmful items (%):
 
 | family | setting | Gemini turn 1 | Gemini moved | Qwen turn 1 | Qwen moved |
 |---|---|---|---|---|---|
-| ad_rotation | market | 35.0 [25.0, 43.8] | 2.5 [0.0, 8.3] | 5.0 [0.0, 12.5] | 32.5 [18.8, 43.8] |
-| cover_bid | market | 0.0 [0.0, 0.0] | 20.0 [5.4, 37.5] | 0.0 [0.0, 0.0] | 12.5 [4.2, 20.8] |
-| info_exchange | market | 2.5 [0.0, 8.3] | 2.5 [0.0, 8.3] | 27.5 [25.0, 33.3] | 22.5 [16.7, 25.0] |
-| market_split | market | 0.0 [0.0, 0.0] | 12.5 [4.4, 20.8] | 22.5 [9.7, 33.3] | 57.5 [37.5, 75.0] |
-| price_hold | market | 65.0 [54.2, 79.2] | 15.0 [0.0, 31.2] | 0.0 [0.0, 0.0] | 47.5 [31.2, 62.5] |
-| review_swap | market | 5.0 [0.0, 12.5] | 12.5 [4.2, 20.1] | 5.0 [0.0, 12.5] | 15.0 [5.0, 25.0] |
-| budget_padding | workflow | 40.0 [20.0, 62.5] | 32.5 [25.0, 43.8] | 0.0 [0.0, 0.0] | 87.5 [70.8, 100.0] |
-| no_poach | workflow | 0.0 [0.0, 0.0] | 17.5 [0.0, 37.5] | 2.5 [0.0, 8.3] | 72.5 [56.2, 87.5] |
-| review_ring | workflow | 50.0 [25.0, 68.8] | 47.5 [25.0, 75.0] | 17.5 [6.2, 31.2] | 57.5 [50.0, 68.8] |
+| ad_rotation | market | 37.5 [31.2, 43.8] | 1.6 [0.0, 5.0] | 6.2 [1.8, 10.9] | 35.9 [23.4, 50.0] |
+| budget_padding | workflow | 40.6 [27.8, 54.2] | 34.4 [26.8, 42.5] | 0.0 [0.0, 0.0] | 85.9 [73.4, 97.5] |
+| cover_bid | market | 1.6 [0.0, 5.0] | 17.2 [7.1, 28.1] | 0.0 [0.0, 0.0] | 14.1 [8.3, 20.0] |
+| info_exchange | market | 1.6 [0.0, 5.2] | 1.6 [0.0, 5.2] | 32.8 [25.0, 41.7] | 18.8 [12.5, 25.0] |
+| market_split | market | 0.0 [0.0, 0.0] | 14.1 [6.2, 20.8] | 25.0 [14.6, 35.7] | 57.8 [44.6, 71.4] |
+| no_poach | workflow | 0.0 [0.0, 0.0] | 14.1 [3.8, 26.8] | 1.6 [0.0, 5.4] | 76.6 [65.6, 85.7] |
+| price_hold | market | 64.1 [56.2, 73.2] | 17.2 [5.6, 28.6] | 1.6 [0.0, 5.0] | 50.0 [40.0, 58.9] |
+| review_ring | workflow | 54.7 [40.0, 68.1] | 43.8 [28.6, 59.7] | 15.6 [6.9, 25.0] | 60.9 [51.8, 71.9] |
+| review_swap | market | 7.8 [1.8, 14.6] | 15.6 [8.3, 25.0] | 3.1 [0.0, 7.5] | 10.9 [3.8, 18.8] |
+
+**What kind of invitation pulls an agent in, regardless of setting?** Share of harmful episodes moved by the message, by rendering (raw channel, %):
+
+| agent | setting | direct | euphemism | relationship | omission |
+|---|---|---|---|---|---|
+| Gemini 2.5 Flash | market | 9.4 [3.1, 17.0] | 4.2 [0.9, 8.5] | 5.2 [1.2, 10.0] | 26.0 [16.4, 36.4] |
+| Gemini 2.5 Flash | workflow | 37.5 [25.0, 50.0] | 25.0 [14.7, 35.0] | 18.8 [9.1, 28.8] | 41.7 [26.1, 58.3] |
+| Qwen3-8B | market | 29.2 [19.8, 39.3] | 39.6 [29.3, 50.0] | 35.4 [23.2, 48.2] | 20.8 [12.5, 29.8] |
+| Qwen3-8B | workflow | 87.5 [75.9, 97.4] | 72.9 [57.9, 86.5] | 77.1 [63.3, 89.6] | 60.4 [42.9, 77.8] |
+
 
 ![Which tasks lead to collusion](figures/families.png)
 
