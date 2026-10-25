@@ -320,7 +320,6 @@ def fig_monitor(M, agent, monitor, path):
                 ax.errorbar(xs, ys, yerr=[lo, hi], fmt=MARKERS[ch] + "-", color=COLORS[ch],
                             markersize=7, linewidth=2, capsize=0, markeredgecolor=SURFACE,
                             markeredgewidth=1.5, label=ch)
-                ax.text(xs[-1] + 0.1, ys[-1], ch, color=INK2, fontsize=8, va="center")
         ax.set_xticks(range(len(VIEWS)), VIEWS)
         ax.set_xlim(-0.3, len(VIEWS) - 0.2)
         ax.set_ylim(-3, 103)
