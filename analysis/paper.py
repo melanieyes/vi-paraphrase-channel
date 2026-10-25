@@ -136,6 +136,9 @@ def main() -> None:
         M["HkFADeclMsgOnly"] = pct(pm["fpr_declined"]["message_only"])
         M["HkFADeclDelivered"] = pct(pm["fpr_declined"]["delivered"])
         M["HkFATwinsAction"] = pct(pm["fpr_twins"]["action"])
+    hkw = W["gemini"]["monitors"].get("haiku") if W["gemini"] else None
+    if hkw:
+        M["HkWfActionFNR"] = pct(hkw["pooled"]["fnr"]["action"])
     if wmon["gemini"]:
         pm = wmon["gemini"]["pooled"]
         M["WfActionFNR"] = pct(pm["fnr"]["action"])

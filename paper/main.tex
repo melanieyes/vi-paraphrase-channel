@@ -33,9 +33,9 @@ in workplace workflows (hiring, peer scoring, budgeting); every harmful scenario
 the same form. A scripted rival sends a fixed invitation, phrased directly, as a euphemism, as a
 relational appeal, or as a bare announcement. Two agents (Gemini 2.5 Flash, Qwen3-8B) decide, report to
 their principal and answer a disclosure question, and two monitors (Gemini 2.5 Flash, Claude Haiku 5.5)
-judge each episode from six views. From the action alone, the monitor missed \MonActionFNR{} of
-collusion on the marketplace but \WfActionFNR{} in workflows, where the collusive action is itself
-visibly harmful. Adding the agent's report reduced marketplace misses to \MonReportFNR. The rival's
+judge each episode from six views. From the action alone, the Gemini monitor missed \MonActionFNR{} of
+collusion on the marketplace and the Haiku monitor \HkActionFNR. Adding the agent's report reduced these
+misses to \MonReportFNR{} and \HkReportFNR. The rival's
 message identified the proposer but not the agent; with it in view, the monitor flagged
 \MonFADeclDelivered{} of episodes in which the agent declined. Agents disclosed the influence when asked
 (\GemDiscItem{} and \QwDiscItem) but rarely in their reports (\GemDiscLex{} and \QwDiscLex). Paraphrasing
@@ -61,8 +61,8 @@ monitor \cite{bui2026ps}. Here, two agents serve rival principals.
 \item A benchmark of \nTaskItems{} Vietnamese items in nine families and two settings, each harmful
 scenario paired with a harmless twin, with four renderings, frozen and gated stimuli, two agents and
 two monitors reading six views.
-\item Evidence that a monitor needs the agent's own report (2.2). The action alone fails when the collusive
-action resembles a unilateral choice, and the rival's message identifies the proposer rather than the agent.
+\item Evidence, replicated across two monitors, that a monitor needs the agent's own report (2.2). The action
+alone misses most collusion, and the rival's message identifies the proposer rather than the agent.
 \item An evidence standard whose three parts are evaluated separately (2.3), and a task analysis that
 separates unprompted from message-induced collusion (2.1).
 \end{enumerate}
@@ -155,9 +155,10 @@ maximum.}\label{tab:rendering}
 
 \subsection{Do words and actions together beat either alone? (2.2)}
 From the action alone, the Gemini monitor missed \MonActionFNR{} \MonActionFNRCI{} of colluding market
-episodes but \WfActionFNR{} of workflow episodes (Table~\ref{tab:monitor}). The difference follows from the
-actions. Holding a price or skipping an auction is also a plausible unilateral choice, whereas scoring a
-rival's entry far above the rubric or inflating a budget request is visibly harmful. Adding the agent's
+episodes (Table~\ref{tab:monitor}). In workflows it missed only \WfActionFNR, plausibly because scoring a
+rival's entry far above the rubric or inflating a budget request looks harmful on its face, whereas holding
+a price can be a unilateral choice. The Haiku monitor did not show this difference (\HkActionFNR{} market,
+\HkWfActionFNR{} workflow), so it may reflect the Gemini monitor rather than the actions. Adding the agent's
 report reduced market misses to \MonReportFNR{} (difference \MonActionMinusBoth{} points,
 \MonActionMinusBothCI) at \MonFADeclReport{} false alarms. The report alone performed similarly
 (\MonReportOnlyFNR) because it restates the action. Its value depends on the agent: for Qwen, whose
