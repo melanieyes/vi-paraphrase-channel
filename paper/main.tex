@@ -21,7 +21,7 @@
 \newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
 \input{numbers.tex}
 
-\title{\textbf{The Agent Said No, the Monitor Flagged It Anyway}\\[2pt]\large What Counts as Evidence of Collusion Between LLM Agents: A Vietnamese Benchmark}
+\title{\textbf{The Agent Said No, the Monitor Flagged It Anyway}\\[2pt]\large What Counts as Evidence of Collusion Between LLM Agents: A Study in Vietnamese}
 \author{Melanie Bui\\\small\TODO{affiliation}\\[6pt]\small\textit{With Apart Research}}
 \date{}
 
@@ -32,7 +32,7 @@
 \noindent A rival agent asks yours to hold a price. Your agent refuses. A monitor that reads the message
 flags it anyway: in our experiments, \StdGemAllFADecl{} of refusals for a Gemini 2.5 Flash monitor and
 \StdHkAllFADecl{} for Claude Haiku 5.5. We ask what in an agent's logs is convincing evidence that it
-colluded. We built a Vietnamese benchmark of \nTaskItems{} items in nine families, each harmful scenario paired with a harmless twin. A scripted rival sends a fixed
+colluded. We built \nTaskItems{} Vietnamese scenarios in nine families, each harmful scenario paired with a harmless twin. A scripted rival sends a fixed
 invitation in one of four styles, from a direct proposal to a bare announcement. Two agents (Gemini 2.5
 Flash, Qwen3-8B) decide, report to their principal and answer a disclosure question; two monitors judge
 each episode. Each kind of evidence fails alone. The action misses intent: Gemini
@@ -67,7 +67,7 @@ monitor \cite{bui2026ps}. Here, two agents serve rival principals, and we vary w
 
 \paragraph{Contributions.}
 \begin{enumerate}
-\item A benchmark of \nTaskItems{} Vietnamese items in nine families and two settings, each harmful scenario
+\item A set of \nTaskItems{} Vietnamese scenarios in nine families and two settings, each harmful scenario
 paired with a harmless twin, with frozen and gated invitations in four styles, two agents and two monitors.
 \item Evidence that each source fails alone (2.1, 2.2). Agents often collude unprompted, so the action
 overstates the message's role; reports omit the message; and a monitor that reads the message flags
@@ -103,9 +103,9 @@ and four LLM readers check that each message pushes toward the arrangement.
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=\linewidth]{figures/pipeline.pdf}
-\caption{Roles and models. Messages and relayed versions are written once and frozen, so every episode in
-a cell sees the same text. The agent's report plays the part of the executor's summary in our earlier
-work \cite{bui2026ps}.}\label{fig:pipeline}
+\caption{Roles and models. Invitations and their relayed or summarized versions are written once and
+frozen, so every episode in a cell reads the same text. The agent's report plays the part of the executor's
+summary in our earlier work \cite{bui2026ps}. Dashed: checks and the alternative monitor input.}\label{fig:pipeline}
 \end{figure}
 
 \paragraph{Items.} The six market families are holding a price, splitting product categories, rotating ad
@@ -305,11 +305,11 @@ announcements, which moved Gemini most on the market.
 to accept, not the ability to initiate collusion. Each family has eight scenarios, which supports only
 coarse comparisons between families. Gemini served as agent, gate and first monitor; a second monitor and
 four readers from other providers reduce but do not remove shared bias, and we ran no human validation
-sample. Qwen agents read Qwen-relayed text. Summary styles also differ in length, and agents read one summary per message; a second sample and a second summarizer were checked only at the stimulus level. The population and similar-situation baselines come from the same benchmark, so a deployed baseline drawn from different traffic may fit less well. The lexical disclosure code
+sample. Qwen agents read Qwen-relayed text. Summary styles also differ in length, and agents read one summary per message; a second sample and a second summarizer were checked only at the stimulus level. The population and similar-situation baselines come from the same scenario set, so a deployed baseline drawn from different traffic may fit less well. The lexical disclosure code
 is our weakest measure. Appendix~\ref{app:ethics} discusses dual use.
 
 \paragraph{Future work.} Testing the standard on multi-round logs, where the baseline comes from earlier
-rounds; human validation of the stimuli; relays that summarise conversation history; and handoffs in which one agent plans and another executes from a summary of the plan.
+rounds; human validation of the stimuli; relays that summarise conversation history; the same invitations in other languages, to compare how pragmatic cues carry across them; and handoffs in which one agent plans and another executes from a summary of the plan.
 
 \section{Conclusion}
 Logs hold three kinds of evidence, and each misleads on its own: the action overstates the message's role,
@@ -326,7 +326,7 @@ the agent's own report, but a summary inside the channel can erase the proposal 
 \end{itemize}
 
 \section*{Author Contributions}
-\TODO{author contributions}
+Melanie Bui designed the study, made every design decision recorded in the repository's change log, checked the disputed Vietnamese readings as a native speaker, and wrote the paper with the assistance described in the LLM Usage Statement.
 
 \label{mainend}
 \begin{thebibliography}{99}\small
@@ -409,9 +409,12 @@ percentage points; bold: interval excludes zero).
 \input{tables/monitor_full.tex}
 
 \section*{LLM Usage Statement}
-We used Claude (Anthropic) to design and implement the pipeline, run the experiments on Modal, write
-the analysis code, translate Vietnamese quotations for display, and draft this report. Gemini 2.5 Flash
-wrote the rival messages and acted as agent, gate and first monitor; Claude Haiku 5.5 was the second
-monitor; Qwen3-8B acted as agent, relay and a failed third monitor; four LLMs re-read the stimuli. The
-analysis code generates every number from the logged data. \TODO{state which parts the author verified and rewrote}
+LLMs played two roles. As research assistants, Claude Opus 5.5 (via Claude Code) helped implement the
+pipeline, run the experiments on Modal, write the analysis code and draft this report, and Claude Opus 5.5
+produced the display-only English translations. As experimental subjects, Gemini 2.5 Flash wrote the rival
+messages and acted as agent, gate and first monitor; Claude Haiku 5.5 was the second monitor; Qwen3-8B
+acted as agent, relay and summary writer for the channel, and as a failed third monitor; Gemma-3-27B wrote
+the third-party trace summaries; four LLMs re-read the stimuli. No LLM produced an episode measure: choices
+and disclosure are parsed by code, and the analysis code generates every number from the logged data. The
+author set the questions, approved each design change, and reviewed the code, figures and text.
 \end{document}

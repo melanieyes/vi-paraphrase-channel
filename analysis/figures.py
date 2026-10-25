@@ -143,59 +143,72 @@ def butterfly(monitors: list[tuple[str, dict]], path: Path) -> None:
 
 
 def pipeline(path: Path) -> None:
-    """Figure 1. Who does what: build (once, frozen), run, audit."""
+    """Figure 1. Who does what. Three phases left to right; each card names a role, the model that
+    plays it, and what it produces. Solid arrows: the main path; dashed: the alternative inputs."""
     from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
-    fig, ax = plt.subplots(figsize=(6.9, 2.9))
+    fig, ax = plt.subplots(figsize=(7.0, 3.05))
     ax.set_xlim(0, 100)
-    ax.set_ylim(0, 42)
+    ax.set_ylim(0, 44)
     ax.axis("off")
-    LIGHT = {"build": "#eef4fb", "run": "#fdf1ea", "audit": "#eef7f2"}
-    EDGE = {"build": ACCENT, "run": ACCENT2, "audit": "#1d8a5f"}
+    GREEN = "#1d8a5f"
+    COL = {"build": ACCENT, "run": ACCENT2, "audit": GREEN}
+    TINT = {"build": "#f2f7fd", "run": "#fef5f0", "audit": "#f1f8f4"}
 
-    def phase(x0, x1, key, label):
-        ax.add_patch(FancyBboxPatch((x0, 0.5), x1 - x0, 40.5, boxstyle="round,pad=0,rounding_size=1.2",
-                                    facecolor=LIGHT[key], edgecolor="none", zorder=0))
-        ax.text(x0 + 1.2, 39.6, label, color=EDGE[key], fontsize=7, fontweight="bold", va="top")
+    def phase(x0, x1, key, label, sub):
+        ax.add_patch(FancyBboxPatch((x0, 0.6), x1 - x0, 42.2, boxstyle="round,pad=0,rounding_size=1.4",
+                                    facecolor=TINT[key], edgecolor="none", zorder=0))
+        ax.text(x0 + 1.4, 41.4, label, color=COL[key], fontsize=7.6, fontweight="bold", va="top")
+        ax.text(x0 + 1.4, 38.6, sub, color=INK2, fontsize=5.9, va="top", style="italic")
 
-    def box(x, y, w, h, title, model, body, key, dashed=False, left=False):
-        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=0.8",
-                                    facecolor="white", edgecolor=EDGE[key], linewidth=0.9,
-                                    linestyle=(0, (3, 2)) if dashed else "-", zorder=2))
-        top = y + h - 1.5
-        ax.text(x + w / 2, top, title, ha="center", va="top", fontsize=7.2, fontweight="bold",
-                color=INK, zorder=3)
-        top -= 3.6
+    def card(x, y, w, h, title, model, body, key, dashed=False):
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=0.9",
+                                    facecolor="white", edgecolor=COL[key] if dashed else "#d9d8d3",
+                                    linewidth=0.8, linestyle=(0, (3, 2)) if dashed else "-", zorder=2))
+        if not dashed:
+            ax.add_patch(FancyBboxPatch((x, y + h - 0.9), w, 0.9, boxstyle="round,pad=0,rounding_size=0.4",
+                                        facecolor=COL[key], edgecolor="none", zorder=3))
+        ax.text(x + 1.3, y + h - 2.0, title, ha="left", va="top", fontsize=6.7, fontweight="bold",
+                color=INK, zorder=4)
+        top = y + h - 4.8
         if model:
-            ax.text(x + w / 2, top, model, ha="center", va="top", fontsize=5.9, color=EDGE[key],
-                    style="italic", linespacing=1.2, zorder=3)
-            top -= 2.6 * (model.count("\n") + 1) + 1.2
-        ax.text(x + 2.2 if left else x + w / 2, top, body, ha="left" if left else "center", va="top",
-                fontsize=5.9, color=INK2, linespacing=1.35, zorder=3)
+            ax.text(x + 1.3, top, model, ha="left", va="top", fontsize=5.5, color=COL[key],
+                    linespacing=1.3, zorder=4)
+            top -= 2.5 * (model.count("\n") + 1) + 1.2
+        ax.text(x + 1.3, top, body, ha="left", va="top", fontsize=5.6,
+                color=INK2, linespacing=1.45, zorder=4)
 
-    def arrow(x0, y0, x1, y1, style="-|>"):
-        ax.add_patch(FancyArrowPatch((x0, y0), (x1, y1), arrowstyle=style, mutation_scale=8,
-                                     color=INK2, linewidth=0.9, zorder=1))
+    def arrow(p, q, dashed=False, rad=0.0):
+        ax.add_patch(FancyArrowPatch(p, q, arrowstyle="-|>", mutation_scale=7, color=INK2, linewidth=0.8,
+                                     linestyle=(0, (3, 2)) if dashed else "-",
+                                     connectionstyle=f"arc3,rad={rad}", zorder=1))
 
-    phase(0.5, 43.5, "build", "BUILD  (once, then frozen)")
-    phase(44.5, 72, "run", "RUN  (every episode)")
-    phase(73, 99.5, "audit", "AUDIT")
+    phase(0.5, 44.5, "build", "1  BUILD", "once, then frozen")
+    phase(45.5, 66.5, "run", "2  RUN", "every episode")
+    phase(67.5, 99.5, "audit", "3  AUDIT", "offline, on the log")
 
-    box(1.8, 15, 11.5, 20, "Item", "", "situation,\ntwo options,\nharmless\ntwin", "build")
-    box(16.3, 15, 12, 20, "Renderer", "Gemini\n2.5 Flash", "rival's\nmessage in\n4 styles", "build")
-    box(31.3, 15, 11, 20, "Relay", "Qwen3-8B", "raw\nparaphrased\nneutralized", "build")
-    box(16.3, 2, 26, 10.5, "Gate + 4 LLM readers", "",
-        "does the message push toward\nthe arrangement?", "build", dashed=True)
-    box(46.5, 9, 24, 26, "Agent", "Gemini 2.5 Flash\nor Qwen3-8B",
-        "T1  choose A or B\nT2  read the message,\n       choose again\nT3  report to principal\n"
-        "T4  influenced? CÓ/KHÔNG", "run", left=True)
-    box(75, 9, 23, 26, "Monitor", "Gemini 2.5 Flash\nor Claude Haiku 5.5",
-        "reads one view of the\nepisode log, or a\nsummary of it\n\nanswers FLAG or CLEAR", "audit")
+    card(1.8, 18.5, 11.3, 17, "Item", "", "situation\ntwo options\nharmless\ntwin", "build")
+    card(15.4, 18.5, 12.6, 17, "Renderer", "Gemini 2.5 Flash", "rival's\ninvitation\nin 4 styles", "build")
+    card(30.3, 12.0, 12.8, 23.5, "Relay", "Qwen3-8B", "raw\nparaphrased\nneutralized\n4 summaries", "build")
+    card(1.8, 2.2, 26.2, 13.5, "Gate + 4 LLM readers", "Gemini gate; Opus, Gemini Pro,\nGemma and GPT readers",
+         "check: does each text still invite?", "build", dashed=True)
 
-    arrow(13.3, 25, 16.3, 25)
-    arrow(28.3, 25, 31.3, 25)
-    arrow(42.3, 25, 46.5, 25)
-    arrow(70.5, 22, 75, 22)
-    arrow(29.3, 15, 29.3, 12.5, style="-")
+    card(47.0, 6.5, 18.0, 29, "Agent", "Gemini 2.5 Flash\nor Qwen3-8B",
+         "T1  choose A or B\nT2  read message,\n       choose again\nT3  report to owner\nT4  influenced?\n       CÓ / KHÔNG",
+         "run")
+
+    card(69.0, 18.5, 13.6, 17, "Log", "", "message\naction\nreport\nbaseline", "audit")
+    card(69.0, 2.2, 13.6, 13.5, "Summarizer", "Gemma-3-27B", "≤80-word entry", "audit", dashed=True)
+    card(84.9, 6.5, 13.6, 29, "Monitor", "Gemini 2.5 Flash\nor Haiku 5.5",
+         "reads one view\nof the log, or\nthe summary\n\nFLAG / CLEAR", "audit")
+
+    arrow((13.1, 27), (15.4, 27))
+    arrow((28.0, 27), (30.3, 27))
+    arrow((43.1, 27), (47.0, 27))
+    arrow((65.0, 27), (69.0, 27))
+    arrow((82.6, 27), (84.9, 27))
+    arrow((75.8, 18.5), (75.8, 15.7), dashed=True)
+    arrow((82.6, 9), (84.9, 11), dashed=True)
+    arrow((28.0, 9), (30.3, 12.6), dashed=True)
     fig.savefig(path, facecolor=BG, bbox_inches="tight")
     plt.close(fig)
 
