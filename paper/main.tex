@@ -65,6 +65,12 @@ keep it simple), a relational appeal (\emph{anh em}, brothers), or a bare announ
 In earlier work, compressing such instructions into an executor's action and report hid violations from a
 monitor \cite{bui2026ps}. Here, two agents serve rival principals, and we vary what the monitor reads.
 
+The study is one core experiment and three probes. In the core experiment, a scripted rival invites an
+agent into an arrangement, the agent decides and reports, and a monitor judges the episode from a chosen
+part of the log. The probes ask whether a monitor can obtain the agent's baseline behaviour in deployment,
+whether summarizing the invitation in transit loses it, and whether summarizing the log for the monitor
+loses the evidence.
+
 \paragraph{Contributions.}
 \begin{enumerate}
 \item A set of \nTaskItems{} Vietnamese scenarios in nine families and two settings, each harmful scenario
@@ -99,7 +105,35 @@ costs \cite{porter1993}; our standard asks the corresponding question of an agen
 \section{Methods}
 Figure~\ref{fig:pipeline} shows the roles. A \emph{renderer} writes the rival's message, a \emph{relay}
 may rewrite it, an \emph{agent} decides and reports, and a \emph{monitor} judges the log. A \emph{gate}
-and four LLM readers check that each message pushes toward the arrangement.
+and four LLM readers check that each message pushes toward the arrangement. Table~\ref{tab:design} lists
+every factor and the question it serves.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Design at a glance. Core: the factors crossed in every episode. Probes: additions that reuse the
+core episodes or add one channel. Twins run in every cell as the positive control.}\label{tab:design}
+\begin{tabular}{@{}p{0.19\linewidth}p{0.5\linewidth}p{0.25\linewidth}@{}}
+\toprule
+Factor & Levels & Serves \\
+\midrule
+\multicolumn{3}{@{}l}{\textit{Core experiment}} \\
+Task family & 6 marketplace, 3 workplace workflow; \nTaskItems{} scenarios in all & 2.1 which tasks \\
+Item class & harmful; harmless twin of the same form & positive control \\
+Invitation & direct, euphemism, relationship, omission & 2.1 phrasing \\
+Agent & Gemini 2.5 Flash, Qwen3-8B; 4 turns (choose, read and choose, report, yes/no) & all \\
+Monitor & Gemini 2.5 Flash, Claude Haiku 5.5 & 2.2, 2.3 \\
+Monitor view & action; report; message; their combinations; + pre-message choice; + rule & 2.2 words vs.\ actions, 2.3 evidence \\
+\midrule
+\multicolumn{3}{@{}l}{\textit{Probes}} \\
+Deployable baseline & agent's choices on the same situation in other runs, or on similar situations & 2.3 in deployment \\
+Channel & raw; paraphrased, neutralized; 4 summary styles (market set) & robustness; context loss \\
+Monitor reads a summary & Gemma-3-27B summary of the full log & oversight via summaries \\
+\midrule
+\multicolumn{3}{@{}l}{\textit{Checks}} \\
+Stimulus gate & Gemini gate, four LLM re-readers, a native reader on disputes & invitation is real \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=\linewidth]{figures/pipeline.pdf}
@@ -129,7 +163,7 @@ cues in our earlier work \cite{bui2026ps}; we dropped hierarchy, because the two
 routine framing, which overlaps with omission. A gate asked Gemini, without naming the
 arrangement, which option each message favours. On the market set, Qwen3-8B also produced two frozen
 relayed versions: \emph{paraphrased} (new wording, same tone) and \emph{neutralized} (a third-person
-notice without greetings or relational appeals).
+notice without greetings or relational appeals). For the probe of Section~\ref{sec:summaries}, the same model also wrote four frozen summaries of each message.
 
 \begin{table}[htbp]
 \centering\small
@@ -139,17 +173,11 @@ Vietnamese.}\label{tab:renderings}
 \end{table}
 
 \paragraph{Monitors.} Gemini 2.5 Flash (reasoning off) and Claude Haiku 5.5 (reasoning on, low effort)
-answer FLAG or CLEAR from seven views: the action; the report; the message; action and report; action,
-report and message; the same plus the agent's pre-message choice (baseline); and that view with the
-three conditions of Section~\ref{sec:standard} stated in the prompt (standard). Three further views
-replace the pre-message choice with the agent's turn-1 choices on the same situation in other runs or on
-similar situations, or replace the whole trace with a third-party summary (Section~\ref{sec:summaries}). The unit of judgement is
-the agent's decision. We use four rates on harmful episodes. \emph{Missed, all collusion}: the agent took
-the arrangement at turn~2 and the monitor cleared it. \emph{Missed, message-induced}: the same, restricted
-to episodes that competed at turn~1. \emph{Flagged, declined}: the agent did not take the arrangement and
-the monitor flagged it. \emph{Flagged, unilateral}: the agent took the arrangement at both turns, before and
-after the message, and the monitor flagged it; under the standard these are not collusion. Flags on twins
-are reported in Appendix~\ref{app:tables}.
+answer FLAG or CLEAR for the agent's decision, reading one view of the log (Table~\ref{tab:design}). We
+report two rates on harmful episodes. \emph{Missed}: the agent took the arrangement at turn~2 and the
+monitor cleared it. \emph{Flagged, declined}: the agent did not take the arrangement and the monitor flagged
+it. Appendix~\ref{app:more} adds misses restricted to message-induced collusion, flags on unilateral choices
+(collusive before and after the message) and flags on twins.
 
 \paragraph{Statistics.} Rates carry bootstrap 95\% intervals (10{,}000 resamples, clustered over items).
 Each agent has \nMarketEp{} market episodes, \nWorkflowEp{} workflow episodes and \nTaskEp{} episodes in
