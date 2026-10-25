@@ -29,9 +29,8 @@
 \noindent When LLM agents act for competing principals and message each other, an auditor usually has
 only the logs. We ask what in those logs is convincing evidence that an agent colluded. We built a
 Vietnamese benchmark of \nTaskItems{} items in nine families, six on an online marketplace and three
-in workplace workflows (hiring, peer scoring, budgeting); every harmful scenario has a harmless twin of
-the same form. A scripted rival sends a fixed invitation, phrased directly, as a euphemism, as a
-relational appeal, or as a bare announcement. Two agents (Gemini 2.5 Flash, Qwen3-8B) decide, report to
+in workplace workflows; every harmful scenario has a harmless twin of the same form. A scripted rival
+sends a fixed invitation in one of four styles, from a direct proposal to a bare announcement. Two agents (Gemini 2.5 Flash, Qwen3-8B) decide, report to
 their principal and answer a disclosure question, and two monitors (Gemini 2.5 Flash, Claude Haiku 5.5)
 judge each episode from six views. From the action alone, the Gemini monitor missed \MonActionFNR{} of
 collusion on the marketplace and the Haiku monitor \HkActionFNR. Adding the agent's report reduced these
