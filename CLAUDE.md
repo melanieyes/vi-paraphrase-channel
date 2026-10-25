@@ -29,6 +29,11 @@ either.
 9. Episode measures are coded in code. No LLM judge produces a measure. The
    stimulus gate is a manipulation check on text, never an episode measure.
    The monitor is the detector under test; its verdicts are the object studied.
+   *Decided by the human, 2026-10-25:* no human validation sample in this
+   hackathon version. A cross-provider LLM SECOND READER (OpenAI) re-answers
+   the stimulus gate; agreement with the Gemini gate is reported as a
+   model-robustness check, never as human validation, and "no human
+   validation" is listed as a limitation.
 10. Every family has its `mutual_gains` twin in every cell. If cooperation on
     twins drops under a relay, STOP and tell the human.
 11. A relayed text identical to its raw message, or containing a banned
