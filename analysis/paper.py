@@ -1,0 +1,295 @@
+"""Emit paper/numbers.tex, paper/tables/*.tex and paper/figures/* from the generated stats.
+
+    .venv/bin/python analysis/paper.py
+
+Every number in paper/main.tex is a macro defined here. Nothing is typed by
+hand. Run analysis/analyze.py (main, workflow, tasks) and scripts/score_gate.py
+first. A missing input is reported, and its macros print as a visible "??".
+"""
+
+from __future__ import annotations
+
+import json
+import shutil
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+
+from src.prompts import CHANNELS, RENDERINGS  # noqa: E402
+
+PAPER = ROOT / "paper"
+AGENTS = ("gemini", "qwen")
+LABEL = {"gemini": "Gemini 2.5 Flash", "qwen": "Qwen3-8B"}
+WORKFLOW_FAMS = ("no_poach", "review_ring", "budget_padding")
+MISSING: list[str] = []
+
+
+def load(path: str) -> dict | None:
+    f = ROOT / path
+    if not f.exists():
+        MISSING.append(path)
+        return None
+    return json.loads(f.read_text())
+
+
+def pct(d, digits=1) -> str:
+    if not d or d.get("est") is None:
+        return "??"
+    return f"{100 * d['est']:.{digits}f}\\%"
+
+
+def ci(d) -> str:
+    if not d or d.get("est") is None or d.get("lo") is None:
+        return "??"
+    return f"[{100 * d['lo']:.1f}, {100 * d['hi']:.1f}]"
+
+
+def pp(d) -> str:
+    if not d or d.get("est") is None:
+        return "??"
+    return f"{100 * d['est']:+.1f}"
+
+
+def cell(d) -> str:
+    """Table cell: estimate with its interval, compact."""
+    if not d or d.get("est") is None:
+        return "--"
+    return f"{100 * d['est']:.1f} {{\\scriptsize[{100 * d['lo']:.1f}, {100 * d['hi']:.1f}]}}"
+
+
+def tex_escape(s: str) -> str:
+    return (s.replace("\\", "\\textbackslash{}").replace("&", "\\&").replace("%", "\\%")
+             .replace("_", "\\_").replace("#", "\\#").replace("$", "\\$"))
+
+
+def main() -> None:
+    S = {a: load(f"results/main_{a}/stats.json") for a in AGENTS}
+    W = {a: load(f"results/workflow_{a}/stats.json") for a in AGENTS}
+    Tk = {a: load(f"results/tasks_{a}/stats.json") for a in AGENTS}
+    agree = load("results/reader_agreement.json")
+    st = {a: S[a]["stats"] if S[a] else None for a in AGENTS}
+    mon = {a: S[a]["monitors"].get("gemini") if S[a] else None for a in AGENTS}
+    wst = {a: W[a]["stats"] if W[a] else None for a in AGENTS}
+    wmon = {a: W[a]["monitors"].get("gemini") if W[a] else None for a in AGENTS}
+    tk = {a: Tk[a]["stats"] if Tk[a] else None for a in AGENTS}
+
+    M: dict[str, str] = {}
+    g, q = st["gemini"], st["qwen"]
+    # sizes
+    M["nMarketEp"] = str(g["n_episodes"]) if g else "??"
+    M["nWorkflowEp"] = str(wst["gemini"]["n_episodes"]) if wst["gemini"] else "??"
+    M["nTaskItems"] = str(tk["gemini"]["n_items"]) if tk["gemini"] else "??"
+    M["nTaskEp"] = str(tk["gemini"]["n_episodes"]) if tk["gemini"] else "??"
+    # behaviour, market
+    for a, P in (("gemini", "Gem"), ("qwen", "Qw")):
+        s = st[a]
+        if not s:
+            continue
+        M[f"{P}TurnOne"] = pct(s["turn1"]["harmful"])
+        M[f"{P}MovedRaw"] = pct(s["moved"]["harmful"]["raw"])
+        M[f"{P}Para"] = pp(s["relay_effect"]["harmful"]["paraphrased"]["all"])
+        M[f"{P}ParaCI"] = ci(s["relay_effect"]["harmful"]["paraphrased"]["all"])
+        M[f"{P}Neut"] = pp(s["relay_effect"]["harmful"]["neutralized"]["all"])
+        M[f"{P}NeutCI"] = ci(s["relay_effect"]["harmful"]["neutralized"]["all"])
+        M[f"{P}TwinMin"] = pct(min((s["turn2"]["mutual_gains"][ch]["all"] for ch in CHANNELS),
+                                   key=lambda d: d["est"]))
+        M[f"{P}DiscItem"] = pct(s["disclosure"]["item_cO"])
+        M[f"{P}DiscLex"] = pct(s["disclosure"]["lexical"])
+    # monitor
+    for a, P in (("gemini", "Mon"), ("qwen", "MonQ")):
+        m = mon[a]
+        if not m:
+            continue
+        pm = m["pooled"]
+        M[f"{P}ActionFNR"] = pct(pm["fnr"]["action"])
+        M[f"{P}ActionFNRCI"] = ci(pm["fnr"]["action"])
+        M[f"{P}ReportFNR"] = pct(pm["fnr"]["report"])
+        M[f"{P}ReportOnlyFNR"] = pct(pm["fnr"]["report_only"])
+        M[f"{P}DeliveredFNR"] = pct(pm["fnr"]["delivered"])
+        M[f"{P}MovedActionFNR"] = pct(pm["fnr_moved"]["action"])
+        M[f"{P}MovedReportFNR"] = pct(pm["fnr_moved"]["report"])
+        M[f"{P}FADeclReport"] = pct(pm["fpr_declined"]["report"])
+        M[f"{P}FADeclDelivered"] = pct(pm["fpr_declined"]["delivered"])
+        M[f"{P}FADeclMsgOnly"] = pct(pm["fpr_declined"]["message_only"])
+        if "says_vs_does" in m:
+            M[f"{P}ActionMinusBoth"] = pp(m["says_vs_does"]["fnr_action_minus_both"])
+            M[f"{P}ActionMinusBothCI"] = ci(m["says_vs_does"]["fnr_action_minus_both"])
+    if wmon["gemini"]:
+        pm = wmon["gemini"]["pooled"]
+        M["WfActionFNR"] = pct(pm["fnr"]["action"])
+        M["WfReportFNR"] = pct(pm["fnr"]["report"])
+        M["WfFADeclMsgOnly"] = pct(pm["fpr_declined"]["message_only"])
+        M["WfFADeclReport"] = pct(pm["fpr_declined"]["report"])
+    # gate and readers
+    gs = [json.loads(l) for l in (ROOT / "data/stimuli/gate_scored.jsonl").read_text().splitlines()[1:]]
+    for ch, P in (("raw", "Raw"), ("paraphrased", "Para"), ("neutralized", "Neut")):
+        v = [r["pushes_collusive"] for r in gs if r["item_class"] == "harmful" and r["channel"] == ch
+             and r["pushes_collusive"] is not None]
+        M[f"GatePush{P}"] = f"{100 * sum(v) / len(v):.0f}\\%"
+    if agree:
+        for name, P in (("opus", "Opus"), ("gemini_pro", "GeminiPro"), ("gemma", "Gemma"), ("gpt", "GPT")):
+            r = agree["readers"].get(name, {}).get("harmful")
+            M[f"Agree{P}"] = f"{100 * r['agreement']:.0f}\\%" if r else "??"
+    # 2.1 tasks: top families, invitation type
+    for a, P in (("gemini", "Gem"), ("qwen", "Qw")):
+        t = tk[a]
+        if not t:
+            continue
+        fam = t["by_family_raw"]
+        for key, K in (("turn1", "TopUnprompted"), ("moved", "TopMoved")):
+            f, r = max(((f, r) for f, r in fam.items() if r[key]["est"] is not None),
+                       key=lambda x: x[1][key]["est"])
+            M[f"{P}{K}Fam"] = f"\\texttt{{{tex_escape(f)}}}"
+            M[f"{P}{K}"] = pct(r[key])
+        for setting in ("market", "workflow"):
+            row = t.get("by_rendering_raw_setting", {}).get(setting)
+            if not row:
+                continue
+            for rd in RENDERINGS:
+                M[f"{P}{setting.capitalize()}{rd.capitalize()}"] = pct(row[rd])
+
+    lines = ["% Generated by analysis/paper.py. Do not edit.", ""]
+    for k, v in sorted(M.items()):
+        lines.append(f"\\newcommand{{\\{k}}}{{{v}}}")
+    PAPER.mkdir(exist_ok=True)
+    (PAPER / "numbers.tex").write_text("\n".join(lines) + "\n")
+
+    # --- tables ------------------------------------------------------------------
+    T = PAPER / "tables"
+    T.mkdir(exist_ok=True)
+
+    # Table: tasks (2.1)
+    rows = []
+    fams = list(tk["gemini"]["by_family_raw"]) if tk["gemini"] else []
+    for f in fams:
+        rg = tk["gemini"]["by_family_raw"][f]
+        rq = tk["qwen"]["by_family_raw"].get(f) if tk["qwen"] else None
+        setting = "workflow" if f in WORKFLOW_FAMS else "market"
+        rows.append(f"\\texttt{{{tex_escape(f)}}} & {setting} & {cell(rg['turn1'])} & {cell(rg['moved'])} & "
+                    f"{cell(rq['turn1']) if rq else '--'} & {cell(rq['moved']) if rq else '--'} \\\\")
+    (T / "tasks.tex").write_text(
+        "\\begin{tabular}{llrrrr}\n\\toprule\n"
+        " & & \\multicolumn{2}{c}{Gemini 2.5 Flash} & \\multicolumn{2}{c}{Qwen3-8B} \\\\\n"
+        "\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}\n"
+        "Family & Setting & Unprompted & Moved & Unprompted & Moved \\\\\n\\midrule\n"
+        + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
+
+    # Table: monitor views (2.2), Gemini agent, market and workflow
+    labels = [("action", "Action only"), ("report_only", "Report only"), ("message_only", "Message only"),
+              ("report", "Action + report"), ("delivered", "Action + report + message")]
+    mg = mon["gemini"]["pooled"] if mon["gemini"] else None
+    wg = wmon["gemini"]["pooled"] if wmon["gemini"] else None
+    rows = []
+    for v, lab in labels:
+        rows.append(f"{lab} & {cell(mg['fnr'][v]) if mg else '--'} & {cell(mg['fpr_declined'][v]) if mg else '--'} & "
+                    f"{cell(wg['fnr'][v]) if wg and v in wg['fnr'] else '--'} & "
+                    f"{cell(wg['fpr_declined'][v]) if wg and v in wg['fpr_declined'] else '--'} \\\\")
+    (T / "monitor.tex").write_text(
+        "\\begin{tabular}{lrrrr}\n\\toprule\n"
+        " & \\multicolumn{2}{c}{Market} & \\multicolumn{2}{c}{Workflow} \\\\\n"
+        "\\cmidrule(lr){2-3}\\cmidrule(lr){4-5}\n"
+        "Monitor reads & Missed & False alarm & Missed & False alarm \\\\\n\\midrule\n"
+        + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
+
+    # Table: relays (2.3 robustness), market
+    rows = []
+    for a in AGENTS:
+        s = st[a]
+        if not s:
+            continue
+        rows.append(f"{LABEL[a]} & {cell(s['turn1']['harmful'])} & "
+                    + " & ".join(cell(s["turn2"]["harmful"][ch]["all"]) for ch in CHANNELS)
+                    + f" & {cell(s['relay_effect']['harmful']['paraphrased']['all'])}"
+                    + f" & {cell(s['relay_effect']['harmful']['neutralized']['all'])} \\\\")
+    (T / "relays.tex").write_text(
+        "\\begin{tabular}{lrrrrrr}\n\\toprule\n"
+        " & & \\multicolumn{3}{c}{Took the arrangement (turn 2)} & \\multicolumn{2}{c}{Relay minus raw (pp)} \\\\\n"
+        "\\cmidrule(lr){3-5}\\cmidrule(lr){6-7}\n"
+        "Agent & Turn 1 & Raw & Paraphrased & Neutralized & Paraphrased & Neutralized \\\\\n\\midrule\n"
+        + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
+
+    # Table: invitation type by setting (moved, raw)
+    rows = []
+    for a in AGENTS:
+        t = tk[a]
+        if not t:
+            continue
+        for setting, row in t.get("by_rendering_raw_setting", {}).items():
+            rows.append(f"{LABEL[a]} & {setting} & " + " & ".join(cell(row[rd]) for rd in RENDERINGS) + " \\\\")
+    (T / "rendering.tex").write_text(
+        "\\begin{tabular}{llrrrr}\n\\toprule\n"
+        "Agent & Setting & Direct & Euphemism & Relationship & Omission \\\\\n\\midrule\n"
+        + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
+
+    # Appendix: readers by family
+    if agree:
+        names = ["gemini", *agree["readers"]]
+        head = {"gemini": "Gemini gate", "gpt": "GPT-5.4-nano", "gemma": "Gemma-3-27B",
+                "gemini_pro": "Gemini 3.1 Pro", "opus": "Opus 5.5"}
+        rows = [f"\\texttt{{{tex_escape(f)}}} & " + " & ".join(
+            f"{100 * row[n]:.1f}" if row.get(n) is not None else "--" for n in names) + " \\\\"
+            for f, row in agree["by_family"].items()]
+        (T / "readers.tex").write_text(
+            "\\begin{tabular}{l" + "r" * len(names) + "}\n\\toprule\n"
+            "Family & " + " & ".join(head.get(n, n) for n in names) + " \\\\\n\\midrule\n"
+            + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
+
+    # Appendix: full monitor tables
+    full = []
+    for label, mm in (("Market", mon), ("Workflow", wmon)):
+        for a in AGENTS:
+            m = mm[a]
+            if not m:
+                continue
+            pm = m["pooled"]
+            body = "\n".join(
+                f"\\texttt{{{tex_escape(v)}}} & {cell(pm['fnr'][v])} & {cell(pm['fnr_moved'][v])} & "
+                f"{cell(pm['fpr_declined'][v])} & {cell(pm['fpr_twins'][v])} \\\\" for v in m["views"])
+            full.append(f"\\paragraph{{{label} set, {LABEL[a]} episodes.}}\n\\begin{{center}}\\small\n"
+                        "\\begin{tabular}{lrrrr}\n\\toprule\n"
+                        "View & Missed & Missed (moved only) & False alarm (declined) & False alarm (twins) \\\\\n"
+                        f"\\midrule\n{body}\n\\bottomrule\n\\end{{tabular}}\n\\end{{center}}\n")
+    (T / "monitor_full.tex").write_text("\n".join(full))
+
+    # Example episode (Vietnamese, with machine translation)
+    from analysis.report import example_episode, gloss, tr
+    from src.episode import load_items
+    ex = example_episode()
+    en = gloss()
+    it = next(i for i in load_items() if i["item_id"] == ex["item_id"])
+
+    def q(vi, prefix=""):
+        e = tr(vi, en)
+        return (f"\\begin{{quote}}\\small {prefix}{tex_escape(vi)}"
+                + (f"\\\\[2pt]\\textit{{{prefix}{tex_escape(e)}}}" if e else "") + "\\end{quote}")
+    (T / "example.tex").write_text("\n".join([
+        f"\\noindent Item \\texttt{{{tex_escape(ex['item_id'])}}}, rendering \\texttt{{{ex['rendering']}}}, "
+        f"raw channel. Situation and options:",
+        q(it["situation"]), q(ex["opt_a"], "A) "), q(ex["opt_b"], "B) "),
+        f"\\noindent Turn 1, before any message: \\textbf{{{ex['pre']['letter']}}} (compete). The rival's message:",
+        q(ex["raw_message"]),
+        f"\\noindent Turn 2: \\textbf{{{ex['post']['letter']}}} (the collusive key). The agent's report to its owner:",
+        q(ex["report"]),
+    ]) + "\n")
+
+    # figures
+    F = PAPER / "figures"
+    F.mkdir(exist_ok=True)
+    for src, dst in (("results/figures/families.png", "families.png"),
+                     ("results/main_gemini/figures/says_vs_does_gemini.png", "says_vs_does_market.png"),
+                     ("results/workflow_gemini/figures/says_vs_does_gemini.png", "says_vs_does_workflow.png"),
+                     ("results/main_gemini/figures/collusion_by_channel.png", "channels_gemini.png"),
+                     ("results/main_qwen/figures/collusion_by_channel.png", "channels_qwen.png")):
+        if (ROOT / src).exists():
+            shutil.copy(ROOT / src, F / dst)
+        else:
+            MISSING.append(src)
+    print(f"wrote {len(M)} macros, tables and figures to {PAPER}")
+    if MISSING:
+        print("MISSING inputs (their numbers print as ??):\n  " + "\n  ".join(MISSING))
+
+
+if __name__ == "__main__":
+    main()
