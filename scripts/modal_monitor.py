@@ -71,7 +71,7 @@ def _score(jobs: list[dict], mcfg: dict, qwen_url: str | None) -> list[dict]:
         return {**{k: j[k] for k in ("episode_id", "view")}, "reply": reply,
                 "verdict": v, "kind": kind, "error": err}
 
-    with ThreadPoolExecutor(16) as ex:
+    with ThreadPoolExecutor(48 if mcfg.get("app") else 16) as ex:
         return list(ex.map(one, jobs))
 
 

@@ -264,3 +264,16 @@ stimuli, episodes, monitors) was rebuilt and rerun from scratch under
   80%). Per the positive-control rule this is reported as context loss (the summary
   erased the proposal, harmful or not), not as a defence. Gemini's code-switch drop is
   reported as one agent's result; it did not replicate on Qwen.
+
+## Monitor change: Gemini 2.5 Flash out, Aya Expanse 8B in (2026-10-26, the human)
+
+- **Design error.** Gemini 2.5 Flash was both an agent and a monitor, so on Gemini's
+  episodes it judged its own behaviour. The human ruled it a serious design error and
+  removed it from the monitor role entirely.
+- **Monitors now:** Claude Haiku 5.5 and **Aya Expanse 8B** (`CohereLabs/aya-expanse-8b`,
+  open weights, lists Vietnamese among its languages, shares no family with either agent
+  or with Haiku). Served with vLLM on Modal (L40S, max_model_len 8192, no reasoning
+  parser), temperature 0, max 16 tokens, the same settings as the earlier Qwen monitor.
+  No smoke run, at the human's request; the full set of views was scored directly.
+- The Gemini 2.5 Flash monitor verdicts are kept, unused, in
+  `data/archive/monitor_gemini_self/`. No reported number reads them.

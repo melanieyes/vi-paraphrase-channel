@@ -81,6 +81,15 @@ monitors:
     model: gemini-2.5-flash
     temperature: 0.0
     reasoning: false
+  # Replaces gemini as the main second monitor (2026-10-26, the human): Gemini 2.5 Flash is also an
+  # agent, so it would judge its own episodes. Aya Expanse 8B is open-weight, lists Vietnamese, and
+  # shares no family with either agent or with Haiku. Same settings as the qwen monitor.
+  aya:
+    app: vllm-aya-expanse-8b   # L40S, max_model_len 8192, no reasoning parser
+    model: CohereLabs/aya-expanse-8b
+    temperature: 0.0
+    reasoning: false
+    max_tokens: 16
   qwen:
     app: vllm-qwen3-8b-ep
     model: Qwen/Qwen3-8B
