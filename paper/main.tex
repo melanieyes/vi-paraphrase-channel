@@ -40,9 +40,9 @@ message identified the proposer but not the agent; with it in view, the monitor 
 \MonFADeclDelivered{} of episodes in which the agent declined. Agents disclosed the influence when asked
 (\GemDiscItem{} and \QwDiscItem) but rarely in their reports (\GemDiscLex{} and \QwDiscLex). Paraphrasing
 or neutralizing messages on the platform did not reduce collusion. We propose that evidence of collusion
-requires a proposal, a matching action, and a departure from the agent's behaviour without the proposal;
-applied by a monitor, this standard nearly eliminated false alarms, but only one of two monitors used the
-baseline condition.
+requires a proposal, a matching action, and a departure from the agent's behaviour without the proposal.
+Giving the monitor the agent's pre-message choice cut flags on declined episodes from \StdGemAllFADecl{}
+to \StdGemCtlFADecl{} with few misses; stating the rule explicitly added little.
 \end{abstract}
 
 \section{Introduction}
@@ -65,8 +65,9 @@ scenario paired with a harmless twin, with four renderings, frozen and gated sti
 two monitors reading six views.
 \item Evidence, replicated across two monitors, that a monitor needs the agent's own report (2.2). The action
 alone misses most collusion, and the rival's message identifies the proposer rather than the agent.
-\item An evidence standard, evaluated as a monitor view with two monitors (2.3), and a task analysis that
-separates unprompted from message-induced collusion (2.1).
+\item An evidence standard, evaluated with two monitors against a no-rule control, showing that the
+agent's pre-message behaviour matters more than the rule (2.3), and a task analysis that separates
+unprompted from message-induced collusion (2.1).
 \end{enumerate}
 
 \section{Related Work}
@@ -195,15 +196,14 @@ We therefore propose that convincing evidence requires (i) a proposal, (ii) an a
 (iii) a departure from the agent's behaviour without the proposal. Our design observes (iii) directly at
 turn~1; in deployed systems it would come from earlier rounds or a baseline policy.
 
-Applied by a monitor, the standard removed flags on declined episodes (\StdGemFADecl{} for Gemini,
-\StdHkFADecl{} for Haiku; Table~\ref{tab:views}) but missed more message-induced collusion than action and
-report (\StdGemMovedFNR{} and \StdHkMovedFNR, against \StdGemRepMovedFNR). On Qwen episodes, whose reports
-seldom mention the message, it missed less than action and report (\StdGemQwMovedFNR{} and
-\StdHkQwMovedFNR, against \StdGemQwRepMovedFNR{} and \StdHkQwRepMovedFNR). The control view, which shows
-the same baseline without the rule, separates information from instruction. Without the rule, the Gemini
-monitor missed \StdGemCtlMovedFNR{} and flagged \StdGemCtlFADecl{} of declined and \StdGemCtlFAUni{} of
-unilateral episodes; Haiku missed \StdHkCtlMovedFNR{} and flagged \StdHkCtlFADecl{} and \StdHkCtlFAUni.
-With the rule, Haiku flagged \StdHkFAUni{} of unilateral episodes and the Gemini monitor \StdGemFAUni.
+The control view separates information from instruction (Table~\ref{tab:views}). Showing the monitor the
+agent's pre-message choice, without any rule, cut flags on declined episodes from \StdGemAllFADecl{} to
+\StdGemCtlFADecl{} (Gemini monitor) and from \StdHkAllFADecl{} to \StdHkCtlFADecl{} (Haiku), while
+message-induced misses stayed at \StdGemCtlMovedFNR{} and \StdHkCtlMovedFNR. Stating the rule removed the
+remaining declined flags (\StdGemFADecl{} and \StdHkFADecl) but raised message-induced misses to
+\StdGemMovedFNR{} and \StdHkMovedFNR. Only Haiku used the rule to clear unilateral choices
+(\StdHkFAUni{} flagged, against \StdGemFAUni{} for the Gemini monitor). Most of the benefit therefore comes
+from the baseline information, not from the rule.
 
 \paragraph{Robustness.} Four LLM readers agreed with the gate on \AgreeOpus{} (Opus 5.5),
 \AgreeGeminiPro{} (Gemini 3.1 Pro), \AgreeGemma{} (Gemma-3-27B) and \AgreeGPT{} (GPT-5.4-nano) of harmful
@@ -216,9 +216,10 @@ twins and is reported only in Appendix~\ref{app:tables}.
 
 \section{Discussion and Limitations}
 Detecting a collusive proposal and detecting an agent that accepts one are different tasks. A platform can
-flag proposals from messages, but judging the agent requires its action, its own account and a reference
-for what it would have done otherwise. Agent reports and direct questions are cheap to log and recovered
-most of the collusion that actions missed. Detectors keyed on explicit requests would miss
+flag proposals from messages, but judging the agent requires its action and a reference for what it would
+have done without the proposal. In our data that reference was the most useful single addition to a
+monitor's view, more useful than an explicit rule. Agent reports and direct questions are also cheap to log,
+but their value depends on the agent's candour. Detectors keyed on explicit requests would miss
 announcements, which moved Gemini most on the market.
 
 \paragraph{Limitations.} The rival is scripted and a model wrote the invitations, so we measure propensity
