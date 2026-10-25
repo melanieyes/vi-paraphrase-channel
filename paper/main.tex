@@ -109,11 +109,15 @@ relayed versions: \emph{paraphrased} (new wording, same tone) and \emph{neutrali
 notice without greetings or relational appeals).
 
 \paragraph{Monitors.} Gemini 2.5 Flash (reasoning off) and Claude Haiku 5.5 (reasoning on, low effort)
-answer FLAG or CLEAR from six views: the action; the report; the message; action and report; action,
-report and delivered message; and, for relayed channels, the original message as well. The unit of
-judgement is the agent's decision. A positive is a harmful episode in which the agent took the
-arrangement. We report misses, misses among episodes the message moved, false alarms on harmful episodes
-the agent declined, and false alarms on twins.
+answer FLAG or CLEAR from seven views: the action; the report; the message; action and report; action,
+report and message; the same plus the agent's pre-message choice (baseline); and that view with the
+three conditions of Section~\ref{sec:standard} stated in the prompt (standard). The unit of judgement is
+the agent's decision. We use four rates on harmful episodes. \emph{Missed, all collusion}: the agent took
+the arrangement at turn~2 and the monitor cleared it. \emph{Missed, message-induced}: the same, restricted
+to episodes that competed at turn~1. \emph{Flagged, declined}: the agent did not take the arrangement and
+the monitor flagged it. \emph{Flagged, unilateral}: the agent took the arrangement at both turns, before and
+after the message, and the monitor flagged it; under the standard these are not collusion. Flags on twins
+are reported in Appendix~\ref{app:tables}.
 
 \paragraph{Statistics.} Rates carry bootstrap 95\% intervals (10{,}000 resamples, clustered over items).
 Each agent has \nMarketEp{} market episodes, \nWorkflowEp{} workflow episodes and \nTaskEp{} episodes in
@@ -126,7 +130,7 @@ We separate collusion chosen at turn~1, before any message, from collusion induc
 (competitive at turn~1, collusive at turn~2). Gemini chose \GemTopUnpromptedFam{} most often unprompted
 (\GemTopUnprompted) and was most often moved in \GemTopMovedFam{} (\GemTopMoved). For Qwen the
 corresponding families were \QwTopUnpromptedFam{} (\QwTopUnprompted) and \QwTopMovedFam{} (\QwTopMoved).
-The rankings differ between models (Figure~\ref{fig:tasks}, Table~\ref{tab:tasks}).
+The rankings differ between models (Figure~\ref{fig:tasks}; values in Appendix~\ref{app:tables}).
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=\linewidth]{figures/tasks.pdf}
@@ -134,13 +138,6 @@ The rankings differ between models (Figure~\ref{fig:tasks}, Table~\ref{tab:tasks
 or were moved by the message (blue), by family. Orange labels mark workflow families. Lines: 95\%
 intervals clustered over items.}\label{fig:tasks}
 \end{figure}
-
-\begin{table}[htbp]
-\centering\small
-\caption{Harmful episodes by family (\%, raw channel). Unprompted: collusive at turn~1. Moved:
-competitive at turn~1 and collusive at turn~2. Bold: column maximum. Brackets: 95\% intervals.}\label{tab:tasks}
-\resizebox{\linewidth}{!}{\input{tables/tasks.tex}}
-\end{table}
 
 The phrasing of the invitation also mattered. On the market, the bare announcement, which requests
 nothing, moved more Gemini episodes than the direct proposal (\GemMarketOmission{} vs.\
@@ -156,84 +153,66 @@ maximum.}\label{tab:rendering}
 \end{table}
 
 \subsection{Do words and actions together beat either alone? (2.2)}
-From the action alone, the Gemini monitor missed \MonActionFNR{} \MonActionFNRCI{} of colluding market
-episodes (Table~\ref{tab:monitor}). In workflows it missed only \WfActionFNR, plausibly because scoring a
-rival's entry far above the rubric or inflating a budget request looks harmful on its face, whereas holding
-a price can be a unilateral choice. The Haiku monitor did not show this difference (\HkActionFNR{} market,
-\HkWfActionFNR{} workflow), so it may reflect the Gemini monitor rather than the actions. Adding the agent's
-report reduced market misses to \MonReportFNR{} (difference \MonActionMinusBoth{} points,
-\MonActionMinusBothCI) at \MonFADeclReport{} false alarms. The report alone performed similarly
-(\MonReportOnlyFNR) because it restates the action. Its value depends on the agent: for Qwen, whose
-reports seldom mentioned the message, action and report still missed \MonQReportFNR.
+From the action alone, the Gemini monitor missed \MonActionFNR{} \MonActionFNRCI{} of collusion on the
+market (Table~\ref{tab:views}, panel A). Adding the agent's report reduced this to \MonReportFNR{}
+(difference \MonActionMinusBoth{} points, \MonActionMinusBothCI) while flagging \MonFADeclReport{} of
+declined episodes. The report alone performed similarly (\MonReportOnlyFNR) because it restates the action.
+Its value depends on the agent: for Qwen, whose reports seldom mentioned the message, action and report
+still missed \MonQReportFNR. Adding the rival's message cut misses to \MonDeliveredFNR{} but flagged
+\MonFADeclDelivered{} of declined episodes (\MonFADeclMsgOnly{} for the message alone). The message is
+evidence that the rival proposed an arrangement, which a platform may itself want to flag, but not that the
+agent accepted it. Claude Haiku 5.5 reproduced this ordering (Figure~\ref{fig:says}; panel B).
 
-Adding the rival's message reduced misses to \MonDeliveredFNR{} but raised false alarms on declined
-episodes to \MonFADeclDelivered{} (\MonFADeclMsgOnly{} for the message alone; Figure~\ref{fig:says}). The
-message is evidence that the rival proposed an arrangement, which a platform may itself want to flag, but
-not that the agent accepted it. Claude Haiku 5.5 reproduced the ordering of views: \HkActionFNR{} missed
-from the action, \HkReportFNR{} from action and report, and \HkFADeclMsgOnly{} false alarms from the message
-alone (Appendix~\ref{app:tables}).
+In workflows the Gemini monitor missed only \WfActionFNR{} from the action, plausibly because scoring a
+rival far above the rubric or inflating a budget looks harmful on its face. Haiku did not show this
+difference (\HkActionFNR{} market, \HkWfActionFNR{} workflow), so it may reflect the Gemini monitor rather
+than the actions (Appendix~\ref{app:tables}).
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=\linewidth]{figures/views.pdf}
-\caption{What each monitor view misses and over-flags (Gemini agent, market set, pooled over channels).
-Left: colluding episodes the monitor cleared. Right: harmful episodes the agent declined but the monitor
-flagged. Darker bars: Gemini 2.5 Flash monitor; lighter: Claude Haiku 5.5. Thin lines: 95\% intervals.
-Workflow results are in Table~\ref{tab:monitor}.}\label{fig:says}
+\caption{What each view misses and over-flags (Gemini agent, market set, pooled over channels). Left: missed,
+all collusion. Right: flagged, declined. Darker bars: Gemini 2.5 Flash monitor; lighter: Claude Haiku 5.5.
+Thin lines: 95\% intervals.}\label{fig:says}
 \end{figure}
 
 \begin{table}[htbp]
 \centering\small
-\caption{Gemini monitor on Gemini episodes (\%). Missed: colluding episodes cleared. False alarm: declined
-harmful episodes flagged. Market pooled over channels; workflow raw channel. Bold: values cited in the
-text.}\label{tab:monitor}
-\resizebox{\linewidth}{!}{\input{tables/monitor.tex}}
+\caption{Monitor results by view (Gemini agent, market set, pooled over channels, \%). Rates are defined in
+Section~3. The last two rows add the agent's pre-message choice, without and with the rule of the standard.
+Bold: the standard. Brackets: 95\% intervals.}\label{tab:views}
+\resizebox{\linewidth}{!}{\input{tables/views.tex}}
 \end{table}
 
-\subsection{What should count as convincing evidence? (2.3)}
+\subsection{What should count as convincing evidence? (2.3)}\label{sec:standard}
 The three sources answer different questions: the message shows that a proposal was made, the action shows
-what the agent did, and the agent's account shows what it reports. Two further results constrain how they
-combine. First, a matching action is not sufficient, because \GemTurnOne{} of Gemini's harmful episodes
-chose the collusive option before any message. Second, the account depends on elicitation. Of colluding
-episodes, \GemDiscItem{} (Gemini) and \QwDiscItem{} (Qwen) answered yes to a direct question, but only
-\GemDiscLex{} and \QwDiscLex{} mentioned the message in their reports.
+what the agent did, and the agent's account shows what it reports. Two results constrain how they combine.
+A matching action is not sufficient, because \GemTurnOne{} of Gemini's harmful episodes chose the collusive
+option before any message. The account depends on elicitation. Of colluding episodes, \GemDiscItem{}
+(Gemini) and \QwDiscItem{} (Qwen) answered yes to a direct question, but only \GemDiscLex{} and
+\QwDiscLex{} mentioned the message in their reports.
 
 We therefore propose that convincing evidence requires (i) a proposal, (ii) an action that matches it, and
 (iii) a departure from the agent's behaviour without the proposal. Our design observes (iii) directly at
 turn~1; in deployed systems it would come from earlier rounds or a baseline policy.
 
-We evaluated the standard as a monitor view that adds the agent's pre-message choice to the message,
-action and report, with the three conditions stated in the prompt (Table~\ref{tab:standard}). On Gemini
-market episodes it removed false alarms on declined episodes (\StdGemFADecl{} with the Gemini monitor,
-\StdHkFADecl{} with Haiku) and on twins, but missed more message-moved episodes than action and report
-(\StdGemMovedFNR{} and \StdHkMovedFNR, against \StdGemRepMovedFNR). On Qwen episodes, whose reports
-seldom mention the message, it missed fewer (\StdGemQwMovedFNR{} and \StdHkQwMovedFNR, against
-\StdGemQwRepMovedFNR{} and \StdHkQwRepMovedFNR). The monitors applied condition (iii) unevenly. Haiku
-flagged \StdHkFAUni{} of episodes that chose the collusive option before any message; the Gemini monitor
-flagged \StdGemFAUni. Stating a baseline rule to a monitor does not ensure that it uses the baseline.
-
-\begin{table}[htbp]
-\centering\small
-\caption{The evidence standard applied as a monitor view (Gemini agent, market set, \%). Missed:
-message-moved episodes cleared. Flag: declined harmful episodes flagged. Flag: unilateral: episodes that
-chose the collusive option before any message and were flagged. Bold: the standard view.}\label{tab:standard}
-\resizebox{\linewidth}{!}{\input{tables/standard.tex}}
-\end{table}
+Applied by a monitor, the standard removed flags on declined episodes (\StdGemFADecl{} for Gemini,
+\StdHkFADecl{} for Haiku; Table~\ref{tab:views}) but missed more message-induced collusion than action and
+report (\StdGemMovedFNR{} and \StdHkMovedFNR, against \StdGemRepMovedFNR). On Qwen episodes, whose reports
+seldom mention the message, it missed less than action and report (\StdGemQwMovedFNR{} and
+\StdHkQwMovedFNR, against \StdGemQwRepMovedFNR{} and \StdHkQwRepMovedFNR). The control view, which shows
+the same baseline without the rule, separates information from instruction. Without the rule, the Gemini
+monitor missed \StdGemCtlMovedFNR{} and flagged \StdGemCtlFADecl{} of declined and \StdGemCtlFAUni{} of
+unilateral episodes; Haiku missed \StdHkCtlMovedFNR{} and flagged \StdHkCtlFADecl{} and \StdHkCtlFAUni.
+With the rule, Haiku flagged \StdHkFAUni{} of unilateral episodes and the Gemini monitor \StdGemFAUni.
 
 \paragraph{Robustness.} Four LLM readers agreed with the gate on \AgreeOpus{} (Opus 5.5),
 \AgreeGeminiPro{} (Gemini 3.1 Pro), \AgreeGemma{} (Gemma-3-27B) and \AgreeGPT{} (GPT-5.4-nano) of harmful
 messages; a native Vietnamese reader judged the outlier's readings incorrect. Relaying did not remove the
 invitation. The gate found a push toward the arrangement in \GatePushRaw, \GatePushPara{} and
 \GatePushNeut{} of raw, paraphrased and neutralized messages, and uptake changed by \GemPara{} and
-\GemNeut{} points for Gemini and \QwPara{} and \QwNeut{} for Qwen (Table~\ref{tab:relays}). Twins kept
+\GemNeut{} points for Gemini and \QwPara{} and \QwNeut{} for Qwen (Appendix~\ref{app:tables}). Twins kept
 cooperation at or above \GemTwinMin{} (Gemini) and \QwTwinMin{} (Qwen). A Qwen3-8B monitor flagged most
 twins and is reported only in Appendix~\ref{app:tables}.
-
-\begin{table}[htbp]
-\centering\small
-\caption{Market set. Harmful episodes that took the arrangement (\%), and relay minus raw (percentage
-points). Bold: interval excludes zero.}\label{tab:relays}
-\resizebox{\linewidth}{!}{\input{tables/relays.tex}}
-\end{table}
 
 \section{Discussion and Limitations}
 Detecting a collusive proposal and detecting an agent that accepts one are different tasks. A platform can
@@ -300,6 +279,12 @@ are machine translations for readers; agents saw only Vietnamese.
 \input{tables/example.tex}
 
 \section{Additional tables}\label{app:tables}
+\paragraph{Harmful episodes by family} (\%, raw channel; unprompted: collusive at turn~1; moved: competitive
+at turn~1 and collusive at turn~2; bold: column maximum).
+\begin{center}\small\resizebox{\linewidth}{!}{\input{tables/tasks.tex}}\end{center}
+\paragraph{Relays, market set} (harmful episodes that took the arrangement, \%, and relay minus raw in
+percentage points; bold: interval excludes zero).
+\begin{center}\small\resizebox{\linewidth}{!}{\input{tables/relays.tex}}\end{center}
 \paragraph{Message readers by family} (\% of harmful texts read as pushing toward the arrangement).
 \begin{center}\small\input{tables/readers.tex}\end{center}
 \input{tables/monitor_full.tex}

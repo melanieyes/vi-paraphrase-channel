@@ -148,6 +148,10 @@ def main() -> None:
             M[f"{P}RepFAUni"] = pct(pm["fpr_unilateral"]["report"])
             M[f"{P}RepMovedFNR"] = pct(pm["fnr_moved"]["report"])
             M[f"{P}AllFADecl"] = pct(pm["fpr_declined"]["delivered"])
+            if "baseline_info" in mm["views"]:
+                M[f"{P}CtlMovedFNR"] = pct(pm["fnr_moved"]["baseline_info"])
+                M[f"{P}CtlFADecl"] = pct(pm["fpr_declined"]["baseline_info"])
+                M[f"{P}CtlFAUni"] = pct(pm["fpr_unilateral"]["baseline_info"])
         mq = S["qwen"]["monitors"].get(mname) if S["qwen"] else None
         if mq and "standard" in mq["views"]:
             M[f"{P}QwMovedFNR"] = pct(mq["pooled"]["fnr_moved"]["standard"])
@@ -225,50 +229,33 @@ def main() -> None:
         "Family & Setting & Unprompted & Moved & Unprompted & Moved \\\\\n\\midrule\n"
         + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
 
-    # Table: monitor views (2.2), Gemini agent, market and workflow
-    labels = [("action", "Action only"), ("report_only", "Report only"), ("message_only", "Message only"),
-              ("report", "Action + report"), ("delivered", "Action + report + message")]
-    mg = mon["gemini"]["pooled"] if mon["gemini"] else None
-    wg = wmon["gemini"]["pooled"] if wmon["gemini"] else None
-    # Bold: what the text argues from. Missing from the action alone, both numbers
-    # for action + report, and false alarms from the message alone.
-    key_missed, key_fa = {"action", "report"}, {"report", "message_only"}
-    rows = []
-    for v, lab in labels:
-        rows.append(f"{lab} & {cell(mg['fnr'][v], v in key_missed) if mg else '--'} & "
-                    f"{cell(mg['fpr_declined'][v], v in key_fa) if mg else '--'} & "
-                    f"{cell(wg['fnr'][v], v in key_missed) if wg and v in wg['fnr'] else '--'} & "
-                    f"{cell(wg['fpr_declined'][v], v in key_fa) if wg and v in wg['fpr_declined'] else '--'} \\\\")
-    (T / "monitor.tex").write_text(
-        "\\begin{tabular}{lrrrr}\n\\toprule\n"
-        " & \\multicolumn{2}{c}{Market} & \\multicolumn{2}{c}{Workflow} \\\\\n"
-        "\\cmidrule(lr){2-3}\\cmidrule(lr){4-5}\n"
-        "Monitor reads & Missed & False alarm & Missed & False alarm \\\\\n\\midrule\n"
-        + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
-
-    # Table: the evidence standard (2.3). Rows: views; columns: per monitor, misses among
-    # message-moved episodes, flags on declined episodes, flags on unilateral choices.
-    std_rows = [("action", "Action only"), ("report", "Action + report"),
-                ("delivered", "Action + report + message"), ("standard", "Standard (+ baseline, rule)")]
-    mons = [(n, S["gemini"]["monitors"].get(n)) for n in ("gemini", "haiku")] if S["gemini"] else []
-    rows = []
-    for v, lab in std_rows:
-        cells = []
-        for n, mm in mons:
-            if not mm or v not in mm["views"]:
-                cells += ["--", "--", "--"]
+    # Table: what each monitor view misses and flags (2.2 and 2.3). Gemini agent, market set,
+    # pooled over channels; panel A Gemini monitor, panel B Haiku monitor.
+    VIEW_ROWS = [("action", "Action only"), ("report_only", "Report only"), ("message_only", "Message only"),
+                 ("report", "Action + report"), ("delivered", "Action + report + message"),
+                 ("baseline_info", "\\quad + baseline (no rule)"), ("standard", "\\quad + baseline and rule (standard)")]
+    METRICS = ("fnr", "fnr_moved", "fpr_declined", "fpr_unilateral")
+    body = []
+    for name, title in (("gemini", "A. Gemini 2.5 Flash monitor"), ("haiku", "B. Claude Haiku 5.5 monitor")):
+        mm = S["gemini"]["monitors"].get(name) if S["gemini"] else None
+        if not mm:
+            continue
+        body.append(f"\\multicolumn{{5}}{{l}}{{\\textit{{{title}}}}} \\\\")
+        for v, lab in VIEW_ROWS:
+            if v not in mm["views"]:
                 continue
             pm = mm["pooled"]
             bold = v == "standard"
-            cells += [cell(pm["fnr_moved"][v], bold), cell(pm["fpr_declined"][v], bold),
-                      cell(pm.get("fpr_unilateral", {}).get(v), bold)]
-        rows.append(f"{lab} & " + " & ".join(cells) + " \\\\")
-    (T / "standard.tex").write_text(
-        "\\begin{tabular}{lrrrrrr}\n\\toprule\n"
-        " & \\multicolumn{3}{c}{Gemini 2.5 Flash monitor} & \\multicolumn{3}{c}{Claude Haiku 5.5 monitor} \\\\\n"
-        "\\cmidrule(lr){2-4}\\cmidrule(lr){5-7}\n"
-        "Monitor reads & Missed & Flag: declined & Flag: unilateral & Missed & Flag: declined & Flag: unilateral \\\\\n\\midrule\n"
-        + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
+            body.append(f"{lab} & " + " & ".join(cell(pm.get(k, {}).get(v), bold) for k in METRICS) + " \\\\")
+        body.append("\\midrule")
+    if body and body[-1] == "\\midrule":
+        body.pop()
+    (T / "views.tex").write_text(
+        "\\begin{tabular}{lrrrr}\n\\toprule\n"
+        " & \\multicolumn{2}{c}{Missed} & \\multicolumn{2}{c}{Flagged} \\\\\n"
+        "\\cmidrule(lr){2-3}\\cmidrule(lr){4-5}\n"
+        "Monitor reads & all collusion & message-induced & declined & unilateral \\\\\n\\midrule\n"
+        + "\n".join(body) + "\n\\bottomrule\n\\end{tabular}\n")
 
     # Table: relays (2.3 robustness), market
     rows = []
@@ -328,11 +315,12 @@ def main() -> None:
                 pm = m["pooled"]
                 body = "\n".join(
                     f"\\texttt{{{tex_escape(v)}}} & {cell(pm['fnr'][v])} & {cell(pm['fnr_moved'][v])} & "
-                    f"{cell(pm['fpr_declined'][v])} & {cell(pm['fpr_twins'][v])} \\\\" for v in m["views"])
+                    f"{cell(pm['fpr_declined'][v])} & {cell(pm.get('fpr_unilateral', {}).get(v))} & "
+                    f"{cell(pm['fpr_twins'][v])} \\\\" for v in m["views"])
                 full.append(f"\\paragraph{{{mlabel}, {label.lower()} set, {LABEL[a]} episodes.}}\n"
-                            "\\begin{center}\\small\n\\begin{tabular}{lrrrr}\n\\toprule\n"
-                            "View & Missed & Missed (moved only) & False alarm (declined) & False alarm (twins) \\\\\n"
-                            f"\\midrule\n{body}\n\\bottomrule\n\\end{{tabular}}\n\\end{{center}}\n")
+                            "\\begin{center}\\small\\resizebox{\\linewidth}{!}{\\begin{tabular}{lrrrrr}\n\\toprule\n"
+                            "View & Missed: all & Missed: message-induced & Flagged: declined & Flagged: unilateral & Flagged: twins \\\\\n"
+                            f"\\midrule\n{body}\n\\bottomrule\n\\end{{tabular}}}}\n\\end{{center}}\n")
     (T / "monitor_full.tex").write_text("\n".join(full))
 
     # Example episode (Vietnamese, with machine translation)
