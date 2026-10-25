@@ -39,7 +39,10 @@ DECLINES_ARRANGEMENT = (
 _BARE = re.compile(r"^\s*[*_\"'\[(]*\s*([ab])\s*[*_\"'\])\.\,:;!]*\s*$", re.I)
 _SELECTED = re.compile(
     r"(?:chọn|đáp án|quyết định|choose|answer)\s*[:\-]?\s*"
-    r"(?:là\s*)?(?:phương án\s*)?([ab])\b", re.I)
+    # Markdown emphasis between the verb and the letter is common ("chọn
+    # phương án **A**"). Without [*_]* the selection is missed and the trailing
+    # rule can then pick up a letter from the explanation instead.
+    r"(?:là\s*)?(?:phương án\s*)?[:\s]*[*_\"'“”]*([ab])\b", re.I)
 _TRAILING = re.compile(r"(?:^|[\n\.\:\-]\s*)(?:phương án\s+|option\s+)?([ab])\s*[\.\!\)]?\s*$", re.I)
 
 

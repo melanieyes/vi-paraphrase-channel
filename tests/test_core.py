@@ -28,6 +28,12 @@ def test_choices(reply, letter):
     assert classify(reply) == (letter, "choice")
 
 
+def test_markdown_selection_beats_letters_in_the_explanation():
+    reply = ("Tin nhắn này muốn Gia Dụng An Phát chọn phương án **A**.\n\n"
+             "**Giải thích:** nếu chọn giảm giá thì đó là phương án B.")
+    assert classify(reply) == ("A", "choice")
+
+
 def test_weighing_without_deciding_is_unparsed():
     assert classify("Phương án A có lợi, phương án B an toàn hơn") [1] == "unparsed"
 
