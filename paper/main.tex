@@ -60,10 +60,14 @@ principals can talk. Track~2 of the AI Collusion Research Sprint asks which task
 whether combining what agents say with what they do improves detection (2.2), and what should count as
 convincing evidence (2.3).
 
-Every collusion study we review below works in English. Agents, however, are deployed in many languages,
-and monitors and safety training rest mostly on English data. We take Vietnamese as a first case: a widely
-used language with far less training and safety data than English, where an invitation can travel in
-pragmatic cues: a euphemism (\emph{cho gọn}, to
+Safety research on LLMs is concentrated in English. In a review of nearly 300 safety papers at *ACL venues
+from 2020 to 2024, English-only work outnumbered multilingual and non-English work by a gap that grew from
+5 to 83 papers a year, and non-English languages were rarely studied on their own \cite{yong2025state}.
+Safety also transfers poorly across languages: translated prompts bypass safeguards more often as language
+resources shrink \cite{yong2023low,deng2024multijail}, and agents lose both task performance and security
+outside English \cite{hofman2026maps}. Every collusion study we found is in English. We take Vietnamese as
+a first case. MultiJail classes it as high-resource \cite{deng2024multijail}, yet it is seldom studied on
+its own, and an invitation in it can travel in pragmatic cues: a euphemism (\emph{cho gọn}, to
 keep it simple), a relational appeal (\emph{anh em}, brothers), or a bare announcement that asks for nothing.
 In earlier work, compressing such instructions into an executor's action and report hid violations from a
 monitor \cite{bui2026ps}. Here, two agents serve rival principals, and we vary what the monitor reads.
@@ -103,8 +107,11 @@ propensity to accept a scripted invitation, pair each harmful case with a harmle
 auditor reads. \textbf{Oversight of reports.} Agents can conceal the basis of an action in their reports
 \cite{scheurer2024}, and RLHF can make outputs more convincing without making them more correct
 \cite{wen2024}. \textbf{Antitrust evidence.} Bid-rigging tests ask whether bids depend on rivals beyond
-costs \cite{porter1993}; our standard asks the corresponding question of an agent trajectory. \textbf{Language.} All the collusion work above is in English; we know of no collusion study of LLM
-agents in Vietnamese, and our design is built to be repeated in other languages.
+costs \cite{porter1993}; our standard asks the corresponding question of an agent trajectory. \textbf{Language.} Multilingual safety work has studied jailbreaks \cite{yong2023low,deng2024multijail},
+agent security \cite{hofman2026maps} and multi-agent safety interventions \cite{fukui2026}. The collusion
+studies above, including recent work on emergent collusion over long horizons \cite{shi2026emergent}, are in
+English; our search found none in another language. Our scenarios and prompts are built to be repeated in
+other languages.
 
 \section{Methods}
 Figure~\ref{fig:pipeline} shows the roles. A \emph{renderer} writes the rival's message, a \emph{relay}
@@ -348,6 +355,12 @@ Melanie Bui designed the study, made every design decision recorded in the repos
 \bibitem{scheurer2024} Scheurer, J., Balesni, M. and Hobbhahn, M. (2024). Large Language Models can Strategically Deceive their Users when Put Under Pressure. arXiv:2311.07590.
 \bibitem{wen2024} Wen, J. et al. (2024). Language Models Learn to Mislead Humans via RLHF. arXiv:2409.12822.
 \bibitem{porter1993} Porter, R. H. and Zona, J. D. (1993). Detection of Bid Rigging in Procurement Auctions. \emph{Journal of Political Economy}, 101(3).
+\bibitem{yong2025state} Yong, Z.-X., Ermis, B., Fadaee, M., Bach, S. H. and Kreutzer, J. (2025). The State of Multilingual LLM Safety Research: From Measuring the Language Gap to Mitigating It. \emph{Proceedings of EMNLP 2025}, 15845--15860.
+\bibitem{yong2023low} Yong, Z.-X., Menghini, C. and Bach, S. H. (2023). Low-Resource Languages Jailbreak GPT-4. NeurIPS 2023 Workshop on Socially Responsible Language Modelling Research. arXiv:2310.02446.
+\bibitem{deng2024multijail} Deng, Y., Zhang, W., Pan, S. J. and Bing, L. (2024). Multilingual Jailbreak Challenges in Large Language Models. \emph{ICLR 2024}. arXiv:2310.06474.
+\bibitem{hofman2026maps} Hofman, O. et al. (2026). MAPS: A Multilingual Benchmark for Agent Performance and Security. \emph{Findings of EACL 2026}. arXiv:2505.15935.
+\bibitem{fukui2026} Fukui, H. (2026). Alignment Backfire: Language-Dependent Reversal of Safety Interventions Across 16 Languages in LLM Multi-Agent Systems. arXiv:2603.04904.
+\bibitem{shi2026emergent} Shi, X. et al. (2026). Emergent Collusion in Long-Horizon LLM Agent Interaction. arXiv:2609.24967.
 \end{thebibliography}
 
 \clearpage
