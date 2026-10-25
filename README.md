@@ -37,3 +37,8 @@ data/       items, frozen stimuli, episodes, monitor verdicts, translations, arc
 results/    generated stats per run
 docs/       execution plan and change log
 ```
+
+## Results page
+
+`share/index.html` is a one-page summary of the results for collaborators; open it in a browser.
+Regenerate it after `./paper/build.sh` with `.venv/bin/python analysis/share_page.py`.
