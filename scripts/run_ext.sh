@@ -25,6 +25,6 @@ for a in gemini qwen; do
   $PY analysis/analyze.py --agent $a --tag tasks \
     --episodes data/episodes/episodes_$a.jsonl,data/episodes/workflow_episodes_$a.jsonl,data/episodes/ext_episodes_$a.jsonl | tail -1
 done
-$PY analysis/report.py && $PY analysis/render_pdf.py
+./paper/build.sh
 c "Track 2.1 pooled task results (8 scenarios per family), report and PDF"
 echo "== DONE"

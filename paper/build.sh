@@ -3,7 +3,6 @@
 # (main text = everything before the references, per the Apart rules).
 set -e
 cd "$(dirname "$0")/.."
-.venv/bin/python analysis/report.py >/dev/null   # refreshes results/figures/families.png
 .venv/bin/python analysis/paper.py
 cd paper
 tectonic --keep-intermediates main.tex 2>&1 | grep -E -i "error|warning: (reference|citation)|undefined" || true

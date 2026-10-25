@@ -281,7 +281,7 @@ def main() -> None:
     (T / "monitor_full.tex").write_text("\n".join(full))
 
     # Example episode (Vietnamese, with machine translation)
-    from analysis.report import example_episode, gloss, tr
+    from analysis.example import example_episode, gloss, tr
     from src.episode import load_items
     ex = example_episode()
     en = gloss()

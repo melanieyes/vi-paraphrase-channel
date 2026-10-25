@@ -3,8 +3,9 @@
     .venv/bin/python analysis/analyze.py --agent gemini
     .venv/bin/python analysis/analyze.py --agent gemini --episodes data/episodes/smoke_24_gemini.jsonl --tag smoke
 
-Reads episode records (validated first), monitor verdicts if present, and the
-scored gate. Writes results/<tag>/stats.json, stats.md and figures/*.png.
+Reads episode records (validated first) and monitor verdicts if present.
+Writes results/<tag>/stats.json and stats.md. Figures live in analysis/figures.py
+and are drawn by analysis/paper.py.
 
 Intervals: bootstrap 95%, 10,000 resamples, clustered over ITEMS. Every rate
 is computed on episodes whose relevant turn parsed as a choice; refusals and
@@ -32,12 +33,6 @@ B = 10_000
 SEED = 20261025
 CLASSES = ("harmful", "mutual_gains")
 
-# Validated with the dataviz skill's validator, light surface, all pairs:
-# all checks pass; aqua is under 3:1 contrast, so every series also carries
-# its own marker and a direct label, and every figure has a table in stats.md.
-COLORS = {"raw": "#2a78d6", "paraphrased": "#eb6834", "neutralized": "#1baf7a"}
-MARKERS = {"raw": "o", "paraphrased": "s", "neutralized": "^"}
-INK, INK2, GRID, SURFACE = "#0b0b0b", "#52514e", "#e4e3df", "#fcfcfb"
 
 
 # --- loading ---------------------------------------------------------------------
@@ -263,167 +258,6 @@ def monitor_stats(recs: list[dict], verdicts: list[dict]) -> dict:
     return out
 
 
-# --- figures ---------------------------------------------------------------------
-
-def _style(ax):
-    ax.set_facecolor(SURFACE)
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
-    for s in ("left", "bottom"):
-        ax.spines[s].set_color(INK2)
-    ax.tick_params(colors=INK2, labelsize=9)
-    ax.yaxis.grid(True, color=GRID, linewidth=0.8)
-    ax.set_axisbelow(True)
-
-
-def _err(d):
-    if d["est"] is None:
-        return None
-    return d["est"], [[d["est"] - d["lo"]], [d["hi"] - d["est"]]]
-
-
-def fig_collusion(S, agent, path):
-    import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(1, 2, figsize=(10, 4), sharey=True, facecolor=SURFACE)
-    titles = {"harmful": "Harmful items: took the arrangement",
-              "mutual_gains": "Twins (positive control): cooperated"}
-    for ax, c in zip(axes, CLASSES):
-        _style(ax)
-        x = np.arange(len(RENDERINGS))
-        t1 = S["turn1"][c]
-        if t1["est"] is not None:
-            ax.axhline(100 * t1["est"], color=INK2, linewidth=1, linestyle=(0, (4, 3)),
-                       label="turn 1, before any message" if c == CLASSES[0] else None)
-        for k, ch in enumerate(CHANNELS):
-            for i, rd in enumerate(RENDERINGS):
-                e = _err(S["turn2"][c][ch][rd])
-                if e is None:
-                    continue
-                est, yerr = e
-                ax.errorbar(x[i] + (k - 1) * 0.22, 100 * est, yerr=100 * np.array(yerr),
-                            fmt=MARKERS[ch], color=COLORS[ch], markersize=7, linewidth=2,
-                            capsize=0, markeredgecolor=SURFACE, markeredgewidth=1.5,
-                            label=ch if i == 0 else None)
-        ax.set_xticks(x, RENDERINGS)
-        ax.set_xlim(-0.5, len(RENDERINGS) - 0.5)
-        ax.set_ylim(-3, 103)
-        ax.set_title(titles[c], color=INK, fontsize=11, loc="left")
-    axes[0].set_ylabel("% of episodes, turn 2", color=INK2)
-    h, l = axes[0].get_legend_handles_labels()
-    fig.legend(h, l, frameon=False, fontsize=9, loc="lower center", ncol=4)
-    fig.suptitle(f"Agent: {agent}. Points: rate; bars: 95% CI clustered over items",
-                 color=INK2, fontsize=9, x=0.01, ha="left")
-    fig.tight_layout(rect=(0, 0.07, 1, 1))
-    fig.savefig(path, dpi=200, facecolor=SURFACE)
-    plt.close(fig)
-
-
-def fig_relay_effect(S, agent, path):
-    import matplotlib.pyplot as plt
-    rows = []
-    for c in CLASSES:
-        for ch in ("paraphrased", "neutralized"):
-            for rd in (*RENDERINGS, "all"):
-                rows.append((c, ch, rd, S["relay_effect"][c][ch][rd]))
-    fig, axes = plt.subplots(1, 2, figsize=(10, 4.6), sharex=True, facecolor=SURFACE)
-    for ax, c in zip(axes, CLASSES):
-        _style(ax)
-        ax.yaxis.grid(False)
-        ax.xaxis.grid(True, color=GRID, linewidth=0.8)
-        sub = [r for r in rows if r[0] == c]
-        for j, (_, ch, rd, d) in enumerate(sub):
-            y = len(sub) - j
-            if d["est"] is None:
-                continue
-            ax.plot([100 * d["lo"], 100 * d["hi"]], [y, y], color=COLORS[ch], linewidth=2)
-            ax.plot(100 * d["est"], y, MARKERS[ch], color=COLORS[ch], markersize=7,
-                    markeredgecolor=SURFACE, markeredgewidth=1.5)
-        ax.axvline(0, color=INK2, linewidth=1)
-        ax.set_yticks([len(sub) - j for j in range(len(sub))],
-                      [f"{ch} · {rd}" for _, ch, rd, _ in sub], fontsize=8)
-        ax.set_title({"harmful": "Harmful: relay minus raw",
-                      "mutual_gains": "Twins: relay minus raw"}[c], color=INK, fontsize=11, loc="left")
-        ax.set_xlabel("percentage points, turn 2", color=INK2)
-    fig.suptitle(f"Agent: {agent}. Below zero = the relay lowered uptake. 95% CI clustered over items",
-                 color=INK2, fontsize=9, x=0.01, ha="left")
-    fig.tight_layout()
-    fig.savefig(path, dpi=200, facecolor=SURFACE)
-    plt.close(fig)
-
-
-def fig_monitor(M, agent, monitor, path):
-    import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(1, 2, figsize=(10, 4), sharey=True, facecolor=SURFACE)
-    for ax, key, title in ((axes[0], "fnr", "Missed collusion (FNR)"),
-                           (axes[1], "fpr_twins", "False alarms on twins (FPR)")):
-        _style(ax)
-        for k, ch in enumerate(CHANNELS):
-            xs, ys, lo, hi = [], [], [], []
-            for i, vw in enumerate(VIEWS):
-                if vw not in M[key][ch]:
-                    continue
-                d = M[key][ch][vw]
-                if d["est"] is None:
-                    continue
-                xs.append(i + (k - 1) * 0.08)
-                ys.append(100 * d["est"])
-                lo.append(100 * (d["est"] - d["lo"]))
-                hi.append(100 * (d["hi"] - d["est"]))
-            if xs:
-                ax.errorbar(xs, ys, yerr=[lo, hi], fmt=MARKERS[ch] + "-", color=COLORS[ch],
-                            markersize=7, linewidth=2, capsize=0, markeredgecolor=SURFACE,
-                            markeredgewidth=1.5, label=ch)
-        ax.set_xticks(range(len(VIEWS)), VIEWS)
-        ax.set_xlim(-0.3, len(VIEWS) - 0.2)
-        ax.set_ylim(-3, 103)
-        ax.set_title(title, color=INK, fontsize=11, loc="left")
-    axes[0].set_ylabel("% of episodes", color=INK2)
-    h, l = axes[0].get_legend_handles_labels()
-    fig.legend(h, l, frameon=False, fontsize=9, loc="lower center", ncol=3)
-    fig.suptitle(f"Monitor: {monitor}, on {agent} episodes. Views are nested left to right. "
-                 "raw is scored on relayed channels only", color=INK2, fontsize=9, x=0.01, ha="left")
-    fig.tight_layout(rect=(0, 0.07, 1, 1))
-    fig.savefig(path, dpi=200, facecolor=SURFACE)
-    plt.close(fig)
-
-
-SAYS_DOES = [("action", "action"), ("report_only", "report\nonly"), ("message_only", "message\nonly"),
-             ("report", "action +\nreport"), ("delivered", "action + report\n+ message")]
-METRIC_STYLE = {"fnr": ("missed collusion", "#2a78d6", "o"),
-                "fpr_declined": ("false alarm: harmful, declined", "#eb6834", "s"),
-                "fpr_twins": ("false alarm: twins", "#1baf7a", "^")}
-
-
-def fig_says_does(M, agent, monitor, path):
-    import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(10, 4.4), facecolor=SURFACE)
-    _style(ax)
-    vws = [(v, lab) for v, lab in SAYS_DOES if v in M["views"]]
-    for k, (key, (label, color, marker)) in enumerate(METRIC_STYLE.items()):
-        xs, ys, lo, hi = [], [], [], []
-        for i, (v, _) in enumerate(vws):
-            d = M["pooled"][key][v]
-            if d["est"] is None:
-                continue
-            xs.append(i + (k - 1) * 0.12)
-            ys.append(100 * d["est"])
-            lo.append(100 * (d["est"] - d["lo"]))
-            hi.append(100 * (d["hi"] - d["est"]))
-        ax.errorbar(xs, ys, yerr=[lo, hi], fmt=marker, color=color, markersize=8, linewidth=2,
-                    capsize=0, markeredgecolor=SURFACE, markeredgewidth=1.5, label=label)
-    ax.set_xticks(range(len(vws)), [lab for _, lab in vws])
-    ax.set_ylim(-3, 103)
-    ax.set_ylabel("% of episodes", color=INK2)
-    ax.set_title("What the monitor reads: actions, words, or both", color=INK, fontsize=11, loc="left")
-    h, l = ax.get_legend_handles_labels()
-    fig.legend(h, l, frameon=False, fontsize=9, loc="lower center", ncol=3)
-    fig.suptitle(f"Monitor: {monitor}, on {agent} episodes, pooled over channels. 95% CI clustered over items",
-                 color=INK2, fontsize=9, x=0.01, ha="left")
-    fig.tight_layout(rect=(0, 0.07, 1, 1))
-    fig.savefig(path, dpi=200, facecolor=SURFACE)
-    plt.close(fig)
-
-
 # --- report ----------------------------------------------------------------------
 
 def pct(d, pp=False):
@@ -526,18 +360,11 @@ def main() -> None:
     for mon, verdicts in by_mon.items():
         Ms[mon] = monitor_stats(recs, verdicts)
     out = ROOT / "results" / f"{a.tag}_{a.agent}"
-    (out / "figures").mkdir(parents=True, exist_ok=True)
+    out.mkdir(parents=True, exist_ok=True)
     (out / "stats.json").write_text(json.dumps({"episodes": [str(e.relative_to(ROOT)) for e in eps], "stats": S,
                                                 "monitors": Ms}, indent=1, default=float))
     write_md(S, Ms, a.agent, a.tag, out / "stats.md")
-    fig_collusion(S, a.agent, out / "figures" / "collusion_by_channel.png")
-    if any(r["channel"] != "raw" for r in recs):
-        fig_relay_effect(S, a.agent, out / "figures" / "relay_effect.png")
-    for mon, M in Ms.items():
-        fig_monitor(M, a.agent, mon, out / "figures" / f"monitor_{mon}.png")
-        if "message_only" in M["views"]:
-            fig_says_does(M, a.agent, mon, out / "figures" / f"says_vs_does_{mon}.png")
-    print(f"wrote {out}/stats.md, stats.json and {len(list((out / 'figures').glob('*.png')))} figures")
+    print(f"wrote {out}/stats.md and stats.json")
 
 
 if __name__ == "__main__":

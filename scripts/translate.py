@@ -56,7 +56,7 @@ def texts_to_translate() -> list[tuple[str, str]]:
     for s in load_stimuli().values():
         out.append((f"stimulus.{s['channel']}", s["text"]))
     # The agent report quoted in the generated report's example episode.
-    from analysis.report import example_episode
+    from analysis.example import example_episode
     ex = example_episode()
     out.append(("episode.report", ex["report"]))
     seen, uniq = set(), []

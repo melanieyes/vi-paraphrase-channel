@@ -26,6 +26,6 @@ c "Workflow v2 monitors (gemini, all views)"
 
 echo "== analysis"
 for a in gemini qwen; do $PY analysis/analyze.py --agent $a --episodes data/episodes/workflow_episodes_$a.jsonl --tag workflow | tail -1; done
-$PY analysis/report.py && $PY analysis/render_pdf.py
+./paper/build.sh
 c "Workflow v2 results, report and PDF"
 echo "== DONE"

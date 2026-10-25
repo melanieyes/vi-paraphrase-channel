@@ -7,4 +7,3 @@ pytest>=8
 numpy>=1.26
 matplotlib>=3.8
 anthropic>=1.0
-markdown>=3.5
