@@ -36,10 +36,23 @@ gate:
   temperature: 0.0
   reasoning: true
 
-second_reader:
-  client: openai
-  model: gpt-5.4-nano   # verified working on this key in agent-collusion-bench
-  temperature: 0.7      # the value it ran at there
+# LLM re-readers of the stimulus gate. Robustness checks, NOT human validation.
+readers:
+  gpt:
+    client: openai
+    model: gpt-5.4-nano   # verified working on this key in agent-collusion-bench
+    temperature: 0.7      # the value it ran at there
+  gemma:
+    client: vllm
+    app: vllm-gemma-3-27b-it   # A100-80GB, deployed from agent-collusion-bench/scripts/modal_vllm.py
+    model: google/gemma-3-27b-it
+    temperature: 0.0
+    max_tokens: 400
+  opus:
+    client: anthropic          # secret `anthropic-key`, created by the human
+    model: claude-opus-5-5
+    effort: medium             # thinking is always on; no sampling parameters
+    temperature: null
 
 monitors:
   gemini:
@@ -63,6 +76,7 @@ cost:
     Qwen/Qwen3-8B: 1800   # smoke v2 measured 1,766
   prices_per_mtok:              # [input, output], USD. Check against the provider page.
     gemini-2.5-flash: [0.30, 2.50]
+    claude-opus-5-5: [4.00, 20.00]
   # agent-collusion-bench measured ~6,200 output tokens for a 7-8 turn Gemini
   # episode (thinking billed as output). Four turns here: scaled, then rounded up.
   # Replace with the smoke's measured figure.

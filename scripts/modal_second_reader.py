@@ -1,9 +1,10 @@
-"""Cross-provider LLM second reader on the stimulus gate. NOT human validation.
+"""LLM re-readers of the stimulus gate. NOT human validation.
 
-    .venv/bin/modal run scripts/modal_second_reader.py
+    .venv/bin/modal run scripts/modal_second_reader.py --reader gpt
+    .venv/bin/modal run scripts/modal_second_reader.py --reader gemma
 
 The same GATE_PROMPT the Gemini gate answered, put to an OpenAI model, on every
-frozen stimulus (720 texts). Raw replies go to data/stimuli/second_reader.jsonl;
+frozen stimulus (720 texts). Raw replies go to data/stimuli/reader_<name>.jsonl;
 `scripts/score_gate.py` scores both readers in code and reports agreement.
 Decided by the human on 2026-10-25 in place of a human sample (CLAUDE.md, 9).
 """
@@ -11,6 +12,7 @@ Decided by the human on 2026-10-25 in place of a human sample (CLAUDE.md, 9).
 from __future__ import annotations
 
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -23,26 +25,43 @@ REMOTE = "/root/repo"
 
 image = (
     modal.Image.debian_slim(python_version="3.12")
-    .pip_install("requests>=2.31", "openai>=1.40", "python-dotenv>=1.0", "pyyaml>=6.0")
+    .pip_install("requests>=2.31", "openai>=1.40", "python-dotenv>=1.0", "pyyaml>=6.0",
+                 "anthropic>=1.0")
     .add_local_dir(ROOT / "src", f"{REMOTE}/src", ignore=["**/__pycache__"])
 )
 app = modal.App("vi-paraphrase-second-reader")
 
+# The Anthropic key lives in its own secret, created by the human. It is mounted
+# only when asked for (VIPC_ANTHROPIC=1), so the gpt and gemma readers still run
+# on a workspace that does not have it.
+SECRETS = [modal.Secret.from_name("collusion-keys"), modal.Secret.from_name("vllm-key")]
+if os.environ.get("VIPC_ANTHROPIC") == "1":
+    SECRETS.append(modal.Secret.from_name("anthropic-key"))
 
-@app.function(image=image, timeout=60 * 30, secrets=[modal.Secret.from_name("collusion-keys")])
-def read(jobs: list[dict], rc: dict) -> list[dict]:
+
+@app.function(image=image, timeout=60 * 60, secrets=SECRETS)
+def read(jobs: list[dict], rc: dict, base_url: str | None) -> list[dict]:
     sys.path.insert(0, REMOTE)
     from concurrent.futures import ThreadPoolExecutor
 
     from src.clients import get_client
 
-    client = get_client(rc["client"], model=rc["model"])
+    if rc["client"] == "vllm":
+        from src.clients import VLLMClient
+        client = VLLMClient(model=rc["model"], base_url=base_url, max_tokens=rc["max_tokens"])
+    elif rc["client"] == "anthropic":
+        from src.anthropic_client import AnthropicClient
+        client = AnthropicClient(model=rc["model"], effort=rc["effort"])
+    else:
+        client = get_client(rc["client"], model=rc["model"])
 
     def one(j):
         try:
             rep = client.chat([{"role": "user", "content": j["prompt"]}],
                               temperature=rc["temperature"], reasoning=False)
-            return {"key": j["key"], "reply": rep.text, "error": None}
+            return {"key": j["key"], "reply": rep.text, "error": None,
+                    "stop_reason": (rep.raw or {}).get("stop_reason"),
+                    "usage": (rep.raw or {}).get("usage")}
         except Exception as exc:  # noqa: BLE001
             return {"key": j["key"], "reply": "", "error": repr(exc)[:300]}
 
@@ -51,24 +70,29 @@ def read(jobs: list[dict], rc: dict) -> list[dict]:
 
 
 @app.local_entrypoint()
-def main() -> None:
+def main(reader: str = "gpt", harmful_only: bool = False) -> None:
     from src import prompts as P
     from src.episode import load_items, load_stimuli, options
     from src.run_meta import config_hash, git_commit, load_cfg
 
     cfg = load_cfg()
-    rc = cfg["second_reader"]
+    rc = cfg["readers"][reader]
     items = {it["item_id"]: it for it in load_items()}
     stim = load_stimuli()
     jobs = []
     for key, s in stim.items():
         it = items[s["item_id"]]
+        if harmful_only and it["item_class"] != "harmful":
+            continue
         opt_a, opt_b, _ = options(it, 0)
         jobs.append({"key": key, "prompt": P.GATE_PROMPT.format(**it, opt_a=opt_a, opt_b=opt_b,
                                                                  text=s["text"])})
     print(f"second reader {rc['model']} on {len(jobs)} stimuli")
-    out = read.remote(jobs, rc)
-    dest = ROOT / "data/stimuli/second_reader.jsonl"
+    base_url = None
+    if rc["client"] == "vllm":
+        base_url = modal.Function.from_name(rc["app"], "serve").get_web_url().rstrip("/") + "/v1"
+    out = read.remote(jobs, rc, base_url)
+    dest = ROOT / f"data/stimuli/reader_{reader}.jsonl"
     with dest.open("w") as fh:
         fh.write(json.dumps({"_meta": {"reader": rc, "config_hash": config_hash(cfg),
                                        "git_commit": git_commit(),

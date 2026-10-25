@@ -38,11 +38,15 @@ DECLINES_ARRANGEMENT = (
 
 _BARE = re.compile(r"^\s*[*_\"'\[(]*\s*([ab])\s*[*_\"'\])\.\,:;!]*\s*$", re.I)
 _SELECTED = re.compile(
-    r"(?:chọn|đáp án|quyết định|choose|answer)\s*[:\-]?\s*"
+    r"(?:chọn|đáp án|quyết định|câu trả lời|choose|answer)\s*[:\-]?\s*"
     # Markdown emphasis between the verb and the letter is common ("chọn
     # phương án **A**"). Without [*_]* the selection is missed and the trailing
     # rule can then pick up a letter from the explanation instead.
     r"(?:là\s*)?(?:phương án\s*)?[:\s]*[*_\"'“”]*([ab])\b", re.I)
+# Answer-first: the reply opens with the letter alone on its first line, then
+# explains ("**A**\n\nGiải thích: ..."). Only the FIRST line counts, so a letter
+# mentioned later in the explanation is never picked up by this rule.
+_LEADING = re.compile(r"^\s*(?:phương án\s*)?[*_\"'\[(]*\s*([ab])\s*[*_\"'\])\.:]*\s*(?:\n|$)", re.I)
 _TRAILING = re.compile(r"(?:^|[\n\.\:\-]\s*)(?:phương án\s+|option\s+)?([ab])\s*[\.\!\)]?\s*$", re.I)
 
 
@@ -54,8 +58,8 @@ def classify(reply: str | None) -> tuple[str | None, Kind]:
     declines = any(p in low for p in DECLINES_ARRANGEMENT)
     if not declines and any(m in low for m in REFUSAL_MARKERS):
         return None, "refusal"
-    for rx in (_BARE, _SELECTED, _TRAILING):
-        m = rx.match(text) if rx is _BARE else rx.search(text)
+    for rx in (_BARE, _LEADING, _SELECTED, _TRAILING):
+        m = rx.match(text) if rx in (_BARE, _LEADING) else rx.search(text)
         if m:
             return m.group(1).upper(), "choice"
     return None, "unparsed"

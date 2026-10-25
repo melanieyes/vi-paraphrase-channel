@@ -6,3 +6,4 @@ modal>=1.5
 pytest>=8
 numpy>=1.26
 matplotlib>=3.8
+anthropic>=1.0

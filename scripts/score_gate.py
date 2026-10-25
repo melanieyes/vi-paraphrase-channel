@@ -67,24 +67,19 @@ def main() -> None:
             print(f"{cls:13s}{ch:12s}" + "".join(f"{c:>18s}" for c in cells))
     print(f"\nwrote {dest}")
 
-    # --- LLM second reader (not human validation; CLAUDE.md control 9) ---
-    sr_path = ROOT / "data/stimuli/second_reader.jsonl"
-    if not sr_path.exists():
-        return
-    sr = [json.loads(l) for l in sr_path.read_text().splitlines()][1:]
+    # --- LLM re-readers (not human validation; CLAUDE.md control 9) ---
     first = {o["key"]: o["pushes_collusive"] for o in out}
-    pairs = defaultdict(list)
-    n_unparsed = 0
-    for r in sr:
-        s = stim[r["key"]]
-        it = items[s["item_id"]]
-        _, _, p2 = score(r["reply"], it)
-        p1 = first.get(r["key"])
-        if p1 is None or p2 is None:
-            n_unparsed += 1
-            continue
-        pairs[(it["item_class"], s["channel"])].append((p1, p2))
-        pairs[("all", "all")].append((p1, p2))
+    readers = {}
+    for path in sorted((ROOT / "data/stimuli").glob("reader_*.jsonl")):
+        name = path.stem.removeprefix("reader_")
+        lines = [json.loads(l) for l in path.read_text().splitlines()]
+        labels = {}
+        for r in lines[1:]:
+            s = stim[r["key"]]
+            labels[r["key"]] = score(r["reply"], items[s["item_id"]])[2]
+        readers[name] = labels
+    if not readers:
+        return
 
     def kappa(ps):
         n = len(ps)
@@ -93,20 +88,45 @@ def main() -> None:
         pe = pa * pb + (1 - pa) * (1 - pb)
         return po, pa, pb, (po - pe) / (1 - pe) if pe < 1 else float("nan")
 
-    print(f"\nsecond reader ({sr[0].get('model')}) vs Gemini gate. LLM vs LLM, NOT human validation.")
-    print(f"pairs with both parsed: {len(pairs[('all', 'all')])}; unparsed by either: {n_unparsed}")
-    print(f"{'class':13s}{'channel':12s}{'n':>5s}{'agree':>8s}{'gemini':>8s}{'second':>8s}{'kappa':>8s}")
-    rows_out = []
-    for key in sorted(pairs, key=lambda k: (k[0] == "all", k)):
-        po, pa, pb, k = kappa(pairs[key])
-        rows_out.append({"item_class": key[0], "channel": key[1], "n": len(pairs[key]),
-                         "agreement": po, "gate_push": pa, "second_push": pb, "kappa": k})
-        print(f"{key[0]:13s}{key[1]:12s}{len(pairs[key]):5d}{100*po:7.1f}%{100*pa:7.1f}%{100*pb:7.1f}%{k:8.2f}")
+    report = {"note": "LLM re-readers vs the Gemini gate; not human validation", "readers": {}}
+    print("\nLLM re-readers vs Gemini gate (LLM vs LLM, NOT human validation)")
+    print(f"{'reader':8s}{'class':13s}{'n':>5s}{'agree':>8s}{'gemini':>8s}{'reader':>8s}{'kappa':>8s}{'unparsed':>10s}")
+    for name, lab in readers.items():
+        report["readers"][name] = {}
+        for cls in ("harmful", "mutual_gains"):
+            ps, un = [], 0
+            for k, v in lab.items():
+                if items[stim[k]["item_id"]]["item_class"] != cls:
+                    continue
+                if v is None or first.get(k) is None:
+                    un += 1
+                    continue
+                ps.append((first[k], v))
+            if not ps:
+                continue
+            po, pa, pb, kp = kappa(ps)
+            report["readers"][name][cls] = {"n": len(ps), "agreement": po, "gate_push": pa,
+                                            "reader_push": pb, "kappa": kp, "unparsed": un}
+            print(f"{name:8s}{cls:13s}{len(ps):5d}{100*po:7.1f}%{100*pa:7.1f}%{100*pb:7.1f}%{kp:8.2f}{un:10d}")
+
+    # Per family, harmful: share each reader says pushes toward the collusive option.
+    fams = sorted({items[stim[k]["item_id"]]["family"] for k in first})
+    print("\nharmful, % read as pushing toward the collusive option, by family")
+    print(f"{'family':15s}{'gemini':>8s}" + "".join(f"{n:>8s}" for n in readers))
+    report["by_family"] = {}
+    for f in fams:
+        keys = [k for k in first if items[stim[k]["item_id"]]["family"] == f
+                and items[stim[k]["item_id"]]["item_class"] == "harmful"]
+        row = {}
+        for name, lab in [("gemini", first), *readers.items()]:
+            vals = [lab.get(k) for k in keys if lab.get(k) is not None]
+            row[name] = sum(vals) / len(vals) if vals else None
+        report["by_family"][f] = row
+        print(f"{f:15s}" + "".join(f"{100*row[n]:7.1f}%" if row[n] is not None else "     n/a"
+                                   for n in ["gemini", *readers]))
     (ROOT / "results").mkdir(exist_ok=True)
-    (ROOT / "results/second_reader_agreement.json").write_text(json.dumps(
-        {"note": "LLM second reader vs Gemini gate; not human validation",
-         "unparsed_by_either": n_unparsed, "cells": rows_out}, indent=1))
-    print("wrote results/second_reader_agreement.json")
+    (ROOT / "results/reader_agreement.json").write_text(json.dumps(report, indent=1))
+    print("wrote results/reader_agreement.json")
 
 
 if __name__ == "__main__":

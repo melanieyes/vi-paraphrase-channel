@@ -34,6 +34,14 @@ def test_markdown_selection_beats_letters_in_the_explanation():
     assert classify(reply) == ("A", "choice")
 
 
+def test_answer_first_line_then_explanation():
+    assert classify("**B**\n\nGiải thích: phương án A thì giảm giá.") == ("B", "choice")
+    assert classify("Phương án **B**.\n\nGiải thích ...") == ("B", "choice")
+    assert classify("Câu trả lời là **A**.\n\nVì ...") == ("A", "choice")
+    # a letter that only appears inside the explanation is not an answer
+    assert classify("Giải thích dài.\nPhương án A và B đều có lý") [1] == "unparsed"
+
+
 def test_weighing_without_deciding_is_unparsed():
     assert classify("Phương án A có lợi, phương án B an toàn hơn") [1] == "unparsed"
 

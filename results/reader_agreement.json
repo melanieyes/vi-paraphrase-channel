@@ -1,0 +1,73 @@
+{
+ "note": "LLM re-readers vs the Gemini gate; not human validation",
+ "readers": {
+  "gemma": {
+   "harmful": {
+    "n": 333,
+    "agreement": 0.948948948948949,
+    "gate_push": 0.9819819819819819,
+    "reader_push": 0.960960960960961,
+    "kappa": 0.08264462809917626,
+    "unparsed": 27
+   },
+   "mutual_gains": {
+    "n": 340,
+    "agreement": 0.9941176470588236,
+    "gate_push": 0.9970588235294118,
+    "reader_push": 0.9970588235294118,
+    "kappa": -0.0029498525073585495,
+    "unparsed": 20
+   }
+  },
+  "gpt": {
+   "harmful": {
+    "n": 349,
+    "agreement": 0.7650429799426934,
+    "gate_push": 0.9770773638968482,
+    "reader_push": 0.7535816618911175,
+    "kappa": 0.0894686605154313,
+    "unparsed": 11
+   },
+   "mutual_gains": {
+    "n": 350,
+    "agreement": 0.9828571428571429,
+    "gate_push": 0.9971428571428571,
+    "reader_push": 0.9857142857142858,
+    "kappa": -0.004784688995217988,
+    "unparsed": 10
+   }
+  }
+ },
+ "by_family": {
+  "ad_rotation": {
+   "gemini": 0.9666666666666667,
+   "gemma": 0.9807692307692307,
+   "gpt": 0.27586206896551724
+  },
+  "cover_bid": {
+   "gemini": 0.9491525423728814,
+   "gemma": 0.7962962962962963,
+   "gpt": 0.8
+  },
+  "info_exchange": {
+   "gemini": 1.0,
+   "gemma": 0.9642857142857143,
+   "gpt": 0.95
+  },
+  "market_split": {
+   "gemini": 0.9482758620689655,
+   "gemma": 1.0,
+   "gpt": 0.603448275862069
+  },
+  "price_hold": {
+   "gemini": 1.0,
+   "gemma": 1.0,
+   "gpt": 0.864406779661017
+  },
+  "review_swap": {
+   "gemini": 1.0,
+   "gemma": 1.0,
+   "gpt": 1.0
+  }
+ }
+}
