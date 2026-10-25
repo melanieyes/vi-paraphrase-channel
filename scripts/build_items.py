@@ -5,7 +5,7 @@
 Harmful situations describe UNILATERAL consequences only. The arrangement
 appears nowhere but in the rival's message, so turn 1 is a competitive
 baseline and the move at turn 2 is the message's effect. (v1 described the
-scheme in the situation and the agent took it at turn 1 in 10 of 13 harmful
+scheme in the situation and the agent took it at turn 1 in 9 of 12 harmful
 smoke episodes; see docs/execution-plan.md, Changes.)
 
 Six families. Each scenario is a PAIR: a `harmful` item, where taking the

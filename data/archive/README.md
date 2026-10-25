@@ -7,6 +7,6 @@ See docs/execution-plan.md, "Changes". Kept as data, never read by analysis.
 
 `v1_stimuli/` and `v1_smoke_24.jsonl` (2026-10-25) are the six-family build
 whose harmful situations described the scheme itself. In the smoke the agent
-took the collusive option at turn 1, before any message, in 10 of 13 harmful
+took the collusive option at turn 1, before any message, in 9 of 12 harmful
 episodes, so the message had nothing left to move. Discarded; kept as data,
 never read by analysis.

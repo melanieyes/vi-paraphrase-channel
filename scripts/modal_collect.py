@@ -40,11 +40,13 @@ app = modal.App("vi-paraphrase-collect")
 _STATE: dict[str, Any] = {}
 
 
-@app.function(image=image, secrets=[modal.Secret.from_name("collusion-keys")],
+@app.function(image=image, secrets=[modal.Secret.from_name("collusion-keys"),
+                                    modal.Secret.from_name("vllm-key")],
               volumes={"/episodes": vol}, cpu=0.5, memory=1024, timeout=60 * 15,
               max_containers=CONTAINERS, retries=0)
 @modal.concurrent(max_inputs=PER_CONTAINER)
-def run_one(job: dict, *, cfg: dict, meta: dict, run_id: str) -> dict:
+def run_one(job: dict, *, cfg: dict, agent: str, base_url: str | None, meta: dict,
+            run_id: str) -> dict:
     sys.path.insert(0, REMOTE)
     from src import prompts as P
     from src.clients import get_client
@@ -54,7 +56,12 @@ def run_one(job: dict, *, cfg: dict, meta: dict, run_id: str) -> dict:
     if "items" not in _STATE:
         items, stimuli = load_items(), load_stimuli()
         P.assert_prompt_controls(items, stimuli)  # again, inside the container
-        client = get_client(cfg["agent"]["client"], model=cfg["agent"]["model"])
+        a = cfg["agents"][agent]
+        if a["client"] == "vllm":
+            from src.clients import VLLMClient
+            client = VLLMClient(model=a["model"], base_url=base_url, max_tokens=a["max_tokens"])
+        else:
+            client = get_client(a["client"], model=a["model"])
         if not client.supports_reasoning_control:
             raise SystemExit("control 1: agent client has no per-call reasoning switch")
         _STATE.update(items=items, stimuli=stimuli, client=client, tag=uuid.uuid4().hex[:10])
@@ -72,7 +79,8 @@ def run_one(job: dict, *, cfg: dict, meta: dict, run_id: str) -> dict:
 
 
 @app.local_entrypoint()
-def main(smoke: int = 0, confirm: bool = False, dry_run: bool = False, resume: bool = False) -> None:
+def main(agent: str = "gemini", smoke: int = 0, confirm: bool = False, dry_run: bool = False,
+         resume: bool = False) -> None:
     from src import prompts as P
     from src.episode import build_jobs, episode_id, load_items, load_stimuli
     from src.run_meta import config_hash, estimate_episode_cost, git_commit, load_cfg
@@ -84,7 +92,9 @@ def main(smoke: int = 0, confirm: bool = False, dry_run: bool = False, resume: b
         raise SystemExit("no data/stimuli/stimuli.jsonl: run scripts/modal_stimuli.py first")
     report = P.assert_prompt_controls(items, stimuli)
     jobs = build_jobs(items, cfg["k"], smoke)
-    out = ROOT / "data" / "episodes" / (f"smoke_{len(jobs)}.jsonl" if smoke else "episodes.jsonl")
+    acfg = cfg["agents"][agent]
+    out = ROOT / "data" / "episodes" / (f"smoke_{len(jobs)}_{agent}.jsonl" if smoke
+                                        else f"episodes_{agent}.jsonl")
     done: set[str] = set()
     if resume and out.exists():
         for line in out.read_text().splitlines():
@@ -94,16 +104,19 @@ def main(smoke: int = 0, confirm: bool = False, dry_run: bool = False, resume: b
         jobs = [j for j in jobs if episode_id(items[j["item_index"]], j) not in done]
 
     chash, commit = config_hash(cfg), git_commit()
-    cost = estimate_episode_cost(cfg, len(jobs))
+    cost, billed = estimate_episode_cost(cfg, agent, len(jobs))
+    base_url = None
+    if acfg["client"] == "vllm":
+        base_url = modal.Function.from_name(acfg["app"], "serve").get_web_url().rstrip("/") + "/v1"
     run_id = f"run-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}"
-    meta = {"config_hash": chash, "git_commit": commit, "model": cfg["agent"]["model"],
+    meta = {"config_hash": chash, "git_commit": commit, "agent": agent, "model": acfg["model"],
             "temperature": cfg["temperature"], "run_id": run_id}
 
-    print(f"agent         {cfg['agent']['model']}  reasoning={cfg['reasoning']}  T={cfg['temperature']}")
+    print(f"agent         {agent} ({acfg['model']})  reasoning={cfg['reasoning']}  T={cfg['temperature']}")
     print(f"items         {len(items)}   episodes {len(jobs)}" + (f"  (resume: {len(done)} done)" if resume else ""))
     print(f"CONTROLS      {report}")
     print(f"config_hash   {chash}   git {commit}")
-    print(f"ESTIMATED COST  ${cost:,.2f}  (Gemini tokens; Modal CPU containers on top)")
+    print(f"ESTIMATED COST  ${cost:,.2f}  ({billed}; Modal CPU containers on top)")
     print(f"output        {out}")
     if commit.endswith("-dirty") or commit == "no-commit":
         print("WARNING: src/scripts/configs not committed; records will say so.")
@@ -119,7 +132,8 @@ def main(smoke: int = 0, confirm: bool = False, dry_run: bool = False, resume: b
         fh.write(json.dumps({"_meta": {**meta, "n_jobs": len(jobs), "est_cost": cost,
                                        "controls": report}}) + "\n")
         for res in run_one.map(jobs, order_outputs=False, return_exceptions=True,
-                               kwargs={"cfg": cfg, "meta": meta, "run_id": run_id}):
+                               kwargs={"cfg": cfg, "agent": agent, "base_url": base_url,
+                                       "meta": meta, "run_id": run_id}):
             if isinstance(res, Exception):
                 failed.append(repr(res)[:200])
                 continue

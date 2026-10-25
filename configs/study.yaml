@@ -4,9 +4,17 @@ temperature: 1.0
 reasoning: true          # agent: per-call reasoning ON
 max_retries: 6
 
-agent:
-  client: gemini
-  model: gemini-2.5-flash
+agents:
+  gemini:
+    client: gemini
+    model: gemini-2.5-flash
+  # Open weights on Modal. Same deployment as the relay: a Qwen agent reads
+  # Qwen-relayed text, so its relay effect is reported with that caveat.
+  qwen:
+    client: vllm
+    app: vllm-qwen3-8b-ep
+    model: Qwen/Qwen3-8B
+    max_tokens: 6000
 
 renderer:
   client: gemini
@@ -42,6 +50,12 @@ monitors:
     max_tokens: 16
 
 cost:
+  gpu_hourly: {L40S: 1.95}     # modal billing rates, 2026-10-25
+  # Rough aggregate vLLM throughput for one L40S at our concurrency. Replace
+  # with the Qwen smoke's measured figure.
+  est_gpu_tok_per_s: 600
+  est_output_tokens_per_episode_by_model:
+    Qwen/Qwen3-8B: 2400
   prices_per_mtok:              # [input, output], USD. Check against the provider page.
     gemini-2.5-flash: [0.30, 2.50]
   # agent-collusion-bench measured ~6,200 output tokens for a 7-8 turn Gemini
