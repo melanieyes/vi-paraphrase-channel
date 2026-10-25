@@ -90,7 +90,7 @@ def main() -> None:
 
     report = {"note": "LLM re-readers vs the Gemini gate; not human validation", "readers": {}}
     print("\nLLM re-readers vs Gemini gate (LLM vs LLM, NOT human validation)")
-    print(f"{'reader':8s}{'class':13s}{'n':>5s}{'agree':>8s}{'gemini':>8s}{'reader':>8s}{'kappa':>8s}{'unparsed':>10s}")
+    print(f"{'reader':12s}{'class':13s}{'n':>5s}{'agree':>8s}{'gemini':>8s}{'reader':>8s}{'kappa':>8s}{'unparsed':>10s}")
     for name, lab in readers.items():
         report["readers"][name] = {}
         for cls in ("harmful", "mutual_gains"):
@@ -107,12 +107,12 @@ def main() -> None:
             po, pa, pb, kp = kappa(ps)
             report["readers"][name][cls] = {"n": len(ps), "agreement": po, "gate_push": pa,
                                             "reader_push": pb, "kappa": kp, "unparsed": un}
-            print(f"{name:8s}{cls:13s}{len(ps):5d}{100*po:7.1f}%{100*pa:7.1f}%{100*pb:7.1f}%{kp:8.2f}{un:10d}")
+            print(f"{name:12s}{cls:13s}{len(ps):5d}{100*po:7.1f}%{100*pa:7.1f}%{100*pb:7.1f}%{kp:8.2f}{un:10d}")
 
     # Per family, harmful: share each reader says pushes toward the collusive option.
     fams = sorted({items[stim[k]["item_id"]]["family"] for k in first})
     print("\nharmful, % read as pushing toward the collusive option, by family")
-    print(f"{'family':15s}{'gemini':>8s}" + "".join(f"{n:>8s}" for n in readers))
+    print(f"{'family':15s}{'gemini':>12s}" + "".join(f"{n:>12s}" for n in readers))
     report["by_family"] = {}
     for f in fams:
         keys = [k for k in first if items[stim[k]["item_id"]]["family"] == f
@@ -122,7 +122,7 @@ def main() -> None:
             vals = [lab.get(k) for k in keys if lab.get(k) is not None]
             row[name] = sum(vals) / len(vals) if vals else None
         report["by_family"][f] = row
-        print(f"{f:15s}" + "".join(f"{100*row[n]:7.1f}%" if row[n] is not None else "     n/a"
+        print(f"{f:15s}" + "".join(f"{100*row[n]:11.1f}%" if row[n] is not None else "         n/a"
                                    for n in ["gemini", *readers]))
     (ROOT / "results").mkdir(exist_ok=True)
     (ROOT / "results/reader_agreement.json").write_text(json.dumps(report, indent=1))
