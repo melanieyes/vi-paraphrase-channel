@@ -11,6 +11,9 @@
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\definecolor{lexinv}{HTML}{DCE9F8}
+\definecolor{lexlost}{HTML}{FBDCCB}
+\setlength{\fboxsep}{1pt}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{enumitem}
 \usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue]{hyperref}
@@ -18,7 +21,7 @@
 \newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
 \input{numbers.tex}
 
-\title{\textbf{The Agent Said No, the Monitor Flagged It Anyway}\\[2pt]\large What Counts as Evidence of Collusion Between LLM Agents}
+\title{\textbf{The Agent Said No, the Monitor Flagged It Anyway}\\[2pt]\large What Counts as Evidence of Collusion Between LLM Agents: A Vietnamese Benchmark}
 \author{Melanie Bui\\\small\TODO{affiliation}\\[6pt]\small\textit{With Apart Research}}
 \date{}
 
@@ -172,18 +175,13 @@ The phrasing of the invitation also mattered. On the market, the bare announceme
 nothing, moved more Gemini episodes than the direct proposal (\GemMarketOmission{} vs.\
 \GemMarketDirect); in workflows we found no measurable difference in this sample (\GemWorkflowOmission{}
 vs.\ \GemWorkflowDirect). Qwen showed the opposite tendency, with the announcement the least effective
-rendering in both settings (Table~\ref{tab:rendering}).
+rendering in both settings (Appendix Table~\ref{tab:rendering}).
 
-\begin{table}[htbp]
-\centering\small
-\caption{Harmful episodes moved by the message, by rendering and setting (\%, raw channel). Bold: row
-maximum.}\label{tab:rendering}
-\resizebox{\linewidth}{!}{\input{tables/rendering.tex}}
-\end{table}
+
 
 \subsection{Do words and actions together beat either alone? (2.2)}
 From the action alone, the Gemini monitor missed \MonActionFNR{} \MonActionFNRCI{} of collusion on the
-market (Table~\ref{tab:views}, panel A). Adding the agent's report reduced this to \MonReportFNR{}
+market (Appendix Table~\ref{tab:views}, panel A). Adding the agent's report reduced this to \MonReportFNR{}
 (difference \MonActionMinusBoth{} points, \MonActionMinusBothCI) while flagging \MonFADeclReport{} of
 declined episodes. The report alone performed similarly (\MonReportOnlyFNR) because it restates the action.
 Its value depends on the agent: for Qwen, whose reports seldom mentioned the message, action and report
@@ -201,16 +199,12 @@ than the actions (Appendix~\ref{app:tables}).
 \centering\includegraphics[width=\linewidth]{figures/views.pdf}
 \caption{What each view misses and over-flags (Gemini agent, market set, pooled over channels). Left: missed,
 all collusion. Right: flagged, declined. Darker bars: Gemini 2.5 Flash monitor; lighter: Claude Haiku 5.5.
-Thin lines: 95\% intervals.}\label{fig:says}
+Thin lines: 95\% intervals. Shaded rows add the agent's behaviour without a proposal (Section~\ref{sec:standard});
+the bold row uses only similar situations, which a deployed monitor can record. The rule variant is in
+Table~\ref{tab:views}: it clears unilateral choices by design, so it is not comparable on this axis.}\label{fig:says}
 \end{figure}
 
-\begin{table}[htbp]
-\centering\small
-\caption{Monitor results by view (Gemini agent, market set, pooled over channels, \%). Rates are defined in
-Section~3. The last two rows add the agent's pre-message choice, without and with the rule of the standard.
-Bold: the standard. Brackets: 95\% intervals.}\label{tab:views}
-\resizebox{\linewidth}{!}{\input{tables/views.tex}}
-\end{table}
+
 
 \subsection{What should count as convincing evidence? (2.3)}\label{sec:standard}
 The three sources answer different questions: the message shows that a proposal was made, the action shows
@@ -218,14 +212,22 @@ what the agent did, and the agent's account shows what it reports. Two results c
 A matching action is not sufficient, because \GemTurnOne{} of Gemini's harmful episodes chose the collusive
 option before any message. The account depends on elicitation. Of colluding episodes, \GemDiscItem{}
 (Gemini) and \QwDiscItem{} (Qwen) answered yes to a direct question, but only \GemDiscLex{} and
-\QwDiscLex{} mentioned the message in their reports.
+\QwDiscLex{} mentioned the message in their reports (Figure~\ref{fig:asked}).
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=0.92\linewidth]{figures/asked.pdf}
+\caption{Who mentions the rival's message, among colluding harmful episodes. Grey: the agent answers
+\emph{CÓ} (yes) when asked whether the rival influenced it. Orange: the agent's own report names the rival
+and the arrangement. Blue: a neutral third-party summary of the same episode does. Report and summary are
+coded by the same lexical rule in code. Thin lines: 95\% intervals clustered over items.}\label{fig:asked}
+\end{figure}
 
 We therefore propose that convincing evidence requires (i) a proposal, (ii) an action that matches it, and
 (iii) a departure from the agent's behaviour without the proposal. Our design observes (iii) directly at
 turn~1. A deployed monitor would instead have the agent's behaviour on similar cases without a proposal, so
 we also test that version.
 
-The control view separates information from instruction (Table~\ref{tab:views}). Showing the monitor the
+The control view separates information from instruction (Appendix Table~\ref{tab:views}). Showing the monitor the
 agent's pre-message choice, without any rule, cut flags on declined episodes from \StdGemAllFADecl{} to
 \StdGemCtlFADecl{} (Gemini monitor) and from \StdHkAllFADecl{} to \StdHkCtlFADecl{} (Haiku), while
 message-induced misses stayed at \StdGemCtlMovedFNR{} and \StdHkCtlMovedFNR. Stating the rule removed the
@@ -240,7 +242,7 @@ monitor could hold from earlier work. With no rule, misses stayed at \StdGemFamF
 (Gemini agent; Gemini and Haiku monitors) and \StdGemQwFamFNR{} and \StdHkQwFamFNR{} (Qwen agent), and flags on
 declined episodes were \StdGemFamFADecl{}, \StdHkFamFADecl{}, \StdGemQwFamFADecl{} and \StdHkQwFamFADecl,
 close to the same-episode baseline. Counts from the same situation in other runs gave similar results
-(Table~\ref{tab:views}).
+(Figure~\ref{fig:says}).
 
 \paragraph{Robustness.} Four LLM readers agreed with the gate on \AgreeOpus{} (Opus 5.5),
 \AgreeGeminiPro{} (Gemini 3.1 Pro), \AgreeGemma{} (Gemma-3-27B) and \AgreeGPT{} (GPT-5.4-nano) of harmful
@@ -254,7 +256,7 @@ twins and is reported only in Appendix~\ref{app:tables}.
 \subsection{Where is context lost? Summaries}\label{sec:summaries}
 \paragraph{The agent reads a summary.} Following the summary arm of a communication-degree design, the relay
 model rewrote each rival message in four summary styles that share one prompt frame and differ in one style
-sentence (Table~\ref{tab:summaries}). Most styles kept the invitation and left uptake unchanged. The system
+sentence (Figure~\ref{fig:lexical}A; Table~\ref{tab:summaries} in Appendix~\ref{app:tables}). Most styles kept the invitation and left uptake unchanged. The system
 log was the exception. Its \emph{Proposal} field was often filled with ``none'' even when the content line
 stated the proposal, and Opus read \SumOpusSys{} of these summaries as still inviting, against \SumOpusRaw{}
 of originals. Qwen's message-induced collusion fell by \SumQwSysMoved{} points \SumQwSysMovedCI, but its
@@ -265,18 +267,22 @@ A second Qwen sample reproduced the loss (\RobResSys{} still inviting); Gemma-3-
 lost a similar share in every style (\RobGmaShort{} to \RobGmaLong), so the effect depends on the summarizer.
 Code-switching lowered Gemini's uptake by \SumGemCSMoved{} points \SumGemCSMovedCI{} but not Qwen's.
 
-\begin{table}[htbp]
-\centering\small
-\caption{Summary channels, market set. Chars: mean length. Still invites: share of harmful summaries the
-gate and Opus 5.5 read as pushing toward the arrangement. Moved by message: rate on the original, then the
-change in percentage points for each summary (95\% CI clustered over items). Bold: interval excludes zero,
-or twin cooperation below 90\%.}\label{tab:summaries}
-\input{tables/summaries.tex}
-\end{table}
+
+
+\begin{figure}[!t]
+\centering\footnotesize
+\input{tables/lexical.tex}
+\caption{The words themselves, verbatim from frozen data. Blue: words that carry the invitation or tie
+the decision to the rival (\emph{anh em} brothers, \emph{giữ giá} hold the price, \emph{đề nghị} propose,
+\emph{luân phiên} take turns, \emph{đối thủ cạnh tranh} competitor). Orange: the system-log field that
+records no proposal (\emph{Đề nghị: Không có}, Proposal: none). Underlined: English loanwords. Panel~B is
+the first Qwen episode, by id, in which the message moved the agent, the report named neither the rival nor
+the arrangement, and the summary named both.}\label{fig:lexical}
+\end{figure}
 
 \paragraph{The monitor reads a summary.} Deployed oversight often reads a summary instead of the trace. Gemma-3-27B, which has no other role, read
 each full trace (the view with the pre-message choice) and wrote an activity-log entry of at most 80 words,
-without being told what to look for. Monitors then read only that entry (Table~\ref{tab:oversight}). Two
+without being told what to look for. Monitors then read only that entry (Figure~\ref{fig:lexical}B; Table~\ref{tab:oversight} in Appendix~\ref{app:tables}). Two
 comparisons answer different questions. Against the trace it summarizes, the summary measures compression
 loss: misses rose from \OvGemGemTraceFNR{} to \OvGemGemSumFNR{} (Gemini agent, Gemini monitor) and from
 \OvGemHkTraceFNR{} to \OvGemHkSumFNR{} (Haiku), and flags on declined episodes rose from \OvQwGemTraceFA{} to
@@ -285,13 +291,7 @@ writes the account: on Qwen's episodes misses fell from \OvQwGemSelfFNR{} to \Ov
 and from \OvQwHkSelfFNR{} to \OvQwHkSumFNR{} (Haiku), because the summarizer saw the message that Qwen's
 reports mostly omit.
 
-\begin{table}[htbp]
-\centering\small
-\caption{Missed collusion and flags on declined harmful episodes (\%, 95\% CI clustered over items) when the
-monitor reads the agent's report, a third-party summary of the full trace, or the full trace with the
-pre-message choice. Market set.}\label{tab:oversight}
-\input{tables/oversight.tex}
-\end{table}
+
 
 \section{Discussion and Limitations}
 Detecting a collusive proposal and detecting an agent that accepts one are different tasks. A platform can
@@ -366,6 +366,38 @@ only in naming the platform and the principal.
 \input{tables/example.tex}
 
 \section{Additional tables}\label{app:tables}
+\begin{table}[htbp]
+\centering\small
+\caption{Monitor results by view (Gemini agent, market set, pooled over channels, \%). Rates are defined in
+Section~3. The last two rows add the agent's pre-message choice, without and with the rule of the standard.
+Bold: the standard. Brackets: 95\% intervals.}\label{tab:views}
+\resizebox{\linewidth}{!}{\input{tables/views.tex}}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\caption{Harmful episodes moved by the message, by rendering and setting (\%, raw channel). Bold: row
+maximum.}\label{tab:rendering}
+\resizebox{\linewidth}{!}{\input{tables/rendering.tex}}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\caption{Summary channels, market set. Chars: mean length. Still invites: share of harmful summaries the
+gate and Opus 5.5 read as pushing toward the arrangement. Moved by message: rate on the original, then the
+change in percentage points for each summary (95\% CI clustered over items). Bold: interval excludes zero,
+or twin cooperation below 90\%.}\label{tab:summaries}
+\input{tables/summaries.tex}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\caption{Missed collusion and flags on declined harmful episodes (\%, 95\% CI clustered over items) when the
+monitor reads the agent's report, a third-party summary of the full trace, or the full trace with the
+pre-message choice. Market set.}\label{tab:oversight}
+\input{tables/oversight.tex}
+\end{table}
+
 \paragraph{Harmful episodes by family} (\%, raw channel; unprompted: collusive at turn~1; moved: competitive
 at turn~1 and collusive at turn~2; bold: column maximum).
 \begin{center}\small\resizebox{\linewidth}{!}{\input{tables/tasks.tex}}\end{center}

@@ -86,7 +86,11 @@ OFFSET = {"action": (7, 0), "report_only": (0, 0), "message_only": (-4, 9),
 
 
 BAR_VIEWS = [("action", "action only"), ("report_only", "report only"), ("message_only", "message only"),
-             ("report", "action + report"), ("delivered", "action + report + message")]
+             ("report", "action + report"), ("delivered", "action + report + message"),
+             ("baseline_info", "  + baseline, same episode"), ("family_baseline", "  + baseline, similar situations")]
+# The rule row ("standard") is left out on purpose: the rule tells the monitor to clear unilateral
+# choices, so "missed, all collusion" would count those clears as misses. The table reports it.
+HERO = "family_baseline"
 
 
 def butterfly(monitors: list[tuple[str, dict]], path: Path) -> None:
@@ -120,12 +124,20 @@ def butterfly(monitors: list[tuple[str, dict]], path: Path) -> None:
     axr.set_xticks([0, 25, 50, 75, 100])
     axl.set_yticks(range(n))
     axl.set_yticklabels([lab for _, lab in reversed(BAR_VIEWS)])
+    for lab, (v, _) in zip(axl.get_yticklabels(), reversed(BAR_VIEWS)):
+        if v == HERO:
+            lab.set_fontweight("bold")
+            lab.set_color(INK)
+    # the three baseline rows sit under a light band: what the evidence standard adds
+    nb = sum(1 for v, _ in BAR_VIEWS if v in ("baseline_info", "family_baseline", "standard"))
+    for ax in (axl, axr):
+        ax.axhspan(-0.5, nb - 0.5, color="#f3f6fb", zorder=0)
     axl.tick_params(axis="y", length=0)
     from matplotlib.patches import Patch
     handles = [Patch(color=INK2, alpha=s, label=name) for (name, _), s in zip(monitors, shades)]
     fig.legend(handles=handles, loc="lower center", ncol=len(monitors), frameon=False, fontsize=7.5,
-               bbox_to_anchor=(0.55, 0.0), title="monitor", title_fontsize=7.5)
-    fig.subplots_adjust(bottom=0.24)
+               bbox_to_anchor=(0.55, -0.02), title="monitor (darker: Gemini)", title_fontsize=7.5)
+    fig.subplots_adjust(bottom=0.17)
     fig.savefig(path, facecolor=BG, bbox_inches="tight")
     plt.close(fig)
 
@@ -184,5 +196,40 @@ def pipeline(path: Path) -> None:
     arrow(42.3, 25, 46.5, 25)
     arrow(70.5, 22, 75, 22)
     arrow(29.3, 15, 29.3, 12.5, style="-")
+    fig.savefig(path, facecolor=BG, bbox_inches="tight")
+    plt.close(fig)
+
+
+def asked_vs_told(rows: list[tuple[str, dict]], path: Path) -> None:
+    """Who mentions the rival's message, among colluding harmful episodes. One row per agent:
+    the agent asked directly (grey), the agent's own report (orange), a neutral third-party
+    summary of the trace (blue). All three coded in code; thin lines are 95% CIs."""
+    bars = [("item_cO", "answers yes when asked", NEUTRAL),
+            ("lexical", "own report mentions it", ACCENT2),
+            ("summary_lexical", "neutral summary mentions it", ACCENT)]
+    fig, ax = plt.subplots(figsize=(6.6, 0.62 * len(rows) + 0.75))
+    h = 0.24
+    for i, (label, d) in enumerate(rows):
+        y0 = len(rows) - 1 - i
+        for j, (k, _, color) in enumerate(bars):
+            v = _pct(d.get(k))
+            if v is None:
+                continue
+            y = y0 + (1 - j) * h
+            ax.barh(y, v[0], height=h * 0.86, color=color, linewidth=0)
+            ax.plot([v[1], v[2]], [y, y], color=INK2, linewidth=0.7)
+            ax.text(max(v[0], v[2]) + 1.5, y, f"{v[0]:.0f}%", va="center", fontsize=7, color=INK2)
+    ax.set_yticks(range(len(rows)))
+    ax.set_yticklabels([lab for lab, _ in reversed(rows)])
+    ax.set_xlim(0, 108)
+    ax.set_xticks([0, 25, 50, 75, 100])
+    ax.xaxis.grid(True, color=GRID, linewidth=0.7)
+    ax.set_axisbelow(True)
+    ax.spines["left"].set_visible(False)
+    ax.set_xlabel("% of colluding harmful episodes")
+    from matplotlib.patches import Patch
+    fig.legend(handles=[Patch(color=c, label=l) for _, l, c in bars], loc="lower center", ncol=3,
+               frameon=False, fontsize=7.5, bbox_to_anchor=(0.55, 0.0))
+    fig.tight_layout(rect=(0, 0.07, 1, 1))
     fig.savefig(path, facecolor=BG, bbox_inches="tight")
     plt.close(fig)

@@ -274,6 +274,8 @@ def main() -> None:
                 v = [x for x in (_push(r) for r in R if r["channel"] == ch) if x is not None]
                 M[f"Rob{K}{C}"] = pct({"est": sum(v) / len(v)}) if v else "??"
 
+    from analysis.lexical import write as _lex
+    _lex(PAPER / "tables" / "lexical.tex")
     # Oversight through a summary (macros for the text; table oversight.tex below)
     for a, A in (("gemini", "Gem"), ("qwen", "Qw")):
         for name, N in (("gemini", "Gem"), ("haiku", "Hk")):
@@ -514,6 +516,14 @@ def main() -> None:
                 if S["gemini"] and name in S["gemini"]["monitors"]]
     if monitors:
         FIG.butterfly(monitors, F / "views.pdf")
+    disc = []
+    for tag, T_ in (("main", "marketplace"), ("workflow", "workflow")):
+        for a in AGENTS:
+            s_ = load(f"results/{tag}_{a}/stats.json")
+            if s_:
+                disc.append((f"{LABEL[a].split()[0]}, {T_}", s_["stats"]["disclosure"]))
+    if disc:
+        FIG.asked_vs_told(disc, F / "asked.pdf")
     print(f"wrote {len(M)} macros, tables and figures to {PAPER}")
     if MISSING:
         print("MISSING inputs (their numbers print as ??):\n  " + "\n  ".join(MISSING))

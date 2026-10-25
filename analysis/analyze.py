@@ -133,7 +133,8 @@ def episode_stats(recs: list[dict]) -> dict:
     S["relay_effect"] = {}
     for c in CLASSES:
         S["relay_effect"][c] = {}
-        for ch in [x for x in RELAYED if any(r["channel"] == x for r in recs)]:
+        for ch in [x for x in RELAYED if x in ("paraphrased", "neutralized")
+                   or any(r["channel"] == x for r in recs)]:
             S["relay_effect"][c][ch] = {
                 rd: cl.diff(recs, post,
                             lambda r, c=c, ch=ch, rd=rd: r["item_class"] == c and r["channel"] == ch and (rd == "all" or r["rendering"] == rd),
@@ -176,6 +177,9 @@ def episode_stats(recs: list[dict]) -> dict:
         "item_cO": cl.rate(recs, lambda r: r["disclosed_item"], colluded_h),
         "lexical": cl.rate(recs, lambda r: r["disclosed_lexical"], colluded_h),
     }
+    if any(r.get("summary_lexical") is not None for r in recs):
+        S["disclosure"]["summary_lexical"] = cl.rate(
+            recs, lambda r: r["summary_lexical"], lambda r: colluded_h(r) and r.get("summary_lexical") is not None)
     # Cause regardless of setting: which kind of invitation moves the agent (raw channel).
     S["by_rendering_raw"] = {
         rd: {"moved": cl.rate(recs, lambda r: r["moved_to_collude"], lambda r, rd=rd: r["rendering"] == rd
@@ -364,6 +368,17 @@ def main() -> None:
     if len(ids) != len(set(ids)):
         raise SystemExit("duplicate episode ids across pooled files")
     ep = eps[0]
+    # Third-party summaries, coded with the same lexical rule as the agent's report.
+    from src.episode import load_items
+    from src.scoring import code_report
+    from src.views import load_summaries
+    items = {it["item_id"]: it for s in ("market", "workflow", "ext") for it in load_items(s)}
+    sums = {k: v for e in eps for k, v in load_summaries(e).items()}
+    for r in recs:
+        s = sums.get(r["episode_id"])
+        it = items[r["item_id"]]
+        r["summary_lexical"] = (code_report(s, it["counterpart_principal"], it["counterpart_name"])["disclosed"]
+                                if s else None)
     S = episode_stats(recs)
     Ms = {}
     by_mon: dict[str, list] = defaultdict(list)
