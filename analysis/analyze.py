@@ -174,6 +174,13 @@ def episode_stats(recs: list[dict]) -> dict:
         "item_cO": cl.rate(recs, lambda r: r["disclosed_item"], colluded_h),
         "lexical": cl.rate(recs, lambda r: r["disclosed_lexical"], colluded_h),
     }
+    # Cause regardless of setting: which kind of invitation moves the agent (raw channel).
+    S["by_rendering_raw"] = {
+        rd: {"moved": cl.rate(recs, lambda r: r["moved_to_collude"], lambda r, rd=rd: r["rendering"] == rd
+                              and r["item_class"] == "harmful" and r["channel"] == "raw"),
+             "turn2": cl.rate(recs, post, lambda r, rd=rd: r["rendering"] == rd
+                              and r["item_class"] == "harmful" and r["channel"] == "raw")}
+        for rd in RENDERINGS}
     # Track 2.1: per family on the raw channel, the one every item set has.
     S["by_family_raw"] = {
         f: {"turn1": cl.rate(recs, lambda r: r["colluded_pre"], lambda r, f=f: r["family"] == f
@@ -347,6 +354,8 @@ def fig_monitor(M, agent, monitor, path):
         for k, ch in enumerate(CHANNELS):
             xs, ys, lo, hi = [], [], [], []
             for i, vw in enumerate(VIEWS):
+                if vw not in M[key][ch]:
+                    continue
                 d = M[key][ch][vw]
                 if d["est"] is None:
                     continue
