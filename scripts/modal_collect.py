@@ -33,7 +33,7 @@ image = (
     .add_local_dir(ROOT / "src", f"{REMOTE}/src", ignore=["**/__pycache__"])
     .add_local_dir(ROOT / "configs", f"{REMOTE}/configs")
     .add_local_dir(ROOT / "data" / "items", f"{REMOTE}/data/items")
-    .add_local_dir(ROOT / "data" / "paraphrases", f"{REMOTE}/data/paraphrases")
+    .add_local_dir(ROOT / "data" / "stimuli", f"{REMOTE}/data/stimuli")
 )
 vol = modal.Volume.from_name("vi-paraphrase-episodes", create_if_missing=True)
 app = modal.App("vi-paraphrase-collect")
@@ -48,18 +48,18 @@ def run_one(job: dict, *, cfg: dict, meta: dict, run_id: str) -> dict:
     sys.path.insert(0, REMOTE)
     from src import prompts as P
     from src.clients import get_client
-    from src.episode import load_items, load_paraphrases, run_episode
+    from src.episode import load_items, load_stimuli, run_episode
     from src.schema import validate_episode
 
     if "items" not in _STATE:
-        items, paras = load_items(), load_paraphrases()
-        P.assert_prompt_controls(items, paras)  # again, inside the container
+        items, stimuli = load_items(), load_stimuli()
+        P.assert_prompt_controls(items, stimuli)  # again, inside the container
         client = get_client(cfg["agent"]["client"], model=cfg["agent"]["model"])
         if not client.supports_reasoning_control:
             raise SystemExit("control 1: agent client has no per-call reasoning switch")
-        _STATE.update(items=items, paras=paras, client=client, tag=uuid.uuid4().hex[:10])
+        _STATE.update(items=items, stimuli=stimuli, client=client, tag=uuid.uuid4().hex[:10])
     item = _STATE["items"][job["item_index"]]
-    rec = run_episode(_STATE["client"], item, job, _STATE["paras"], cfg, meta)
+    rec = run_episode(_STATE["client"], item, job, _STATE["stimuli"], cfg, meta)
     problems = validate_episode(rec)
     if problems:
         raise RuntimeError(f"schema failure on {rec['episode_id']}: {problems}")
@@ -74,15 +74,15 @@ def run_one(job: dict, *, cfg: dict, meta: dict, run_id: str) -> dict:
 @app.local_entrypoint()
 def main(smoke: int = 0, confirm: bool = False, dry_run: bool = False, resume: bool = False) -> None:
     from src import prompts as P
-    from src.episode import build_jobs, episode_id, load_items, load_paraphrases
+    from src.episode import build_jobs, episode_id, load_items, load_stimuli
     from src.run_meta import config_hash, estimate_episode_cost, git_commit, load_cfg
     from src.schema import validate_episode
 
     cfg = load_cfg()
-    items, paras = load_items(), load_paraphrases()
-    if paras is None:
-        raise SystemExit("no data/paraphrases/paraphrases.jsonl: run scripts/modal_stimuli.py first")
-    report = P.assert_prompt_controls(items, paras)
+    items, stimuli = load_items(), load_stimuli()
+    if stimuli is None:
+        raise SystemExit("no data/stimuli/stimuli.jsonl: run scripts/modal_stimuli.py first")
+    report = P.assert_prompt_controls(items, stimuli)
     jobs = build_jobs(items, cfg["k"], smoke)
     out = ROOT / "data" / "episodes" / (f"smoke_{len(jobs)}.jsonl" if smoke else "episodes.jsonl")
     done: set[str] = set()

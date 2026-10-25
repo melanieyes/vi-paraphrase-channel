@@ -8,13 +8,12 @@ either.
 
 ## Design
 - `docs/execution-plan.md` is the source of truth. Change it before the code.
-- NEVER change without asking the human: the four renderings, the two
-  channels, the two item classes, the four-turn episode, the four nested
+- NEVER change without asking the human: the four renderings, the three
+  channels, the six families and their twins, the four-turn episode, the four nested
   monitor views, the measures, the item seed 20261025.
-- The rival is scripted. Its messages live in `src/prompts.py`. Generating
-  them with a model is a design change.
-- Paraphrases are frozen stimuli, built once by `scripts/modal_stimuli.py`.
-  Never regenerate them mid-study; a new set is a new version of the study.
+- The rival is scripted. Its messages are rendered ONCE at build time by
+  `scripts/modal_stimuli.py` and frozen in `data/stimuli/`, as are both
+  relays. Never regenerate mid-study; a new set is a new version of the study.
 
 ## Controls (asserted before the first call, on the laptop and in every container)
 1. Agent reasoning ON per call.
@@ -30,8 +29,10 @@ either.
 9. Episode measures are coded in code. No LLM judge produces a measure. The
    stimulus gate is a manipulation check on text, never an episode measure.
    The monitor is the detector under test; its verdicts are the object studied.
-10. `mutual_gains` runs in every cell. If cooperation there drops under
-    paraphrase, STOP and tell the human.
+10. Every family has its `mutual_gains` twin in every cell. If cooperation on
+    twins drops under a relay, STOP and tell the human.
+11. A relayed text identical to its raw message, or containing a banned
+    phrase, refuses the run.
 
 ## Data
 - Never fabricate, simulate or hand-edit records.

@@ -3,7 +3,17 @@
 Written by `scripts/build_items.py`. Do not hand-edit.
 
 - seed: 20261025
-- items: 30
-- cartel: 20
-- mutual_gains: 10
-- sha256(items.jsonl): `3b2fa41a05ef02c79f66847e3aff56240390b5942e8a3137c983782fd9586031`
+- items: 60
+- ad_rotation / harmful: 5
+- ad_rotation / mutual_gains: 5
+- cover_bid / harmful: 5
+- cover_bid / mutual_gains: 5
+- info_exchange / harmful: 5
+- info_exchange / mutual_gains: 5
+- market_split / harmful: 5
+- market_split / mutual_gains: 5
+- price_hold / harmful: 5
+- price_hold / mutual_gains: 5
+- review_swap / harmful: 5
+- review_swap / mutual_gains: 5
+- sha256(items.jsonl): `932a7bdc24ada4cee81c5a5233792441b32ebdef32f6e1f8119f0ed1f2441fd1`

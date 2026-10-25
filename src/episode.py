@@ -13,18 +13,18 @@ from src.scoring import classify, code_report, parse_yes_no
 
 ROOT = Path(__file__).resolve().parent.parent
 ITEMS = ROOT / "data" / "items" / "items.jsonl"
-PARAPHRASES = ROOT / "data" / "paraphrases" / "paraphrases.jsonl"
+STIMULI = ROOT / "data" / "stimuli" / "stimuli.jsonl"
 
 
 def load_items() -> list[dict[str, Any]]:
     return [json.loads(l) for l in ITEMS.read_text().splitlines() if l.strip()]
 
 
-def load_paraphrases() -> dict[str, dict[str, Any]] | None:
-    if not PARAPHRASES.exists():
+def load_stimuli() -> dict[str, dict[str, Any]] | None:
+    if not STIMULI.exists():
         return None
     out = {}
-    for line in PARAPHRASES.read_text().splitlines():
+    for line in STIMULI.read_text().splitlines():
         if line.strip():
             rec = json.loads(line)
             if "_meta" not in rec:
@@ -35,6 +35,7 @@ def load_paraphrases() -> dict[str, dict[str, Any]] | None:
 def build_jobs(items: list[dict[str, Any]], k: int, smoke: int = 0) -> list[dict[str, Any]]:
     """Every item x rendering x channel x order x rep. Both orders run in every
     cell, so order is balanced within every cell by construction."""
+    # job order: item, rendering, channel, order, rep
     jobs = []
     for idx, it in enumerate(items):
         for r in P.RENDERINGS:
@@ -78,16 +79,11 @@ def options(item: dict[str, Any], order: int) -> tuple[str, str, str]:
 
 
 def run_episode(client: Any, item: dict[str, Any], job: dict[str, Any],
-                paraphrases: dict[str, dict[str, Any]] | None,
+                stimuli: dict[str, dict[str, Any]],
                 cfg: dict[str, Any], meta: dict[str, Any]) -> dict[str, Any]:
     opt_a, opt_b, coll = options(item, job["order"])
-    raw = P.render_message(item, job["rendering"])
-    if job["channel"] == "paraphrased":
-        if paraphrases is None:
-            raise SystemExit("paraphrased arm requested with no frozen paraphrases")
-        delivered = paraphrases[f"{item['item_id']}|{job['rendering']}"]["paraphrase"]
-    else:
-        delivered = raw
+    raw = stimuli[P.stimulus_key(item["item_id"], job["rendering"], "raw")]["text"]
+    delivered = stimuli[P.stimulus_key(item["item_id"], job["rendering"], job["channel"])]["text"]
 
     messages = [{"role": "system", "content": P.SYSTEM.format(**item)}]
     turns: list[dict[str, Any]] = []
@@ -139,6 +135,7 @@ def run_episode(client: Any, item: dict[str, Any], job: dict[str, Any],
     return {
         "episode_id": episode_id(item, job),
         "item_id": item["item_id"], "item_class": item["item_class"],
+        "family": item["family"], "pair_id": item["pair_id"],
         "rendering": job["rendering"], "channel": job["channel"],
         "order": job["order"], "rep": job["rep"],
         "opt_a": opt_a, "opt_b": opt_b, "collusive_letter": coll,

@@ -54,53 +54,76 @@ def test_lexical_disclosure():
 
 # --- controls -------------------------------------------------------------------
 
+def fake_stimuli(items=ITEMS):
+    st = {}
+    for it in items:
+        for r in P.RENDERINGS:
+            raw = f"Chào bên bạn. {it['item_id']} {r}"
+            st[P.stimulus_key(it["item_id"], r, "raw")] = {"text": raw}
+            for ch in P.RELAYED:
+                st[P.stimulus_key(it["item_id"], r, ch)] = {"text": raw + " " + ch,
+                                                           "source_message": raw}
+    return st
+
+
 def test_controls_pass_on_built_items():
     P.assert_prompt_controls(ITEMS, None)
+    P.assert_prompt_controls(ITEMS, fake_stimuli())
 
 
-def test_banned_paraphrase_is_refused():
-    paras = {f"{it['item_id']}|{r}": {"source_message": P.render_message(it, r),
-                                       "paraphrase": "ok"}
-             for it in ITEMS for r in P.RENDERINGS}
-    P.assert_prompt_controls(ITEMS, paras)
-    k = next(iter(paras))
-    paras[k]["paraphrase"] = "Việc này hoàn toàn hợp pháp."
+def test_banned_relay_is_refused():
+    st = fake_stimuli()
+    st[P.stimulus_key(ITEMS[0]["item_id"], "direct", "neutralized")]["text"] = "Việc này hoàn toàn hợp pháp."
     with pytest.raises(SystemExit):
-        P.assert_prompt_controls(ITEMS, paras)
+        P.assert_prompt_controls(ITEMS, st)
 
 
-def test_missing_paraphrase_is_refused():
+def test_verbatim_relay_is_refused():
+    st = fake_stimuli()
+    k = P.stimulus_key(ITEMS[0]["item_id"], "omission", "paraphrased")
+    st[k]["text"] = st[k]["source_message"]
     with pytest.raises(SystemExit):
-        P.assert_prompt_controls(ITEMS, {})
+        P.assert_prompt_controls(ITEMS, st)
 
 
-def test_messages_have_no_banned_phrase():
+def test_missing_stimulus_is_refused():
+    st = fake_stimuli()
+    del st[P.stimulus_key(ITEMS[3]["item_id"], "euphemism", "paraphrased")]
+    with pytest.raises(SystemExit):
+        P.assert_prompt_controls(ITEMS, st)
+
+
+def test_every_family_has_its_twin():
+    c = Counter((i["family"], i["item_class"]) for i in ITEMS)
+    assert len({f for f, _ in c}) == 6
+    assert set(c.values()) == {5}
+    with pytest.raises(SystemExit):
+        P.assert_prompt_controls([i for i in ITEMS if i["item_id"] != "cover_bid_1_m"
+                                  and not (i["family"] == "cover_bid" and i["item_class"] == "mutual_gains")], None)
+
+
+def test_items_have_no_unfilled_template():
     for it in ITEMS:
-        for r in P.RENDERINGS:
-            assert not P.banned_hits(P.render_message(it, r))
-
-
-def test_positive_control_present():
-    assert Counter(i["item_class"] for i in ITEMS) == {"cartel": 20, "mutual_gains": 10}
+        for k in ("situation", "option_collude", "option_compete", "proposal"):
+            assert "{" not in it[k] and "}" not in it[k]
 
 
 # --- design ---------------------------------------------------------------------
 
 def test_grid_size_and_order_balance():
     jobs = build_jobs(ITEMS, 1)
-    assert len(jobs) == 480
+    assert len(jobs) == 60 * 4 * 3 * 2
     cell = Counter()
     for j in jobs:
         _, _, coll = options(ITEMS[j["item_index"]], j["order"])
         cell[(j["item_index"], j["rendering"], j["channel"], coll)] += 1
-    # every item x rendering x channel cell has the collusive option once as A, once as B
-    assert set(cell.values()) == {1} and len(cell) == 480
+    assert set(cell.values()) == {1} and len(cell) == len(jobs)
 
 
 def test_smoke_touches_every_cell():
-    jobs = build_jobs(ITEMS, 1, smoke=16)
+    jobs = build_jobs(ITEMS, 1, smoke=24)
     keys = {(ITEMS[j["item_index"]]["item_class"], j["rendering"], j["channel"]) for j in jobs}
-    assert len(keys) == 16
+    assert len(keys) == 24
 
 
 def test_views_are_strictly_nested():
