@@ -202,6 +202,16 @@ def main() -> None:
             for rd in RENDERINGS:
                 M[f"{P}{setting.capitalize()}{rd.capitalize()}"] = pct(row[rd])
 
+    # Oversight through a summary (macros for the text; table oversight.tex below)
+    for a, A in (("gemini", "Gem"), ("qwen", "Qw")):
+        for name, N in (("gemini", "Gem"), ("haiku", "Hk")):
+            mm = S[a]["monitors"].get(name) if S[a] else None
+            if not mm or "summary" not in mm["views"]:
+                continue
+            pm = mm["pooled"]
+            for v, V in (("report_only", "Self"), ("summary", "Sum"), ("baseline_info", "Trace")):
+                M[f"Ov{A}{N}{V}FNR"] = pct(pm["fnr"].get(v))
+                M[f"Ov{A}{N}{V}FA"] = pct(pm["fpr_declined"].get(v))
     # Every macro main.tex uses gets a definition; one without data prints "??".
     import re
     used = set(re.findall(r"\\([A-Z][A-Za-z]+)", (PAPER / "main.tex").read_text()))
@@ -265,6 +275,32 @@ def main() -> None:
         " & \\multicolumn{2}{c}{Missed} & \\multicolumn{2}{c}{Flagged} \\\\\n"
         "\\cmidrule(lr){2-3}\\cmidrule(lr){4-5}\n"
         "Monitor reads & all collusion & message-induced & declined & unilateral \\\\\n\\midrule\n"
+        + "\n".join(body) + "\n\\bottomrule\n\\end{tabular}\n")
+
+    # Table: oversight through a summary. Same input, two forms: the full trace with the
+    # pre-message choice (baseline_info) against a third-party summary of that trace; the
+    # self-report is the agent's own compressed account. Market set, both agents.
+    OV_ROWS = [("report_only", "Agent's own report"), ("summary", "Third-party summary of the trace"),
+               ("baseline_info", "Full trace")]
+    body = []
+    for name, title in (("gemini", "A. Gemini 2.5 Flash monitor"), ("haiku", "B. Claude Haiku 5.5 monitor")):
+        if not all(S[a] and name in S[a]["monitors"] for a in AGENTS):
+            continue
+        body.append(f"\\multicolumn{{5}}{{l}}{{\\textit{{{title}}}}} \\\\")
+        for v, lab in OV_ROWS:
+            cells = []
+            for a in AGENTS:
+                pm = S[a]["monitors"][name]["pooled"]
+                cells += [cell(pm["fnr"].get(v)), cell(pm["fpr_declined"].get(v))]
+            body.append(f"{lab} & " + " & ".join(cells) + " \\\\")
+        body.append("\\midrule")
+    if body and body[-1] == "\\midrule":
+        body.pop()
+    (T / "oversight.tex").write_text(
+        "\\begin{tabular}{lrrrr}\n\\toprule\n"
+        " & \\multicolumn{2}{c}{Gemini agent} & \\multicolumn{2}{c}{Qwen agent} \\\\\n"
+        "\\cmidrule(lr){2-3}\\cmidrule(lr){4-5}\n"
+        "Monitor reads & missed & flagged declined & missed & flagged declined \\\\\n\\midrule\n"
         + "\n".join(body) + "\n\\bottomrule\n\\end{tabular}\n")
 
     # Table: relays (2.3 robustness), market

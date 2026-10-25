@@ -94,21 +94,22 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
     from src.episode import load_items
     items = {it["item_id"]: it for s in ("market", "workflow", "ext") for it in load_items(s)}
     scorable = [r for r in recs if r["post"]["kind"] == "choice" and r.get("report")]
-    from src.views import episode_ctx, load_summaries, turn1_by_item
+    from src.views import episode_ctx, load_summaries, turn1_by_family, turn1_by_item
     turn1, summaries = turn1_by_item(recs), load_summaries(path)
+    fam = turn1_by_family(recs, items)
     if views == "summary" and not summaries:
         raise SystemExit(f"no summaries for {path.name}: run scripts/modal_summarize.py first")
     jobs = []
     for r in scorable:
         it = items[r["item_id"]]
         tpl = P.T(it)
-        ctx = episode_ctx(r, it, turn1, summaries)
+        ctx = episode_ctx(r, it, turn1, summaries, fam)
         if views == "summary" and not ctx["summary"]:
             continue
         chosen = {"nested": P.VIEWS, "extra": ("report_only", "message_only"),
                   "all": P.VIEWS + ("report_only", "message_only"), "standard": ("standard",),
                   "baseline_info": ("baseline_info",), "pop_baseline": ("pop_baseline",),
-                  "summary": ("summary",)}[views]
+                  "summary": ("summary",), "family_baseline": ("family_baseline",)}[views]
         for v in chosen:
             if v == "raw" and r["channel"] == "raw":
                 continue
@@ -140,7 +141,7 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
              "git_commit": git_commit(), "timestamp": datetime.now(timezone.utc).isoformat()}
     suffix = {"nested": "", "extra": "--extra", "all": "", "standard": "--standard",
               "baseline_info": "--baseline_info", "pop_baseline": "--pop_baseline",
-              "summary": "--summary"}[views]
+              "summary": "--summary", "family_baseline": "--family_baseline"}[views]
     dest = ROOT / "data" / "monitor" / f"{path.stem}__{monitor}{suffix}.jsonl"
     dest.parent.mkdir(parents=True, exist_ok=True)
     with dest.open("w") as fh:
