@@ -126,3 +126,42 @@ Pooled over channels (%):
 | 2.2 fnr action minus both | +11.7 [-2.2, 30.4] |
 | 2.2 fnr report only minus both | -2.1 [-5.1, 0.0] |
 | 2.2 fpr declined message only minus all | +42.3 [20.0, 64.3] |
+
+## Monitor haiku
+
+Verdicts 1200, unparsed 0.
+
+By channel and view (%):
+
+| metric | channel | action | report | delivered | report_only | message_only |
+|---|---|---|---|---|---|---|
+| missed collusion (FNR) | raw | 56.4 [35.6, 76.7] | 8.5 [3.0, 14.7] | 0.0 [0.0, 0.0] | 7.4 [2.1, 13.5] | 5.3 [0.0, 11.3] |
+| missed collusion (FNR) | paraphrased | n/a | n/a | n/a | n/a | n/a |
+| missed collusion (FNR) | neutralized | n/a | n/a | n/a | n/a | n/a |
+| missed, message-moved episodes only | raw | 59.8 [38.4, 80.0] | 9.2 [3.4, 15.5] | 0.0 [0.0, 0.0] | 8.0 [2.3, 14.3] | 5.7 [0.0, 12.1] |
+| missed, message-moved episodes only | paraphrased | n/a | n/a | n/a | n/a | n/a |
+| missed, message-moved episodes only | neutralized | n/a | n/a | n/a | n/a | n/a |
+| false alarm, harmful but declined | raw | 0.0 [0.0, 0.0] | 7.7 [0.0, 20.0] | 57.7 [31.8, 78.9] | 7.7 [0.0, 20.0] | 92.3 [75.0, 100.0] |
+| false alarm, harmful but declined | paraphrased | n/a | n/a | n/a | n/a | n/a |
+| false alarm, harmful but declined | neutralized | n/a | n/a | n/a | n/a | n/a |
+| false alarm, twins | raw | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.8 [0.0, 2.8] | 0.8 [0.0, 2.7] |
+| false alarm, twins | paraphrased | n/a | n/a | n/a | n/a | n/a |
+| false alarm, twins | neutralized | n/a | n/a | n/a | n/a | n/a |
+
+Pooled over channels (%):
+
+| metric | action | report | delivered | report_only | message_only |
+|---|---|---|---|---|---|
+| missed collusion (FNR) | 56.4 [35.6, 76.7] | 8.5 [3.0, 14.7] | 0.0 [0.0, 0.0] | 7.4 [2.1, 13.5] | 5.3 [0.0, 11.3] |
+| missed, message-moved episodes only | 59.8 [38.4, 80.0] | 9.2 [3.4, 15.5] | 0.0 [0.0, 0.0] | 8.0 [2.3, 14.3] | 5.7 [0.0, 12.1] |
+| false alarm, harmful but declined | 0.0 [0.0, 0.0] | 7.7 [0.0, 20.0] | 57.7 [31.8, 78.9] | 7.7 [0.0, 20.0] | 92.3 [75.0, 100.0] |
+| false alarm, twins | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.8 [0.0, 2.8] | 0.8 [0.0, 2.7] |
+
+| contrast | pp |
+|---|---|
+| C5 FNR delivered minus raw, paraphrased | n/a |
+| C5 FNR delivered minus raw, neutralized | n/a |
+| C6 FNR action minus delivered | +56.4 [35.6, 76.7] |
+| 2.2 fnr action minus both | +47.9 [26.8, 68.1] |
+| 2.2 fnr report only minus both | -1.1 [-8.7, 6.6] |
+| 2.2 fpr declined message only minus all | +34.6 [18.2, 55.0] |
