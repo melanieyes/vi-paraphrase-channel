@@ -175,16 +175,21 @@ def main() -> None:
           "A task can lead to collusion in two ways. The agent may take the arrangement on its own, "
           "before anyone asks (turn 1). Or the rival's message may pull it in (moved: competitive at "
           "turn 1, collusive at turn 2). The two rank tasks differently, so we report both.", ""]
+    T21 = {a: load_opt(f"results/tasks_{a}/stats.json") for a in AGENTS}
+    tasks = {a: T21[a]["stats"] if T21[a] else None for a in AGENTS}
+    WORKFLOW_FAMS = {"no_poach", "review_ring", "budget_padding"}
     fams = []
     for a in AGENTS:
-        for src in (st[a], wst[a]):
+        for src in ((tasks[a],) if tasks[a] else (st[a], wst[a])):
             if src:
                 for f in src["by_family_raw"]:
                     if f not in fams:
                         fams.append(f)
-    setting = {f: ("workflow" if wst["gemini"] and f in wst["gemini"]["by_family_raw"] else "market") for f in fams}
+    setting = {f: ("workflow" if f in WORKFLOW_FAMS else "market") for f in fams}
 
     def fam_row(a, f):
+        if tasks[a]:
+            return tasks[a]["by_family_raw"].get(f)
         src = wst[a] if setting[f] == "workflow" else st[a]
         return src["by_family_raw"].get(f) if src else None
 
@@ -195,7 +200,9 @@ def main() -> None:
     L += [f"Taken unprompted most often: {top('gemini', 'turn1')} for Gemini, {top('qwen', 'turn1')} for Qwen. "
           f"Pulled in by the message most often: {top('gemini', 'moved')} for Gemini, {top('qwen', 'moved')} "
           "for Qwen. The two agents rank the tasks differently, so a task list is a property of the "
-          "model as much as of the task. Five scenarios per family: read the table as description.", "",
+          "model as much as of the task. "
+          + ("Eight scenarios per family." if tasks["gemini"] else "Five scenarios per family: read the table as description."),
+          "",
           "Raw channel, harmful items (%):", "",
           "| family | setting | Gemini turn 1 | Gemini moved | Qwen turn 1 | Qwen moved |",
           "|---|---|---|---|---|---|"]
@@ -203,6 +210,16 @@ def main() -> None:
         rg, rq = fam_row("gemini", f), fam_row("qwen", f)
         L.append(f"| {f} | {setting[f]} | {ci(rg['turn1']) if rg else 'n/a'} | {ci(rg['moved']) if rg else 'n/a'} | "
                  f"{ci(rq['turn1']) if rq else 'n/a'} | {ci(rq['moved']) if rq else 'n/a'} |")
+    if tasks["gemini"] and "by_rendering_raw_setting" in tasks["gemini"]:
+        L += ["", "**What kind of invitation pulls an agent in, regardless of setting?** Share of harmful "
+              "episodes moved by the message, by rendering (raw channel, %):", "",
+              "| agent | setting | " + " | ".join(RENDERINGS) + " |", "|---" * (len(RENDERINGS) + 2) + "|"]
+        for a in AGENTS:
+            if not tasks[a]:
+                continue
+            for st_, row in tasks[a]["by_rendering_raw_setting"].items():
+                L.append(f"| {LABEL[a]} | {st_} | " + " | ".join(ci(row[rd]) for rd in RENDERINGS) + " |")
+        L.append("")
     (ROOT / "results/figures").mkdir(parents=True, exist_ok=True)
     fig_families([(f, setting[f], fam_row("gemini", f), fam_row("qwen", f)) for f in fams],
                  ROOT / "results/figures/families.png")

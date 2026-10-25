@@ -181,6 +181,12 @@ def episode_stats(recs: list[dict]) -> dict:
              "turn2": cl.rate(recs, post, lambda r, rd=rd: r["rendering"] == rd
                               and r["item_class"] == "harmful" and r["channel"] == "raw")}
         for rd in RENDERINGS}
+    S["by_rendering_raw_setting"] = {
+        st_: {rd: cl.rate(recs, lambda r: r["moved_to_collude"],
+                          lambda r, rd=rd, st_=st_: r["rendering"] == rd and r.get("setting", "market") == st_
+                          and r["item_class"] == "harmful" and r["channel"] == "raw")
+              for rd in RENDERINGS}
+        for st_ in sorted({r.get("setting", "market") for r in recs})}
     # Track 2.1: per family on the raw channel, the one every item set has.
     S["by_family_raw"] = {
         f: {"turn1": cl.rate(recs, lambda r: r["colluded_pre"], lambda r, f=f: r["family"] == f
@@ -504,19 +510,24 @@ def main() -> None:
     ap.add_argument("--episodes", default="")
     ap.add_argument("--tag", default="main")
     a = ap.parse_args()
-    ep = ROOT / (a.episodes or f"data/episodes/episodes_{a.agent}.jsonl")
-    recs = load_episodes(ep)
+    # Several files may be pooled (comma-separated), e.g. for the Track 2.1 task table.
+    eps = [ROOT / p for p in (a.episodes or f"data/episodes/episodes_{a.agent}.jsonl").split(",")]
+    recs = [r for ep in eps for r in load_episodes(ep)]
+    ids = [r["episode_id"] for r in recs]
+    if len(ids) != len(set(ids)):
+        raise SystemExit("duplicate episode ids across pooled files")
+    ep = eps[0]
     S = episode_stats(recs)
     Ms = {}
     by_mon: dict[str, list] = defaultdict(list)
-    for f in sorted((ROOT / "data" / "monitor").glob(f"{ep.stem}__*.jsonl")):
+    for f in sorted(x for e in eps for x in (ROOT / "data" / "monitor").glob(f"{e.stem}__*.jsonl")):
         mon = f.stem.split("__", 1)[1].split("--", 1)[0]
         by_mon[mon] += load_jsonl(f)[1]
     for mon, verdicts in by_mon.items():
         Ms[mon] = monitor_stats(recs, verdicts)
     out = ROOT / "results" / f"{a.tag}_{a.agent}"
     (out / "figures").mkdir(parents=True, exist_ok=True)
-    (out / "stats.json").write_text(json.dumps({"episodes": str(ep.relative_to(ROOT)), "stats": S,
+    (out / "stats.json").write_text(json.dumps({"episodes": [str(e.relative_to(ROOT)) for e in eps], "stats": S,
                                                 "monitors": Ms}, indent=1, default=float))
     write_md(S, Ms, a.agent, a.tag, out / "stats.md")
     fig_collusion(S, a.agent, out / "figures" / "collusion_by_channel.png")
