@@ -728,7 +728,7 @@
  },
  "monitors": {
   "gemini": {
-   "n_verdicts": 1680,
+   "n_verdicts": 1920,
    "unparsed": 0,
    "views": [
     "action",
@@ -737,7 +737,8 @@
     "report_only",
     "message_only",
     "standard",
-    "baseline_info"
+    "baseline_info",
+    "pop_baseline"
    ],
    "fnr": {
     "raw": {
@@ -778,6 +779,12 @@
       "n": 94
      },
      "baseline_info": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 94
+     },
+     "pop_baseline": {
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
@@ -826,6 +833,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -866,6 +879,12 @@
       "n": 0
      },
      "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -916,6 +935,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 87
+     },
+     "pop_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 87
      }
     },
     "paraphrased": {
@@ -960,6 +985,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -1000,6 +1031,12 @@
       "n": 0
      },
      "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1050,6 +1087,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 120
+     },
+     "pop_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
      }
     },
     "paraphrased": {
@@ -1094,6 +1137,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -1134,6 +1183,12 @@
       "n": 0
      },
      "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1184,6 +1239,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 26
+     },
+     "pop_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 26
      }
     },
     "paraphrased": {
@@ -1228,6 +1289,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -1268,6 +1335,12 @@
       "n": 0
      },
      "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1318,6 +1391,12 @@
       "lo": 1.0,
       "hi": 1.0,
       "n": 7
+     },
+     "pop_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
      }
     },
     "paraphrased": {
@@ -1362,6 +1441,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -1402,6 +1487,12 @@
       "n": 0
      },
      "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1452,6 +1543,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 94
+     },
+     "pop_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 94
      }
     },
     "fnr_moved": {
@@ -1492,6 +1589,12 @@
       "n": 87
      },
      "baseline_info": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 87
+     },
+     "pop_baseline": {
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
@@ -1540,6 +1643,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 26
+     },
+     "pop_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 26
      }
     },
     "fpr_unilateral": {
@@ -1584,6 +1693,12 @@
       "lo": 1.0,
       "hi": 1.0,
       "n": 7
+     },
+     "pop_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
      }
     },
     "fpr_twins": {
@@ -1624,6 +1739,12 @@
       "n": 120
      },
      "baseline_info": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     },
+     "pop_baseline": {
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
@@ -1679,7 +1800,7 @@
    }
   },
   "haiku": {
-   "n_verdicts": 1680,
+   "n_verdicts": 1920,
    "unparsed": 0,
    "views": [
     "action",
@@ -1688,7 +1809,8 @@
     "report_only",
     "message_only",
     "standard",
-    "baseline_info"
+    "baseline_info",
+    "pop_baseline"
    ],
    "fnr": {
     "raw": {
@@ -1732,6 +1854,12 @@
       "est": 0.05319148936170213,
       "lo": 0.0,
       "hi": 0.11594202898550725,
+      "n": 94
+     },
+     "pop_baseline": {
+      "est": 0.0425531914893617,
+      "lo": 0.0,
+      "hi": 0.09589315068493146,
       "n": 94
      }
     },
@@ -1777,6 +1905,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -1817,6 +1951,12 @@
       "n": 0
      },
      "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1867,6 +2007,12 @@
       "lo": 0.0,
       "hi": 0.12329189920514115,
       "n": 87
+     },
+     "pop_baseline": {
+      "est": 0.04597701149425287,
+      "lo": 0.0,
+      "hi": 0.10204081632653061,
+      "n": 87
      }
     },
     "paraphrased": {
@@ -1911,6 +2057,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -1951,6 +2103,12 @@
       "n": 0
      },
      "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -2001,6 +2159,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 120
+     },
+     "pop_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
      }
     },
     "paraphrased": {
@@ -2045,6 +2209,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -2085,6 +2255,12 @@
       "n": 0
      },
      "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -2135,6 +2311,12 @@
       "lo": 0.0,
       "hi": 0.3333333333333333,
       "n": 26
+     },
+     "pop_baseline": {
+      "est": 0.15384615384615385,
+      "lo": 0.0,
+      "hi": 0.3333333333333333,
+      "n": 26
      }
     },
     "paraphrased": {
@@ -2179,6 +2361,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -2219,6 +2407,12 @@
       "n": 0
      },
      "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -2269,6 +2463,12 @@
       "lo": 1.0,
       "hi": 1.0,
       "n": 7
+     },
+     "pop_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
      }
     },
     "paraphrased": {
@@ -2313,6 +2513,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -2353,6 +2559,12 @@
       "n": 0
      },
      "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -2403,6 +2615,12 @@
       "lo": 0.0,
       "hi": 0.11594202898550725,
       "n": 94
+     },
+     "pop_baseline": {
+      "est": 0.0425531914893617,
+      "lo": 0.0,
+      "hi": 0.09589315068493146,
+      "n": 94
      }
     },
     "fnr_moved": {
@@ -2447,6 +2665,12 @@
       "lo": 0.0,
       "hi": 0.12329189920514115,
       "n": 87
+     },
+     "pop_baseline": {
+      "est": 0.04597701149425287,
+      "lo": 0.0,
+      "hi": 0.10204081632653061,
+      "n": 87
      }
     },
     "fpr_declined": {
@@ -2487,6 +2711,12 @@
       "n": 26
      },
      "baseline_info": {
+      "est": 0.15384615384615385,
+      "lo": 0.0,
+      "hi": 0.3333333333333333,
+      "n": 26
+     },
+     "pop_baseline": {
       "est": 0.15384615384615385,
       "lo": 0.0,
       "hi": 0.3333333333333333,
@@ -2535,6 +2765,12 @@
       "lo": 1.0,
       "hi": 1.0,
       "n": 7
+     },
+     "pop_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
      }
     },
     "fpr_twins": {
@@ -2575,6 +2811,12 @@
       "n": 120
      },
      "baseline_info": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     },
+     "pop_baseline": {
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
