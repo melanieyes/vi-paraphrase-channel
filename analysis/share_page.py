@@ -253,10 +253,13 @@ def build() -> str:
 
 def standalone(page: str) -> str:
     """The repo copy: a full document that opens straight from disk (the published artifact
-    gets the same page without these wrappers)."""
+    gets the same page without these wrappers). Title, fonts and styles go in the head."""
+    i = page.index('<div class="wrap">')
+    head, body = page[:i], page[i:]
     return ("<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n"
-            "<style>body{margin:0} img{max-width:100%}</style>\n</head>\n<body>\n" + page + "\n</body>\n</html>\n")
+            "<style>body{margin:0} img{max-width:100%}</style>\n" + head + "</head>\n<body>\n" + body
+            + "\n</body>\n</html>\n")
 
 
 if __name__ == "__main__":
