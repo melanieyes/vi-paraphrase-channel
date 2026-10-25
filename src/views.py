@@ -20,8 +20,8 @@ def turn1_by_item(recs: list[dict[str, Any]]) -> dict[str, list[tuple[str, bool]
 
 
 def load_summaries(episodes_path: Path) -> dict[str, str]:
-    """Third-party summaries written by scripts/modal_summarize.py, keyed by episode id."""
-    f = ROOT / "data" / "summaries" / f"{episodes_path.stem}__granite.jsonl"
+    """Third-party summaries written by scripts/modal_summarize.py (Gemma-3-27B), keyed by episode id."""
+    f = ROOT / "data" / "summaries" / f"{episodes_path.stem}__summarizer.jsonl"
     if not f.exists():
         return {}
     rows = [json.loads(l) for l in f.read_text().splitlines()[1:]]

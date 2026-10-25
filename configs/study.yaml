@@ -59,6 +59,15 @@ readers:
     effort: medium             # thinking is always on; no sampling parameters
     temperature: null
 
+# Third-party summarizer for the oversight arm: writes the activity-log summary a
+# monitor reads in the `summary` view. Not an agent or monitor anywhere in the study.
+summarizer:
+  client: vllm
+  app: vllm-gemma-3-27b-it
+  model: google/gemma-3-27b-it
+  temperature: 0.0
+  max_tokens: 300
+
 monitors:
   haiku:
     client: anthropic          # local run, key from agent-collusion-bench/.env
