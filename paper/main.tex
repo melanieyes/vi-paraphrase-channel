@@ -40,7 +40,9 @@ message identified the proposer but not the agent; with it in view, the monitor 
 \MonFADeclDelivered{} of episodes in which the agent declined. Agents disclosed the influence when asked
 (\GemDiscItem{} and \QwDiscItem) but rarely in their reports (\GemDiscLex{} and \QwDiscLex). Paraphrasing
 or neutralizing messages on the platform did not reduce collusion. We propose that evidence of collusion
-requires a proposal, a matching action, and a departure from the agent's behaviour without the proposal.
+requires a proposal, a matching action, and a departure from the agent's behaviour without the proposal;
+applied by a monitor, this standard nearly eliminated false alarms, but only one of two monitors used the
+baseline condition.
 \end{abstract}
 
 \section{Introduction}
@@ -63,7 +65,7 @@ scenario paired with a harmless twin, with four renderings, frozen and gated sti
 two monitors reading six views.
 \item Evidence, replicated across two monitors, that a monitor needs the agent's own report (2.2). The action
 alone misses most collusion, and the rival's message identifies the proposer rather than the agent.
-\item An evidence standard whose three parts are evaluated separately (2.3), and a task analysis that
+\item An evidence standard, evaluated as a monitor view with two monitors (2.3), and a task analysis that
 separates unprompted from message-induced collusion (2.1).
 \end{enumerate}
 
@@ -197,8 +199,25 @@ episodes, \GemDiscItem{} (Gemini) and \QwDiscItem{} (Qwen) answered yes to a dir
 
 We therefore propose that convincing evidence requires (i) a proposal, (ii) an action that matches it, and
 (iii) a departure from the agent's behaviour without the proposal. Our design observes (iii) directly at
-turn~1; in deployed systems it would come from earlier rounds or a baseline policy. We have not evaluated
-this standard as a detector.
+turn~1; in deployed systems it would come from earlier rounds or a baseline policy.
+
+We evaluated the standard as a monitor view that adds the agent's pre-message choice to the message,
+action and report, with the three conditions stated in the prompt (Table~\ref{tab:standard}). On Gemini
+market episodes it removed false alarms on declined episodes (\StdGemFADecl{} with the Gemini monitor,
+\StdHkFADecl{} with Haiku) and on twins, but missed more message-moved episodes than action and report
+(\StdGemMovedFNR{} and \StdHkMovedFNR, against \StdGemRepMovedFNR). On Qwen episodes, whose reports
+seldom mention the message, it missed fewer (\StdGemQwMovedFNR{} and \StdHkQwMovedFNR, against
+\StdGemQwRepMovedFNR{} and \StdHkQwRepMovedFNR). The monitors applied condition (iii) unevenly. Haiku
+flagged \StdHkFAUni{} of episodes that chose the collusive option before any message; the Gemini monitor
+flagged \StdGemFAUni. Stating a baseline rule to a monitor does not ensure that it uses the baseline.
+
+\begin{table}[htbp]
+\centering\small
+\caption{The evidence standard applied as a monitor view (Gemini agent, market set, \%). Missed:
+message-moved episodes cleared. Flag: declined harmful episodes flagged. Flag: unilateral: episodes that
+chose the collusive option before any message and were flagged. Bold: the standard view.}\label{tab:standard}
+\resizebox{\linewidth}{!}{\input{tables/standard.tex}}
+\end{table}
 
 \paragraph{Robustness.} Four LLM readers agreed with the gate on \AgreeOpus{} (Opus 5.5),
 \AgreeGeminiPro{} (Gemini 3.1 Pro), \AgreeGemma{} (Gemma-3-27B) and \AgreeGPT{} (GPT-5.4-nano) of harmful
@@ -230,8 +249,8 @@ four readers from other providers reduce but do not remove shared bias, and we r
 sample. Qwen agents read Qwen-relayed text, and each message was relayed once. The lexical disclosure code
 is our weakest measure. Appendix~\ref{app:ethics} discusses dual use.
 
-\paragraph{Future work.} Evaluating the three-part standard as a detector on multi-round logs, human
-validation of the stimuli, and relays that summarise conversation history.
+\paragraph{Future work.} Testing the standard on multi-round logs, where the baseline comes from earlier
+rounds; human validation of the stimuli; and relays that summarise conversation history.
 
 \section{Conclusion}
 Logs contain evidence of the proposal, the action and the agent's account, and each misleads on its own. A

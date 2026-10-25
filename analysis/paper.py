@@ -148,6 +148,10 @@ def main() -> None:
             M[f"{P}RepFAUni"] = pct(pm["fpr_unilateral"]["report"])
             M[f"{P}RepMovedFNR"] = pct(pm["fnr_moved"]["report"])
             M[f"{P}AllFADecl"] = pct(pm["fpr_declined"]["delivered"])
+        mq = S["qwen"]["monitors"].get(mname) if S["qwen"] else None
+        if mq and "standard" in mq["views"]:
+            M[f"{P}QwMovedFNR"] = pct(mq["pooled"]["fnr_moved"]["standard"])
+            M[f"{P}QwRepMovedFNR"] = pct(mq["pooled"]["fnr_moved"]["report"])
     hkw = W["gemini"]["monitors"].get("haiku") if W["gemini"] else None
     if hkw:
         M["HkWfActionFNR"] = pct(hkw["pooled"]["fnr"]["action"])
