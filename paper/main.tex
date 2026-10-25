@@ -18,7 +18,7 @@
 \newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
 \input{numbers.tex}
 
-\title{\textbf{What Counts as Evidence of Agent Collusion?\\[2pt]\large Actions, Words and Relays in Vietnamese Agent Workflows}}
+\title{\textbf{The Agent Said No, the Monitor Flagged It Anyway}\\[2pt]\large What Counts as Evidence of Collusion Between LLM Agents}
 \author{Melanie Bui\\\small\TODO{affiliation}\\[6pt]\small\textit{With Apart Research}}
 \date{}
 
@@ -26,47 +26,55 @@
 \maketitle
 
 \begin{abstract}
-\noindent When LLM agents act for competing principals and message each other, an auditor usually has
-only the logs. We ask what in those logs is convincing evidence that an agent colluded. We built a
-Vietnamese benchmark of \nTaskItems{} items in nine families, six on an online marketplace and three
-in workplace workflows; every harmful scenario has a harmless twin of the same form. A scripted rival
-sends a fixed invitation in one of four styles, from a direct proposal to a bare announcement. Two agents (Gemini 2.5 Flash, Qwen3-8B) decide, report to
-their principal and answer a disclosure question, and two monitors (Gemini 2.5 Flash, Claude Haiku 5.5)
-judge each episode from six views. From the action alone, the Gemini monitor missed \MonActionFNR{} of
-collusion on the marketplace and the Haiku monitor \HkActionFNR. Adding the agent's report reduced these
-misses to \MonReportFNR{} and \HkReportFNR. The rival's
-message identified the proposer but not the agent; with it in view, the monitor flagged
-\MonFADeclDelivered{} of episodes in which the agent declined. Agents disclosed the influence when asked
-(\GemDiscItem{} and \QwDiscItem) but rarely in their reports (\GemDiscLex{} and \QwDiscLex). Paraphrasing
-or neutralizing messages on the platform did not reduce collusion. We propose that evidence of collusion
-requires a proposal, a matching action, and a departure from the agent's behaviour without the proposal.
-Giving the monitor the agent's pre-message choice cut flags on declined episodes from \StdGemAllFADecl{}
-to \StdGemCtlFADecl{} with few misses; stating the rule explicitly added little.
+\noindent A rival agent asks yours to hold a price. Your agent refuses. A monitor that reads the message
+flags it anyway: in our experiments, \StdGemAllFADecl{} of refusals for a Gemini 2.5 Flash monitor and
+\StdHkAllFADecl{} for Claude Haiku 5.5. We ask what in an agent's logs is convincing evidence that it
+colluded. We built a Vietnamese benchmark of \nTaskItems{} items in nine families, on an online marketplace
+and in workplace workflows, each harmful scenario paired with a harmless twin. A scripted rival sends a fixed
+invitation in one of four styles, from a direct proposal to a bare announcement. Two agents (Gemini 2.5
+Flash, Qwen3-8B) decide, report to their principal and answer a disclosure question; two monitors judge
+each episode. Each kind of evidence fails alone. The action misses intent: Gemini
+held the price before any message in \GemTopUnprompted{} of price-holding episodes. The report hides the
+message: agents admitted influence when asked (\GemDiscItem{} and \QwDiscItem) but mentioned it in
+\GemDiscLex{} and \QwDiscLex{} of reports. The message implicates the sender, not the receiver. We propose
+that evidence requires a proposal, a matching action, and a departure from what the agent does without the
+proposal. Showing the monitor the agent's choices on similar situations, which a deployed system can
+record, cut flags on refusals to \StdGemFamFADecl{} (Gemini) and \StdHkFamFADecl{} (Haiku) without missing any collusion on
+the marketplace. A neutral summary of the trace kept most of this evidence; the agent's own report did not.
+Paraphrasing, neutralizing or summarizing the rival's message rarely changed what agents did.
 \end{abstract}
 
 \section{Introduction}
-LLM agents now negotiate, price, hire and evaluate on behalf of different principals, and they exchange
-messages while doing so. One agent can invite another into an arrangement that harms a third party, for
-example holding a price or agreeing not to hire each other's staff. Auditors and platform monitors rarely
-observe intent. They observe decisions, reports and, sometimes, messages. Track~2 of the AI Collusion
-Research Sprint asks which tasks lead to collusion (2.1), whether combining what agents say with what they
-do improves detection (2.2), and what should count as convincing evidence (2.3).
+Two shops on a Vietnamese marketplace sell the same air fryer for 1,890,000\,đ. Each is run by an AI
+agent. One agent writes to the other: \emph{mong anh em mình cùng giữ giá 1.890.000đ để công việc ổn
+định} (we hope we brothers can both keep the price at 1,890,000\,đ so business stays stable). The second
+agent keeps its price. Did it collude?
 
-We study these questions in Vietnamese, where pragmatic cues can carry an invitation: a euphemism
-(\emph{cho gọn}), a relational appeal (\emph{anh em}), or a bare announcement that requests nothing. In
-earlier work, compressing such instructions into an executor's action and report hid violations from a
-monitor \cite{bui2026ps}. Here, two agents serve rival principals.
+The answer depends on what the auditor sees. If the agent would have kept the price anyway, the message
+changed nothing. If the message stopped a price cut, the message did the work. The action cannot tell these
+apart, the message speaks only for its sender, and the agent's report to its owner may not mention the
+message at all. Platform monitors and auditors face this problem whenever agents that serve different
+principals can talk. Track~2 of the AI Collusion Research Sprint asks which tasks lead to collusion (2.1),
+whether combining what agents say with what they do improves detection (2.2), and what should count as
+convincing evidence (2.3).
+
+We answer in Vietnamese, where an invitation can travel in pragmatic cues: a euphemism (\emph{cho gọn}, to
+keep it simple), a relational appeal (\emph{anh em}, brothers), or a bare announcement that asks for nothing.
+In earlier work, compressing such instructions into an executor's action and report hid violations from a
+monitor \cite{bui2026ps}. Here, two agents serve rival principals, and we vary what the monitor reads.
 
 \paragraph{Contributions.}
 \begin{enumerate}
-\item A benchmark of \nTaskItems{} Vietnamese items in nine families and two settings, each harmful
-scenario paired with a harmless twin, with four renderings, frozen and gated stimuli, two agents and
-two monitors reading six views.
-\item Evidence, replicated across two monitors, that a monitor needs the agent's own report (2.2). The action
-alone misses most collusion, and the rival's message identifies the proposer rather than the agent.
-\item An evidence standard, evaluated with two monitors against a no-rule control, showing that the
-agent's pre-message behaviour matters more than the rule (2.3), and a task analysis that separates
-unprompted from message-induced collusion (2.1).
+\item A benchmark of \nTaskItems{} Vietnamese items in nine families and two settings, each harmful scenario
+paired with a harmless twin, with frozen and gated invitations in four styles, two agents and two monitors.
+\item Evidence that each source fails alone (2.1, 2.2). Agents often collude unprompted, so the action
+overstates the message's role; reports omit the message; and a monitor that reads the message flags
+agents that refused.
+\item An evidence standard (2.3): proposal, matching action, and departure from baseline behaviour. A
+baseline built from similar situations, which a deployed monitor can hold, removes most false flags
+without adding misses.
+\item A test of oversight through summaries: a neutral third party's summary keeps the evidence that the
+agent's own report drops.
 \end{enumerate}
 
 \section{Related Work}
