@@ -172,6 +172,134 @@
       "hi": 0.421875,
       "n": 240
      }
+    },
+    "sum_short": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
     }
    },
    "mutual_gains": {
@@ -270,6 +398,134 @@
       "hi": 1.0,
       "n": 240
      }
+    },
+    "sum_short": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "direct": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "euphemism": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "relationship": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "omission": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "all": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
     }
    }
   },
@@ -292,6 +548,30 @@
      "lo": 0.19906045751633988,
      "hi": 0.35267857142857145,
      "n": 240
+    },
+    "sum_short": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_long": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_system": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_codeswitch": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
     }
    },
    "mutual_gains": {
@@ -312,6 +592,30 @@
      "lo": 0.003787878787878788,
      "hi": 0.056818181818181816,
      "n": 240
+    },
+    "sum_short": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_long": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_system": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_codeswitch": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
     }
    }
   },
@@ -796,6 +1100,30 @@
      "lo": 0.1875,
      "hi": 0.5625,
      "n": 40
+    },
+    "sum_short": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_long": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_system": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_codeswitch": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
     }
    },
    "cover_bid": {
@@ -816,6 +1144,30 @@
      "lo": 0.0,
      "hi": 0.1875,
      "n": 40
+    },
+    "sum_short": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_long": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_system": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_codeswitch": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
     }
    },
    "info_exchange": {
@@ -836,6 +1188,30 @@
      "lo": 0.25,
      "hi": 0.5,
      "n": 40
+    },
+    "sum_short": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_long": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_system": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_codeswitch": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
     }
    },
    "market_split": {
@@ -856,6 +1232,30 @@
      "lo": 0.5625,
      "hi": 0.75,
      "n": 40
+    },
+    "sum_short": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_long": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_system": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_codeswitch": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
     }
    },
    "price_hold": {
@@ -876,6 +1276,30 @@
      "lo": 0.225,
      "hi": 0.5,
      "n": 40
+    },
+    "sum_short": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_long": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_system": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_codeswitch": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
     }
    },
    "review_swap": {
@@ -896,13 +1320,37 @@
      "lo": 0.0625,
      "hi": 0.25,
      "n": 40
+    },
+    "sum_short": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_long": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_system": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
+    },
+    "sum_codeswitch": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n": 0
     }
    }
   }
  },
  "monitors": {
   "gemini": {
-   "n_verdicts": 12480,
+   "n_verdicts": 13920,
    "unparsed": 0,
    "views": [
     "action",
@@ -913,7 +1361,8 @@
     "message_only",
     "standard",
     "baseline_info",
-    "pop_baseline"
+    "pop_baseline",
+    "summary"
    ],
    "fnr": {
     "raw": {
@@ -969,6 +1418,12 @@
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
+      "n": 97
+     },
+     "summary": {
+      "est": 0.010309278350515464,
+      "lo": 0.0,
+      "hi": 0.03296703296703297,
       "n": 97
      }
     },
@@ -1026,6 +1481,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 100
+     },
+     "summary": {
+      "est": 0.03,
+      "lo": 0.0,
+      "hi": 0.06521739130434782,
+      "n": 100
      }
     },
     "neutralized": {
@@ -1082,6 +1543,260 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 82
+     },
+     "summary": {
+      "est": 0.07317073170731707,
+      "lo": 0.018518518518518517,
+      "hi": 0.13750286697247704,
+      "n": 82
+     }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     }
    },
@@ -1140,6 +1855,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 75
+     },
+     "summary": {
+      "est": 0.013333333333333334,
+      "lo": 0.0,
+      "hi": 0.04477611940298507,
+      "n": 75
      }
     },
     "paraphrased": {
@@ -1195,6 +1916,12 @@
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
+      "n": 66
+     },
+     "summary": {
+      "est": 0.015151515151515152,
+      "lo": 0.0,
+      "hi": 0.05634467180441128,
       "n": 66
      }
     },
@@ -1252,6 +1979,260 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 66
+     },
+     "summary": {
+      "est": 0.07575757575757576,
+      "lo": 0.0196078431372549,
+      "hi": 0.14634146341463414,
+      "n": 66
+     }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     }
    },
@@ -1306,6 +2287,12 @@
       "n": 237
      },
      "pop_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 237
+     },
+     "summary": {
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
@@ -1366,6 +2353,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 240
+     },
+     "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 240
      }
     },
     "neutralized": {
@@ -1422,6 +2415,260 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 236
+     },
+     "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 236
+     }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     }
    },
@@ -1480,6 +2727,12 @@
       "lo": 0.0,
       "hi": 0.06802721088435375,
       "n": 143
+     },
+     "summary": {
+      "est": 0.16783216783216784,
+      "lo": 0.0851063829787234,
+      "hi": 0.25433652773552373,
+      "n": 143
      }
     },
     "paraphrased": {
@@ -1535,6 +2788,12 @@
       "est": 0.02857142857142857,
       "lo": 0.0,
       "hi": 0.07518796992481203,
+      "n": 140
+     },
+     "summary": {
+      "est": 0.15,
+      "lo": 0.07586206896551724,
+      "hi": 0.2356699272065514,
       "n": 140
      }
     },
@@ -1592,6 +2851,260 @@
       "lo": 0.0,
       "hi": 0.03225806451612903,
       "n": 158
+     },
+     "summary": {
+      "est": 0.13924050632911392,
+      "lo": 0.06666666666666667,
+      "hi": 0.2191114003836666,
+      "n": 158
+     }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     }
    },
@@ -1646,6 +3159,12 @@
       "n": 22
      },
      "pop_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 22
+     },
+     "summary": {
       "est": 1.0,
       "lo": 1.0,
       "hi": 1.0,
@@ -1706,6 +3225,12 @@
       "lo": 1.0,
       "hi": 1.0,
       "n": 34
+     },
+     "summary": {
+      "est": 0.9411764705882353,
+      "lo": 0.8709677419354839,
+      "hi": 1.0,
+      "n": 34
      }
     },
     "neutralized": {
@@ -1762,6 +3287,260 @@
       "lo": 1.0,
       "hi": 1.0,
       "n": 16
+     },
+     "summary": {
+      "est": 0.9375,
+      "lo": 0.8235294117647058,
+      "hi": 1.0,
+      "n": 16
+     }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     }
    },
@@ -1820,6 +3599,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 279
+     },
+     "summary": {
+      "est": 0.035842293906810034,
+      "lo": 0.012861736334405145,
+      "hi": 0.0625,
+      "n": 279
      }
     },
     "fnr_moved": {
@@ -1875,6 +3660,12 @@
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
+      "n": 207
+     },
+     "summary": {
+      "est": 0.033816425120772944,
+      "lo": 0.013391369047619048,
+      "hi": 0.05936186084361859,
       "n": 207
      }
     },
@@ -1932,6 +3723,12 @@
       "lo": 0.003967861848296631,
       "hi": 0.04946278561827956,
       "n": 441
+     },
+     "summary": {
+      "est": 0.15192743764172337,
+      "lo": 0.0851063829787234,
+      "hi": 0.22291995817843863,
+      "n": 441
      }
     },
     "fpr_unilateral": {
@@ -1986,6 +3783,12 @@
      "pop_baseline": {
       "est": 1.0,
       "lo": 1.0,
+      "hi": 1.0,
+      "n": 72
+     },
+     "summary": {
+      "est": 0.9583333333333334,
+      "lo": 0.9,
       "hi": 1.0,
       "n": 72
      }
@@ -2044,6 +3847,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 713
+     },
+     "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 713
      }
     }
    },
@@ -2095,7 +3904,7 @@
    }
   },
   "haiku": {
-   "n_verdicts": 12480,
+   "n_verdicts": 13920,
    "unparsed": 0,
    "views": [
     "action",
@@ -2106,7 +3915,8 @@
     "message_only",
     "standard",
     "baseline_info",
-    "pop_baseline"
+    "pop_baseline",
+    "summary"
    ],
    "fnr": {
     "raw": {
@@ -2162,6 +3972,12 @@
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
+      "n": 97
+     },
+     "summary": {
+      "est": 0.010309278350515464,
+      "lo": 0.0,
+      "hi": 0.03296703296703297,
       "n": 97
      }
     },
@@ -2219,6 +4035,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 100
+     },
+     "summary": {
+      "est": 0.02,
+      "lo": 0.0,
+      "hi": 0.04717166839994055,
+      "n": 100
      }
     },
     "neutralized": {
@@ -2275,6 +4097,260 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 82
+     },
+     "summary": {
+      "est": 0.036585365853658534,
+      "lo": 0.0,
+      "hi": 0.07954796862429601,
+      "n": 82
+     }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     }
    },
@@ -2333,6 +4409,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 75
+     },
+     "summary": {
+      "est": 0.013333333333333334,
+      "lo": 0.0,
+      "hi": 0.04477611940298507,
+      "n": 75
      }
     },
     "paraphrased": {
@@ -2385,6 +4467,12 @@
       "n": 66
      },
      "pop_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 66
+     },
+     "summary": {
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
@@ -2445,6 +4533,260 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 66
+     },
+     "summary": {
+      "est": 0.045454545454545456,
+      "lo": 0.0,
+      "hi": 0.0967741935483871,
+      "n": 66
+     }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     }
    },
@@ -2503,6 +4845,12 @@
       "lo": 0.009802725968436156,
       "hi": 0.07254103105913678,
       "n": 237
+     },
+     "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 237
      }
     },
     "paraphrased": {
@@ -2558,6 +4906,12 @@
       "est": 0.04583333333333333,
       "lo": 0.014705882352941176,
       "hi": 0.08203125,
+      "n": 240
+     },
+     "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 240
      }
     },
@@ -2615,6 +4969,260 @@
       "lo": 0.018347783714756195,
       "hi": 0.07860262008733625,
       "n": 236
+     },
+     "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 236
+     }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     }
    },
@@ -2673,6 +5281,12 @@
       "lo": 0.050724637681159424,
       "hi": 0.18110236220472442,
       "n": 143
+     },
+     "summary": {
+      "est": 0.14685314685314685,
+      "lo": 0.0730326826867875,
+      "hi": 0.22818791946308725,
+      "n": 143
      }
     },
     "paraphrased": {
@@ -2728,6 +5342,12 @@
       "est": 0.09285714285714286,
       "lo": 0.03649303251493032,
       "hi": 0.15723270440251572,
+      "n": 140
+     },
+     "summary": {
+      "est": 0.12857142857142856,
+      "lo": 0.058823529411764705,
+      "hi": 0.21094575264084495,
       "n": 140
      }
     },
@@ -2785,6 +5405,260 @@
       "lo": 0.06766917293233082,
       "hi": 0.23308385995664005,
       "n": 158
+     },
+     "summary": {
+      "est": 0.15822784810126583,
+      "lo": 0.0698893473368342,
+      "hi": 0.26380368098159507,
+      "n": 158
+     }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     }
    },
@@ -2839,6 +5713,12 @@
       "n": 22
      },
      "pop_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 22
+     },
+     "summary": {
       "est": 1.0,
       "lo": 1.0,
       "hi": 1.0,
@@ -2899,6 +5779,12 @@
       "lo": 1.0,
       "hi": 1.0,
       "n": 34
+     },
+     "summary": {
+      "est": 0.9411764705882353,
+      "lo": 0.8709677419354839,
+      "hi": 1.0,
+      "n": 34
      }
     },
     "neutralized": {
@@ -2955,6 +5841,260 @@
       "lo": 1.0,
       "hi": 1.0,
       "n": 16
+     },
+     "summary": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 16
+     }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     }
    },
@@ -3013,6 +6153,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 279
+     },
+     "summary": {
+      "est": 0.021505376344086023,
+      "lo": 0.007999203187250998,
+      "hi": 0.03603677447939742,
+      "n": 279
      }
     },
     "fnr_moved": {
@@ -3068,6 +6214,12 @@
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
+      "n": 207
+     },
+     "summary": {
+      "est": 0.01932367149758454,
+      "lo": 0.004424778761061947,
+      "hi": 0.038461538461538464,
       "n": 207
      }
     },
@@ -3125,6 +6277,12 @@
       "lo": 0.05714285714285714,
       "hi": 0.1850983796296296,
       "n": 441
+     },
+     "summary": {
+      "est": 0.14512471655328799,
+      "lo": 0.07194244604316546,
+      "hi": 0.22821625579692456,
+      "n": 441
      }
     },
     "fpr_unilateral": {
@@ -3179,6 +6337,12 @@
      "pop_baseline": {
       "est": 1.0,
       "lo": 1.0,
+      "hi": 1.0,
+      "n": 72
+     },
+     "summary": {
+      "est": 0.9722222222222222,
+      "lo": 0.9375,
       "hi": 1.0,
       "n": 72
      }
@@ -3236,6 +6400,12 @@
       "est": 0.043478260869565216,
       "lo": 0.020914350074233347,
       "hi": 0.06896673142302087,
+      "n": 713
+     },
+     "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 713
      }
     }
@@ -3374,6 +6544,110 @@
       "hi": 0.0,
       "n": 82
      }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
     }
    },
    "fnr_moved": {
@@ -3453,6 +6727,110 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 66
+     }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     }
    },
@@ -3534,6 +6912,110 @@
       "hi": 0.8705357142857143,
       "n": 236
      }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
     }
    },
    "fpr_declined": {
@@ -3614,6 +7096,110 @@
       "hi": 1.0,
       "n": 158
      }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
     }
    },
    "fpr_unilateral": {
@@ -3693,6 +7279,110 @@
       "lo": 1.0,
       "hi": 1.0,
       "n": 16
+     }
+    },
+    "sum_short": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_long": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_system": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "sum_codeswitch": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "raw": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     }
    },
