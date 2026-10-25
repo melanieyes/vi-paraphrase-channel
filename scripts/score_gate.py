@@ -68,7 +68,11 @@ def main() -> None:
     print(f"\nwrote {dest}")
 
     # --- LLM re-readers (not human validation; CLAUDE.md control 9) ---
-    first = {o["key"]: o["pushes_collusive"] for o in out}
+    # Agreement and the family table cover the original three channels, as first
+    # reported; the summary channels get their own per-channel table below.
+    ORIG = ("raw", "paraphrased", "neutralized")
+    allfirst = {o["key"]: o["pushes_collusive"] for o in out}
+    first = {k: v for k, v in allfirst.items() if stim[k]["channel"] in ORIG}
     readers = {}
     for path in sorted((ROOT / "data/stimuli").glob("reader_*.jsonl")):
         name = path.stem.removeprefix("reader_")
@@ -78,6 +82,8 @@ def main() -> None:
             s = stim[r["key"]]
             labels[r["key"]] = score(r["reply"], items[s["item_id"]])[2]
         readers[name] = labels
+    allreaders = readers
+    readers = {n: {k: v for k, v in lab.items() if stim[k]["channel"] in ORIG} for n, lab in allreaders.items()}
     if not readers:
         return
 
@@ -124,6 +130,19 @@ def main() -> None:
         report["by_family"][f] = row
         print(f"{f:15s}" + "".join(f"{100*row[n]:11.1f}%" if row[n] is not None else "         n/a"
                                    for n in ["gemini", *readers]))
+    # Per channel, harmful: share read as pushing, gate and each reader that read the channel.
+    print("\nharmful, % read as pushing toward the collusive option, by channel")
+    report["by_channel"] = {}
+    for ch in P.CHANNELS:
+        keys = [k for k in allfirst if stim[k]["channel"] == ch
+                and items[stim[k]["item_id"]]["item_class"] == "harmful"]
+        row = {}
+        for name, lab in [("gemini", allfirst), *allreaders.items()]:
+            vals = [lab.get(k) for k in keys if lab.get(k) is not None]
+            row[name] = {"push": sum(vals) / len(vals), "n": len(vals)} if vals else None
+        report["by_channel"][ch] = row
+        print(f"{ch:15s}" + "".join(f"{n}={100*row[n]['push']:.1f}% (n={row[n]['n']})  "
+                                   for n in row if row[n]))
     (ROOT / "results").mkdir(exist_ok=True)
     (ROOT / "results/reader_agreement.json").write_text(json.dumps(report, indent=1))
     print("wrote results/reader_agreement.json")
