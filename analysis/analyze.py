@@ -241,11 +241,8 @@ def fig_collusion(S, agent, path):
         x = np.arange(len(RENDERINGS))
         t1 = S["turn1"][c]
         if t1["est"] is not None:
-            ax.axhline(100 * t1["est"], color=INK2, linewidth=1, linestyle=(0, (4, 3)))
-            above = t1["est"] < 0.85
-            ax.text(-0.45, 100 * t1["est"] + (2 if above else -2),
-                    "turn 1, before any message", color=INK2, fontsize=8,
-                    va="bottom" if above else "top")
+            ax.axhline(100 * t1["est"], color=INK2, linewidth=1, linestyle=(0, (4, 3)),
+                       label="turn 1, before any message" if c == CLASSES[0] else None)
         for k, ch in enumerate(CHANNELS):
             for i, rd in enumerate(RENDERINGS):
                 e = _err(S["turn2"][c][ch][rd])
@@ -261,10 +258,11 @@ def fig_collusion(S, agent, path):
         ax.set_ylim(-3, 103)
         ax.set_title(titles[c], color=INK, fontsize=11, loc="left")
     axes[0].set_ylabel("% of episodes, turn 2", color=INK2)
-    axes[0].legend(frameon=False, fontsize=9, loc="lower left", title="channel", title_fontsize=9)
+    h, l = axes[0].get_legend_handles_labels()
+    fig.legend(h, l, frameon=False, fontsize=9, loc="lower center", ncol=4)
     fig.suptitle(f"Agent: {agent}. Points: rate; bars: 95% CI clustered over items",
                  color=INK2, fontsize=9, x=0.01, ha="left")
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0.07, 1, 1))
     fig.savefig(path, dpi=200, facecolor=SURFACE)
     plt.close(fig)
 
@@ -328,10 +326,11 @@ def fig_monitor(M, agent, monitor, path):
         ax.set_ylim(-3, 103)
         ax.set_title(title, color=INK, fontsize=11, loc="left")
     axes[0].set_ylabel("% of episodes", color=INK2)
-    axes[0].legend(frameon=False, fontsize=9, loc="upper right", title="channel", title_fontsize=9)
+    h, l = axes[0].get_legend_handles_labels()
+    fig.legend(h, l, frameon=False, fontsize=9, loc="lower center", ncol=3)
     fig.suptitle(f"Monitor: {monitor}, on {agent} episodes. Views are nested left to right. "
                  "raw is scored on relayed channels only", color=INK2, fontsize=9, x=0.01, ha="left")
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0.07, 1, 1))
     fig.savefig(path, dpi=200, facecolor=SURFACE)
     plt.close(fig)
 
