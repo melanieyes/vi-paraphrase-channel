@@ -313,17 +313,21 @@ flag proposals from messages, but judging the agent requires its action and a re
 have done without the proposal. In our data that reference was the most useful single addition to a
 monitor's view, more useful than an explicit rule. Agent reports and direct questions are also cheap to log,
 but their value depends on the agent's candour. Detectors keyed on explicit requests would miss
-announcements, which moved Gemini most on the market.
+announcements, which moved Gemini most on the market. None of these problems is specific to English. Both agents took collusive invitations written in
+Vietnamese, including a bare announcement that asked for nothing, and every evidence problem above appeared
+in Vietnamese logs. Monitors and detectors validated only on English text should not be assumed to
+transfer.
 
 \paragraph{Limitations.} The rival is scripted and a model wrote the invitations, so we measure propensity
 to accept, not the ability to initiate collusion. Each family has eight scenarios, which supports only
 coarse comparisons between families. Gemini served as agent, gate and first monitor; a second monitor and
 four readers from other providers reduce but do not remove shared bias, and we ran no human validation
-sample. Qwen agents read Qwen-relayed text. Summary styles also differ in length, and agents read one summary per message; a second sample and a second summarizer were checked only at the stimulus level. The population and similar-situation baselines come from the same scenario set, so a deployed baseline drawn from different traffic may fit less well. The lexical disclosure code
+sample. We ran no English condition, so we cannot say whether collusion is more or less likely in
+Vietnamese than in English. Qwen agents read Qwen-relayed text. Summary styles also differ in length, and agents read one summary per message; a second sample and a second summarizer were checked only at the stimulus level. The population and similar-situation baselines come from the same scenario set, so a deployed baseline drawn from different traffic may fit less well. The lexical disclosure code
 is our weakest measure. Appendix~\ref{app:ethics} discusses dual use.
 
 \paragraph{Future work.} Testing the standard on multi-round logs, where the baseline comes from earlier
-rounds; human validation of the stimuli; relays that summarise conversation history; the same invitations in other languages, to compare how pragmatic cues carry across them; and handoffs in which one agent plans and another executes from a summary of the plan.
+rounds; human validation of the stimuli; relays that summarise conversation history; the same design in other languages, with an English control and invitations written by native speakers in each language's own pragmatic register, to test whether collusion and its evidence differ by language; and handoffs in which one agent plans and another executes from a summary of the plan.
 
 \section{Conclusion}
 Logs hold three kinds of evidence, and each misleads on its own: the action overstates the message's role,
