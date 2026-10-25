@@ -1350,7 +1350,7 @@
  },
  "monitors": {
   "gemini": {
-   "n_verdicts": 13920,
+   "n_verdicts": 15360,
    "unparsed": 1,
    "views": [
     "action",
@@ -1362,7 +1362,8 @@
     "standard",
     "baseline_info",
     "pop_baseline",
-    "summary"
+    "summary",
+    "family_baseline"
    ],
    "fnr": {
     "raw": {
@@ -1424,6 +1425,12 @@
       "est": 0.08064516129032258,
       "lo": 0.017241379310344827,
       "hi": 0.14285714285714285,
+      "n": 62
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 62
      }
     },
@@ -1487,6 +1494,12 @@
       "lo": 0.014705882352941176,
       "hi": 0.13559845155890346,
       "n": 69
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 69
      }
     },
     "neutralized": {
@@ -1549,6 +1562,12 @@
       "lo": 0.04081632653061224,
       "hi": 0.1323529411764706,
       "n": 79
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 79
      }
     },
     "sum_short": {
@@ -1607,6 +1626,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1673,6 +1698,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_system": {
@@ -1735,6 +1766,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_codeswitch": {
@@ -1793,6 +1830,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1861,6 +1904,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 26
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 26
      }
     },
     "paraphrased": {
@@ -1922,6 +1971,12 @@
       "est": 0.045454545454545456,
       "lo": 0.0,
       "hi": 0.14285714285714285,
+      "n": 22
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 22
      }
     },
@@ -1985,6 +2040,12 @@
       "lo": 0.0,
       "hi": 0.11764705882352941,
       "n": 28
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 28
      }
     },
     "sum_short": {
@@ -2043,6 +2104,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -2109,6 +2176,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_system": {
@@ -2171,6 +2244,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_codeswitch": {
@@ -2229,6 +2308,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -2297,6 +2382,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 240
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 240
      }
     },
     "paraphrased": {
@@ -2355,6 +2446,12 @@
       "n": 240
      },
      "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 240
+     },
+     "family_baseline": {
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
@@ -2421,6 +2518,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 239
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 239
      }
     },
     "sum_short": {
@@ -2479,6 +2582,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -2545,6 +2654,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_system": {
@@ -2607,6 +2722,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_codeswitch": {
@@ -2665,6 +2786,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -2733,6 +2860,12 @@
       "lo": 0.04,
       "hi": 0.12139127518921847,
       "n": 178
+     },
+     "family_baseline": {
+      "est": 0.03932584269662921,
+      "lo": 0.008928571428571428,
+      "hi": 0.07913847140109691,
+      "n": 178
      }
     },
     "paraphrased": {
@@ -2794,6 +2927,12 @@
       "est": 0.15204678362573099,
       "lo": 0.090424780622671,
       "hi": 0.22151898734177214,
+      "n": 171
+     },
+     "family_baseline": {
+      "est": 0.07017543859649122,
+      "lo": 0.017241379310344827,
+      "hi": 0.14084507042253522,
       "n": 171
      }
     },
@@ -2857,6 +2996,12 @@
       "lo": 0.045454545454545456,
       "hi": 0.15172413793103448,
       "n": 161
+     },
+     "family_baseline": {
+      "est": 0.049689440993788817,
+      "lo": 0.011976047904191617,
+      "hi": 0.10055948563683845,
+      "n": 161
      }
     },
     "sum_short": {
@@ -2915,6 +3060,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -2981,6 +3132,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_system": {
@@ -3043,6 +3200,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_codeswitch": {
@@ -3101,6 +3264,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -3169,6 +3338,12 @@
       "lo": 0.7551020408163265,
       "hi": 0.96875,
       "n": 36
+     },
+     "family_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 36
      }
     },
     "paraphrased": {
@@ -3229,6 +3404,12 @@
      "summary": {
       "est": 0.9148936170212766,
       "lo": 0.8269230769230769,
+      "hi": 1.0,
+      "n": 47
+     },
+     "family_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
       "hi": 1.0,
       "n": 47
      }
@@ -3293,6 +3474,12 @@
       "lo": 0.8269230769230769,
       "hi": 0.9473684210526315,
       "n": 51
+     },
+     "family_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 51
      }
     },
     "sum_short": {
@@ -3351,6 +3538,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -3417,6 +3610,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_system": {
@@ -3479,6 +3678,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_codeswitch": {
@@ -3537,6 +3742,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -3605,6 +3816,12 @@
       "lo": 0.03535204991087344,
       "hi": 0.11894314069076199,
       "n": 210
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 210
      }
     },
     "fnr_moved": {
@@ -3666,6 +3883,12 @@
       "est": 0.02631578947368421,
       "lo": 0.0,
       "hi": 0.08108108108108109,
+      "n": 76
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 76
      }
     },
@@ -3729,6 +3952,12 @@
       "lo": 0.06747404844290658,
       "hi": 0.1532717995062599,
       "n": 510
+     },
+     "family_baseline": {
+      "est": 0.052941176470588235,
+      "lo": 0.018611399103259773,
+      "hi": 0.097466062870775,
+      "n": 510
      }
     },
     "fpr_unilateral": {
@@ -3790,6 +4019,12 @@
       "est": 0.8880597014925373,
       "lo": 0.8352941176470589,
       "hi": 0.9530227558724832,
+      "n": 134
+     },
+     "family_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
       "n": 134
      }
     },
@@ -3853,6 +4088,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 719
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 719
      }
     }
    },
@@ -3904,7 +4145,7 @@
    }
   },
   "haiku": {
-   "n_verdicts": 13920,
+   "n_verdicts": 15360,
    "unparsed": 0,
    "views": [
     "action",
@@ -3916,7 +4157,8 @@
     "standard",
     "baseline_info",
     "pop_baseline",
-    "summary"
+    "summary",
+    "family_baseline"
    ],
    "fnr": {
     "raw": {
@@ -3978,6 +4220,12 @@
       "est": 0.03225806451612903,
       "lo": 0.0,
       "hi": 0.08333333333333333,
+      "n": 62
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 62
      }
     },
@@ -4041,6 +4289,12 @@
       "lo": 0.0,
       "hi": 0.15942028985507245,
       "n": 69
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 69
      }
     },
     "neutralized": {
@@ -4103,6 +4357,12 @@
       "lo": 0.02040816326530612,
       "hi": 0.12790697674418605,
       "n": 79
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 79
      }
     },
     "sum_short": {
@@ -4161,6 +4421,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -4227,6 +4493,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_system": {
@@ -4289,6 +4561,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_codeswitch": {
@@ -4347,6 +4625,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -4415,6 +4699,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 26
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 26
      }
     },
     "paraphrased": {
@@ -4473,6 +4763,12 @@
       "n": 22
      },
      "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 22
+     },
+     "family_baseline": {
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
@@ -4539,6 +4835,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 28
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 28
      }
     },
     "sum_short": {
@@ -4597,6 +4899,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -4663,6 +4971,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_system": {
@@ -4725,6 +5039,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_codeswitch": {
@@ -4783,6 +5103,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -4851,6 +5177,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 240
+     },
+     "family_baseline": {
+      "est": 0.03333333333333333,
+      "lo": 0.00960648148148149,
+      "hi": 0.0625,
+      "n": 240
      }
     },
     "paraphrased": {
@@ -4912,6 +5244,12 @@
       "est": 0.004166666666666667,
       "lo": 0.0,
       "hi": 0.013888888888888888,
+      "n": 240
+     },
+     "family_baseline": {
+      "est": 0.008333333333333333,
+      "lo": 0.0,
+      "hi": 0.020833333333333332,
       "n": 240
      }
     },
@@ -4975,6 +5313,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 239
+     },
+     "family_baseline": {
+      "est": 0.02510460251046025,
+      "lo": 0.005025125628140704,
+      "hi": 0.048582995951417005,
+      "n": 239
      }
     },
     "sum_short": {
@@ -5033,6 +5377,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -5099,6 +5449,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_system": {
@@ -5161,6 +5517,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_codeswitch": {
@@ -5219,6 +5581,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -5287,6 +5655,12 @@
       "lo": 0.03125,
       "hi": 0.13690476190476192,
       "n": 178
+     },
+     "family_baseline": {
+      "est": 0.03932584269662921,
+      "lo": 0.012422360248447204,
+      "hi": 0.07092408409920682,
+      "n": 178
      }
     },
     "paraphrased": {
@@ -5348,6 +5722,12 @@
       "est": 0.0935672514619883,
       "lo": 0.03164556962025317,
       "hi": 0.17129960317460313,
+      "n": 171
+     },
+     "family_baseline": {
+      "est": 0.05847953216374269,
+      "lo": 0.0196078431372549,
+      "hi": 0.10843606986083867,
       "n": 171
      }
     },
@@ -5411,6 +5791,12 @@
       "lo": 0.03977272727272727,
       "hi": 0.20183706774876498,
       "n": 161
+     },
+     "family_baseline": {
+      "est": 0.062111801242236024,
+      "lo": 0.025157232704402517,
+      "hi": 0.10752858309514085,
+      "n": 161
      }
     },
     "sum_short": {
@@ -5469,6 +5855,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -5535,6 +5927,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_system": {
@@ -5597,6 +5995,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_codeswitch": {
@@ -5655,6 +6059,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -5723,6 +6133,12 @@
       "lo": 0.8536406025824964,
       "hi": 1.0,
       "n": 36
+     },
+     "family_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 36
      }
     },
     "paraphrased": {
@@ -5783,6 +6199,12 @@
      "summary": {
       "est": 0.8936170212765957,
       "lo": 0.7608695652173914,
+      "hi": 1.0,
+      "n": 47
+     },
+     "family_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
       "hi": 1.0,
       "n": 47
      }
@@ -5847,6 +6269,12 @@
       "lo": 0.803030303030303,
       "hi": 0.9622641509433962,
       "n": 51
+     },
+     "family_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 51
      }
     },
     "sum_short": {
@@ -5905,6 +6333,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -5971,6 +6405,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_system": {
@@ -6033,6 +6473,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "family_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "sum_codeswitch": {
@@ -6091,6 +6537,12 @@
       "n": 0
      },
      "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -6159,6 +6611,12 @@
       "lo": 0.01694915254237288,
       "hi": 0.10891247778624014,
       "n": 210
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 210
      }
     },
     "fnr_moved": {
@@ -6217,6 +6675,12 @@
       "n": 76
      },
      "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 76
+     },
+     "family_baseline": {
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
@@ -6283,6 +6747,12 @@
       "lo": 0.036968576709796676,
       "hi": 0.1645890417987952,
       "n": 510
+     },
+     "family_baseline": {
+      "est": 0.052941176470588235,
+      "lo": 0.025974025974025976,
+      "hi": 0.08514961942441708,
+      "n": 510
      }
     },
     "fpr_unilateral": {
@@ -6345,6 +6815,12 @@
       "lo": 0.826076984443558,
       "hi": 0.9700014970059879,
       "n": 134
+     },
+     "family_baseline": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 134
      }
     },
     "fpr_twins": {
@@ -6406,6 +6882,12 @@
       "est": 0.0013908205841446453,
       "lo": 0.0,
       "hi": 0.004651162790697674,
+      "n": 719
+     },
+     "family_baseline": {
+      "est": 0.022253129346314324,
+      "lo": 0.0078125,
+      "hi": 0.039774216218791666,
       "n": 719
      }
     }
