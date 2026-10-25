@@ -728,14 +728,15 @@
  },
  "monitors": {
   "gemini": {
-   "n_verdicts": 1200,
+   "n_verdicts": 1440,
    "unparsed": 0,
    "views": [
     "action",
     "report",
     "delivered",
     "report_only",
-    "message_only"
+    "message_only",
+    "standard"
    ],
    "fnr": {
     "raw": {
@@ -764,6 +765,12 @@
       "n": 94
      },
      "message_only": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 94
+     },
+     "standard": {
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
@@ -800,6 +807,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -828,6 +841,12 @@
       "n": 0
      },
      "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -866,6 +885,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 87
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 87
      }
     },
     "paraphrased": {
@@ -898,6 +923,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -926,6 +957,12 @@
       "n": 0
      },
      "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -964,6 +1001,12 @@
       "lo": 0.0,
       "hi": 0.05357142857142857,
       "n": 120
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
      }
     },
     "paraphrased": {
@@ -996,6 +1039,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -1024,6 +1073,12 @@
       "n": 0
      },
      "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1062,6 +1117,12 @@
       "lo": 1.0,
       "hi": 1.0,
       "n": 26
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 26
      }
     },
     "paraphrased": {
@@ -1094,6 +1155,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -1122,6 +1189,128 @@
       "n": 0
      },
      "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    }
+   },
+   "fpr_unilateral": {
+    "raw": {
+     "action": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "report": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "delivered": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "report_only": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "message_only": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "standard": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     }
+    },
+    "paraphrased": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "neutralized": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1160,6 +1349,12 @@
       "lo": 0.0,
       "hi": 0.0,
       "n": 94
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 94
      }
     },
     "fnr_moved": {
@@ -1188,6 +1383,12 @@
       "n": 87
      },
      "message_only": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 87
+     },
+     "standard": {
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
@@ -1224,6 +1425,50 @@
       "lo": 1.0,
       "hi": 1.0,
       "n": 26
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 26
+     }
+    },
+    "fpr_unilateral": {
+     "action": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "report": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "delivered": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "report_only": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "message_only": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "standard": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
      }
     },
     "fpr_twins": {
@@ -1255,6 +1500,12 @@
       "est": 0.016666666666666666,
       "lo": 0.0,
       "hi": 0.05357142857142857,
+      "n": 120
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 120
      }
     }
@@ -1307,14 +1558,15 @@
    }
   },
   "haiku": {
-   "n_verdicts": 1200,
+   "n_verdicts": 1440,
    "unparsed": 0,
    "views": [
     "action",
     "report",
     "delivered",
     "report_only",
-    "message_only"
+    "message_only",
+    "standard"
    ],
    "fnr": {
     "raw": {
@@ -1346,6 +1598,12 @@
       "est": 0.05319148936170213,
       "lo": 0.0,
       "hi": 0.1134020618556701,
+      "n": 94
+     },
+     "standard": {
+      "est": 0.19148936170212766,
+      "lo": 0.12790697674418605,
+      "hi": 0.25,
       "n": 94
      }
     },
@@ -1379,6 +1637,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -1407,6 +1671,12 @@
       "n": 0
      },
      "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1445,6 +1715,12 @@
       "lo": 0.0,
       "hi": 0.12121212121212122,
       "n": 87
+     },
+     "standard": {
+      "est": 0.12643678160919541,
+      "lo": 0.05263157894736842,
+      "hi": 0.19318181818181818,
+      "n": 87
      }
     },
     "paraphrased": {
@@ -1477,6 +1753,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -1505,6 +1787,12 @@
       "n": 0
      },
      "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1543,6 +1831,12 @@
       "lo": 0.0,
       "hi": 0.026785714285714284,
       "n": 120
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
      }
     },
     "paraphrased": {
@@ -1575,6 +1869,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -1603,6 +1903,12 @@
       "n": 0
      },
      "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1641,6 +1947,12 @@
       "lo": 0.75,
       "hi": 1.0,
       "n": 26
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 26
      }
     },
     "paraphrased": {
@@ -1673,6 +1985,12 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
      }
     },
     "neutralized": {
@@ -1701,6 +2019,128 @@
       "n": 0
      },
      "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    }
+   },
+   "fpr_unilateral": {
+    "raw": {
+     "action": {
+      "est": 0.8571428571428571,
+      "lo": 0.4,
+      "hi": 1.0,
+      "n": 7
+     },
+     "report": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "delivered": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "report_only": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "message_only": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 7
+     }
+    },
+    "paraphrased": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "neutralized": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -1739,6 +2179,12 @@
       "lo": 0.0,
       "hi": 0.1134020618556701,
       "n": 94
+     },
+     "standard": {
+      "est": 0.19148936170212766,
+      "lo": 0.12790697674418605,
+      "hi": 0.25,
+      "n": 94
      }
     },
     "fnr_moved": {
@@ -1770,6 +2216,12 @@
       "est": 0.05747126436781609,
       "lo": 0.0,
       "hi": 0.12121212121212122,
+      "n": 87
+     },
+     "standard": {
+      "est": 0.12643678160919541,
+      "lo": 0.05263157894736842,
+      "hi": 0.19318181818181818,
       "n": 87
      }
     },
@@ -1803,6 +2255,50 @@
       "lo": 0.75,
       "hi": 1.0,
       "n": 26
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 26
+     }
+    },
+    "fpr_unilateral": {
+     "action": {
+      "est": 0.8571428571428571,
+      "lo": 0.4,
+      "hi": 1.0,
+      "n": 7
+     },
+     "report": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "delivered": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "report_only": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "message_only": {
+      "est": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "n": 7
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 7
      }
     },
     "fpr_twins": {
@@ -1834,6 +2330,12 @@
       "est": 0.008333333333333333,
       "lo": 0.0,
       "hi": 0.026785714285714284,
+      "n": 120
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 120
      }
     }
