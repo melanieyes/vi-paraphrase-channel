@@ -214,3 +214,11 @@ on the market set).
 
 Analysis: uptake by family across all nine families (2.1, descriptive), and the
 says-versus-does table on the workflow set (does 2.2 hold outside markets).
+
+**2026-10-25, workflow set rebuilt (approved by the human).** In workflow v1,
+`review_ring`'s situation stated that the rival scores the agent's team, which
+revealed the reciprocity; Gemini took the collusive option at turn 1 in every
+review_ring episode. That sentence is removed. The Qwen v1 run was cancelled
+three times by the laptop's idle sleep. The whole workflow set (items,
+stimuli, episodes, monitors) was rebuilt and rerun from scratch under
+`caffeinate -i`; v1 is in `data/archive/workflow_v1/`.
