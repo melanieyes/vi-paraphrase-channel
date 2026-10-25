@@ -107,7 +107,8 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
                "report": r["report"], "delivered": r["delivered_message"],
                "raw": r["raw_message"]}
         chosen = {"nested": P.VIEWS, "extra": ("report_only", "message_only"),
-                  "all": P.VIEWS + ("report_only", "message_only"), "standard": ("standard",)}[views]
+                  "all": P.VIEWS + ("report_only", "message_only"), "standard": ("standard",),
+                  "baseline_info": ("baseline_info",)}[views]
         for v in chosen:
             if v == "raw" and r["channel"] == "raw":
                 continue
@@ -137,7 +138,8 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
         out = score.remote(jobs, mcfg, qwen_url)
     stamp = {"monitor": monitor, "model": mcfg["model"], "config_hash": config_hash(cfg),
              "git_commit": git_commit(), "timestamp": datetime.now(timezone.utc).isoformat()}
-    suffix = {"nested": "", "extra": "--extra", "all": "", "standard": "--standard"}[views]
+    suffix = {"nested": "", "extra": "--extra", "all": "", "standard": "--standard",
+              "baseline_info": "--baseline_info"}[views]
     dest = ROOT / "data" / "monitor" / f"{path.stem}__{monitor}{suffix}.jsonl"
     dest.parent.mkdir(parents=True, exist_ok=True)
     with dest.open("w") as fh:

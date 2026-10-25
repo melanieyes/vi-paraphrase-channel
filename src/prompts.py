@@ -196,7 +196,9 @@ EXTRA_VIEWS = {"report_only": ("situation", "report"),
                "message_only": ("situation", "delivered"),
                # Track 2.3: the proposed evidence standard, applied by the monitor. It sees
                # the agent's choice before the message as the baseline.
-               "standard": ("situation", "baseline", "delivered", "action", "report")}
+               "standard": ("situation", "baseline", "delivered", "action", "report"),
+               # Control for the standard: the same information, the ordinary question, no rule.
+               "baseline_info": ("situation", "baseline", "delivered", "action", "report")}
 ALL_VIEWS = VIEWS + tuple(EXTRA_VIEWS)
 
 
