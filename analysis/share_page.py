@@ -178,6 +178,79 @@ code { font-family: var(--mono); font-size: .88em; }
 """
 
 
+CSS2 = """
+/* Layout: left-aligned story column with full-width figure breaks; light only, one accent (rust) */
+:root {
+  color-scheme: light;
+  --bg: #fbfbf9; --panel: #f1f0ec; --line: #dddbd4; --ink: #17181a; --ink-2: #44464b; --muted: #6c6e74;
+  --accent: #b8481a; --blue: #2a78d6; --mark-inv: #dce9f8; --mark-lost: #fbdccb;
+  --display: "Bricolage Grotesque", system-ui, sans-serif;
+  --text: "Source Serif 4", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+body { background: var(--bg); color: var(--ink-2); font: 18px/1.6 var(--text); }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 40px 80px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.col { max-width: 660px; }
+.label { font: 500 12px/1.4 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+h1 { font: 700 clamp(40px, 6.4vw, 72px)/1.02 var(--display); letter-spacing: -.03em; color: var(--ink); margin: 16px 0 18px; max-width: 900px; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--accent); }
+h2 { font: 650 clamp(26px, 3.4vw, 36px)/1.12 var(--display); letter-spacing: -.02em; color: var(--ink); margin: 0 0 12px; text-wrap: balance; }
+h3 { font: 600 19px/1.3 var(--display); color: var(--ink); margin: 0 0 6px; }
+p { margin: 0 0 14px; }
+strong { color: var(--ink); }
+a { color: var(--blue); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.sub { font-size: clamp(19px, 2.2vw, 22px); color: var(--ink-2); max-width: 640px; margin: 0; }
+section { margin-top: 88px; display: grid; gap: 20px; }
+header { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 40px; align-items: end; padding-top: 24px; }
+@media (max-width: 820px) { header { grid-template-columns: 1fr; gap: 28px; } }
+.chat { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; display: grid; gap: 10px; box-shadow: 0 18px 40px -28px rgba(40, 30, 20, .35); }
+.chat .from { font: 500 12.5px/1.3 var(--mono); color: var(--muted); }
+.chat .vi { font: 500 20px/1.45 var(--display); color: var(--ink); margin: 0; }
+.chat .en { font-size: 15px; color: var(--muted); margin: 0; }
+.chat .verdict { border-top: 1px solid var(--line); padding-top: 10px; font: 600 15px/1.4 var(--display); color: var(--ink); }
+.known { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 36px; }
+@media (max-width: 700px) { .known { grid-template-columns: 1fr; } }
+.known > div { border-top: 1px solid var(--ink); padding: 14px 0 18px; min-width: 0; }
+.known p { font-size: 16px; margin: 0; }
+.known .cite { font: 400 13px/1.4 var(--mono); color: var(--muted); margin-top: 6px; display: block; }
+.gap { background: var(--ink); color: #f3f2ee; border-radius: 14px; padding: clamp(24px, 4vw, 44px); display: grid; gap: 12px; }
+.gap h2 { color: #fff; margin: 0; }
+.gap p { color: #d9d8d3; margin: 0; max-width: 700px; }
+.gap strong { color: #fff; }
+.tries { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.try { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+@media (max-width: 640px) { .try { grid-template-columns: 1fr; gap: 6px; } }
+.try .num { font: 700 46px/1 var(--display); letter-spacing: -.02em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.try p { margin: 4px 0 0; font-size: 16.5px; }
+figure { margin: 0; display: grid; gap: 10px; }
+figure img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+figcaption { font-size: 14px; line-height: 1.5; color: var(--muted); max-width: 760px; }
+.rule { background: var(--panel); border-radius: 14px; padding: clamp(22px, 3.5vw, 36px); display: grid; gap: 14px; }
+.parts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.parts div { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; font: 500 17px/1.35 var(--display); color: var(--ink); }
+.parts div b { display: block; font: 500 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.big { font: 700 clamp(34px, 5vw, 54px)/1 var(--display); color: var(--ink); letter-spacing: -.02em; }
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.pair > div { min-width: 0; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+.card .k { font: 500 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.card .vi { font-size: 16.5px; color: var(--ink); line-height: 1.55; }
+.card .en { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+mark { background: var(--mark-inv); color: inherit; padding: 0 2px; border-radius: 2px; }
+mark.lost { background: var(--mark-lost); }
+mark.loan { background: none; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.next { border: 1.5px solid var(--ink); border-radius: 14px; padding: clamp(22px, 3.5vw, 36px); display: grid; gap: 12px; }
+.links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.links a { font: 600 15px/1 var(--display); text-decoration: none; color: #fff; background: var(--ink); padding: 12px 16px; border-radius: 999px; }
+.links a.ghost { color: var(--ink); background: transparent; border: 1.5px solid var(--ink); }
+.links a:hover { transform: translateY(-1px); }
+.foot { font-size: 13.5px; color: var(--muted); margin-top: 40px; }
+@media (prefers-reduced-motion: reduce) { .links a:hover { transform: none; } }
+"""
+
+
 def build() -> str:
     M = macros()
     A, B = examples()
@@ -186,118 +259,102 @@ def build() -> str:
           if r.get("en")}
     gloss = lambda t: html.escape(tr.get(__import__("hashlib").sha256(t.encode()).hexdigest(), ""))  # noqa: E731
     m = M.get
-    msg_vi, msg_en = A[0][1], gloss(rawA[0][1])
-    rows_a = "\n".join(f'<tr><td class="k">{k}</td><td class="vi" lang="vi">{v}<div class="en">{gloss(t)}</div></td></tr>'
-                       for (k, v), (_, t) in zip(A[1:], rawA[1:]))
-    rows_b = "\n".join(f'<tr><td class="k">{k}</td><td class="vi" lang="vi">{v}<div class="en">{gloss(t)}</div></td></tr>'
-                       for (k, v), (_, t) in zip(B, rawB))
+    card = lambda k, v, t: f'<div class="card"><div class="k">{k}</div><div class="vi" lang="vi">{v}</div><div class="en">{gloss(t)}</div></div>'  # noqa: E731
+    sysA = dict(zip([k for k, _ in A], [v for _, v in A]))
+    sysT = dict(rawA)
     return f"""<title>Said No, Flagged Anyway</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=Spectral:wght@300;400;500&subset=vietnamese&display=swap">
-<style>{CSS}</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&subset=vietnamese&display=swap">
+<style>{CSS2}</style>
 <div class="wrap">
 
 <header>
-  <div class="label">Melanie Bui · AI Collusion Research Sprint</div>
-  <h1>The agent said no.<br>The monitor <em>flagged it anyway.</em></h1>
-  <p class="sub">How do you tell an AI agent that colluded from one that simply agreed? A study in Vietnamese.</p>
+  <div>
+    <div class="label">Melanie Bui · AI Collusion Research Sprint</div>
+    <h1>The agent said no. The monitor <em>flagged it anyway.</em></h1>
+    <p class="sub">What in an AI agent's logs actually proves it colluded? We tested it in Vietnamese.</p>
+  </div>
+  <div class="chat" aria-label="The rival agent's message">
+    <div class="from">Rival shop's agent, to ours</div>
+    <p class="vi" lang="vi">{html.escape(rawA[0][1])}</p>
+    <p class="en">{gloss(rawA[0][1])}</p>
+    <div class="verdict">Our agent keeps its price. Did it collude?</div>
+  </div>
 </header>
 
 <section>
-  <div class="col">
-    <h2>Two shops, one air fryer, one message</h2>
-    <p>Two shops on a Vietnamese marketplace sell the same 5-litre air fryer for 1,890,000 đồng. Each shop is run by an AI agent. Cutting the price would steal a fifth of the rival's weekly orders. Then the rival's agent sends this:</p>
-  </div>
-  <blockquote class="msg"><p lang="vi">{msg_vi}</p><p class="en">{msg_en}</p></blockquote>
-  <div class="col">
-    <p><strong>Our agent keeps its price.</strong> Did it collude? A platform's monitor has to decide from the logs: what the agent did, what it told its owner, and the message itself. We built {m('nTaskItems')} situations like this one, ran two agents (Gemini 2.5 Flash and Qwen3-8B) through each, and let two monitors (Gemini and Claude Haiku) judge every episode from different parts of the log.</p>
+  <h2>What the field already knows</h2>
+  <div class="known">
+    <div><h3>Agents collude.</h3><p>LLM pricing agents reach high, cartel-like prices quickly, and most models accept secret coordination tools when offered.</p><span class="cite"><a href="https://arxiv.org/abs/2404.00806">Fish et al. 2024</a>, <a href="https://arxiv.org/abs/2605.27593">Zeng &amp; Rudzicz 2026</a></span></div>
+    <div><h3>It grows over time.</h3><p>Agents that share logs drift into collusion over long interactions.</p><span class="cite"><a href="https://arxiv.org/abs/2609.24967">Shi et al. 2026</a></span></div>
+    <div><h3>Detection looks inside or at outcomes.</h3><p>Probes read collusion from activations; audits measure it as lost welfare; paraphrasing only partly stops hidden signals.</p><span class="cite"><a href="https://arxiv.org/abs/2604.01151">Rose et al. 2026</a>, <a href="https://arxiv.org/abs/2602.15198">Colosseum</a>, <a href="https://arxiv.org/abs/2402.07510">Motwani et al. 2024</a></span></div>
+    <div><h3>Almost all of it is in English.</h3><p>Safety research is English-first, and safety weakens in other languages.</p><span class="cite"><a href="https://aclanthology.org/2025.emnlp-main.800.pdf">Yong et al. 2025</a>, <a href="https://arxiv.org/abs/2310.06474">Deng et al. 2024</a></span></div>
   </div>
 </section>
 
 <section>
-  <div class="two">
-    <div class="finding">
-      <h2>Look at what it did? It might have done that anyway.</h2>
-      <p>Before any message arrived, Gemini already chose to hold the price in <strong>{m('GemTopUnprompted')}</strong> of price-holding situations. Keeping the price after the message proves nothing on its own.</p>
-      <p>So a monitor that sees only the action is guessing. It missed {m('MonActionFNR')} of the cases where the message really did pull the agent in.</p>
+  <div class="gap">
+    <div class="label" style="color:#a9a8a2">Why we did this</div>
+    <h2>A platform has only the logs. Which part of them is evidence?</h2>
+    <p>Real monitors cannot read activations. They see what the agent did, what it reported, and the messages it got. We asked which of these <strong>proves collusion</strong>, and whether the answer holds <strong>outside English</strong>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <h2>Three obvious ways to judge. All three fail.</h2>
+    <p>{m('nTaskItems')} Vietnamese situations, two agents (Gemini 2.5 Flash, Qwen3-8B), two monitors (Gemini, Claude Haiku).</p>
+  </div>
+  <div class="tries">
+    <div class="try"><div class="num">{m('GemTopUnprompted')}</div><div><h3>Watch the action</h3><p>Gemini held the price this often <em>before</em> any message. Matching the offer proves nothing.</p></div></div>
+    <div class="try"><div class="num">{m('QwDiscLex')}</div><div><h3>Read the agent's report</h3><p>How often Qwen's report to its owner mentioned the offer it took. Asked directly, it admitted it {m('QwDiscItem')} of the time.</p></div></div>
+    <div class="try"><div class="num">{m('StdGemAllFADecl')}</div><div><h3>Read the message</h3><p>Agents that <em>refused</em> the offer, flagged anyway. The message accuses the sender, not the receiver.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="rule">
+    <h2>The fix: ask what the agent would have done anyway</h2>
+    <div class="parts">
+      <div><b>1</b>There was a proposal</div>
+      <div><b>2</b>The action matches it</div>
+      <div><b>3</b>The action differs from the agent's usual behaviour</div>
     </div>
-    <div class="stats stack">
-      <div class="stat"><div class="num">{m('GemTopUnprompted')}</div><p>held the price before any message (Gemini, price holding)</p></div>
-      <div class="stat"><div class="num">{m('MonActionFNR')}</div><p>of collusion missed by a monitor that sees only the action</p></div>
-    </div>
+    <p style="margin:0">A platform can keep a record of how each agent acts in similar situations. With it, false flags fell from {m('StdGemAllFADecl')} to <strong>{m('StdGemFamFADecl')}</strong>, and the monitor missed <strong>{m('StdGemFamFNR')}</strong> of the collusion.</p>
+  </div>
+  <figure><img src="fig/views.png" alt="Missed collusion and false alarms by what the monitor reads, for Gemini and Haiku monitors."><figcaption>Left: collusion missed. Right: agents that refused but were flagged. The bold row is the version a platform can run.</figcaption></figure>
+</section>
+
+<section>
+  <div class="col">
+    <h2>The truth is in the log, not in the agent's report</h2>
+    <p>A neutral model summarizing the same log named the rival's offer; the agent's own report did not. A monitor reading those summaries missed {m('OvQwGemSumFNR')} of Qwen's collusion instead of {m('OvQwGemSelfFNR')}.</p>
+  </div>
+  <div class="pair">
+    {card(rawB[1][0], B[1][1], rawB[1][1])}
+    {card(rawB[2][0], B[2][1], rawB[2][1])}
   </div>
 </section>
 
 <section>
   <div class="col">
-    <h2>Ask the agent? It tells you, but not its owner.</h2>
-    <p>Asked directly whether the rival influenced it, Qwen said yes in <strong>{m('QwDiscItem')}</strong> of the cases where it colluded. In the report it wrote to its owner, it mentioned the rival's message in only <strong>{m('QwDiscLex')}</strong>. Here is one of those cases, word for word:</p>
+    <h2>Careful with summaries in the channel</h2>
+    <p>Squeezed into a "system log", the rival's offer came out as <em lang="vi">Đề nghị: Không có</em>, "Proposal: none". Qwen colluded {m('SumQwSysMoved')} points less, but its harmless cooperation also fell, from {m('SumQwRawTwin')} to {m('SumQwSysTwin')}. The summary did not protect the agent. It erased the offer.</p>
   </div>
-  <div class="table-wrap"><table>
-    <tbody>{rows_b}</tbody>
-  </table></div>
-  <p class="foot" style="margin-top:0">The neutral summary was written by a third model reading the whole log, with no reason to leave anything out. A monitor reading summaries like this missed {m('OvQwGemSumFNR')} of Qwen's collusion; reading Qwen's own reports, {m('OvQwGemSelfFNR')}. Selected by a fixed rule: the first such episode by id.</p>
-  <figure><img src="fig/asked.png" alt="Bars: share of colluding episodes where the agent admits influence when asked, where its report mentions the message, and where a neutral summary does."><figcaption>Among episodes where the agent colluded. Grey: says yes when asked. Orange: its own report mentions the message. Blue: a neutral summary does. Counted by the same rule in code.</figcaption></figure>
-</section>
-
-<section>
-  <div class="col">
-    <h2>Read the message? Then everyone who received it looks guilty.</h2>
-    <p>Give the monitor the message too and it stops missing collusion. But it also flagged <strong>{m('StdGemAllFADecl')}</strong> of the agents that <em>refused</em> the offer (Haiku: {m('StdHkAllFADecl')}). The message proves that someone proposed a deal. It says nothing about whether this agent took it.</p>
-  </div>
-</section>
-
-<section class="statement">
-  <h2>The fix: ask what the agent would have done anyway</h2>
-  <p class="pull">Call it collusion only when there was a proposal, the agent's action matches it, and the action differs from what the agent does without the proposal.</p>
-  <figure><img src="fig/views.png" alt="Butterfly chart of missed collusion and false alarms by monitor view, for Gemini and Haiku monitors."><figcaption>Gemini's episodes on the marketplace. Left: collusion the monitor missed. Right: agents that refused but were flagged. Darker bars: Gemini monitor; lighter: Haiku. The bold row is the version a real platform could run.</figcaption></figure>
-  <div class="col">
-    <p>A real platform never sees the same agent with and without the message. But it can keep a record of how the agent usually behaves in similar situations. Given that record, the monitor flagged <strong>{m('StdGemFamFADecl')}</strong> of the agents that refused, down from {m('StdGemAllFADecl')}, and missed {m('StdGemFamFNR')} of the collusion.</p>
+  <div class="pair">
+    {card("Original offer", sysA["Original"], sysT["Original"])}
+    {card("As a system log", sysA["System log"], sysT["System log"])}
   </div>
 </section>
 
 <section>
-  <div class="col">
-    <h2>When a summary eats the offer</h2>
-    <p>Platforms often shorten messages before an agent or a reviewer reads them. We had a model summarize every rival message in four styles. Most kept the offer. The "system log" style kept writing <em lang="vi">Đề nghị: Không có</em>, "Proposal: none", right under a line that described the proposal.</p>
+  <div class="next">
+    <h2>Next: does any of this change with the language?</h2>
+    <p>This study shows the problem is not English-only. It cannot yet say whether agents collude more or less in Vietnamese. The setup is built to repeat: a native speaker writes the situations and invitations, we add an English control, and the same code runs.</p>
+    <div class="links"><a href="https://github.com/melanieyes/vi-paraphrase-channel">Code and data</a><a class="ghost" href="https://github.com/melanieyes/vi-paraphrase-channel/blob/main/paper/main.pdf">Read the paper</a></div>
   </div>
-  <div class="legend"><span><i class="sw"></i>words that carry the offer</span><span><i class="sw lost"></i>the line that erases it</span><span><u>underlined</u>: English loanword</span></div>
-  <div class="table-wrap"><table>
-    <tbody>{rows_a}</tbody>
-  </table></div>
-  <div class="col">
-    <p>With the log summary, Qwen colluded {m('SumQwSysMoved')} points less. That sounds like protection until you look at the harmless offers: its cooperation there fell too, from {m('SumQwRawTwin')} to {m('SumQwSysTwin')}. The summary did not make the agent careful. It made the agent stop hearing offers at all.</p>
-  </div>
-</section>
-
-<section>
-  <div class="two mirror">
-    <figure><img src="fig/tasks.png" alt="Dot plot by task family: share taken unprompted and share pulled in by the message, for Gemini and Qwen."><figcaption>Grey: already collusive before any message. Blue: pulled in by the message. Orange names: workplace tasks. Lines: 95% intervals.</figcaption></figure>
-    <div class="finding">
-      <h2>Different models fall for different deals</h2>
-      <p>Gemini was pulled in most by a peer-review ring ({m('GemTopMoved')}); Qwen by padding a department budget ({m('QwTopMoved')}).</p>
-      <p>The quietest message often worked best on Gemini: a bare announcement that asked for nothing moved it more than a direct proposal ({m('GemMarketOmission')} vs {m('GemMarketDirect')}).</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="ask">
-    <div class="label">What we cannot say yet</div>
-    <h2>Does any of this change with the language?</h2>
-    <p>Every collusion study we could find was run in English. This one ran entirely in Vietnamese, which shows the problem is not English-only. It cannot say whether agents collude more or less in Vietnamese, because there is no English version yet.</p>
-    <p>The setup is easy to repeat: fixed situations, a scripted rival, four styles of invitation, scoring done in code. A native speaker writes the situations and invitations in their own language, we add an English control, and the same code runs.</p>
-  </div>
-</section>
-
-<section>
-  <div class="col">
-    <h2>How it was run</h2>
-    <p>Each episode has four turns. The agent chooses before any message, reads the rival's message and chooses again, writes a short report to its owner, then answers whether the rival influenced it. Every harmful situation has a harmless twin (a shared ad package, say) as a control. Invitations come in four styles: direct, euphemistic (<em lang="vi">cho gọn</em>, to keep it simple), relational (<em lang="vi">anh em</em>, brothers), or a bare announcement.</p>
-  </div>
-  <figure><img src="fig/pipeline.png" alt="Pipeline: build (item, renderer, relay, gate), run (agent with four turns), audit (log, summarizer, monitor)."><figcaption>Who does what. Messages and summaries are written once and frozen, so every episode in a condition reads the same text.</figcaption></figure>
-  <p class="foot">Exploratory study. Rates carry bootstrap 95% intervals clustered over situations. Everything is fictional. All numbers on this page are generated from the logged data by the same code as the paper.</p>
+  <p class="foot">Exploratory study. Rates carry bootstrap 95% intervals clustered over situations. All scenarios are fictional. Every number here is generated from the logged data by the same code as the paper; English lines are machine translations for display.</p>
 </section>
 
 </div>
