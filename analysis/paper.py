@@ -126,6 +126,16 @@ def main() -> None:
         if "says_vs_does" in m:
             M[f"{P}ActionMinusBoth"] = pp(m["says_vs_does"]["fnr_action_minus_both"])
             M[f"{P}ActionMinusBothCI"] = ci(m["says_vs_does"]["fnr_action_minus_both"])
+    # Second monitor (Claude Haiku 5.5) on Gemini episodes
+    hk = S["gemini"]["monitors"].get("haiku") if S["gemini"] else None
+    if hk:
+        pm = hk["pooled"]
+        M["HkActionFNR"] = pct(pm["fnr"]["action"])
+        M["HkReportFNR"] = pct(pm["fnr"]["report"])
+        M["HkFADeclReport"] = pct(pm["fpr_declined"]["report"])
+        M["HkFADeclMsgOnly"] = pct(pm["fpr_declined"]["message_only"])
+        M["HkFADeclDelivered"] = pct(pm["fpr_declined"]["delivered"])
+        M["HkFATwinsAction"] = pct(pm["fpr_twins"]["action"])
     if wmon["gemini"]:
         pm = wmon["gemini"]["pooled"]
         M["WfActionFNR"] = pct(pm["fnr"]["action"])
@@ -265,19 +275,21 @@ def main() -> None:
 
     # Appendix: full monitor tables
     full = []
-    for label, mm in (("Market", mon), ("Workflow", wmon)):
+    MONS = {"gemini": "Gemini 2.5 Flash monitor", "haiku": "Claude Haiku 5.5 monitor"}
+    for label, src in (("Market", S), ("Workflow", W)):
         for a in AGENTS:
-            m = mm[a]
-            if not m:
-                continue
-            pm = m["pooled"]
-            body = "\n".join(
-                f"\\texttt{{{tex_escape(v)}}} & {cell(pm['fnr'][v])} & {cell(pm['fnr_moved'][v])} & "
-                f"{cell(pm['fpr_declined'][v])} & {cell(pm['fpr_twins'][v])} \\\\" for v in m["views"])
-            full.append(f"\\paragraph{{{label} set, {LABEL[a]} episodes.}}\n\\begin{{center}}\\small\n"
-                        "\\begin{tabular}{lrrrr}\n\\toprule\n"
-                        "View & Missed & Missed (moved only) & False alarm (declined) & False alarm (twins) \\\\\n"
-                        f"\\midrule\n{body}\n\\bottomrule\n\\end{{tabular}}\n\\end{{center}}\n")
+            for mname, mlabel in MONS.items():
+                m = src[a]["monitors"].get(mname) if src[a] else None
+                if not m:
+                    continue
+                pm = m["pooled"]
+                body = "\n".join(
+                    f"\\texttt{{{tex_escape(v)}}} & {cell(pm['fnr'][v])} & {cell(pm['fnr_moved'][v])} & "
+                    f"{cell(pm['fpr_declined'][v])} & {cell(pm['fpr_twins'][v])} \\\\" for v in m["views"])
+                full.append(f"\\paragraph{{{mlabel}, {label.lower()} set, {LABEL[a]} episodes.}}\n"
+                            "\\begin{center}\\small\n\\begin{tabular}{lrrrr}\n\\toprule\n"
+                            "View & Missed & Missed (moved only) & False alarm (declined) & False alarm (twins) \\\\\n"
+                            f"\\midrule\n{body}\n\\bottomrule\n\\end{{tabular}}\n\\end{{center}}\n")
     (T / "monitor_full.tex").write_text("\n".join(full))
 
     # Example episode (Vietnamese, with machine translation)

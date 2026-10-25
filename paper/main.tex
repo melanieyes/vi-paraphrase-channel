@@ -33,7 +33,8 @@ families of collusive invitations, six on an online marketplace and three in eve
 (hiring, peer scoring, budgeting), each scenario paired with a harmless twin of the same shape. A
 scripted rival sends a frozen invitation that is direct, euphemistic, relational or a bare
 announcement. Two agents (Gemini 2.5 Flash and Qwen3-8B) decide, report to their owner and answer a
-disclosure question, and a Gemini monitor reads every episode at six levels of visibility. Reading
+disclosure question, and two monitors (Gemini and Claude Haiku) read every episode at six levels of
+visibility. Reading
 the action alone, the monitor missed \MonActionFNR{} of collusion; adding the agent's own report cut
 this to \MonReportFNR. Reading the rival's message caught every case but also flagged
 \MonFADeclDelivered{} of episodes in which the agent declined: it detects the proposal, not the
@@ -114,8 +115,8 @@ market set the platform may relay the message: \emph{paraphrased} (new words, sa
 \emph{neutralized} (a third-person platform notice with greetings and relational appeals removed), both
 by Qwen3-8B, also frozen. A relayed text identical to its source refuses the run.
 
-\paragraph{Monitor views.} A Gemini 2.5 Flash monitor answers FLAG or CLEAR on six views of each
-episode: the action; the report alone; the message alone; action and report; action, report and the
+\paragraph{Monitor views.} Two monitors, Gemini 2.5 Flash (thinking off) and Claude Haiku 5.5 (thinking
+always on, low effort), answer FLAG or CLEAR on six views of each episode: the action; the report alone; the message alone; action and report; action, report and the
 message as delivered; and, for relayed channels, the original message as well. Positives are harmful
 episodes where the agent took the arrangement. We report misses, misses among episodes the message
 moved, false alarms on harmful episodes the agent declined, and false alarms on twins.
@@ -174,6 +175,12 @@ but it flagged \MonFADeclDelivered{} of harmful episodes the agent declined, and
 flagged \MonFADeclMsgOnly. It detects that an arrangement was offered, not that it was taken. Words
 are also only as good as the agent's candour: for Qwen, action and report still missed
 \MonQReportFNR{} of colluding episodes.
+
+\paragraph{A second monitor agrees.} Claude Haiku 5.5, reading the same views of the same Gemini
+episodes, missed \HkActionFNR{} from the action alone and \HkReportFNR{} from action and report, and
+flagged \HkFADeclMsgOnly{} of declined episodes from the message alone (\HkFADeclReport{} from action and
+report). The ordering of the views does not depend on which model is reading them
+(Appendix~\ref{app:tables}).
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=0.9\linewidth]{figures/tradeoff.pdf}
@@ -236,9 +243,9 @@ will miss the cheapest form of coordination.
 
 \paragraph{Limitations.} The rival is scripted and the invitations are written by a model, so we measure
 propensity to accept, not the capability to invent collusion. Eight scenarios per family support
-comparisons between families only loosely. Gemini is the agent, the gate and the monitor, so some
-agreement may be shared bias; the four LLM readers partly address this but no human validation sample
-was run. Qwen agents read text relayed by Qwen. Each message was paraphrased once. The lexical disclosure
+comparisons between families only loosely. Gemini is the agent, the gate and the first monitor, so some
+agreement may be shared bias; a second monitor from another provider and four LLM readers partly
+address this, but no human validation sample was run. Qwen agents read text relayed by Qwen. Each message was paraphrased once. The lexical disclosure
 code is the weakest measure. The design changed after smoke runs. Further limitations and dual-use
 considerations are in Appendix~\ref{app:ethics}.
 
