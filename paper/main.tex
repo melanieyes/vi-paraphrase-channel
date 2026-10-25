@@ -1,0 +1,308 @@
+% Apart Research sprint report. Layout follows the official template:
+% title, authors, "With Apart Research", abstract (150-250 words), sections 1-6,
+% Code and Data, Author Contributions, References, Appendix (incl. the required
+% Limitations and Dual-Use / Ethical Considerations), LLM Usage Statement.
+% Every number is a macro from numbers.tex (analysis/paper.py). Do not type numbers.
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyretermes}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=0.95]
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue]{hyperref}
+\setlist{nosep,leftmargin=*}
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
+\input{numbers.tex}
+
+\title{\textbf{What Counts as Evidence of Agent Collusion?\\[2pt]\large Actions, Words and Relays in Vietnamese Agent Workflows}}
+\author{Melanie Bui\\\small\TODO{affiliation}\\[6pt]\small\textit{With Apart Research}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent LLM agents increasingly act for competing principals and talk to one another. When one agent
+invites another into an arrangement that hurts a third party, an auditor has only the logs. We ask
+what in those logs is convincing evidence of collusion. We build a Vietnamese benchmark of nine
+families of collusive invitations, six on an online marketplace and three in everyday workflows
+(hiring, peer scoring, budgeting), each scenario paired with a harmless twin of the same shape. A
+scripted rival sends a frozen invitation that is direct, euphemistic, relational or a bare
+announcement. Two agents (Gemini 2.5 Flash and Qwen3-8B) decide, report to their owner and answer a
+disclosure question, and a Gemini monitor reads every episode at six levels of visibility. Reading
+the action alone, the monitor missed \MonActionFNR{} of collusion; adding the agent's own report cut
+this to \MonReportFNR. Reading the rival's message caught every case but also flagged
+\MonFADeclDelivered{} of episodes in which the agent declined: it detects the proposal, not the
+uptake. Agents admitted the influence when asked directly (\GemDiscItem{} and \QwDiscItem) but rarely
+in their reports (\GemDiscLex{} and \QwDiscLex). Platform relays that paraphrased or neutralized the
+message neither stopped collusion nor erased its evidence. We propose a three-part evidence standard:
+a proposal, an action that matches it, and timing that rules out a unilateral choice.
+\end{abstract}
+
+\section{Introduction}
+Agents now negotiate, price, hire and score on behalf of different principals, and they message
+each other while doing it. The collusion risk is ordinary rather than exotic: a rival's agent
+suggests that both shops hold a price, that both firms stop hiring from each other, or that both
+teams score each other high. The harm falls on someone outside the conversation, such as buyers,
+workers or other teams. An auditor or platform monitor rarely sees intent. It sees a decision, a
+status report, and sometimes the messages. Track~2 of the sprint asks which tasks lead to collusion,
+whether words and actions together beat either alone, and what should count as convincing evidence.
+
+We study this in Vietnamese, where much of the invitation can be carried by pragmatics: a euphemism
+(``cho gọn'', ``linh động''), an appeal to a relationship (``anh em''), or a bare announcement that
+asks for nothing. Earlier work by the author showed that compressing such Vietnamese instructions into
+an executor's action and report hides violations from a monitor \cite{bui2026ps}. Here the question
+moves from a single executor to two agents serving rival principals.
+
+\paragraph{Our main contributions are:}
+\begin{enumerate}
+\item A Vietnamese collusion benchmark of \nTaskItems{} items in nine families across two settings,
+each harmful scenario paired with a harmless twin, four renderings of the invitation, frozen stimuli
+and a stimulus gate re-read by four LLM readers.
+\item A says-versus-does comparison on logged trajectories (2.2): actions alone miss most collusion,
+the agent's own report recovers most of it, and the rival's message over-flags.
+\item A three-part evidence standard (2.3), with each part's failure measured on its own, and a test
+that rewriting messages on the platform neither stops collusion nor erases its evidence.
+\item A task-level account (2.1) that separates collusion taken unprompted from collusion pulled in by
+a message, and shows the ranking of tasks depends on the model.
+\end{enumerate}
+
+\section{Related Work}
+\textbf{Algorithmic collusion.} Reinforcement-learning pricing agents learn supracompetitive prices
+without communication \cite{calvano2020}, and LLM pricing agents do so quickly \cite{fish2024}. We ask
+a narrower question: whether an agent accepts an explicit or implicit invitation, and what the logs
+reveal. \textbf{Secret collusion and paraphrasing.} Motwani et al.\ formalise steganographic collusion
+between LLM agents and find paraphrasing an incomplete defence \cite{motwani2024}; Roger and Greenblatt
+find context-aware paraphrasing removes most hidden information in their setting \cite{roger2023}. Our
+relays test paraphrasing against pragmatic rather than steganographic encoding. \textbf{Collusion
+benchmarks.} NARCBench detects instructed collusion from activations and reports weaker transfer to new
+scenarios \cite{rose2026}; Colosseum measures collusion as regret in cooperative constraint problems and
+reports ``collusion on paper'' \cite{nakamura2026}; Zeng and Rudzicz find that most models accept secret
+tools when offered \cite{zeng2026}. We measure propensity to accept a scripted invitation, pair every
+harmful case with a harmless twin, and vary what the auditor can read. \textbf{Oversight of reports.}
+Agents can conceal the basis of a misaligned action in their report \cite{scheurer2024}, and RLHF can
+make outputs more convincing without making them more correct \cite{wen2024}. Our disclosure measures
+quantify the first in a collusion setting. \textbf{Evidence in antitrust.} Econometric bid-rigging tests
+look for bids that depend on rivals beyond costs \cite{porter1993}; our standard asks the analogous
+question of a trajectory.
+
+\section{Methods}
+\paragraph{Items.} Six market families (holding a price, splitting categories, rotating ad bids,
+swapping five-star reviews, exchanging cost data, cover bidding in a tender) and three workflow
+families (no-poach hiring, a peer-scoring ring, padding department budgets). Each scenario has a
+harmful item and a twin of the same form where cooperating hurts nobody (a shared courier, an open
+joint bid, a shared rubric reading). Harmful situations describe unilateral consequences only; the
+arrangement appears only in the rival's message, so turn~1 is a competitive baseline. All firms,
+platforms and people are fictional. The main market set has five scenarios per family; the analysis of
+tasks adds three per family, for eight per family and \nTaskItems{} items in all.
+
+\paragraph{Episodes.} Four turns in Vietnamese: the agent chooses between two options (A/B), receives
+the rival's message and chooses again, writes a two-to-three sentence report to its owner, and answers
+whether its decision was influenced by the rival (CÓ/KHÔNG). Option order is fixed within an episode
+and both orders run in every cell. Agents are Gemini 2.5 Flash (temperature 1, thinking on) and
+Qwen3-8B served with vLLM on Modal (thinking on). Choices are parsed in code, refusal test first;
+refusals and unparsed replies are data.
+
+\paragraph{Invitations and relays.} For each item Gemini writes the rival's message once in four
+renderings (direct, euphemism, relationship, omission) from a fixed prompt, and the messages are frozen.
+A gate asks Gemini, without naming the arrangement, which option each message pushes toward. On the
+market set the platform may relay the message: \emph{paraphrased} (new words, same tone) or
+\emph{neutralized} (a third-person platform notice with greetings and relational appeals removed), both
+by Qwen3-8B, also frozen. A relayed text identical to its source refuses the run.
+
+\paragraph{Monitor views.} A Gemini 2.5 Flash monitor answers FLAG or CLEAR on six views of each
+episode: the action; the report alone; the message alone; action and report; action, report and the
+message as delivered; and, for relayed channels, the original message as well. Positives are harmful
+episodes where the agent took the arrangement. We report misses, misses among episodes the message
+moved, false alarms on harmful episodes the agent declined, and false alarms on twins.
+
+\paragraph{Statistics.} Every rate carries a bootstrap 95\% interval, 10{,}000 resamples clustered over
+items. The market set has \nMarketEp{} episodes per agent, the workflow set \nWorkflowEp; the pooled
+task analysis uses \nTaskEp{} per agent. The design changed twice after smoke runs and before the main
+runs; every change is logged in the repository. All results are exploratory.
+
+\section{Results}
+\subsection{Which tasks lead to collusion? (2.1)}
+A task can produce collusion in two ways: the agent takes the arrangement unprompted at turn~1, or the
+message pulls it in (competitive at turn~1, collusive at turn~2). Gemini took \GemTopUnpromptedFam{}
+unprompted most often (\GemTopUnprompted) and was pulled in most by \GemTopMovedFam{} (\GemTopMoved);
+Qwen took \QwTopUnpromptedFam{} unprompted most often (\QwTopUnprompted) and was pulled in most by
+\QwTopMovedFam{} (\QwTopMoved). The two models rank tasks differently (Figure~\ref{fig:tasks},
+Table~\ref{tab:tasks}), so a list of risky tasks is partly a property of the model.
+
+\begin{figure}[t]
+\centering\includegraphics[width=\linewidth]{figures/families.png}
+\caption{Share of harmful episodes, raw channel, by family: taken unprompted at turn~1 (blue) and pulled
+in by the rival's message (orange). Eight scenarios per family, bars are 95\% intervals clustered over
+items.}\label{fig:tasks}
+\end{figure}
+
+\begin{table}[t]
+\centering\small
+\caption{Harmful episodes by family (\%, raw channel). Unprompted: collusive choice at turn~1. Moved:
+competitive at turn~1, collusive at turn~2. Brackets: 95\% intervals clustered over items.}\label{tab:tasks}
+\resizebox{\linewidth}{!}{\input{tables/tasks.tex}}
+\end{table}
+
+What kind of invitation pulls an agent in? For Gemini the bare announcement, which asks for nothing,
+moved the most episodes in both settings (\GemMarketOmission{} on the market, \GemWorkflowOmission{} in
+workflows, against \GemMarketDirect{} and \GemWorkflowDirect{} for a direct proposal). Qwen was moved
+about equally by every rendering (Table~\ref{tab:rendering}). A detector that looks for proposals would
+miss the invitation that worked best on Gemini.
+
+\begin{table}[t]
+\centering\small
+\caption{Share of harmful episodes moved by the message, by rendering and setting (\%, raw channel).}\label{tab:rendering}
+\resizebox{\linewidth}{!}{\input{tables/rendering.tex}}
+\end{table}
+
+\subsection{Do words and actions together beat either alone? (2.2)}
+Yes, if the words are the agent's own. Reading only the situation and the decision, the monitor missed
+\MonActionFNR{} \MonActionFNRCI{} of colluding Gemini episodes. Adding the agent's report cut this to
+\MonReportFNR{} (difference \MonActionMinusBoth{} points, \MonActionMinusBothCI), with false alarms on
+declined episodes at \MonFADeclReport. The report alone did nearly as well (\MonReportOnlyFNR), because
+it restates the action. Among episodes the message moved, action and report missed \MonMovedReportFNR.
+The pattern holds outside markets: on workflows the monitor missed \WfActionFNR{} from the action and
+\WfReportFNR{} from action and report (Table~\ref{tab:monitor}, Figure~\ref{fig:says}).
+
+The rival's message is a different kind of word. With it in view the monitor missed \MonDeliveredFNR,
+but it flagged \MonFADeclDelivered{} of harmful episodes the agent declined, and the message alone
+flagged \MonFADeclMsgOnly. It detects that an arrangement was offered, not that it was taken. Words
+are also only as good as the agent's candour: for Qwen, action and report still missed
+\MonQReportFNR{} of colluding episodes.
+
+\begin{figure}[t]
+\centering\includegraphics[width=0.92\linewidth]{figures/says_vs_does_market.png}
+\caption{Gemini monitor on Gemini market episodes, pooled over channels. Blue: colluding episodes
+missed. Orange: harmful episodes flagged although the agent declined. Green: harmless twins flagged.}\label{fig:says}
+\end{figure}
+
+\begin{table}[t]
+\centering\small
+\caption{Gemini monitor on Gemini episodes (\%): misses among colluding episodes and false alarms among
+harmful episodes the agent declined. Market pooled over channels; workflow raw channel.}\label{tab:monitor}
+\resizebox{\linewidth}{!}{\input{tables/monitor.tex}}
+\end{table}
+
+\subsection{What should count as convincing evidence? (2.3)}
+Each kind of evidence fails in a measurable way when read alone:
+\begin{enumerate}
+\item \textbf{The proposal} (the rival's message) shows an arrangement was offered, not taken: read
+alone it flagged \MonFADeclMsgOnly{} of declined episodes.
+\item \textbf{The uptake} (the action) shows what was done, not why: read alone it missed
+\MonActionFNR{} of collusion, and \GemTurnOne{} of Gemini's harmful episodes took the same action
+before any message, so an action cannot separate collusion from a unilateral choice.
+\item \textbf{The account} (the agent's words) is candid when asked and quiet otherwise: \GemDiscItem{}
+(Gemini) and \QwDiscItem{} (Qwen) of colluding episodes answered yes to a direct question, but only
+\GemDiscLex{} and \QwDiscLex{} mentioned the message in their report.
+\end{enumerate}
+We therefore propose that convincing evidence combines a proposal, an action that matches it, and timing
+that rules out the unilateral reading: the agent competed before the message and colluded after it.
+
+\paragraph{Rewriting the message does not remove the evidence or the behaviour.} The gate still read a
+push toward the arrangement in \GatePushRaw, \GatePushPara{} and \GatePushNeut{} of harmful messages
+(raw, paraphrased, neutralized). Uptake changed by \GemPara{} and \GemNeut{} points for Gemini and by
+\QwPara{} and \QwNeut{} for Qwen (paraphrased, neutralized; Table~\ref{tab:relays}); the two models moved
+in opposite directions under neutralizing.
+
+\begin{table}[t]
+\centering\small
+\caption{Market set: harmful episodes that took the arrangement (\%) and the relays' effect (percentage
+points, relay minus raw).}\label{tab:relays}
+\resizebox{\linewidth}{!}{\input{tables/relays.tex}}
+\end{table}
+
+\paragraph{Reading intent depends on the reader.} Four LLM readers re-read the harmful messages and agreed
+with the gate on \AgreeOpus{} (Opus 5.5), \AgreeGeminiPro{} (Gemini 3.1 Pro), \AgreeGemma{} (Gemma-3-27B)
+and \AgreeGPT{} (GPT-5.4-nano). The outlier read two families the other way; a native Vietnamese reader
+judged its reading wrong. A weak reader can manufacture disagreement about what a message means.
+
+\paragraph{Positive control and baselines.} Harmless twins kept cooperation at or above \GemTwinMin{}
+(Gemini) and \QwTwinMin{} (Qwen) in every channel. A second monitor, Qwen3-8B, flagged most twins and is
+reported only as a failed baseline (Appendix~\ref{app:tables}).
+
+\section{Discussion and Limitations}
+For a platform that logs agent trajectories the practical advice is concrete. Do not judge agents on
+actions alone, and do not treat a proposal as proof. Keep the agent's own account, ask it directly, and
+check timing against the message. Rewriting messages in transit is not a defence on these data, and the
+invitation that moved Gemini most was the one with no proposal in it, so detectors keyed on requests
+will miss the cheapest form of coordination.
+
+\paragraph{Limitations.} The rival is scripted and the invitations are written by a model, so we measure
+propensity to accept, not the capability to invent collusion. Eight scenarios per family support
+comparisons between families only loosely. Gemini is the agent, the gate and the monitor, so some
+agreement may be shared bias; the four LLM readers partly address this but no human validation sample
+was run. Qwen agents read text relayed by Qwen. Each message was paraphrased once. The lexical disclosure
+code is the weakest measure. The design changed after smoke runs. Further limitations and dual-use
+considerations are in Appendix~\ref{app:ethics}.
+
+\paragraph{Future work.} A human-validated sample of the stimuli; multi-round games where a summary of
+history, not a single message, is relayed; stronger relays that pass facts only; and probes that predict
+uptake before the message arrives.
+
+\section{Conclusion}
+Collusion leaves its evidence in three places, and each is misleading alone: the proposal over-accuses,
+the action under-detects, and the agent's account is honest only when asked. Reading the agent's own
+report with its action recovered most collusion without accusing agents who declined. Rewriting messages
+on the platform changed neither the behaviour nor the evidence, and a bare announcement pulled agents in
+as well as a proposal.
+
+\section*{Code and Data}
+\begin{itemize}
+\item \textbf{Code repository}: \TODO{GitHub link to \texttt{vi-paraphrase-channel}}
+\item \textbf{Data}: items, frozen stimuli, all episodes and monitor verdicts are in the repository under
+\texttt{data/}; every number in this report is generated by \texttt{analysis/}.
+\end{itemize}
+
+\section*{Author Contributions}
+\TODO{author contributions}
+
+\label{mainend}
+\begin{thebibliography}{99}\small
+\bibitem{bui2026ps} Bui, M. (2026). Pragmatic Sophistry in Vietnamese Multi-Agent Oversight. GitHub repository, \url{https://github.com/melanieyes/Pragmatic-Sophistry-in-Vietnamese-Multi-Agent-Oversight}.
+\bibitem{calvano2020} Calvano, E., Calzolari, G., Denicolò, V. and Pastorello, S. (2020). Artificial Intelligence, Algorithmic Pricing, and Collusion. \emph{American Economic Review}, 110(10).
+\bibitem{fish2024} Fish, S., Gonczarowski, Y. A. and Shorrer, R. I. (2024). Algorithmic Collusion by Large Language Models. arXiv:2404.00806.
+\bibitem{motwani2024} Motwani, S. R. et al. (2024). Secret Collusion among AI Agents: Multi-Agent Deception via Steganography. NeurIPS 2024. arXiv:2402.07510.
+\bibitem{roger2023} Roger, F. and Greenblatt, R. (2023). Preventing Language Models From Hiding Their Reasoning. arXiv:2310.18512.
+\bibitem{rose2026} Rose, A., Cullen, C., Abdelnabi, S., Torr, P., Kaplowitz, B. G. and Schroeder de Witt, C. (2026). Detecting Multi-Agent Collusion Through Multi-Agent Interpretability. arXiv:2604.01151.
+\bibitem{nakamura2026} Nakamura, M., Kumar, A., Das, S., Abdelnabi, S., Mahmud, S., Fioretto, F., Zilberstein, S. and Bagdasarian, E. (2026). Colosseum: Auditing Collusion in Cooperative Multi-Agent Systems. arXiv:2602.15198.
+\bibitem{zeng2026} Zeng, X. and Rudzicz, F. (2026). Voluntary Collusion with Secret Tools in Competing LLM Agents. arXiv:2605.27593.
+\bibitem{scheurer2024} Scheurer, J., Balesni, M. and Hobbhahn, M. (2024). Large Language Models can Strategically Deceive their Users when Put Under Pressure. arXiv:2311.07590.
+\bibitem{wen2024} Wen, J. et al. (2024). Language Models Learn to Mislead Humans via RLHF. arXiv:2409.12822.
+\bibitem{porter1993} Porter, R. H. and Zona, J. D. (1993). Detection of Bid Rigging in Procurement Auctions. \emph{Journal of Political Economy}, 101(3).
+\end{thebibliography}
+
+\clearpage
+\appendix
+\section{Limitations and Dual-Use / Ethical Considerations}\label{app:ethics}
+\textbf{Scope.} Every platform, firm, school, contest and person is fictional and nothing acts on any
+decision. The study measures whether agents accept an invitation; the rival's messages are fixed and
+published, and no arm teaches an agent to invent or hide collusion. \textbf{Dual use.} The finding that
+a bare announcement moves agents, and that rewriting messages does not stop them, could inform someone
+designing covert coordination. We report it because the defensive lesson (do not key detectors on
+explicit requests; keep agents' own accounts) outweighs the marginal help to an attacker, and we publish
+the detection side, not an optimised evasion recipe. \textbf{Assumptions.} We assume the monitor's
+FLAG/CLEAR answer reflects a judgement of the view it was shown; that the scripted rival stands in for a
+real counterpart; and that model-written Vietnamese is close enough to real workplace Vietnamese. If the
+last fails, effects of rendering could differ for human-written messages. \textbf{Translations.} English
+quotations are machine translations for readers; agents only saw Vietnamese.
+
+\section{Example episode}\label{app:example}
+\input{tables/example.tex}
+
+\section{Additional tables}\label{app:tables}
+\paragraph{Message readers by family} (\% of harmful texts read as pushing toward the arrangement).
+\begin{center}\small\input{tables/readers.tex}\end{center}
+\input{tables/monitor_full.tex}
+
+\section*{LLM Usage Statement}
+Claude (Anthropic) was used extensively: to design and implement the pipeline, run the experiments
+on Modal, write the analysis code, translate Vietnamese quotations for display, and draft this report.
+Gemini 2.5 Flash wrote the rival messages and acted as agent, gate and monitor; Qwen3-8B acted as agent,
+relay and a failed second monitor; four LLMs re-read the stimuli. All numbers are generated from the logged
+data by the analysis code. \TODO{state which parts the author verified and rewrote}
+\end{document}
