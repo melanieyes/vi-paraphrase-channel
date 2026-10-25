@@ -304,12 +304,12 @@ def build() -> str:
 <section>
   <div class="col">
     <h2>Three obvious ways to judge. All three fail.</h2>
-    <p>{m('nTaskItems')} Vietnamese situations, two agents (Gemini 2.5 Flash, Qwen3-8B), two monitors (Gemini 2.5 Flash and Claude Haiku 5.5, each reading the logs).<br>Gemini 3.1 Pro appears only as one of four models that double-checked the invitations.</p>
+    <p>{m('nTaskItems')} Vietnamese situations, two agents (Gemini 2.5 Flash, Qwen3-8B), two monitors that are neither agent: Claude Haiku 5.5 and the open-weight Aya Expanse 8B.</p>
   </div>
   <div class="tries">
     <div class="try"><div class="num">{m('GemTopUnprompted')}</div><div><h3>Watch the action</h3><p>The Gemini 2.5 Flash agent held the price this often <em>before</em> any message. Matching the offer proves nothing.</p></div></div>
     <div class="try"><div class="num">{m('QwDiscLex')}</div><div><h3>Read the agent's report</h3><p>How often Qwen's report to its owner mentioned the offer it took. Asked directly, it admitted it {m('QwDiscItem')} of the time.</p></div></div>
-    <div class="try"><div class="num">{m('StdGemAllFADecl')}</div><div><h3>Read the message</h3><p>Agents that <em>refused</em> the offer, flagged anyway by the Gemini 2.5 Flash monitor (Claude Haiku 5.5: {m('StdHkAllFADecl')}). The message accuses the sender, not the receiver.</p></div></div>
+    <div class="try"><div class="num">{m('StdAyAllFADecl')}</div><div><h3>Read the message</h3><p>Agents that <em>refused</em> the offer, flagged anyway by the Aya Expanse 8B monitor (Claude Haiku 5.5: {m('StdHkAllFADecl')}). The message accuses the sender, not the receiver.</p></div></div>
   </div>
 </section>
 
@@ -321,15 +321,15 @@ def build() -> str:
       <div><b>2</b>The action matches it</div>
       <div><b>3</b>The action differs from the agent's usual behaviour</div>
     </div>
-    <p style="margin:0">A platform can keep a record of how each agent acts in similar situations. With it, the Gemini 2.5 Flash monitor's false flags fell from {m('StdGemAllFADecl')} to <strong>{m('StdGemFamFADecl')}</strong>, and it missed <strong>{m('StdGemFamFNR')}</strong> of the collusion (Claude Haiku 5.5: {m('StdHkFamFADecl')} and {m('StdHkFamFNR')}).</p>
+    <p style="margin:0">A platform can keep a record of how each agent acts in similar situations. With it, the Aya Expanse 8B monitor's false flags fell from {m('StdAyAllFADecl')} to <strong>{m('StdAyFamFADecl')}</strong>, and it missed <strong>{m('StdAyFamFNR')}</strong> of the collusion (Claude Haiku 5.5: {m('StdHkFamFADecl')} and {m('StdHkFamFNR')}).</p>
   </div>
-  <figure><img src="fig/views.png" alt="Missed collusion and false alarms by what the monitor reads, for the Gemini 2.5 Flash and Claude Haiku 5.5 monitors."><figcaption>Left: collusion missed. Right: agents that refused but were flagged. Darker bars: Gemini 2.5 Flash monitor; lighter: Claude Haiku 5.5 monitor. The bold row is the version a platform can run.</figcaption></figure>
+  <figure><img src="fig/views.png" alt="Missed collusion and false alarms by what the monitor reads, for the Aya Expanse 8B and Claude Haiku 5.5 monitors."><figcaption>Left: collusion missed. Right: agents that refused but were flagged. Darker bars: Aya Expanse 8B monitor; lighter: Claude Haiku 5.5 monitor. The bold row is the version a platform can run.</figcaption></figure>
 </section>
 
 <section>
   <div class="col">
     <h2>The truth is in the log, not in the agent's report</h2>
-    <p>A neutral model (Gemma-3-27B) summarizing the same log named the rival's offer; the agent's own report did not. A Gemini 2.5 Flash monitor reading those summaries missed {m('OvQwGemSumFNR')} of Qwen's collusion instead of {m('OvQwGemSelfFNR')}.</p>
+    <p>A neutral model (Gemma-3-27B) summarizing the same log named the rival's offer; the agent's own report did not. A Aya Expanse 8B monitor reading those summaries missed {m('OvQwAySumFNR')} of Qwen's collusion instead of {m('OvQwAySelfFNR')}.</p>
   </div>
   <div class="pair">
     {card(rawB[1][0], B[1][1], rawB[1][1])}

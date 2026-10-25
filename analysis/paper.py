@@ -80,9 +80,9 @@ def main() -> None:
     Tk = {a: load(f"results/tasks_{a}/stats.json") for a in AGENTS}
     agree = load("results/reader_agreement.json")
     st = {a: S[a]["stats"] if S[a] else None for a in AGENTS}
-    mon = {a: S[a]["monitors"].get("gemini") if S[a] else None for a in AGENTS}
+    mon = {a: S[a]["monitors"].get("aya") if S[a] else None for a in AGENTS}
     wst = {a: W[a]["stats"] if W[a] else None for a in AGENTS}
-    wmon = {a: W[a]["monitors"].get("gemini") if W[a] else None for a in AGENTS}
+    wmon = {a: W[a]["monitors"].get("aya") if W[a] else None for a in AGENTS}
     tk = {a: Tk[a]["stats"] if Tk[a] else None for a in AGENTS}
 
     M: dict[str, str] = {}
@@ -138,7 +138,7 @@ def main() -> None:
         M["HkFADeclDelivered"] = pct(pm["fpr_declined"]["delivered"])
         M["HkFATwinsAction"] = pct(pm["fpr_twins"]["action"])
     # Track 2.3: the standard view against the other views, Gemini agent, market pooled
-    for mname, P in (("gemini", "StdGem"), ("haiku", "StdHk")):
+    for mname, P in (("aya", "StdAy"), ("haiku", "StdHk")):
         mm = S["gemini"]["monitors"].get(mname) if S["gemini"] else None
         if mm and "standard" in mm["views"]:
             pm = mm["pooled"]
@@ -247,7 +247,7 @@ def main() -> None:
         M["SumOpusSys"] = pct({"est": agree["by_channel"]["sum_system"]["opus"]["push"]})
         M["SumOpusRaw"] = pct({"est": agree["by_channel"]["raw"]["opus"]["push"]})
         for a, A in (("gemini", "Gem"), ("qwen", "Qw")):
-            for name, N in (("gemini", "Gem"), ("haiku", "Hk")):
+            for name, N in (("aya", "Ay"), ("haiku", "Hk")):
                 mm = SU[a]["monitors"].get(name)
                 if mm:
                     M[f"Sum{A}{N}SysFADel"] = pct(mm["fpr_declined"]["sum_system"].get("delivered"))
@@ -278,7 +278,7 @@ def main() -> None:
     _lex(PAPER / "tables" / "lexical.tex")
     # Oversight through a summary (macros for the text; table oversight.tex below)
     for a, A in (("gemini", "Gem"), ("qwen", "Qw")):
-        for name, N in (("gemini", "Gem"), ("haiku", "Hk")):
+        for name, N in (("aya", "Ay"), ("haiku", "Hk")):
             mm = S[a]["monitors"].get(name) if S[a] else None
             if not mm or "summary" not in mm["views"]:
                 continue
@@ -331,7 +331,7 @@ def main() -> None:
                  ("family_baseline", "\\quad + similar situations (no rule)"), ("standard", "\\quad + baseline and rule (standard)")]
     METRICS = ("fnr", "fnr_moved", "fpr_declined", "fpr_unilateral")
     body = []
-    for name, title in (("gemini", "A. Gemini 2.5 Flash monitor"), ("haiku", "B. Claude Haiku 5.5 monitor")):
+    for name, title in (("aya", "A. Aya Expanse 8B monitor"), ("haiku", "B. Claude Haiku 5.5 monitor")):
         mm = S["gemini"]["monitors"].get(name) if S["gemini"] else None
         if not mm:
             continue
@@ -358,7 +358,7 @@ def main() -> None:
     OV_ROWS = [("report_only", "Agent's own report"), ("summary", "Third-party summary of the trace"),
                ("baseline_info", "Full trace")]
     body = []
-    for name, title in (("gemini", "A. Gemini 2.5 Flash monitor"), ("haiku", "B. Claude Haiku 5.5 monitor")):
+    for name, title in (("aya", "A. Aya Expanse 8B monitor"), ("haiku", "B. Claude Haiku 5.5 monitor")):
         if not all(S[a] and name in S[a]["monitors"] for a in AGENTS):
             continue
         body.append(f"\\multicolumn{{5}}{{l}}{{\\textit{{{title}}}}} \\\\")
@@ -426,7 +426,7 @@ def main() -> None:
 
     # Appendix: full monitor tables
     full = []
-    MONS = {"gemini": "Gemini 2.5 Flash monitor", "haiku": "Claude Haiku 5.5 monitor"}
+    MONS = {"aya": "Aya Expanse 8B monitor", "haiku": "Claude Haiku 5.5 monitor"}
     for label, src in (("Market", S), ("Workflow", W)):
         for a in AGENTS:
             for mname, mlabel in MONS.items():
@@ -512,7 +512,7 @@ def main() -> None:
     FIG.tasks(by_family, set(WORKFLOW_FAMS), F / "tasks.pdf")
     FIG.pipeline(F / "pipeline.pdf")
     monitors = [(title, S["gemini"]["monitors"][name]["pooled"])
-                for name, title in (("gemini", "Gemini 2.5 Flash"), ("haiku", "Claude Haiku 5.5"))
+                for name, title in (("aya", "Aya Expanse 8B"), ("haiku", "Claude Haiku 5.5"))
                 if S["gemini"] and name in S["gemini"]["monitors"]]
     if monitors:
         FIG.butterfly(monitors, F / "views.pdf")

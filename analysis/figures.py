@@ -136,7 +136,7 @@ def butterfly(monitors: list[tuple[str, dict]], path: Path) -> None:
     from matplotlib.patches import Patch
     handles = [Patch(color=INK2, alpha=s, label=name) for (name, _), s in zip(monitors, shades)]
     fig.legend(handles=handles, loc="lower center", ncol=len(monitors), frameon=False, fontsize=7.5,
-               bbox_to_anchor=(0.55, -0.02), title="monitor (darker: Gemini)", title_fontsize=7.5)
+               bbox_to_anchor=(0.55, -0.02), title="monitor (darker: first listed)", title_fontsize=7.5)
     fig.subplots_adjust(bottom=0.17)
     fig.savefig(path, facecolor=BG, bbox_inches="tight")
     plt.close(fig)
@@ -198,7 +198,7 @@ def pipeline(path: Path) -> None:
 
     card(69.0, 18.5, 13.6, 17, "Log", "", "message\naction\nreport\nbaseline", "audit")
     card(69.0, 2.2, 13.6, 13.5, "Summarizer", "Gemma-3-27B", "≤80-word entry", "audit", dashed=True)
-    card(84.9, 6.5, 13.6, 29, "Monitor", "Gemini 2.5 Flash\nor Haiku 5.5",
+    card(84.9, 6.5, 13.6, 29, "Monitor", "Aya Expanse 8B\nor Claude Haiku 5.5",
          "reads one view\nof the log, or\nthe summary\n\nFLAG / CLEAR", "audit")
 
     arrow((13.1, 27), (15.4, 27))
