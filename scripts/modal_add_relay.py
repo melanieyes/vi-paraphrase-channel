@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import sys
+import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
@@ -66,13 +67,21 @@ def add(raws: list[dict], items: list[dict], cfg: dict, qwen_url: str, channel: 
                 "relay_attempts": attempts}
         it = by_id[raw["item_id"]]
         opt_a, opt_b, _ = options(it, 0)
-        g = gem.chat([{"role": "user", "content": P.GATE_PROMPT.format(
-            **it, opt_a=opt_a, opt_b=opt_b, text=stim["text"])}],
-            temperature=gc["temperature"], reasoning=gc["reasoning"])
-        return {"stimulus": stim, "gate": {"key": stim["key"], "reply": g.text, "error": None,
+        reply, err = "", None
+        for wait in (0, 10, 30, 60, 120):
+            time.sleep(wait)
+            try:
+                reply = gem.chat([{"role": "user", "content": P.GATE_PROMPT.format(
+                    **it, opt_a=opt_a, opt_b=opt_b, text=stim["text"])}],
+                    temperature=gc["temperature"], reasoning=gc["reasoning"]).text
+                err = None
+                break
+            except Exception as exc:  # noqa: BLE001  logged as data, never dropped
+                err = repr(exc)[:300]
+        return {"stimulus": stim, "gate": {"key": stim["key"], "reply": reply, "error": err,
                                            "model": gc["model"]}}
 
-    with ThreadPoolExecutor(16) as ex:
+    with ThreadPoolExecutor(8) as ex:
         return list(ex.map(one, raws))
 
 

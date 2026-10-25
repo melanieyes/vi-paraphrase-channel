@@ -103,7 +103,8 @@ def main() -> None:
         M[f"{P}ParaCI"] = ci(s["relay_effect"]["harmful"]["paraphrased"]["all"])
         M[f"{P}Neut"] = pp(s["relay_effect"]["harmful"]["neutralized"]["all"])
         M[f"{P}NeutCI"] = ci(s["relay_effect"]["harmful"]["neutralized"]["all"])
-        M[f"{P}TwinMin"] = pct(min((s["turn2"]["mutual_gains"][ch]["all"] for ch in CHANNELS),
+        M[f"{P}TwinMin"] = pct(min((s["turn2"]["mutual_gains"][ch]["all"] for ch in CHANNELS
+                                    if (s["turn2"]["mutual_gains"].get(ch, {}).get("all") or {}).get("est") is not None),
                                    key=lambda d: d["est"]))
         M[f"{P}DiscItem"] = pct(s["disclosure"]["item_cO"])
         M[f"{P}DiscLex"] = pct(s["disclosure"]["lexical"])
@@ -152,10 +153,18 @@ def main() -> None:
                 M[f"{P}CtlMovedFNR"] = pct(pm["fnr_moved"]["baseline_info"])
                 M[f"{P}CtlFADecl"] = pct(pm["fpr_declined"]["baseline_info"])
                 M[f"{P}CtlFAUni"] = pct(pm["fpr_unilateral"]["baseline_info"])
+            if "pop_baseline" in mm["views"]:
+                M[f"{P}PopFNR"] = pct(pm["fnr"]["pop_baseline"])
+                M[f"{P}PopMovedFNR"] = pct(pm["fnr_moved"]["pop_baseline"])
+                M[f"{P}PopFADecl"] = pct(pm["fpr_declined"]["pop_baseline"])
+                M[f"{P}PopFAUni"] = pct(pm["fpr_unilateral"]["pop_baseline"])
         mq = S["qwen"]["monitors"].get(mname) if S["qwen"] else None
         if mq and "standard" in mq["views"]:
             M[f"{P}QwMovedFNR"] = pct(mq["pooled"]["fnr_moved"]["standard"])
             M[f"{P}QwRepMovedFNR"] = pct(mq["pooled"]["fnr_moved"]["report"])
+            if "pop_baseline" in mq["views"]:
+                M[f"{P}QwPopFADecl"] = pct(mq["pooled"]["fpr_declined"]["pop_baseline"])
+                M[f"{P}QwPopMovedFNR"] = pct(mq["pooled"]["fnr_moved"]["pop_baseline"])
     hkw = W["gemini"]["monitors"].get("haiku") if W["gemini"] else None
     if hkw:
         M["HkWfActionFNR"] = pct(hkw["pooled"]["fnr"]["action"])
@@ -233,7 +242,8 @@ def main() -> None:
     # pooled over channels; panel A Gemini monitor, panel B Haiku monitor.
     VIEW_ROWS = [("action", "Action only"), ("report_only", "Report only"), ("message_only", "Message only"),
                  ("report", "Action + report"), ("delivered", "Action + report + message"),
-                 ("baseline_info", "\\quad + baseline (no rule)"), ("standard", "\\quad + baseline and rule (standard)")]
+                 ("baseline_info", "\\quad + baseline (no rule)"),
+                 ("pop_baseline", "\\quad + other runs' baseline (no rule)"), ("standard", "\\quad + baseline and rule (standard)")]
     METRICS = ("fnr", "fnr_moved", "fpr_declined", "fpr_unilateral")
     body = []
     for name, title in (("gemini", "A. Gemini 2.5 Flash monitor"), ("haiku", "B. Claude Haiku 5.5 monitor")):
@@ -264,7 +274,7 @@ def main() -> None:
         if not s:
             continue
         rows.append(f"{LABEL[a]} & {cell(s['turn1']['harmful'])} & "
-                    + " & ".join(cell(s["turn2"]["harmful"][ch]["all"]) for ch in CHANNELS)
+                    + " & ".join(cell(s["turn2"]["harmful"][ch]["all"]) for ch in ("raw", "paraphrased", "neutralized"))
                     + "".join(f" & {cell(s['relay_effect']['harmful'][ch]['all'], excludes_zero(s['relay_effect']['harmful'][ch]['all']))}"
                               for ch in ("paraphrased", "neutralized")) + " \\\\")
     (T / "relays.tex").write_text(
