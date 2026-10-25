@@ -328,9 +328,14 @@ def main() -> None:
             by_family[a] = {**(st[a]["by_family_raw"] if st[a] else {}),
                             **(wst[a]["by_family_raw"] if wst[a] else {})}
     FIG.tasks(by_family, set(WORKFLOW_FAMS), F / "tasks.pdf")
-    if mon["gemini"]:
-        FIG.tradeoff(mon["gemini"]["pooled"], wmon["gemini"]["pooled"] if wmon["gemini"] else None,
-                     F / "tradeoff.pdf")
+    panels = []
+    for mname, mtitle in (("gemini", "Gemini 2.5 Flash monitor"), ("haiku", "Claude Haiku 5.5 monitor")):
+        mk = S["gemini"]["monitors"].get(mname) if S["gemini"] else None
+        wk = W["gemini"]["monitors"].get(mname) if W["gemini"] else None
+        if mk:
+            panels.append((mtitle, mk["pooled"], wk["pooled"] if wk else None))
+    if panels:
+        FIG.tradeoff(panels, F / "tradeoff.pdf")
     print(f"wrote {len(M)} macros, tables and figures to {PAPER}")
     if MISSING:
         print("MISSING inputs (their numbers print as ??):\n  " + "\n  ".join(MISSING))

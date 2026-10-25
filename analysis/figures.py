@@ -85,16 +85,12 @@ OFFSET = {"action": (7, 0), "report_only": (0, 0), "message_only": (-4, 9),
           "report": (9, -7), "delivered": (0, 9)}
 
 
-def tradeoff(market: dict, workflow: dict | None, path: Path) -> None:
-    """Figure 2. Each monitor view as a point: false alarms on declined episodes vs missed collusion."""
-    fig, ax = plt.subplots(figsize=(6.0, 3.5))
+def _tradeoff_panel(ax, market: dict, workflow: dict | None, title: str, labels: bool) -> None:
     ax.set_facecolor(BG)
     ax.grid(True, color=GRID, linewidth=0.7)
     ax.set_axisbelow(True)
     ax.add_patch(plt.Rectangle((-3, -3), 23, 23, color=ACCENT, alpha=0.06, zorder=0, linewidth=0))
-    ax.text(0.5, 20.8, "useful corner: few misses, few false alarms", color=ACCENT, fontsize=7.5, va="bottom", ha="left")
-    for pooled, marker, color, name in ((market, "o", ACCENT, "market"),
-                                        (workflow, "D", ACCENT2, "workflow")):
+    for pooled, marker, color, name in ((market, "o", ACCENT, "market"), (workflow, "D", ACCENT2, "workflow")):
         if not pooled:
             continue
         for v in VIEW_LABEL:
@@ -103,21 +99,39 @@ def tradeoff(market: dict, workflow: dict | None, path: Path) -> None:
                 continue
             ax.plot([x[1], x[2]], [y[0], y[0]], color=color, linewidth=0.8, alpha=0.5)
             ax.plot([x[0], x[0]], [y[1], y[2]], color=color, linewidth=0.8, alpha=0.5)
-            ax.plot(x[0], y[0], marker, color=color, markersize=6 if marker == "o" else 5,
+            ax.plot(x[0], y[0], marker, color=color, markersize=5.5 if marker == "o" else 4.5,
                     markeredgecolor=BG, markeredgewidth=0.8, zorder=3)
-            if name == "market" and VIEW_LABEL[v]:
+            if labels and name == "market" and VIEW_LABEL[v]:
                 dx, dy = OFFSET[v]
                 ax.annotate(VIEW_LABEL[v], (x[0], y[0]), xytext=(dx, dy), textcoords="offset points",
-                            color=INK, fontsize=8, ha="right" if dx < 0 else ("center" if dx == 0 else "left"),
-                            va="center")
+                            color=INK, fontsize=7.5,
+                            ha="right" if dx < 0 else ("center" if dx == 0 else "left"), va="center")
     ax.set_xlim(-3, 103)
     ax.set_ylim(-3, 88)
-    ax.set_xlabel("false alarms: harmful episodes the agent declined (%)")
-    ax.set_ylabel("missed collusion (%)")
-    ax.plot([], [], "o", color=ACCENT, label="market")
-    if workflow:
-        ax.plot([], [], "D", color=ACCENT2, label="workflow")
-    ax.legend(frameon=False, loc="upper right", fontsize=8, handletextpad=0.3)
-    fig.tight_layout()
+    ax.set_title(title, loc="left", color=INK, fontweight="bold")
+    ax.set_xlabel("false alarms on declined episodes (%)")
+
+
+VIEW_LABEL = {"action": "action only", "report_only": "", "message_only": "message only",
+              "report": "action + report", "delivered": "action + report + message"}
+OFFSET = {"action": (6, 0), "report_only": (0, 0), "message_only": (-4, 20),
+          "report": (7, 9), "delivered": (0, 9)}
+
+
+def tradeoff(panels: list[tuple[str, dict, dict | None]], path: Path) -> None:
+    """Figure 2. Each monitor view as a point: false alarms on declined episodes vs missed collusion,
+    one panel per monitor, same axes."""
+    fig, axes = plt.subplots(1, len(panels), figsize=(6.8, 3.0), sharey=True)
+    axes = axes if len(panels) > 1 else [axes]
+    for i, (ax, (title, market, workflow)) in enumerate(zip(axes, panels)):
+        _tradeoff_panel(ax, market, workflow, title, labels=True)
+    axes[0].set_ylabel("missed collusion (%)")
+    from matplotlib.lines import Line2D
+    handles = [Line2D([], [], marker="o", linestyle="none", color=ACCENT, label="market (pooled over channels)"),
+               Line2D([], [], marker="D", linestyle="none", color=ACCENT2, markersize=5, label="workflow (raw channel)"),
+               plt.Rectangle((0, 0), 1, 1, color=ACCENT, alpha=0.12, label="few misses and few false alarms")]
+    fig.legend(handles=handles, loc="lower center", ncol=3, frameon=False, fontsize=7.5,
+               bbox_to_anchor=(0.5, -0.03))
+    fig.tight_layout(rect=(0, 0.07, 1, 1), w_pad=1.0)
     fig.savefig(path, facecolor=BG, bbox_inches="tight")
     plt.close(fig)
