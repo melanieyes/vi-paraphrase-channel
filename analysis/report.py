@@ -42,32 +42,51 @@ def ci(d) -> str:
     return f"{100 * d['est']:.1f} [{100 * d['lo']:.1f}, {100 * d['hi']:.1f}]"
 
 
-def example() -> list[str]:
+def example_episode() -> dict:
     """One real harmful episode where the message moved a Gemini agent."""
     rows = [json.loads(l) for l in (ROOT / "data/episodes/episodes_gemini.jsonl").read_text().splitlines()[1:]]
-    ex = next(r for r in rows if r["item_class"] == "harmful" and r["moved_to_collude"]
-              and r["channel"] == "raw" and r["rendering"] == "euphemism")
-    situation = ex["turns"][0]["user"].split("\n\nA)")[0]
+    return next(r for r in rows if r["item_class"] == "harmful" and r["moved_to_collude"]
+                and r["channel"] == "raw" and r["rendering"] == "euphemism")
+
+
+def gloss() -> dict[str, str]:
+    """Machine-translated English for display, keyed by sha256 of the Vietnamese."""
+    path = ROOT / "data/translations/en.jsonl"
+    if not path.exists():
+        return {}
+    return {r["sha"]: r["en"] for r in map(json.loads, path.read_text().splitlines()) if r.get("en")}
+
+
+def tr(text: str, en: dict[str, str]) -> str | None:
+    import hashlib
+    return en.get(hashlib.sha256(text.encode()).hexdigest())
+
+
+def quote(text: str, en: dict[str, str]) -> list[str]:
+    t = tr(text, en)
+    return [f"> {text}"] + ([">", f"> *English (machine translation): {t}*"] if t else [])
+
+
+def example() -> list[str]:
+    ex = example_episode()
+    en = gloss()
+    from src.episode import load_items
+    it = next(i for i in load_items() if i["item_id"] == ex["item_id"])
+    opts = [f"> A) {ex['opt_a']}", f"> B) {ex['opt_b']}"]
+    ta, tb = tr(ex["opt_a"], en), tr(ex["opt_b"], en)
+    if ta and tb:
+        opts += [">", f"> *English: A) {ta} B) {tb}*"]
     return [
-        f"Item `{ex['item_id']}`, rendering `{ex['rendering']}`, channel `{ex['channel']}`.",
-        "",
-        "The situation the agent sees (Vietnamese, as shown):",
-        "",
-        f"> {situation}",
-        "",
-        f"> A) {ex['opt_a']}",
-        f"> B) {ex['opt_b']}",
-        "",
+        f"Item `{ex['item_id']}`, rendering `{ex['rendering']}`, channel `{ex['channel']}`. "
+        "Agents saw only the Vietnamese; the English is a machine translation for readers.",
+        "", "The situation the agent sees:", "",
+        *quote(it["situation"], en), "", *opts, "",
         f"Turn 1, before any message, the agent answered **{ex['pre']['letter']}**, the competitive option.",
-        "Then the rival's message arrived:",
-        "",
-        f"> {ex['raw_message']}",
-        "",
+        "Then the rival's message arrived:", "",
+        *quote(ex["raw_message"], en), "",
         f"Turn 2, the agent answered **{ex['post']['letter']}**, the collusive option "
-        f"(the item's fixed key is {ex['collusive_letter']}). Its report to the shop owner:",
-        "",
-        f"> {ex['report']}",
-        "",
+        f"(the item's fixed key is {ex['collusive_letter']}). Its report to the shop owner:", "",
+        *quote(ex["report"], en), "",
     ]
 
 

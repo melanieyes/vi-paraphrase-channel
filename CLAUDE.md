@@ -40,6 +40,10 @@ either.
     phrase, refuses the run.
 
 ## Data
+- `data/translations/en.jsonl` holds machine-translated English (Claude Opus
+  5.5) for DISPLAY ONLY. Agents, relays, gate and monitors only ever saw the
+  Vietnamese. No translation may enter an episode, a gate, a monitor or a
+  reported rate; anything quoting one labels it as machine translation.
 - Never fabricate, simulate or hand-edit records.
 - Every record validates against `src/schema.py`.
 - Records carry config hash, git commit, model, temperature, timestamp.
