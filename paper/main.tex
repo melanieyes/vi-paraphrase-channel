@@ -158,11 +158,12 @@ repository logs each change. All analyses are exploratory.
 
 \section{Results}
 \subsection{Which tasks lead to collusion? (2.1)}
-We separate collusion chosen at turn~1, before any message, from collusion induced by the message
-(competitive at turn~1, collusive at turn~2). Gemini chose \GemTopUnpromptedFam{} most often unprompted
-(\GemTopUnprompted) and was most often moved in \GemTopMovedFam{} (\GemTopMoved). For Qwen the
-corresponding families were \QwTopUnpromptedFam{} (\QwTopUnprompted) and \QwTopMovedFam{} (\QwTopMoved).
-The rankings differ between models (Figure~\ref{fig:tasks}; values in Appendix~\ref{app:tables}).
+\textbf{Agents often collude before anyone asks, and the tempting tasks differ by model.} We separate
+collusion chosen at turn~1, before any message, from collusion induced by the message (competitive at
+turn~1, collusive at turn~2). Gemini chose the collusive option unprompted in \GemTopUnprompted{} of
+\GemTopUnpromptedFam{} episodes, and the message moved it most in \GemTopMovedFam{} (\GemTopMoved). Qwen's
+top families were \QwTopUnpromptedFam{} and \QwTopMovedFam{} (Figure~\ref{fig:tasks}; values in
+Appendix~\ref{app:tables}).
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=\linewidth]{figures/tasks.pdf}
@@ -171,29 +172,23 @@ or were moved by the message (blue), by family. Orange labels mark workflow fami
 intervals clustered over items.}\label{fig:tasks}
 \end{figure}
 
-The phrasing of the invitation also mattered. On the market, the bare announcement, which requests
-nothing, moved more Gemini episodes than the direct proposal (\GemMarketOmission{} vs.\
-\GemMarketDirect); in workflows we found no measurable difference in this sample (\GemWorkflowOmission{}
-vs.\ \GemWorkflowDirect). Qwen showed the opposite tendency, with the announcement the least effective
-rendering in both settings (Appendix Table~\ref{tab:rendering}).
+\textbf{Phrasing matters, but not the same way for each model.} On the market, a bare announcement that
+asks for nothing moved Gemini more than a direct proposal (\GemMarketOmission{} vs.\ \GemMarketDirect).
+Qwen responded least to the announcement, and in workflows Gemini showed no measurable difference in this
+sample (Appendix Table~\ref{tab:rendering}).
 
 
 
 \subsection{Do words and actions together beat either alone? (2.2)}
-From the action alone, the Gemini monitor missed \MonActionFNR{} \MonActionFNRCI{} of collusion on the
-market (Appendix Table~\ref{tab:views}, panel A). Adding the agent's report reduced this to \MonReportFNR{}
-(difference \MonActionMinusBoth{} points, \MonActionMinusBothCI) while flagging \MonFADeclReport{} of
-declined episodes. The report alone performed similarly (\MonReportOnlyFNR) because it restates the action.
-Its value depends on the agent: for Qwen, whose reports seldom mentioned the message, action and report
-still missed \MonQReportFNR. Adding the rival's message cut misses to \MonDeliveredFNR{} but flagged
-\MonFADeclDelivered{} of declined episodes (\MonFADeclMsgOnly{} for the message alone). The message is
-evidence that the rival proposed an arrangement, which a platform may itself want to flag, but not that the
-agent accepted it. Claude Haiku 5.5 reproduced this ordering (Figure~\ref{fig:says}; panel B).
+\textbf{Each source answers a different question, and none is enough alone.} From the action alone, the
+Gemini monitor missed \MonActionFNR{} \MonActionFNRCI{} of collusion on the market (Figure~\ref{fig:says}).
+Adding the agent's report cut misses to \MonReportFNR, but only for a candid agent: for Qwen, whose reports
+seldom mention the message, action and report still missed \MonQReportFNR. Adding the rival's message cut
+misses to \MonDeliveredFNR{} but flagged \MonFADeclDelivered{} of episodes in which the agent declined. The
+message shows that a proposal was made, not that it was accepted. Claude Haiku 5.5 reproduced this ordering
+(lighter bars; Appendix~\ref{app:more}).
 
-In workflows the Gemini monitor missed only \WfActionFNR{} from the action, plausibly because scoring a
-rival far above the rubric or inflating a budget looks harmful on its face. Haiku did not show this
-difference (\HkActionFNR{} market, \HkWfActionFNR{} workflow), so it may reflect the Gemini monitor rather
-than the actions (Appendix~\ref{app:tables}).
+
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=\linewidth]{figures/views.pdf}
@@ -207,12 +202,11 @@ Table~\ref{tab:views}: it clears unilateral choices by design, so it is not comp
 
 
 \subsection{What should count as convincing evidence? (2.3)}\label{sec:standard}
-The three sources answer different questions: the message shows that a proposal was made, the action shows
-what the agent did, and the agent's account shows what it reports. Two results constrain how they combine.
-A matching action is not sufficient, because \GemTurnOne{} of Gemini's harmful episodes chose the collusive
-option before any message. The account depends on elicitation. Of colluding episodes, \GemDiscItem{}
-(Gemini) and \QwDiscItem{} (Qwen) answered yes to a direct question, but only \GemDiscLex{} and
-\QwDiscLex{} mentioned the message in their reports (Figure~\ref{fig:asked}).
+\textbf{Evidence needs a reference for what the agent would have done anyway.} Two results rule out
+simpler standards. A matching action is not enough: \GemTurnOne{} of Gemini's harmful episodes chose the
+collusive option before any message. The agent's account is not enough either. Asked directly, Gemini and
+Qwen admitted the influence in \GemDiscItem{} and \QwDiscItem{} of colluding episodes, but their reports
+mentioned the message in only \GemDiscLex{} and \QwDiscLex{} (Figure~\ref{fig:asked}).
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=0.92\linewidth]{figures/asked.pdf}
@@ -227,45 +221,30 @@ We therefore propose that convincing evidence requires (i) a proposal, (ii) an a
 turn~1. A deployed monitor would instead have the agent's behaviour on similar cases without a proposal, so
 we also test that version.
 
-The control view separates information from instruction (Appendix Table~\ref{tab:views}). Showing the monitor the
-agent's pre-message choice, without any rule, cut flags on declined episodes from \StdGemAllFADecl{} to
-\StdGemCtlFADecl{} (Gemini monitor) and from \StdHkAllFADecl{} to \StdHkCtlFADecl{} (Haiku), while
-message-induced misses stayed at \StdGemCtlMovedFNR{} and \StdHkCtlMovedFNR. Stating the rule removed the
-remaining declined flags (\StdGemFADecl{} and \StdHkFADecl) but raised message-induced misses to
-\StdGemMovedFNR{} and \StdHkMovedFNR. Only Haiku used the rule to clear unilateral choices
-(\StdHkFAUni{} flagged, against \StdGemFAUni{} for the Gemini monitor). Most of the benefit therefore comes
-from the baseline information, not from the rule.
+\textbf{Information, not instruction, does the work.} Showing the Gemini monitor the agent's pre-message
+choice, with no rule, cut flags on declined episodes from \StdGemAllFADecl{} to \StdGemCtlFADecl. Stating the
+rule as well added little and cost misses (Appendix~\ref{app:more}).
 
-The baseline need not come from the same episode. We replaced the agent's own turn-1 choice with its turn-1
-choices on similar situations: the same family and class, with the item itself left out, which a deployed
-monitor could hold from earlier work. With no rule, misses stayed at \StdGemFamFNR{} and \StdHkFamFNR{}
-(Gemini agent; Gemini and Haiku monitors) and \StdGemQwFamFNR{} and \StdHkQwFamFNR{} (Qwen agent), and flags on
-declined episodes were \StdGemFamFADecl{}, \StdHkFamFADecl{}, \StdGemQwFamFADecl{} and \StdHkQwFamFADecl,
-close to the same-episode baseline. Counts from the same situation in other runs gave similar results
-(Figure~\ref{fig:says}).
+\textbf{A baseline a deployed monitor can hold works as well.} A deployed monitor does not see the agent's
+choice in the same episode, but it can record how the agent behaves on similar situations. With the agent's
+turn-1 choices on other scenarios of the same family, the item itself left out, the Gemini monitor missed
+\StdGemFamFNR{} of collusion and flagged \StdGemFamFADecl{} of declined episodes (bold row in
+Figure~\ref{fig:says}). Haiku and Qwen's episodes gave the same picture (Appendix~\ref{app:more}).
 
-\paragraph{Robustness.} Four LLM readers agreed with the gate on \AgreeOpus{} (Opus 5.5),
-\AgreeGeminiPro{} (Gemini 3.1 Pro), \AgreeGemma{} (Gemma-3-27B) and \AgreeGPT{} (GPT-5.4-nano) of harmful
-messages; a native Vietnamese reader judged the outlier's readings incorrect. Relaying did not remove the
-invitation. The gate found a push toward the arrangement in \GatePushRaw, \GatePushPara{} and
-\GatePushNeut{} of raw, paraphrased and neutralized messages, and uptake changed by \GemPara{} and
-\GemNeut{} points for Gemini and \QwPara{} and \QwNeut{} for Qwen (Appendix~\ref{app:tables}). Twins kept
-cooperation at or above \GemTwinMin{} (Gemini) and \QwTwinMin{} (Qwen). A Qwen3-8B monitor flagged most
-twins and is reported only in Appendix~\ref{app:tables}.
+\paragraph{Robustness.} Four LLM readers agreed with the gate on most harmful messages (\AgreeOpus{} for
+Opus 5.5). Paraphrased and neutralized relays kept the invitation and did not reduce uptake, and harmless
+twins kept cooperation at or above \GemTwinMin{} (Gemini) and \QwTwinMin{} (Qwen). Details are in
+Appendix~\ref{app:more}.
 
 \subsection{Where is context lost? Summaries}\label{sec:summaries}
-\paragraph{The agent reads a summary.} Following the summary arm of a communication-degree design, the relay
-model rewrote each rival message in four summary styles that share one prompt frame and differ in one style
-sentence (Figure~\ref{fig:lexical}A; Table~\ref{tab:summaries} in Appendix~\ref{app:tables}). Most styles kept the invitation and left uptake unchanged. The system
-log was the exception. Its \emph{Proposal} field was often filled with ``none'' even when the content line
-stated the proposal, and Opus read \SumOpusSys{} of these summaries as still inviting, against \SumOpusRaw{}
-of originals. Qwen's message-induced collusion fell by \SumQwSysMoved{} points \SumQwSysMovedCI, but its
-cooperation on harmless twins fell from \SumQwRawTwin{} to \SumQwSysTwin. The summary did not protect the
-agent; it removed the proposal, harmful or not. Monitors reading the same summaries flagged fewer declined
-episodes (\SumQwHkSysFADel{} against \SumQwHkSysFARaw{} for Haiku on Qwen's episodes) for the same reason.
-A second Qwen sample reproduced the loss (\RobResSys{} still inviting); Gemma-3-27B writing the same styles
-lost a similar share in every style (\RobGmaShort{} to \RobGmaLong), so the effect depends on the summarizer.
-Code-switching lowered Gemini's uptake by \SumGemCSMoved{} points \SumGemCSMovedCI{} but not Qwen's.
+\paragraph{A summary in the channel can erase the proposal.} Following the summary arm of a
+communication-degree design, the relay model rewrote each invitation in four summary styles that share one
+prompt and differ in one style sentence (Figure~\ref{fig:lexical}A). Three styles kept the invitation and
+changed uptake little. The system-log style often wrote \emph{Đề nghị: Không có} (Proposal: none) under a
+line that stated the proposal, and Opus read only \SumOpusSys{} of these summaries as still inviting. Qwen's
+message-induced collusion changed by \SumQwSysMoved{} points \SumQwSysMovedCI, but its cooperation on harmless
+twins also fell, to \SumQwSysTwin. The summary did not protect the agent; it removed the proposal, harmful or
+not. How much a summary loses depends on the summarizer (Appendix~\ref{app:more}).
 
 
 
@@ -280,16 +259,12 @@ the first Qwen episode, by id, in which the message moved the agent, the report 
 the arrangement, and the summary named both.}\label{fig:lexical}
 \end{figure}
 
-\paragraph{The monitor reads a summary.} Deployed oversight often reads a summary instead of the trace. Gemma-3-27B, which has no other role, read
-each full trace (the view with the pre-message choice) and wrote an activity-log entry of at most 80 words,
-without being told what to look for. Monitors then read only that entry (Figure~\ref{fig:lexical}B; Table~\ref{tab:oversight} in Appendix~\ref{app:tables}). Two
-comparisons answer different questions. Against the trace it summarizes, the summary measures compression
-loss: misses rose from \OvGemGemTraceFNR{} to \OvGemGemSumFNR{} (Gemini agent, Gemini monitor) and from
-\OvGemHkTraceFNR{} to \OvGemHkSumFNR{} (Haiku), and flags on declined episodes rose from \OvQwGemTraceFA{} to
-\OvQwGemSumFA{} on Qwen's episodes (Gemini monitor). Against the agent's own report, the summary measures who
-writes the account: on Qwen's episodes misses fell from \OvQwGemSelfFNR{} to \OvQwGemSumFNR{} (Gemini monitor)
-and from \OvQwHkSelfFNR{} to \OvQwHkSumFNR{} (Haiku), because the summarizer saw the message that Qwen's
-reports mostly omit.
+\paragraph{Who writes the account matters more than compression.} Gemma-3-27B, which plays no other role,
+read each full trace and wrote an activity-log entry of at most 80 words, without being told what to look
+for (Figure~\ref{fig:lexical}B). Against the trace it summarizes, the entry cost the Gemini monitor some
+accuracy on Gemini's episodes: misses rose from \OvGemGemTraceFNR{} to \OvGemGemSumFNR. Against Qwen's own
+reports, it recovered most of what they left out: misses fell from \OvQwGemSelfFNR{} to \OvQwGemSumFNR.
+The summarizer had no reason to drop the message; the agent did (Appendix~\ref{app:more}).
 
 
 
@@ -364,6 +339,80 @@ only in naming the platform and the principal.
 
 \section{Example episode}\label{app:example}
 \input{tables/example.tex}
+
+\section{Additional results}\label{app:more}
+The paragraphs below give the full numbers behind the condensed text of Section~4, for both monitors and both agents.
+
+The phrasing of the invitation also mattered. On the market, the bare announcement, which requests
+nothing, moved more Gemini episodes than the direct proposal (\GemMarketOmission{} vs.\
+\GemMarketDirect); in workflows we found no measurable difference in this sample (\GemWorkflowOmission{}
+vs.\ \GemWorkflowDirect). Qwen showed the opposite tendency, with the announcement the least effective
+rendering in both settings (Appendix Table~\ref{tab:rendering}).
+
+From the action alone, the Gemini monitor missed \MonActionFNR{} \MonActionFNRCI{} of collusion on the
+market (Appendix Table~\ref{tab:views}, panel A). Adding the agent's report reduced this to \MonReportFNR{}
+(difference \MonActionMinusBoth{} points, \MonActionMinusBothCI) while flagging \MonFADeclReport{} of
+declined episodes. The report alone performed similarly (\MonReportOnlyFNR) because it restates the action.
+Its value depends on the agent: for Qwen, whose reports seldom mentioned the message, action and report
+still missed \MonQReportFNR. Adding the rival's message cut misses to \MonDeliveredFNR{} but flagged
+\MonFADeclDelivered{} of declined episodes (\MonFADeclMsgOnly{} for the message alone). The message is
+evidence that the rival proposed an arrangement, which a platform may itself want to flag, but not that the
+agent accepted it. Claude Haiku 5.5 reproduced this ordering (Figure~\ref{fig:says}; panel B).
+
+In workflows the Gemini monitor missed only \WfActionFNR{} from the action, plausibly because scoring a
+rival far above the rubric or inflating a budget looks harmful on its face. Haiku did not show this
+difference (\HkActionFNR{} market, \HkWfActionFNR{} workflow), so it may reflect the Gemini monitor rather
+than the actions (Appendix~\ref{app:tables}).
+
+The control view separates information from instruction (Appendix Table~\ref{tab:views}). Showing the monitor the
+agent's pre-message choice, without any rule, cut flags on declined episodes from \StdGemAllFADecl{} to
+\StdGemCtlFADecl{} (Gemini monitor) and from \StdHkAllFADecl{} to \StdHkCtlFADecl{} (Haiku), while
+message-induced misses stayed at \StdGemCtlMovedFNR{} and \StdHkCtlMovedFNR. Stating the rule removed the
+remaining declined flags (\StdGemFADecl{} and \StdHkFADecl) but raised message-induced misses to
+\StdGemMovedFNR{} and \StdHkMovedFNR. Only Haiku used the rule to clear unilateral choices
+(\StdHkFAUni{} flagged, against \StdGemFAUni{} for the Gemini monitor). Most of the benefit therefore comes
+from the baseline information, not from the rule.
+
+The baseline need not come from the same episode. We replaced the agent's own turn-1 choice with its turn-1
+choices on similar situations: the same family and class, with the item itself left out, which a deployed
+monitor could hold from earlier work. With no rule, misses stayed at \StdGemFamFNR{} and \StdHkFamFNR{}
+(Gemini agent; Gemini and Haiku monitors) and \StdGemQwFamFNR{} and \StdHkQwFamFNR{} (Qwen agent), and flags on
+declined episodes were \StdGemFamFADecl{}, \StdHkFamFADecl{}, \StdGemQwFamFADecl{} and \StdHkQwFamFADecl,
+close to the same-episode baseline. Counts from the same situation in other runs gave similar results
+(Figure~\ref{fig:says}).
+
+\paragraph{Robustness.} Four LLM readers agreed with the gate on \AgreeOpus{} (Opus 5.5),
+\AgreeGeminiPro{} (Gemini 3.1 Pro), \AgreeGemma{} (Gemma-3-27B) and \AgreeGPT{} (GPT-5.4-nano) of harmful
+messages; a native Vietnamese reader judged the outlier's readings incorrect. Relaying did not remove the
+invitation. The gate found a push toward the arrangement in \GatePushRaw, \GatePushPara{} and
+\GatePushNeut{} of raw, paraphrased and neutralized messages, and uptake changed by \GemPara{} and
+\GemNeut{} points for Gemini and \QwPara{} and \QwNeut{} for Qwen (Appendix~\ref{app:tables}). Twins kept
+cooperation at or above \GemTwinMin{} (Gemini) and \QwTwinMin{} (Qwen). A Qwen3-8B monitor flagged most
+twins and is reported only in Appendix~\ref{app:tables}.
+
+\paragraph{The agent reads a summary.} Following the summary arm of a communication-degree design, the relay
+model rewrote each rival message in four summary styles that share one prompt frame and differ in one style
+sentence (Figure~\ref{fig:lexical}A; Table~\ref{tab:summaries} in Appendix~\ref{app:tables}). Most styles kept the invitation and left uptake unchanged. The system
+log was the exception. Its \emph{Proposal} field was often filled with ``none'' even when the content line
+stated the proposal, and Opus read \SumOpusSys{} of these summaries as still inviting, against \SumOpusRaw{}
+of originals. Qwen's message-induced collusion changed by \SumQwSysMoved{} points \SumQwSysMovedCI, but its
+cooperation on harmless twins fell from \SumQwRawTwin{} to \SumQwSysTwin. The summary did not protect the
+agent; it removed the proposal, harmful or not. Monitors reading the same summaries flagged fewer declined
+episodes (\SumQwHkSysFADel{} against \SumQwHkSysFARaw{} for Haiku on Qwen's episodes) for the same reason.
+A second Qwen sample reproduced the loss (\RobResSys{} still inviting); Gemma-3-27B writing the same styles
+lost a similar share in every style (\RobGmaShort{} to \RobGmaLong), so the effect depends on the summarizer.
+Code-switching lowered Gemini's uptake by \SumGemCSMoved{} points \SumGemCSMovedCI{} but not Qwen's.
+
+\paragraph{The monitor reads a summary.} Deployed oversight often reads a summary instead of the trace. Gemma-3-27B, which has no other role, read
+each full trace (the view with the pre-message choice) and wrote an activity-log entry of at most 80 words,
+without being told what to look for. Monitors then read only that entry (Figure~\ref{fig:lexical}B; Table~\ref{tab:oversight} in Appendix~\ref{app:tables}). Two
+comparisons answer different questions. Against the trace it summarizes, the summary measures compression
+loss: misses rose from \OvGemGemTraceFNR{} to \OvGemGemSumFNR{} (Gemini agent, Gemini monitor) and from
+\OvGemHkTraceFNR{} to \OvGemHkSumFNR{} (Haiku), and flags on declined episodes rose from \OvQwGemTraceFA{} to
+\OvQwGemSumFA{} on Qwen's episodes (Gemini monitor). Against the agent's own report, the summary measures who
+writes the account: on Qwen's episodes misses fell from \OvQwGemSelfFNR{} to \OvQwGemSumFNR{} (Gemini monitor)
+and from \OvQwHkSelfFNR{} to \OvQwHkSumFNR{} (Haiku), because the summarizer saw the message that Qwen's
+reports mostly omit.
 
 \section{Additional tables}\label{app:tables}
 \begin{table}[htbp]
