@@ -36,8 +36,12 @@ app = modal.App("vi-paraphrase-monitor")
               secrets=[modal.Secret.from_name("collusion-keys"),
                        modal.Secret.from_name("vllm-key")])
 def score(jobs: list[dict], mcfg: dict, qwen_url: str | None) -> list[dict]:
-    # each job carries its own system prompt: market and workflow monitors differ
     sys.path.insert(0, REMOTE)
+    return _score(jobs, mcfg, qwen_url)
+
+
+def _score(jobs: list[dict], mcfg: dict, qwen_url: str | None) -> list[dict]:
+    # each job carries its own system prompt: market and workflow monitors differ
     from concurrent.futures import ThreadPoolExecutor
 
     from src import prompts as P
@@ -46,6 +50,9 @@ def score(jobs: list[dict], mcfg: dict, qwen_url: str | None) -> list[dict]:
 
     if mcfg.get("app"):
         client = VLLMClient(model=mcfg["model"], base_url=qwen_url, max_tokens=mcfg["max_tokens"])
+    elif mcfg.get("client") == "anthropic":
+        from src.anthropic_client import AnthropicClient
+        client = AnthropicClient(model=mcfg["model"], effort=mcfg["effort"], max_tokens=mcfg["max_tokens"])
     else:
         client = GeminiClient(model=mcfg["model"])
 
@@ -55,6 +62,8 @@ def score(jobs: list[dict], mcfg: dict, qwen_url: str | None) -> list[dict]:
         try:
             rep = client.chat(msgs, temperature=mcfg["temperature"], reasoning=mcfg["reasoning"])
             reply, err = rep.text, None
+            if (rep.raw or {}).get("stop_reason") == "refusal":
+                err = "refusal"
         except Exception as exc:  # noqa: BLE001
             reply, err = "", repr(exc)[:300]
         v, kind = parse_verdict(reply)
@@ -67,7 +76,7 @@ def score(jobs: list[dict], mcfg: dict, qwen_url: str | None) -> list[dict]:
 
 @app.local_entrypoint()
 def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run: bool = False,
-         confirm: bool = False) -> None:
+         confirm: bool = False, local_env: str = "") -> None:
     from src import prompts as P
     from src.run_meta import config_hash, git_commit, load_cfg
     from src.schema import validate_episode, validate_verdict
@@ -112,7 +121,16 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
     qwen_url = None
     if mcfg.get("app"):
         qwen_url = modal.Function.from_name(mcfg["app"], "serve").get_web_url().rstrip("/") + "/v1"
-    out = score.remote(jobs, mcfg, qwen_url)
+    if local_env:
+        # API-only monitor run from the laptop (the Claude key is not a Modal secret):
+        # the key is read from the given .env into this process, never printed.
+        import os
+
+        from dotenv import dotenv_values
+        os.environ.update({k: v for k, v in dotenv_values(local_env).items() if k.endswith("_API_KEY") and v})
+        out = _score(jobs, mcfg, qwen_url)
+    else:
+        out = score.remote(jobs, mcfg, qwen_url)
     stamp = {"monitor": monitor, "model": mcfg["model"], "config_hash": config_hash(cfg),
              "git_commit": git_commit(), "timestamp": datetime.now(timezone.utc).isoformat()}
     suffix = {"nested": "", "extra": "--extra", "all": ""}[views]

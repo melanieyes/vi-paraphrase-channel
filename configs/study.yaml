@@ -60,6 +60,13 @@ readers:
     temperature: null
 
 monitors:
+  haiku:
+    client: anthropic          # local run, key from agent-collusion-bench/.env
+    model: claude-haiku-5-5
+    effort: low                # thinking is always on; no sampling parameters
+    max_tokens: 2000
+    temperature: null
+    reasoning: true
   gemini:
     client: gemini
     model: gemini-2.5-flash
