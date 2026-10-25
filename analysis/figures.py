@@ -128,3 +128,61 @@ def butterfly(monitors: list[tuple[str, dict]], path: Path) -> None:
     fig.subplots_adjust(bottom=0.24)
     fig.savefig(path, facecolor=BG, bbox_inches="tight")
     plt.close(fig)
+
+
+def pipeline(path: Path) -> None:
+    """Figure 1. Who does what: build (once, frozen), run, audit."""
+    from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+    fig, ax = plt.subplots(figsize=(6.9, 2.9))
+    ax.set_xlim(0, 100)
+    ax.set_ylim(0, 42)
+    ax.axis("off")
+    LIGHT = {"build": "#eef4fb", "run": "#fdf1ea", "audit": "#eef7f2"}
+    EDGE = {"build": ACCENT, "run": ACCENT2, "audit": "#1d8a5f"}
+
+    def phase(x0, x1, key, label):
+        ax.add_patch(FancyBboxPatch((x0, 0.5), x1 - x0, 40.5, boxstyle="round,pad=0,rounding_size=1.2",
+                                    facecolor=LIGHT[key], edgecolor="none", zorder=0))
+        ax.text(x0 + 1.2, 39.6, label, color=EDGE[key], fontsize=7, fontweight="bold", va="top")
+
+    def box(x, y, w, h, title, model, body, key, dashed=False, left=False):
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=0.8",
+                                    facecolor="white", edgecolor=EDGE[key], linewidth=0.9,
+                                    linestyle=(0, (3, 2)) if dashed else "-", zorder=2))
+        top = y + h - 1.5
+        ax.text(x + w / 2, top, title, ha="center", va="top", fontsize=7.2, fontweight="bold",
+                color=INK, zorder=3)
+        top -= 3.6
+        if model:
+            ax.text(x + w / 2, top, model, ha="center", va="top", fontsize=5.9, color=EDGE[key],
+                    style="italic", linespacing=1.2, zorder=3)
+            top -= 2.6 * (model.count("\n") + 1) + 1.2
+        ax.text(x + 2.2 if left else x + w / 2, top, body, ha="left" if left else "center", va="top",
+                fontsize=5.9, color=INK2, linespacing=1.35, zorder=3)
+
+    def arrow(x0, y0, x1, y1, style="-|>"):
+        ax.add_patch(FancyArrowPatch((x0, y0), (x1, y1), arrowstyle=style, mutation_scale=8,
+                                     color=INK2, linewidth=0.9, zorder=1))
+
+    phase(0.5, 43.5, "build", "BUILD  (once, then frozen)")
+    phase(44.5, 72, "run", "RUN  (every episode)")
+    phase(73, 99.5, "audit", "AUDIT")
+
+    box(1.8, 15, 11.5, 20, "Item", "", "situation,\ntwo options,\nharmless\ntwin", "build")
+    box(16.3, 15, 12, 20, "Renderer", "Gemini\n2.5 Flash", "rival's\nmessage in\n4 styles", "build")
+    box(31.3, 15, 11, 20, "Relay", "Qwen3-8B", "raw\nparaphrased\nneutralized", "build")
+    box(16.3, 2, 26, 10.5, "Gate + 4 LLM readers", "",
+        "does the message push toward\nthe arrangement?", "build", dashed=True)
+    box(46.5, 9, 24, 26, "Agent", "Gemini 2.5 Flash\nor Qwen3-8B",
+        "T1  choose A or B\nT2  read the message,\n       choose again\nT3  report to principal\n"
+        "T4  influenced? CÓ/KHÔNG", "run", left=True)
+    box(75, 9, 23, 26, "Monitor", "Gemini 2.5 Flash\nor Claude Haiku 5.5",
+        "reads one of 7 views\nof the episode log\n\nanswers FLAG or CLEAR", "audit")
+
+    arrow(13.3, 25, 16.3, 25)
+    arrow(28.3, 25, 31.3, 25)
+    arrow(42.3, 25, 46.5, 25)
+    arrow(70.5, 22, 75, 22)
+    arrow(29.3, 15, 29.3, 12.5, style="-")
+    fig.savefig(path, facecolor=BG, bbox_inches="tight")
+    plt.close(fig)

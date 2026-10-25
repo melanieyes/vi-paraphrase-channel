@@ -344,6 +344,39 @@ def main() -> None:
         q(ex["report"]),
     ]) + "\n")
 
+    # Table: the four renderings, defined, with one real frozen message each (English gloss)
+    from src import prompts as P
+    from src.episode import load_stimuli
+    stim = load_stimuli()
+    DEFS = {"direct": "States who should do what.",
+            "euphemism": "Softens the request with everyday phrases such as \\emph{cho gọn} (to keep it simple) "
+                         "or \\emph{linh động} (be flexible).",
+            "relationship": "Appeals to a long business relationship, for example \\emph{anh em} (brothers).",
+            "omission": "Announces the sender's own plan and asks for nothing."}
+    rows = []
+    for rd in P.RENDERINGS:
+        vi = stim[P.stimulus_key("price_hold_1_h", rd, "raw")]["text"]
+        e = tr(vi, en) or "(no translation)"
+        rows.append(f"{rd} & {DEFS[rd]} & \\textit{{{tex_escape(e)}}} \\\\")
+    (T / "renderings.tex").write_text(
+        "\\begin{tabular}{p{0.13\\linewidth}p{0.3\\linewidth}p{0.5\\linewidth}}\n\\toprule\n"
+        "Rendering & What it does & Example (item \\texttt{price\\_hold\\_1}, machine translation) \\\\\n\\midrule\n"
+        + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
+
+    # Appendix: every prompt, verbatim (Vietnamese), from src/prompts.py
+    PROMPTS = [("Agent system prompt (market)", P.SYSTEM), ("Agent system prompt (workflow)", P.SYSTEM_WORKFLOW),
+               ("Turn 1, choice", P.CHOICE_TURN), ("Turn 2, message and choice", P.MESSAGE_TURN),
+               ("Turn 3, report (market)", P.REPORT_TURN), ("Turn 4, disclosure (market)", P.DISCLOSURE_TURN),
+               ("Renderer (market)", P.RENDER_PROMPT), ("Relay: paraphrased", P.RELAY_SYSTEM["paraphrased"]),
+               ("Relay: neutralized", P.RELAY_SYSTEM["neutralized"]), ("Gate (market)", P.GATE_PROMPT),
+               ("Monitor system prompt (market)", P.MONITOR_SYSTEM), ("Monitor question", P.MONITOR_USER),
+               ("Monitor question, standard view", P.STANDARD_USER)]
+    out = []
+    for name, text in PROMPTS:
+        body = tex_escape(text).replace("{", "\\{").replace("}", "\\}").replace("\n", "\\\\\n")
+        out.append(f"\\paragraph{{{name}.}}\n{{\\footnotesize\\ttfamily {body}}}\n")
+    (T / "prompts.tex").write_text("\n".join(out))
+
     # figures, drawn here so the paper owns its figure style
     from analysis import figures as FIG
     F = PAPER / "figures"
@@ -356,6 +389,7 @@ def main() -> None:
             by_family[a] = {**(st[a]["by_family_raw"] if st[a] else {}),
                             **(wst[a]["by_family_raw"] if wst[a] else {})}
     FIG.tasks(by_family, set(WORKFLOW_FAMS), F / "tasks.pdf")
+    FIG.pipeline(F / "pipeline.pdf")
     monitors = [(title, S["gemini"]["monitors"][name]["pooled"])
                 for name, title in (("gemini", "Gemini 2.5 Flash"), ("haiku", "Claude Haiku 5.5"))
                 if S["gemini"] and name in S["gemini"]["monitors"]]

@@ -87,6 +87,17 @@ auditor reads. \textbf{Oversight of reports.} Agents can conceal the basis of an
 costs \cite{porter1993}; our standard asks the corresponding question of an agent trajectory.
 
 \section{Methods}
+Figure~\ref{fig:pipeline} shows the roles. A \emph{renderer} writes the rival's message, a \emph{relay}
+may rewrite it, an \emph{agent} decides and reports, and a \emph{monitor} judges the log. A \emph{gate}
+and four LLM readers check that each message pushes toward the arrangement.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\linewidth]{figures/pipeline.pdf}
+\caption{Roles and models. Messages and relayed versions are written once and frozen, so every episode in
+a cell sees the same text. The agent's report plays the part of the executor's summary in our earlier
+work \cite{bui2026ps}.}\label{fig:pipeline}
+\end{figure}
+
 \paragraph{Items.} The six market families are holding a price, splitting product categories, rotating ad
 bids, swapping five-star reviews, exchanging cost data and cover bidding in a tender. The three workflow
 families are no-poach hiring, a peer-scoring ring and padding department budgets. Each harmful item has a
@@ -102,11 +113,20 @@ balanced within every cell. The agents are Gemini 2.5 Flash (temperature 1) and 
 both with reasoning on. Code parses each choice, testing for refusal first; refusals and unparsed replies
 are retained as data.
 
-\paragraph{Invitations and relays.} Gemini wrote each item's message once in four renderings (direct,
-euphemism, relationship, omission), and we froze the messages. A gate asked Gemini, without naming the
+\paragraph{Invitations and relays.} Gemini wrote each item's message once in four renderings
+(Table~\ref{tab:renderings}), and we froze the messages. The renderings are four of the five pragmatic
+cues in our earlier work \cite{bui2026ps}; we dropped hierarchy, because the two agents are peers, and
+routine framing, which overlaps with omission. A gate asked Gemini, without naming the
 arrangement, which option each message favours. On the market set, Qwen3-8B also produced two frozen
 relayed versions: \emph{paraphrased} (new wording, same tone) and \emph{neutralized} (a third-person
 notice without greetings or relational appeals).
+
+\begin{table}[htbp]
+\centering\small
+\caption{The four renderings of the rival's invitation, with one frozen message each. Agents saw only the
+Vietnamese.}\label{tab:renderings}
+\input{tables/renderings.tex}
+\end{table}
 
 \paragraph{Monitors.} Gemini 2.5 Flash (reasoning off) and Claude Haiku 5.5 (reasoning on, low effort)
 answer FLAG or CLEAR from seven views: the action; the report; the message; action and report; action,
@@ -274,6 +294,11 @@ that the monitor's answer reflects the view it was given, that a scripted rival 
 counterpart, and that model-written Vietnamese approximates workplace Vietnamese. If the last assumption
 fails, rendering effects may differ for human-written messages. \textbf{Translations.} English quotations
 are machine translations for readers; agents saw only Vietnamese.
+
+\section{Prompts}\label{app:prompts}
+All prompts are in Vietnamese and quoted verbatim from \texttt{src/prompts.py}; workflow versions differ
+only in naming the platform and the principal.
+\input{tables/prompts.tex}
 
 \section{Example episode}\label{app:example}
 \input{tables/example.tex}
