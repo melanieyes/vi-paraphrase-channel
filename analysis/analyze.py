@@ -26,7 +26,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from src.prompts import ALL_VIEWS, CHANNELS, EXTRA_VIEWS, RENDERINGS, VIEWS  # noqa: E402
+from src.prompts import ALL_VIEWS, CHANNELS, EXTRA_VIEWS, RELAYED, RENDERINGS, VIEWS  # noqa: E402
 from src.schema import validate_episode  # noqa: E402
 
 B = 10_000
@@ -133,12 +133,19 @@ def episode_stats(recs: list[dict]) -> dict:
     S["relay_effect"] = {}
     for c in CLASSES:
         S["relay_effect"][c] = {}
-        for ch in ("paraphrased", "neutralized"):
+        for ch in [x for x in RELAYED if any(r["channel"] == x for r in recs)]:
             S["relay_effect"][c][ch] = {
                 rd: cl.diff(recs, post,
                             lambda r, c=c, ch=ch, rd=rd: r["item_class"] == c and r["channel"] == ch and (rd == "all" or r["rendering"] == rd),
                             lambda r, c=c, rd=rd: r["item_class"] == c and r["channel"] == "raw" and (rd == "all" or r["rendering"] == rd))
                 for rd in (*RENDERINGS, "all")}
+    # Summary channels: message-induced uptake (moved) minus raw, per channel, harmful items.
+    S["moved_effect"] = {
+        ch: cl.diff(recs, lambda r: r["moved_to_collude"],
+                    lambda r, ch=ch: r["item_class"] == "harmful" and r["channel"] == ch,
+                    lambda r: r["item_class"] == "harmful" and r["channel"] == "raw")
+        for ch in RELAYED if any(r["channel"] == ch for r in recs)}
+    for c in CLASSES:
         S["relay_effect"][c]["neutralized_minus_paraphrased"] = cl.diff(
             recs, post, lambda r, c=c: r["item_class"] == c and r["channel"] == "neutralized",
             lambda r, c=c: r["item_class"] == c and r["channel"] == "paraphrased")
