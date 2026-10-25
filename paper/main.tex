@@ -241,6 +241,26 @@ invitation. The gate found a push toward the arrangement in \GatePushRaw, \GateP
 cooperation at or above \GemTwinMin{} (Gemini) and \QwTwinMin{} (Qwen). A Qwen3-8B monitor flagged most
 twins and is reported only in Appendix~\ref{app:tables}.
 
+\subsection{Where is context lost? Summaries}\label{sec:summaries}
+Deployed oversight often reads a summary instead of the trace. Gemma-3-27B, which has no other role, read
+each full trace (the view with the pre-message choice) and wrote an activity-log entry of at most 80 words,
+without being told what to look for. Monitors then read only that entry (Table~\ref{tab:oversight}). Two
+comparisons answer different questions. Against the trace it summarizes, the summary measures compression
+loss: misses rose from \OvGemGemTraceFNR{} to \OvGemGemSumFNR{} (Gemini agent, Gemini monitor) and from
+\OvGemHkTraceFNR{} to \OvGemHkSumFNR{} (Haiku), and flags on declined episodes rose from \OvQwGemTraceFA{} to
+\OvQwGemSumFA{} on Qwen's episodes (Gemini monitor). Against the agent's own report, the summary measures who
+writes the account: on Qwen's episodes misses fell from \OvQwGemSelfFNR{} to \OvQwGemSumFNR{} (Gemini monitor)
+and from \OvQwHkSelfFNR{} to \OvQwHkSumFNR{} (Haiku), because the summarizer saw the message that Qwen's
+reports mostly omit.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Missed collusion and flags on declined harmful episodes (\%, 95\% CI clustered over items) when the
+monitor reads the agent's report, a third-party summary of the full trace, or the full trace with the
+pre-message choice. Market set.}\label{tab:oversight}
+\input{tables/oversight.tex}
+\end{table}
+
 \section{Discussion and Limitations}
 Detecting a collusive proposal and detecting an agent that accepts one are different tasks. A platform can
 flag proposals from messages, but judging the agent requires its action and a reference for what it would
