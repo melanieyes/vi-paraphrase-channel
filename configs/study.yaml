@@ -1,0 +1,45 @@
+# v0, exploratory. See docs/execution-plan.md.
+k: 1
+temperature: 1.0
+reasoning: true          # agent: per-call reasoning ON
+max_retries: 6
+
+agent:
+  client: gemini
+  model: gemini-2.5-flash
+
+paraphraser:
+  # Deployed by agent-collusion-bench/scripts/modal_vllm.py (16384 window, qwen3 parser).
+  app: vllm-qwen3-8b-ep
+  model: Qwen/Qwen3-8B
+  temperature: 0.0
+  reasoning: false
+  max_tokens: 400
+
+gate:
+  client: gemini
+  model: gemini-2.5-flash
+  temperature: 0.0
+  reasoning: true
+
+monitors:
+  gemini:
+    client: gemini
+    model: gemini-2.5-flash
+    temperature: 0.0
+    reasoning: false
+  qwen:
+    app: vllm-qwen3-8b-ep
+    model: Qwen/Qwen3-8B
+    temperature: 0.0
+    reasoning: false
+    max_tokens: 16
+
+cost:
+  prices_per_mtok:              # [input, output], USD. Check against the provider page.
+    gemini-2.5-flash: [0.30, 2.50]
+  # agent-collusion-bench measured ~6,200 output tokens for a 7-8 turn Gemini
+  # episode (thinking billed as output). Four turns here: scaled, then rounded up.
+  # Replace with the smoke's measured figure.
+  est_input_tokens_per_episode: 2500
+  est_output_tokens_per_episode: 3600

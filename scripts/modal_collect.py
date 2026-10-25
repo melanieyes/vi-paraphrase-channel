@@ -1,0 +1,133 @@
+"""Collect episodes on Modal. Nothing calls a model on the laptop.
+
+    .venv/bin/modal run scripts/modal_collect.py --dry-run
+    .venv/bin/modal run scripts/modal_collect.py --smoke 20
+    .venv/bin/modal run --detach scripts/modal_collect.py --confirm
+
+The laptop asserts the controls, prices the run and writes the stream to
+data/episodes/. Each container also appends to the `vi-paraphrase-episodes`
+volume, so a dropped stream costs the terminal, not the run.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import sys
+import uuid
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+import modal
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+REMOTE = "/root/repo"
+CONTAINERS = int(os.environ.get("VIPC_CONTAINERS", "4"))
+PER_CONTAINER = int(os.environ.get("VIPC_CONCURRENCY", "4"))
+
+image = (
+    modal.Image.debian_slim(python_version="3.12")
+    .pip_install("requests>=2.31", "openai>=1.40", "python-dotenv>=1.0", "pyyaml>=6.0")
+    .add_local_dir(ROOT / "src", f"{REMOTE}/src", ignore=["**/__pycache__"])
+    .add_local_dir(ROOT / "configs", f"{REMOTE}/configs")
+    .add_local_dir(ROOT / "data" / "items", f"{REMOTE}/data/items")
+    .add_local_dir(ROOT / "data" / "paraphrases", f"{REMOTE}/data/paraphrases")
+)
+vol = modal.Volume.from_name("vi-paraphrase-episodes", create_if_missing=True)
+app = modal.App("vi-paraphrase-collect")
+_STATE: dict[str, Any] = {}
+
+
+@app.function(image=image, secrets=[modal.Secret.from_name("collusion-keys")],
+              volumes={"/episodes": vol}, cpu=0.5, memory=1024, timeout=60 * 15,
+              max_containers=CONTAINERS, retries=0)
+@modal.concurrent(max_inputs=PER_CONTAINER)
+def run_one(job: dict, *, cfg: dict, meta: dict, run_id: str) -> dict:
+    sys.path.insert(0, REMOTE)
+    from src import prompts as P
+    from src.clients import get_client
+    from src.episode import load_items, load_paraphrases, run_episode
+    from src.schema import validate_episode
+
+    if "items" not in _STATE:
+        items, paras = load_items(), load_paraphrases()
+        P.assert_prompt_controls(items, paras)  # again, inside the container
+        client = get_client(cfg["agent"]["client"], model=cfg["agent"]["model"])
+        if not client.supports_reasoning_control:
+            raise SystemExit("control 1: agent client has no per-call reasoning switch")
+        _STATE.update(items=items, paras=paras, client=client, tag=uuid.uuid4().hex[:10])
+    item = _STATE["items"][job["item_index"]]
+    rec = run_episode(_STATE["client"], item, job, _STATE["paras"], cfg, meta)
+    problems = validate_episode(rec)
+    if problems:
+        raise RuntimeError(f"schema failure on {rec['episode_id']}: {problems}")
+    d = Path("/episodes") / run_id
+    d.mkdir(parents=True, exist_ok=True)
+    with (d / f"{_STATE['tag']}.jsonl").open("a") as fh:
+        fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    vol.commit()
+    return rec
+
+
+@app.local_entrypoint()
+def main(smoke: int = 0, confirm: bool = False, dry_run: bool = False, resume: bool = False) -> None:
+    from src import prompts as P
+    from src.episode import build_jobs, episode_id, load_items, load_paraphrases
+    from src.run_meta import config_hash, estimate_episode_cost, git_commit, load_cfg
+    from src.schema import validate_episode
+
+    cfg = load_cfg()
+    items, paras = load_items(), load_paraphrases()
+    if paras is None:
+        raise SystemExit("no data/paraphrases/paraphrases.jsonl: run scripts/modal_stimuli.py first")
+    report = P.assert_prompt_controls(items, paras)
+    jobs = build_jobs(items, cfg["k"], smoke)
+    out = ROOT / "data" / "episodes" / (f"smoke_{len(jobs)}.jsonl" if smoke else "episodes.jsonl")
+    done: set[str] = set()
+    if resume and out.exists():
+        for line in out.read_text().splitlines():
+            rec = json.loads(line)
+            if "_meta" not in rec and rec.get("error") is None:
+                done.add(rec["episode_id"])
+        jobs = [j for j in jobs if episode_id(items[j["item_index"]], j) not in done]
+
+    chash, commit = config_hash(cfg), git_commit()
+    cost = estimate_episode_cost(cfg, len(jobs))
+    run_id = f"run-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}"
+    meta = {"config_hash": chash, "git_commit": commit, "model": cfg["agent"]["model"],
+            "temperature": cfg["temperature"], "run_id": run_id}
+
+    print(f"agent         {cfg['agent']['model']}  reasoning={cfg['reasoning']}  T={cfg['temperature']}")
+    print(f"items         {len(items)}   episodes {len(jobs)}" + (f"  (resume: {len(done)} done)" if resume else ""))
+    print(f"CONTROLS      {report}")
+    print(f"config_hash   {chash}   git {commit}")
+    print(f"ESTIMATED COST  ${cost:,.2f}  (Gemini tokens; Modal CPU containers on top)")
+    print(f"output        {out}")
+    if commit.endswith("-dirty") or commit == "no-commit":
+        print("WARNING: src/scripts/configs not committed; records will say so.")
+    if dry_run:
+        print("--dry-run: no call made.")
+        return
+    if len(jobs) > 20 and not confirm:
+        raise SystemExit("more than 20 episodes: re-run with --confirm (cost guard)")
+
+    out.parent.mkdir(parents=True, exist_ok=True)
+    n, failed = 0, []
+    with out.open("a" if resume else "w") as fh:
+        fh.write(json.dumps({"_meta": {**meta, "n_jobs": len(jobs), "est_cost": cost,
+                                       "controls": report}}) + "\n")
+        for res in run_one.map(jobs, order_outputs=False, return_exceptions=True,
+                               kwargs={"cfg": cfg, "meta": meta, "run_id": run_id}):
+            if isinstance(res, Exception):
+                failed.append(repr(res)[:200])
+                continue
+            assert not validate_episode(res)
+            fh.write(json.dumps(res, ensure_ascii=False) + "\n")
+            fh.flush()
+            n += 1
+    print(f"\nwrote {n} episodes to {out}; {len(failed)} inputs failed (gaps, use --resume)")
+    for f in failed[:5]:
+        print("  ", f)
+    print("COMMIT data/episodes/ NOW.")
