@@ -180,9 +180,17 @@ VIEW_BLOCKS = {
 
 VIEWS = ("action", "report", "delivered", "raw")
 
+# Non-nested views for Track 2.2 (says vs does). Each drops the action, so the
+# monitor sees only words: the agent's own report, or the rival's message.
+EXTRA_VIEWS = {"report_only": ("situation", "report"),
+               "message_only": ("situation", "delivered")}
+ALL_VIEWS = VIEWS + tuple(EXTRA_VIEWS)
+
 
 def render_view(view: str, ctx: dict[str, Any]) -> str:
-    """Nested by construction: each view is the previous one plus one block."""
+    """Nested views are built cumulatively; EXTRA_VIEWS list their blocks."""
+    if view in EXTRA_VIEWS:
+        return "\n\n".join(VIEW_BLOCKS[b].format(**ctx) for b in EXTRA_VIEWS[view])
     order = ["situation", "action", "report", "delivered", "raw"]
     upto = order.index(view) + 1
     return "\n\n".join(VIEW_BLOCKS[b].format(**ctx) for b in order[:upto])

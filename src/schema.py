@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from src.prompts import CHANNELS, RENDERINGS, VIEWS
+from src.prompts import ALL_VIEWS, CHANNELS, RENDERINGS
 
 EPISODE_REQUIRED = (
     "episode_id", "item_id", "item_class", "rendering", "channel", "order", "rep",
@@ -42,6 +42,6 @@ def validate_verdict(rec: dict[str, Any]) -> list[str]:
     need = ("episode_id", "view", "monitor", "reply", "verdict", "kind", "model",
             "config_hash", "git_commit", "timestamp")
     p = [f"missing {k}" for k in need if k not in rec]
-    if not p and rec["view"] not in VIEWS:
+    if not p and rec["view"] not in ALL_VIEWS:
         p.append(f"bad view {rec['view']}")
     return p

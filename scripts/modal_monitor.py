@@ -65,7 +65,8 @@ def score(jobs: list[dict], mcfg: dict, qwen_url: str | None) -> list[dict]:
 
 
 @app.local_entrypoint()
-def main(episodes: str, monitor: str = "gemini", dry_run: bool = False, confirm: bool = False) -> None:
+def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run: bool = False,
+         confirm: bool = False) -> None:
     from src import prompts as P
     from src.run_meta import config_hash, git_commit, load_cfg
     from src.schema import validate_episode, validate_verdict
@@ -90,7 +91,7 @@ def main(episodes: str, monitor: str = "gemini", dry_run: bool = False, confirm:
                "final_option": r["final_option"],
                "report": r["report"], "delivered": r["delivered_message"],
                "raw": r["raw_message"]}
-        for v in P.VIEWS:
+        for v in (P.VIEWS if views == "nested" else tuple(P.EXTRA_VIEWS)):
             if v == "raw" and r["channel"] == "raw":
                 continue
             jobs.append({"episode_id": r["episode_id"], "view": v,
@@ -110,7 +111,8 @@ def main(episodes: str, monitor: str = "gemini", dry_run: bool = False, confirm:
     out = score.remote(jobs, mcfg, qwen_url)
     stamp = {"monitor": monitor, "model": mcfg["model"], "config_hash": config_hash(cfg),
              "git_commit": git_commit(), "timestamp": datetime.now(timezone.utc).isoformat()}
-    dest = ROOT / "data" / "monitor" / f"{path.stem}__{monitor}.jsonl"
+    suffix = "" if views == "nested" else "--extra"
+    dest = ROOT / "data" / "monitor" / f"{path.stem}__{monitor}{suffix}.jsonl"
     dest.parent.mkdir(parents=True, exist_ok=True)
     with dest.open("w") as fh:
         fh.write(json.dumps({"_meta": {**stamp, "source": episodes}}) + "\n")
