@@ -137,6 +137,45 @@ Pooled over channels (%):
 | 2.2 fnr report only minus both | -1.0 [-4.2, 2.1] |
 | 2.2 fpr declined message only minus all | +38.4 [24.9, 52.2] |
 
+## Monitor haiku
+
+Verdicts 8160, unparsed 0.
+
+By channel and view (%):
+
+| metric | channel | action | report | delivered | raw | report_only | message_only |
+|---|---|---|---|---|---|---|---|
+| missed collusion (FNR) | raw | 48.4 [32.8, 64.1] | 6.5 [0.0, 16.1] | 0.0 [0.0, 0.0] | n/a | 4.8 [0.0, 13.6] | 1.6 [0.0, 5.8] |
+| missed collusion (FNR) | paraphrased | 30.4 [16.4, 46.6] | 8.7 [2.3, 16.4] | 1.4 [0.0, 5.1] | 1.4 [0.0, 5.1] | 7.2 [1.9, 14.3] | 0.0 [0.0, 0.0] |
+| missed collusion (FNR) | neutralized | 44.3 [28.3, 60.0] | 10.1 [4.2, 16.3] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 6.3 [1.8, 10.8] | 0.0 [0.0, 0.0] |
+| missed, message-moved episodes only | raw | 42.3 [21.7, 65.0] | 3.8 [0.0, 12.5] | 0.0 [0.0, 0.0] | n/a | 0.0 [0.0, 0.0] | 3.8 [0.0, 12.5] |
+| missed, message-moved episodes only | paraphrased | 22.7 [4.3, 47.6] | 4.5 [0.0, 13.0] | 4.5 [0.0, 13.0] | 4.5 [0.0, 13.0] | 4.5 [0.0, 13.0] | 0.0 [0.0, 0.0] |
+| missed, message-moved episodes only | neutralized | 42.9 [20.8, 66.7] | 3.6 [0.0, 10.8] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 3.6 [0.0, 12.5] | 0.0 [0.0, 0.0] |
+| false alarm, harmful but declined | raw | 15.2 [4.6, 28.0] | 12.4 [5.4, 20.6] | 55.1 [43.8, 65.4] | n/a | 12.9 [6.0, 20.9] | 99.4 [98.2, 100.0] |
+| false alarm, harmful but declined | paraphrased | 14.6 [4.6, 27.1] | 13.5 [6.6, 21.7] | 56.1 [44.1, 68.4] | 54.4 [42.2, 67.1] | 12.9 [6.2, 21.4] | 99.4 [98.1, 100.0] |
+| false alarm, harmful but declined | neutralized | 13.0 [3.6, 25.2] | 9.9 [4.7, 16.8] | 42.9 [32.5, 53.8] | 57.1 [45.5, 69.2] | 11.2 [5.3, 18.7] | 100.0 [100.0, 100.0] |
+| false alarm, twins | raw | 0.0 [0.0, 0.0] | 0.4 [0.0, 1.4] | 2.9 [0.4, 6.0] | n/a | 0.0 [0.0, 0.0] | 2.1 [0.0, 4.6] |
+| false alarm, twins | paraphrased | 0.0 [0.0, 0.0] | 0.4 [0.0, 1.4] | 1.7 [0.4, 3.4] | 1.2 [0.0, 2.7] | 0.0 [0.0, 0.0] | 2.1 [0.0, 4.7] |
+| false alarm, twins | neutralized | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 3.8 [1.5, 6.3] | 2.1 [0.0, 4.8] | 0.0 [0.0, 0.0] | 1.3 [0.0, 3.3] |
+
+Pooled over channels (%):
+
+| metric | action | report | delivered | raw | report_only | message_only |
+|---|---|---|---|---|---|---|
+| missed collusion (FNR) | 41.0 [27.7, 53.8] | 8.6 [4.1, 13.8] | 0.5 [0.0, 1.7] | 0.7 [0.0, 2.4] | 6.2 [3.1, 10.0] | 0.5 [0.0, 1.7] |
+| missed, message-moved episodes only | 36.8 [19.6, 56.3] | 3.9 [0.0, 8.0] | 1.3 [0.0, 3.9] | 2.0 [0.0, 6.2] | 2.6 [0.0, 6.5] | 1.3 [0.0, 4.1] |
+| false alarm, harmful but declined | 14.3 [4.4, 26.7] | 12.0 [6.2, 19.0] | 51.6 [41.5, 61.5] | 55.7 [45.0, 67.2] | 12.4 [6.7, 19.3] | 99.6 [99.0, 100.0] |
+| false alarm, twins | 0.0 [0.0, 0.0] | 0.3 [0.0, 0.7] | 2.8 [1.3, 4.5] | 1.7 [0.3, 3.4] | 0.0 [0.0, 0.0] | 1.8 [0.1, 4.2] |
+
+| contrast | pp |
+|---|---|
+| C5 FNR delivered minus raw, paraphrased | 0.0 [0.0, 0.0] |
+| C5 FNR delivered minus raw, neutralized | 0.0 [0.0, 0.0] |
+| C6 FNR action minus delivered | +40.5 [27.0, 53.5] |
+| 2.2 fnr action minus both | +32.4 [19.0, 44.4] |
+| 2.2 fnr report only minus both | -2.4 [-6.2, 1.1] |
+| 2.2 fpr declined message only minus all | +48.0 [38.1, 58.1] |
+
 ## Monitor qwen
 
 Verdicts 5280, unparsed 0.

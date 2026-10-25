@@ -1305,6 +1305,585 @@
      "n_b": 46
     }
    }
+  },
+  "haiku": {
+   "n_verdicts": 1200,
+   "unparsed": 0,
+   "views": [
+    "action",
+    "report",
+    "delivered",
+    "report_only",
+    "message_only"
+   ],
+   "fnr": {
+    "raw": {
+     "action": {
+      "est": 0.4189189189189189,
+      "lo": 0.23076923076923078,
+      "hi": 0.6557505122950817,
+      "n": 74
+     },
+     "report": {
+      "est": 0.12162162162162163,
+      "lo": 0.05194805194805195,
+      "hi": 0.20754716981132076,
+      "n": 74
+     },
+     "delivered": {
+      "est": 0.013513513513513514,
+      "lo": 0.0,
+      "hi": 0.044444444444444446,
+      "n": 74
+     },
+     "report_only": {
+      "est": 0.06756756756756757,
+      "lo": 0.013513513513513514,
+      "hi": 0.14035087719298245,
+      "n": 74
+     },
+     "message_only": {
+      "est": 0.0945945945945946,
+      "lo": 0.02701801801801803,
+      "hi": 0.18072862880091786,
+      "n": 74
+     }
+    },
+    "paraphrased": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "neutralized": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    }
+   },
+   "fnr_moved": {
+    "raw": {
+     "action": {
+      "est": 0.48717948717948717,
+      "lo": 0.28,
+      "hi": 0.75,
+      "n": 39
+     },
+     "report": {
+      "est": 0.1282051282051282,
+      "lo": 0.038461538461538464,
+      "hi": 0.23809523809523808,
+      "n": 39
+     },
+     "delivered": {
+      "est": 0.02564102564102564,
+      "lo": 0.0,
+      "hi": 0.09302325581395349,
+      "n": 39
+     },
+     "report_only": {
+      "est": 0.10256410256410256,
+      "lo": 0.0,
+      "hi": 0.23333333333333334,
+      "n": 39
+     },
+     "message_only": {
+      "est": 0.10256410256410256,
+      "lo": 0.0,
+      "hi": 0.25,
+      "n": 39
+     }
+    },
+    "paraphrased": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "neutralized": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    }
+   },
+   "fpr_twins": {
+    "raw": {
+     "action": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     },
+     "report": {
+      "est": 0.016666666666666666,
+      "lo": 0.0,
+      "hi": 0.05555555555555555,
+      "n": 120
+     },
+     "delivered": {
+      "est": 0.041666666666666664,
+      "lo": 0.008333333333333333,
+      "hi": 0.08333333333333333,
+      "n": 120
+     },
+     "report_only": {
+      "est": 0.016666666666666666,
+      "lo": 0.0,
+      "hi": 0.05555555555555555,
+      "n": 120
+     },
+     "message_only": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     }
+    },
+    "paraphrased": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "neutralized": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    }
+   },
+   "fpr_declined": {
+    "raw": {
+     "action": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 46
+     },
+     "report": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 46
+     },
+     "delivered": {
+      "est": 0.41304347826086957,
+      "lo": 0.23076923076923078,
+      "hi": 0.5778070175438592,
+      "n": 46
+     },
+     "report_only": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 46
+     },
+     "message_only": {
+      "est": 0.9782608695652174,
+      "lo": 0.9230769230769231,
+      "hi": 1.0,
+      "n": 46
+     }
+    },
+    "paraphrased": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    },
+    "neutralized": {
+     "action": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "delivered": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "report_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     }
+    }
+   },
+   "pooled": {
+    "fnr": {
+     "action": {
+      "est": 0.4189189189189189,
+      "lo": 0.23076923076923078,
+      "hi": 0.6557505122950817,
+      "n": 74
+     },
+     "report": {
+      "est": 0.12162162162162163,
+      "lo": 0.05194805194805195,
+      "hi": 0.20754716981132076,
+      "n": 74
+     },
+     "delivered": {
+      "est": 0.013513513513513514,
+      "lo": 0.0,
+      "hi": 0.044444444444444446,
+      "n": 74
+     },
+     "report_only": {
+      "est": 0.06756756756756757,
+      "lo": 0.013513513513513514,
+      "hi": 0.14035087719298245,
+      "n": 74
+     },
+     "message_only": {
+      "est": 0.0945945945945946,
+      "lo": 0.02701801801801803,
+      "hi": 0.18072862880091786,
+      "n": 74
+     }
+    },
+    "fnr_moved": {
+     "action": {
+      "est": 0.48717948717948717,
+      "lo": 0.28,
+      "hi": 0.75,
+      "n": 39
+     },
+     "report": {
+      "est": 0.1282051282051282,
+      "lo": 0.038461538461538464,
+      "hi": 0.23809523809523808,
+      "n": 39
+     },
+     "delivered": {
+      "est": 0.02564102564102564,
+      "lo": 0.0,
+      "hi": 0.09302325581395349,
+      "n": 39
+     },
+     "report_only": {
+      "est": 0.10256410256410256,
+      "lo": 0.0,
+      "hi": 0.23333333333333334,
+      "n": 39
+     },
+     "message_only": {
+      "est": 0.10256410256410256,
+      "lo": 0.0,
+      "hi": 0.25,
+      "n": 39
+     }
+    },
+    "fpr_declined": {
+     "action": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 46
+     },
+     "report": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 46
+     },
+     "delivered": {
+      "est": 0.41304347826086957,
+      "lo": 0.23076923076923078,
+      "hi": 0.5778070175438592,
+      "n": 46
+     },
+     "report_only": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 46
+     },
+     "message_only": {
+      "est": 0.9782608695652174,
+      "lo": 0.9230769230769231,
+      "hi": 1.0,
+      "n": 46
+     }
+    },
+    "fpr_twins": {
+     "action": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     },
+     "report": {
+      "est": 0.016666666666666666,
+      "lo": 0.0,
+      "hi": 0.05555555555555555,
+      "n": 120
+     },
+     "delivered": {
+      "est": 0.041666666666666664,
+      "lo": 0.008333333333333333,
+      "hi": 0.08333333333333333,
+      "n": 120
+     },
+     "report_only": {
+      "est": 0.016666666666666666,
+      "lo": 0.0,
+      "hi": 0.05555555555555555,
+      "n": 120
+     },
+     "message_only": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 120
+     }
+    }
+   },
+   "c5_delivered_minus_raw": {
+    "paraphrased": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n_a": 0,
+     "n_b": 0
+    },
+    "neutralized": {
+     "est": null,
+     "lo": null,
+     "hi": null,
+     "n_a": 0,
+     "n_b": 0
+    }
+   },
+   "c6_action_minus_delivered": {
+    "est": 0.4054054054054054,
+    "lo": 0.20311933876811594,
+    "hi": 0.65,
+    "n_a": 74,
+    "n_b": 74
+   },
+   "says_vs_does": {
+    "fnr_action_minus_both": {
+     "est": 0.29729729729729726,
+     "lo": 0.10463228631833284,
+     "hi": 0.5,
+     "n_a": 74,
+     "n_b": 74
+    },
+    "fnr_report_only_minus_both": {
+     "est": -0.05405405405405406,
+     "lo": -0.12499999999999999,
+     "hi": 0.0,
+     "n_a": 74,
+     "n_b": 74
+    },
+    "fpr_declined_message_only_minus_all": {
+     "est": 0.5652173913043479,
+     "lo": 0.38235294117647056,
+     "hi": 0.7631578947368421,
+     "n_a": 46,
+     "n_b": 46
+    }
+   }
   }
  }
 }
