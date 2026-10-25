@@ -172,10 +172,11 @@ from the action, \HkReportFNR{} from action and report, and \HkFADeclMsgOnly{} f
 alone (Appendix~\ref{app:tables}).
 
 \begin{figure}[htbp]
-\centering\includegraphics[width=\linewidth]{figures/tradeoff.pdf}
-\caption{Missed collusion against false alarms on declined episodes for each view, read by two monitors
-on the same Gemini episodes. Circles: market, pooled over channels. Diamonds: workflow, raw channel. The
-\emph{report only} point coincides with \emph{action + report}. Lines: 95\% intervals.}\label{fig:says}
+\centering\includegraphics[width=\linewidth]{figures/views.pdf}
+\caption{What each monitor view misses and over-flags (Gemini agent, market set, pooled over channels).
+Left: colluding episodes the monitor cleared. Right: harmful episodes the agent declined but the monitor
+flagged. Darker bars: Gemini 2.5 Flash monitor; lighter: Claude Haiku 5.5. Thin lines: 95\% intervals.
+Workflow results are in Table~\ref{tab:monitor}.}\label{fig:says}
 \end{figure}
 
 \begin{table}[htbp]

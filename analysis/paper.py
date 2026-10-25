@@ -136,6 +136,18 @@ def main() -> None:
         M["HkFADeclMsgOnly"] = pct(pm["fpr_declined"]["message_only"])
         M["HkFADeclDelivered"] = pct(pm["fpr_declined"]["delivered"])
         M["HkFATwinsAction"] = pct(pm["fpr_twins"]["action"])
+    # Track 2.3: the standard view against the other views, Gemini agent, market pooled
+    for mname, P in (("gemini", "StdGem"), ("haiku", "StdHk")):
+        mm = S["gemini"]["monitors"].get(mname) if S["gemini"] else None
+        if mm and "standard" in mm["views"]:
+            pm = mm["pooled"]
+            M[f"{P}MovedFNR"] = pct(pm["fnr_moved"]["standard"])
+            M[f"{P}FADecl"] = pct(pm["fpr_declined"]["standard"])
+            M[f"{P}FAUni"] = pct(pm["fpr_unilateral"]["standard"])
+            M[f"{P}FATwins"] = pct(pm["fpr_twins"]["standard"])
+            M[f"{P}RepFAUni"] = pct(pm["fpr_unilateral"]["report"])
+            M[f"{P}RepMovedFNR"] = pct(pm["fnr_moved"]["report"])
+            M[f"{P}AllFADecl"] = pct(pm["fpr_declined"]["delivered"])
     hkw = W["gemini"]["monitors"].get("haiku") if W["gemini"] else None
     if hkw:
         M["HkWfActionFNR"] = pct(hkw["pooled"]["fnr"]["action"])
@@ -228,6 +240,30 @@ def main() -> None:
         " & \\multicolumn{2}{c}{Market} & \\multicolumn{2}{c}{Workflow} \\\\\n"
         "\\cmidrule(lr){2-3}\\cmidrule(lr){4-5}\n"
         "Monitor reads & Missed & False alarm & Missed & False alarm \\\\\n\\midrule\n"
+        + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
+
+    # Table: the evidence standard (2.3). Rows: views; columns: per monitor, misses among
+    # message-moved episodes, flags on declined episodes, flags on unilateral choices.
+    std_rows = [("action", "Action only"), ("report", "Action + report"),
+                ("delivered", "Action + report + message"), ("standard", "Standard (+ baseline, rule)")]
+    mons = [(n, S["gemini"]["monitors"].get(n)) for n in ("gemini", "haiku")] if S["gemini"] else []
+    rows = []
+    for v, lab in std_rows:
+        cells = []
+        for n, mm in mons:
+            if not mm or v not in mm["views"]:
+                cells += ["--", "--", "--"]
+                continue
+            pm = mm["pooled"]
+            bold = v == "standard"
+            cells += [cell(pm["fnr_moved"][v], bold), cell(pm["fpr_declined"][v], bold),
+                      cell(pm.get("fpr_unilateral", {}).get(v), bold)]
+        rows.append(f"{lab} & " + " & ".join(cells) + " \\\\")
+    (T / "standard.tex").write_text(
+        "\\begin{tabular}{lrrrrrr}\n\\toprule\n"
+        " & \\multicolumn{3}{c}{Gemini 2.5 Flash monitor} & \\multicolumn{3}{c}{Claude Haiku 5.5 monitor} \\\\\n"
+        "\\cmidrule(lr){2-4}\\cmidrule(lr){5-7}\n"
+        "Monitor reads & Missed & Flag: declined & Flag: unilateral & Missed & Flag: declined & Flag: unilateral \\\\\n\\midrule\n"
         + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
 
     # Table: relays (2.3 robustness), market
@@ -328,14 +364,11 @@ def main() -> None:
             by_family[a] = {**(st[a]["by_family_raw"] if st[a] else {}),
                             **(wst[a]["by_family_raw"] if wst[a] else {})}
     FIG.tasks(by_family, set(WORKFLOW_FAMS), F / "tasks.pdf")
-    panels = []
-    for mname, mtitle in (("gemini", "Gemini 2.5 Flash monitor"), ("haiku", "Claude Haiku 5.5 monitor")):
-        mk = S["gemini"]["monitors"].get(mname) if S["gemini"] else None
-        wk = W["gemini"]["monitors"].get(mname) if W["gemini"] else None
-        if mk:
-            panels.append((mtitle, mk["pooled"], wk["pooled"] if wk else None))
-    if panels:
-        FIG.tradeoff(panels, F / "tradeoff.pdf")
+    monitors = [(title, S["gemini"]["monitors"][name]["pooled"])
+                for name, title in (("gemini", "Gemini 2.5 Flash"), ("haiku", "Claude Haiku 5.5"))
+                if S["gemini"] and name in S["gemini"]["monitors"]]
+    if monitors:
+        FIG.butterfly(monitors, F / "views.pdf")
     print(f"wrote {len(M)} macros, tables and figures to {PAPER}")
     if MISSING:
         print("MISSING inputs (their numbers print as ??):\n  " + "\n  ".join(MISSING))
