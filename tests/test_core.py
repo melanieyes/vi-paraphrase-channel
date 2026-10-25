@@ -38,6 +38,7 @@ def test_answer_first_line_then_explanation():
     assert classify("**B**\n\nGiải thích: phương án A thì giảm giá.") == ("B", "choice")
     assert classify("Phương án **B**.\n\nGiải thích ...") == ("B", "choice")
     assert classify("Câu trả lời là **A**.\n\nVì ...") == ("A", "choice")
+    assert classify("**A.** Tin nhắn muốn giữ giá, không phải B.") == ("A", "choice")
     # a letter that only appears inside the explanation is not an answer
     assert classify("Giải thích dài.\nPhương án A và B đều có lý") [1] == "unparsed"
 

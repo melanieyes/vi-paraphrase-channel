@@ -42,6 +42,10 @@ if os.environ.get("VIPC_ANTHROPIC") == "1":
 @app.function(image=image, timeout=60 * 60, secrets=SECRETS)
 def read(jobs: list[dict], rc: dict, base_url: str | None) -> list[dict]:
     sys.path.insert(0, REMOTE)
+    return _read(jobs, rc, base_url)
+
+
+def _read(jobs: list[dict], rc: dict, base_url: str | None) -> list[dict]:
     from concurrent.futures import ThreadPoolExecutor
 
     from src.clients import get_client
@@ -70,7 +74,8 @@ def read(jobs: list[dict], rc: dict, base_url: str | None) -> list[dict]:
 
 
 @app.local_entrypoint()
-def main(reader: str = "gpt", harmful_only: bool = False, limit: int = 0) -> None:
+def main(reader: str = "gpt", harmful_only: bool = False, limit: int = 0,
+         local_env: str = "") -> None:
     from src import prompts as P
     from src.episode import load_items, load_stimuli, options
     from src.run_meta import config_hash, git_commit, load_cfg
@@ -93,7 +98,15 @@ def main(reader: str = "gpt", harmful_only: bool = False, limit: int = 0) -> Non
     base_url = None
     if rc["client"] == "vllm":
         base_url = modal.Function.from_name(rc["app"], "serve").get_web_url().rstrip("/") + "/v1"
-    out = read.remote(jobs, rc, base_url)
+    if local_env:
+        # API-only reader run from the laptop: the key is read from the given .env
+        # into this process's environment, never printed and never written out.
+        from dotenv import dotenv_values
+        os.environ.update({k: v for k, v in dotenv_values(local_env).items()
+                           if k.endswith("_API_KEY") and v})
+        out = _read(jobs, rc, base_url)
+    else:
+        out = read.remote(jobs, rc, base_url)
     dest = ROOT / (f"data/stimuli/reader_{reader}.jsonl" if not limit
                    else f"data/stimuli/smoke_reader_{reader}_{limit}.jsonl")
     with dest.open("w") as fh:

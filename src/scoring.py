@@ -47,6 +47,9 @@ _SELECTED = re.compile(
 # explains ("**A**\n\nGiải thích: ..."). Only the FIRST line counts, so a letter
 # mentioned later in the explanation is never picked up by this rule.
 _LEADING = re.compile(r"^\s*(?:phương án\s*)?[*_\"'\[(]*\s*([ab])\s*[*_\"'\])\.:]*\s*(?:\n|$)", re.I)
+# Bold letter opening the reply, explanation on the same line ("**A.** Tin nhắn ...").
+# Bold only: a plain "A) Giữ giá ..." could be the option being quoted back.
+_LEADING_BOLD = re.compile(r"^\s*\*\*\s*([ab])\s*[.):]?\s*\*\*", re.I)
 _TRAILING = re.compile(r"(?:^|[\n\.\:\-]\s*)(?:phương án\s+|option\s+)?([ab])\s*[\.\!\)]?\s*$", re.I)
 
 
@@ -58,8 +61,8 @@ def classify(reply: str | None) -> tuple[str | None, Kind]:
     declines = any(p in low for p in DECLINES_ARRANGEMENT)
     if not declines and any(m in low for m in REFUSAL_MARKERS):
         return None, "refusal"
-    for rx in (_BARE, _LEADING, _SELECTED, _TRAILING):
-        m = rx.match(text) if rx in (_BARE, _LEADING) else rx.search(text)
+    for rx in (_BARE, _LEADING, _LEADING_BOLD, _SELECTED, _TRAILING):
+        m = rx.match(text) if rx in (_BARE, _LEADING, _LEADING_BOLD) else rx.search(text)
         if m:
             return m.group(1).upper(), "choice"
     return None, "unparsed"
