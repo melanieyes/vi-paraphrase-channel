@@ -82,7 +82,7 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
         if bad:
             raise SystemExit(f"{r.get('episode_id')}: {bad}")
     from src.episode import load_items
-    items = {it["item_id"]: it for s in ("market", "workflow") for it in load_items(s)}
+    items = {it["item_id"]: it for s in ("market", "workflow", "ext") for it in load_items(s)}
     scorable = [r for r in recs if r["post"]["kind"] == "choice" and r.get("report")]
     jobs = []
     for r in scorable:

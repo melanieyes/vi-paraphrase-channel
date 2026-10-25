@@ -14,7 +14,8 @@ from src.scoring import classify, code_report, parse_yes_no
 ROOT = Path(__file__).resolve().parent.parent
 # Item sets. `market` is the main study; `workflow` (Track 2.1) runs raw only.
 ITEM_SETS = {"market": ("items.jsonl", "stimuli"),
-             "workflow": ("items_workflow.jsonl", "stimuli_workflow")}
+             "workflow": ("items_workflow.jsonl", "stimuli_workflow"),
+             "ext": ("items_ext.jsonl", "stimuli_ext")}
 
 
 def items_path(item_set: str = "market") -> Path:
@@ -49,7 +50,7 @@ def build_jobs(items: list[dict[str, Any]], k: int, smoke: int = 0) -> list[dict
     jobs = []
     for idx, it in enumerate(items):
         for r in P.RENDERINGS:
-            for ch in P.T(it)["CHANNELS"]:
+            for ch in P.channels(it):
                 for order in (0, 1):
                     for rep in range(k):
                         jobs.append({"item_index": idx, "rendering": r,

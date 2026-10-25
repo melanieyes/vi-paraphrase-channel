@@ -35,6 +35,7 @@ image = (
     .add_local_dir(ROOT / "data" / "items", f"{REMOTE}/data/items")
     .add_local_dir(ROOT / "data" / "stimuli", f"{REMOTE}/data/stimuli")
     .add_local_dir(ROOT / "data" / "stimuli_workflow", f"{REMOTE}/data/stimuli_workflow")
+    .add_local_dir(ROOT / "data" / "stimuli_ext", f"{REMOTE}/data/stimuli_ext")
 )
 vol = modal.Volume.from_name("vi-paraphrase-episodes", create_if_missing=True)
 app = modal.App("vi-paraphrase-collect")

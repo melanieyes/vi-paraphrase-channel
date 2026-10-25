@@ -120,7 +120,7 @@ def build(items: list[dict], cfg: dict, qwen_url: str) -> dict:
         raws = list(ex.map(render, [(it, r) for it in items for r in P.RENDERINGS]))
         ok = [r for r in raws if r["text"]]
         relays = list(ex.map(relay, [(r, ch) for r in ok for ch in P.RELAYED
-                                     if ch in P.T(by_id[r["item_id"]])["CHANNELS"]]))
+                                     if ch in P.channels(by_id[r["item_id"]])]))
         stim = raws + relays
         gates = list(ex.map(gate, [s for s in stim if s["text"]]))
     return {"stimuli": stim, "gates": gates}
@@ -140,7 +140,7 @@ def main(dry_run: bool = False, items: str = "market") -> None:
     items = load_items(item_set)
     P.assert_prompt_controls(items, None)
     n_raw = len(items) * len(P.RENDERINGS)
-    n_relay = sum(len([c for c in P.T(it)["CHANNELS"] if c in P.RELAYED]) for it in items) * len(P.RENDERINGS)
+    n_relay = sum(len([c for c in P.channels(it) if c in P.RELAYED]) for it in items) * len(P.RENDERINGS)
     qwen_url = modal.Function.from_name(cfg["paraphraser"]["app"], "serve").get_web_url()
     print(f"item set      {item_set}")
     print(f"items         {len(items)}  raw messages {n_raw}  relays {n_relay}")

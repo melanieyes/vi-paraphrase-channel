@@ -288,6 +288,11 @@ def T(item: dict[str, Any]) -> dict[str, Any]:
     return SETTINGS[item.get("setting", "market")]
 
 
+def channels(item: dict[str, Any]) -> tuple[str, ...]:
+    """The channels an item runs: its own list if it has one, else its setting's."""
+    return tuple(item.get("channels") or T(item)["CHANNELS"])
+
+
 # --- controls ------------------------------------------------------------------
 
 def stimulus_key(item_id: str, rendering: str, channel: str) -> str:
@@ -318,7 +323,7 @@ def assert_prompt_controls(items: list[dict[str, Any]],
             if raw is None or not (raw.get("text") or "").strip():
                 problems.append(f"{it['item_id']}|{r}: no frozen raw message")
                 continue
-            for ch in T(it)["CHANNELS"]:
+            for ch in channels(it):
                 s = stimuli.get(stimulus_key(it["item_id"], r, ch))
                 key = stimulus_key(it["item_id"], r, ch)
                 if s is None:
