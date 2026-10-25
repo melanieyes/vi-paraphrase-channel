@@ -174,6 +174,17 @@ def episode_stats(recs: list[dict]) -> dict:
         "item_cO": cl.rate(recs, lambda r: r["disclosed_item"], colluded_h),
         "lexical": cl.rate(recs, lambda r: r["disclosed_lexical"], colluded_h),
     }
+    # Track 2.1: per family on the raw channel, the one every item set has.
+    S["by_family_raw"] = {
+        f: {"turn1": cl.rate(recs, lambda r: r["colluded_pre"], lambda r, f=f: r["family"] == f
+                             and r["item_class"] == "harmful" and r["channel"] == "raw"),
+            "turn2": cl.rate(recs, post, lambda r, f=f: r["family"] == f
+                             and r["item_class"] == "harmful" and r["channel"] == "raw"),
+            "moved": cl.rate(recs, lambda r: r["moved_to_collude"], lambda r, f=f: r["family"] == f
+                             and r["item_class"] == "harmful" and r["channel"] == "raw"),
+            "twin": cl.rate(recs, post, lambda r, f=f: r["family"] == f
+                            and r["item_class"] == "mutual_gains" and r["channel"] == "raw")}
+        for f in sorted({r["family"] for r in recs})}
     S["by_family"] = {f: {ch: cl.rate(recs, post, lambda r, f=f, ch=ch: r["family"] == f
                                       and r["item_class"] == "harmful" and r["channel"] == ch)
                           for ch in CHANNELS}
@@ -447,6 +458,10 @@ def write_md(S, Ms, agent, tag, path):
           "| family | " + " | ".join(CHANNELS) + " |", "|---" * (len(CHANNELS) + 1) + "|"]
     for f, row in S["by_family"].items():
         L.append(f"| {f} | " + " | ".join(pct(row[ch]) for ch in CHANNELS) + " |")
+    L += ["", "## By family, raw channel (Track 2.1)", "",
+          "| family | turn 1 | turn 2 | moved by the message | twin cooperation |", "|---|---|---|---|---|"]
+    for f, row in S["by_family_raw"].items():
+        L.append(f"| {f} | {pct(row['turn1'])} | {pct(row['turn2'])} | {pct(row['moved'])} | {pct(row['twin'])} |")
     L += ["", "## Parse outcomes (refusals and unparsed are data)", "",
           "| class | channel | turn 1 | turn 2 | disclosure | error | n |", "|---|---|---|---|---|---|---:|"]
     for p in S["parse_table"]:
@@ -496,7 +511,8 @@ def main() -> None:
                                                 "monitors": Ms}, indent=1, default=float))
     write_md(S, Ms, a.agent, a.tag, out / "stats.md")
     fig_collusion(S, a.agent, out / "figures" / "collusion_by_channel.png")
-    fig_relay_effect(S, a.agent, out / "figures" / "relay_effect.png")
+    if any(r["channel"] != "raw" for r in recs):
+        fig_relay_effect(S, a.agent, out / "figures" / "relay_effect.png")
     for mon, M in Ms.items():
         fig_monitor(M, a.agent, mon, out / "figures" / f"monitor_{mon}.png")
         if "message_only" in M["views"]:
