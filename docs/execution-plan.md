@@ -276,4 +276,4 @@ stimuli, episodes, monitors) was rebuilt and rerun from scratch under
   parser), temperature 0, max 16 tokens, the same settings as the earlier Qwen monitor.
   No smoke run, at the human's request; the full set of views was scored directly.
 - The Gemini 2.5 Flash monitor verdicts are kept, unused, in
-  `data/archive/monitor_gemini_self/`. No reported number reads them.
+  `data/archive/monitor_self_agent/`, together with the Qwen3-8B monitor verdicts (Qwen3-8B is also an agent). No reported number reads them.
