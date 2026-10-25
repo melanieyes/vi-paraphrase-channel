@@ -71,6 +71,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--local-env", required=True)
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--share", action="store_true",
+                    help="only the example texts quoted in share/ (results page and collaborator doc)")
     a = ap.parse_args()
     from dotenv import dotenv_values
     os.environ.update({k: v for k, v in dotenv_values(a.local_env).items()
@@ -78,7 +80,13 @@ def main() -> None:
     from src.anthropic_client import AnthropicClient
 
     cache = load_cache()
-    todo = [(k, t) for k, t in texts_to_translate() if sha(t) not in cache]
+    if a.share:
+        from analysis.share_page import example_texts
+        A, B = example_texts()
+        pool = [(f"share.{k}", t) for k, t in A + B]
+    else:
+        pool = texts_to_translate()
+    todo = [(k, t) for k, t in pool if sha(t) not in cache]
     if a.limit:
         todo = todo[:a.limit]
     print(f"to translate: {len(todo)} (already cached: {len(cache)})")

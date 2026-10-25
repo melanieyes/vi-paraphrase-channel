@@ -54,6 +54,26 @@ def mark(text: str, source: bool = False) -> str:
     return "".join(out).replace("\n", "<br>")
 
 
+def example_texts() -> tuple[list[tuple[str, str]], list[tuple[str, str]]]:
+    """The raw Vietnamese behind both example panels (same selection rule as the paper)."""
+    stim = [json.loads(l) for l in (ROOT / "data/stimuli/stimuli.jsonl").read_text().splitlines()[1:]]
+    by = {(s["item_id"], s["rendering"], s["channel"]): s["text"] for s in stim}
+    a = [(STYLE[ch], by[(*EXAMPLE_KEY, ch)]) for ch in STYLE]
+    items = {it["item_id"]: it for it in load_items()}
+    eps = [json.loads(l) for l in (ROOT / "data/episodes/episodes_qwen.jsonl").read_text().splitlines()[1:]]
+    sums = {r["episode_id"]: r["summary"] for r in
+            map(json.loads, (ROOT / "data/summaries/episodes_qwen__summarizer.jsonl").read_text().splitlines()[1:])}
+    for r in sorted(eps, key=lambda r: r["episode_id"]):
+        it = items[r["item_id"]]
+        s = sums.get(r["episode_id"])
+        cr = lambda t: code_report(t, it["counterpart_principal"], it["counterpart_name"])  # noqa: E731
+        if (it["item_class"] == "harmful" and r["channel"] == "raw" and r.get("moved_to_collude") and s
+                and not cr(r["report"])["mentions_counterpart"] and cr(s)["disclosed"]):
+            return a, [("Rival's message", r["delivered_message"]), ("Agent's report to its owner", r["report"]),
+                       ("Neutral summary of the same episode", s)]
+    return a, []
+
+
 def examples() -> tuple[list[tuple[str, str]], list[tuple[str, str]]]:
     stim = [json.loads(l) for l in (ROOT / "data/stimuli/stimuli.jsonl").read_text().splitlines()[1:]]
     by = {(s["item_id"], s["rendering"], s["channel"]): s["text"] for s in stim}
