@@ -55,11 +55,11 @@ cost:
   # with the Qwen smoke's measured figure.
   est_gpu_tok_per_s: 600
   est_output_tokens_per_episode_by_model:
-    Qwen/Qwen3-8B: 2400
+    Qwen/Qwen3-8B: 1800   # smoke v2 measured 1,766
   prices_per_mtok:              # [input, output], USD. Check against the provider page.
     gemini-2.5-flash: [0.30, 2.50]
   # agent-collusion-bench measured ~6,200 output tokens for a 7-8 turn Gemini
   # episode (thinking billed as output). Four turns here: scaled, then rounded up.
   # Replace with the smoke's measured figure.
   est_input_tokens_per_episode: 2500
-  est_output_tokens_per_episode: 3600
+  est_output_tokens_per_episode: 3900   # smoke v2 measured 3,855 (gemini)
