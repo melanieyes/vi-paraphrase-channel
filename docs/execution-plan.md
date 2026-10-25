@@ -246,3 +246,16 @@ stimuli, episodes, monitors) was rebuilt and rerun from scratch under
   day; the first shared-frame run copied 15 of 960 sources verbatim and did not
   code-switch, so the rule gained "do not copy" and the code-switch sentence was
   rewritten. No episode used any discarded record.
+- Episodes on the summary channels go to `summary_episodes_{agent}.jsonl`
+  (`modal_collect.py --channels summaries`), so every number already reported from
+  the three original channels is unchanged. 1,920 episodes per agent.
+- Three code-switch summaries still copied their source after the first retry
+  round; `modal_fix_relays.py` was rerun until none did (three rounds). Every
+  attempt is stored on the record.
+- Opus 5.5 re-reads the harmful summary stimuli (`--append`), so the claim that a
+  summary keeps the invitation does not rest on the Gemini gate alone.
+- Oversight via a third-party summary: Gemma-3-27B (not an agent or monitor
+  anywhere) reads each full trace and writes an activity-log summary of at most 80
+  words, not told to look for collusion. Monitors read only that summary
+  (`summary` view). Granite was the plan in agent-collusion-bench, but it does not
+  support Vietnamese.

@@ -75,7 +75,9 @@ def _read(jobs: list[dict], rc: dict, base_url: str | None) -> list[dict]:
 
 @app.local_entrypoint()
 def main(reader: str = "gpt", harmful_only: bool = False, limit: int = 0,
-         local_env: str = "") -> None:
+         local_env: str = "", append: bool = False) -> None:
+    """--append reads only stimuli not yet in reader_<name>.jsonl and appends to it
+    (used when new channels were added after the reader first ran)."""
     from src import prompts as P
     from src.episode import load_items, load_stimuli, options
     from src.run_meta import config_hash, git_commit, load_cfg
@@ -92,6 +94,11 @@ def main(reader: str = "gpt", harmful_only: bool = False, limit: int = 0,
         opt_a, opt_b, _ = options(it, 0)
         jobs.append({"key": key, "prompt": P.GATE_PROMPT.format(**it, opt_a=opt_a, opt_b=opt_b,
                                                                  text=s["text"])})
+    dest = ROOT / (f"data/stimuli/reader_{reader}.jsonl" if not limit
+                   else f"data/stimuli/smoke_reader_{reader}_{limit}.jsonl")
+    if append:
+        have = {json.loads(l).get("key") for l in dest.read_text().splitlines()}
+        jobs = [j for j in jobs if j["key"] not in have]
     if limit:
         jobs = jobs[:limit]
     print(f"second reader {rc['model']} on {len(jobs)} stimuli")
@@ -107,13 +114,13 @@ def main(reader: str = "gpt", harmful_only: bool = False, limit: int = 0,
         out = _read(jobs, rc, base_url)
     else:
         out = read.remote(jobs, rc, base_url)
-    dest = ROOT / (f"data/stimuli/reader_{reader}.jsonl" if not limit
-                   else f"data/stimuli/smoke_reader_{reader}_{limit}.jsonl")
-    with dest.open("w") as fh:
-        fh.write(json.dumps({"_meta": {"reader": rc, "config_hash": config_hash(cfg),
-                                       "git_commit": git_commit(),
-                                       "timestamp": datetime.now(timezone.utc).isoformat(),
-                                       "note": "LLM second reader, not human validation"}}) + "\n")
+    meta = {"_meta": {"reader": rc, "config_hash": config_hash(cfg), "git_commit": git_commit(),
+                      "timestamp": datetime.now(timezone.utc).isoformat(),
+                      "note": "LLM second reader, not human validation"
+                              + ("; appended for new channels" if append else "")}}
+    with dest.open("a" if append else "w") as fh:
+        if not append:
+            fh.write(json.dumps(meta) + "\n")
         for o in out:
             fh.write(json.dumps({**o, "model": rc["model"]}, ensure_ascii=False) + "\n")
     print(f"wrote {len(out)} replies, {sum(1 for o in out if o['error'])} errors -> {dest}")
