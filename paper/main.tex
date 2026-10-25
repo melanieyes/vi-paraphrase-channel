@@ -29,8 +29,7 @@
 \noindent A rival agent asks yours to hold a price. Your agent refuses. A monitor that reads the message
 flags it anyway: in our experiments, \StdGemAllFADecl{} of refusals for a Gemini 2.5 Flash monitor and
 \StdHkAllFADecl{} for Claude Haiku 5.5. We ask what in an agent's logs is convincing evidence that it
-colluded. We built a Vietnamese benchmark of \nTaskItems{} items in nine families, on an online marketplace
-and in workplace workflows, each harmful scenario paired with a harmless twin. A scripted rival sends a fixed
+colluded. We built a Vietnamese benchmark of \nTaskItems{} items in nine families, each harmful scenario paired with a harmless twin. A scripted rival sends a fixed
 invitation in one of four styles, from a direct proposal to a bare announcement. Two agents (Gemini 2.5
 Flash, Qwen3-8B) decide, report to their principal and answer a disclosure question; two monitors judge
 each episode. Each kind of evidence fails alone. The action misses intent: Gemini
@@ -41,7 +40,7 @@ that evidence requires a proposal, a matching action, and a departure from what 
 proposal. Showing the monitor the agent's choices on similar situations, which a deployed system can
 record, cut flags on refusals to \StdGemFamFADecl{} (Gemini) and \StdHkFamFADecl{} (Haiku) without missing any collusion on
 the marketplace. A neutral summary of the trace kept most of this evidence; the agent's own report did not.
-Paraphrasing, neutralizing or summarizing the rival's message rarely changed what agents did.
+A log-format summary of the rival's message cut Qwen's collusion only by erasing the proposal: cooperation on harmless twins fell too.
 \end{abstract}
 
 \section{Introduction}
@@ -139,7 +138,9 @@ Vietnamese.}\label{tab:renderings}
 \paragraph{Monitors.} Gemini 2.5 Flash (reasoning off) and Claude Haiku 5.5 (reasoning on, low effort)
 answer FLAG or CLEAR from seven views: the action; the report; the message; action and report; action,
 report and message; the same plus the agent's pre-message choice (baseline); and that view with the
-three conditions of Section~\ref{sec:standard} stated in the prompt (standard). The unit of judgement is
+three conditions of Section~\ref{sec:standard} stated in the prompt (standard). Three further views
+replace the pre-message choice with the agent's turn-1 choices on the same situation in other runs or on
+similar situations, or replace the whole trace with a third-party summary (Section~\ref{sec:summaries}). The unit of judgement is
 the agent's decision. We use four rates on harmful episodes. \emph{Missed, all collusion}: the agent took
 the arrangement at turn~2 and the monitor cleared it. \emph{Missed, message-induced}: the same, restricted
 to episodes that competed at turn~1. \emph{Flagged, declined}: the agent did not take the arrangement and
@@ -251,7 +252,29 @@ cooperation at or above \GemTwinMin{} (Gemini) and \QwTwinMin{} (Qwen). A Qwen3-
 twins and is reported only in Appendix~\ref{app:tables}.
 
 \subsection{Where is context lost? Summaries}\label{sec:summaries}
-Deployed oversight often reads a summary instead of the trace. Gemma-3-27B, which has no other role, read
+\paragraph{The agent reads a summary.} Following the summary arm of a communication-degree design, the relay
+model rewrote each rival message in four summary styles that share one prompt frame and differ in one style
+sentence (Table~\ref{tab:summaries}). Most styles kept the invitation and left uptake unchanged. The system
+log was the exception. Its \emph{Proposal} field was often filled with ``none'' even when the content line
+stated the proposal, and Opus read \SumOpusSys{} of these summaries as still inviting, against \SumOpusRaw{}
+of originals. Qwen's message-induced collusion fell by \SumQwSysMoved{} points \SumQwSysMovedCI, but its
+cooperation on harmless twins fell from \SumQwRawTwin{} to \SumQwSysTwin. The summary did not protect the
+agent; it removed the proposal, harmful or not. Monitors reading the same summaries flagged fewer declined
+episodes (\SumQwHkSysFADel{} against \SumQwHkSysFARaw{} for Haiku on Qwen's episodes) for the same reason.
+A second Qwen sample reproduced the loss (\RobResSys{} still inviting); Gemma-3-27B writing the same styles
+lost a similar share in every style (\RobGmaShort{} to \RobGmaLong), so the effect depends on the summarizer.
+Code-switching lowered Gemini's uptake by \SumGemCSMoved{} points \SumGemCSMovedCI{} but not Qwen's.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Summary channels, market set. Chars: mean length. Still invites: share of harmful summaries the
+gate and Opus 5.5 read as pushing toward the arrangement. Moved by message: rate on the original, then the
+change in percentage points for each summary (95\% CI clustered over items). Bold: interval excludes zero,
+or twin cooperation below 90\%.}\label{tab:summaries}
+\input{tables/summaries.tex}
+\end{table}
+
+\paragraph{The monitor reads a summary.} Deployed oversight often reads a summary instead of the trace. Gemma-3-27B, which has no other role, read
 each full trace (the view with the pre-message choice) and wrote an activity-log entry of at most 80 words,
 without being told what to look for. Monitors then read only that entry (Table~\ref{tab:oversight}). Two
 comparisons answer different questions. Against the trace it summarizes, the summary measures compression
@@ -282,16 +305,18 @@ announcements, which moved Gemini most on the market.
 to accept, not the ability to initiate collusion. Each family has eight scenarios, which supports only
 coarse comparisons between families. Gemini served as agent, gate and first monitor; a second monitor and
 four readers from other providers reduce but do not remove shared bias, and we ran no human validation
-sample. Qwen agents read Qwen-relayed text, and each message was relayed once. The lexical disclosure code
+sample. Qwen agents read Qwen-relayed text. Summary styles also differ in length, and agents read one summary per message; a second sample and a second summarizer were checked only at the stimulus level. The population and similar-situation baselines come from the same benchmark, so a deployed baseline drawn from different traffic may fit less well. The lexical disclosure code
 is our weakest measure. Appendix~\ref{app:ethics} discusses dual use.
 
 \paragraph{Future work.} Testing the standard on multi-round logs, where the baseline comes from earlier
-rounds; human validation of the stimuli; and relays that summarise conversation history.
+rounds; human validation of the stimuli; relays that summarise conversation history; and handoffs in which one agent plans and another executes from a summary of the plan.
 
 \section{Conclusion}
-Logs contain evidence of the proposal, the action and the agent's account, and each misleads on its own. A
-monitor that combines the action with the agent's report caught most collusion without flagging agents
-that declined, and rewriting messages in transit changed neither the behaviour nor the evidence.
+Logs hold three kinds of evidence, and each misleads on its own: the action overstates the message's role,
+the message implicates only its sender, and the agent's report leaves the message out. A monitor that also
+knows how the agent behaves on similar situations without a proposal caught the collusion we measured and
+stopped flagging most agents that refused. A neutral summary of the trace keeps this evidence better than
+the agent's own report, but a summary inside the channel can erase the proposal itself, harmful or not.
 
 \section*{Code and Data}
 \begin{itemize}

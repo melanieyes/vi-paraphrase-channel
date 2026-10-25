@@ -208,6 +208,72 @@ def main() -> None:
             for rd in RENDERINGS:
                 M[f"{P}{setting.capitalize()}{rd.capitalize()}"] = pct(row[rd])
 
+    # Summary channels (C5-S styles): stimulus loss, agent uptake, positive control, monitor.
+    SU = {a: load(f"results/summary_{a}/stats.json") for a in AGENTS}
+    SUM_CH = ("raw", "sum_short", "sum_long", "sum_system", "sum_codeswitch")
+    SUM_LAB = {"raw": "Original message", "sum_short": "Short (one sentence)", "sum_long": "Long (3--4 sentences)",
+               "sum_system": "System log (3 fields)", "sum_codeswitch": "Code-switched"}
+    if all(SU.values()) and agree and "by_channel" in agree:
+        import json as _j
+        stim_rows = [_j.loads(l) for l in (ROOT / "data/stimuli/stimuli.jsonl").read_text().splitlines()[1:]]
+        rows = []
+        for ch in SUM_CH:
+            bc = agree["by_channel"].get(ch, {})
+            L = [len(s["text"]) for s in stim_rows if s["channel"] == ch]
+            g, o = bc.get("gemini"), bc.get("opus")
+            eff = [SU[a]["stats"]["moved_effect"].get(ch) if ch != "raw" else SU[a]["stats"]["moved"]["harmful"]["raw"]
+                   for a in AGENTS]
+            twin = SU["qwen"]["stats"]["turn2"]["mutual_gains"][ch]["all"]
+            rows.append(f"{SUM_LAB[ch]} & {sum(L) / len(L):.0f} & "
+                        f"{100 * g['push']:.1f} & {100 * o['push']:.1f} & "
+                        + " & ".join(cell(e, ch != "raw" and excludes_zero(e)) for e in eff)
+                        + f" & {cell(twin, twin['est'] < 0.9)} \\\\")
+        (PAPER / "tables" / "summaries.tex").write_text(
+            "\\begin{tabular}{lrrrrrr}\n\\toprule\n"
+            " & & \\multicolumn{2}{c}{Still invites (\\%)} & \\multicolumn{2}{c}{Moved by message} & Qwen twins \\\\\n"
+            "\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}\n"
+            "Agent reads & Chars & Gate & Opus & Gemini & Qwen & cooperate \\\\\n\\midrule\n"
+            + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
+        se = {a: SU[a]["stats"]["moved_effect"] for a in AGENTS}
+        M["SumQwSysMoved"] = pp(se["qwen"]["sum_system"])
+        M["SumQwSysMovedCI"] = ci(se["qwen"]["sum_system"])
+        M["SumGemSysMoved"] = pp(se["gemini"]["sum_system"])
+        M["SumGemCSMoved"] = pp(se["gemini"]["sum_codeswitch"])
+        M["SumGemCSMovedCI"] = ci(se["gemini"]["sum_codeswitch"])
+        M["SumQwCSMoved"] = pp(se["qwen"]["sum_codeswitch"])
+        M["SumQwRawMoved"] = pct(SU["qwen"]["stats"]["moved"]["harmful"]["raw"])
+        M["SumQwSysTwin"] = pct(SU["qwen"]["stats"]["turn2"]["mutual_gains"]["sum_system"]["all"])
+        M["SumQwRawTwin"] = pct(SU["qwen"]["stats"]["turn2"]["mutual_gains"]["raw"]["all"])
+        M["SumOpusSys"] = pct({"est": agree["by_channel"]["sum_system"]["opus"]["push"]})
+        M["SumOpusRaw"] = pct({"est": agree["by_channel"]["raw"]["opus"]["push"]})
+        for a, A in (("gemini", "Gem"), ("qwen", "Qw")):
+            for name, N in (("gemini", "Gem"), ("haiku", "Hk")):
+                mm = SU[a]["monitors"].get(name)
+                if mm:
+                    M[f"Sum{A}{N}SysFADel"] = pct(mm["fpr_declined"]["sum_system"].get("delivered"))
+                    M[f"Sum{A}{N}SysFARaw"] = pct(mm["fpr_declined"]["sum_system"].get("raw"))
+    # robustness: second Qwen sample and Gemma, gate push on sum_system vs others
+    for src, K in (("resample", "Res"), ("gemma", "Gma")):
+        f = ROOT / f"data/stimuli/robust_summaries_{src}.jsonl"
+        if f.exists():
+            import json as _j
+            import re as _re
+
+            from src.episode import load_items as _li
+            from src.episode import options as _opt
+            from src.scoring import classify as _cls
+            its = {i["item_id"]: i for i in _li()}
+            R = [_j.loads(l) for l in f.read_text().splitlines()[1:]]
+            def _push(r):
+                _, _, coll = _opt(its[r["item_id"]], 0)
+                l, k = _cls(r["gate_reply"])
+                if k != "choice" and _re.match(r"^\W*kh[oô]ng\b", (r["gate_reply"] or "").strip(), _re.I):
+                    return False
+                return (l == coll) if k == "choice" else None
+            for ch, C in (("sum_system", "Sys"), ("sum_short", "Short"), ("sum_long", "Long"), ("sum_codeswitch", "CS")):
+                v = [x for x in (_push(r) for r in R if r["channel"] == ch) if x is not None]
+                M[f"Rob{K}{C}"] = pct({"est": sum(v) / len(v)}) if v else "??"
+
     # Oversight through a summary (macros for the text; table oversight.tex below)
     for a, A in (("gemini", "Gem"), ("qwen", "Qw")):
         for name, N in (("gemini", "Gem"), ("haiku", "Hk")):

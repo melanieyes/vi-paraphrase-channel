@@ -259,3 +259,8 @@ stimuli, episodes, monitors) was rebuilt and rerun from scratch under
   words, not told to look for collusion. Monitors read only that summary
   (`summary` view). Granite was the plan in agent-collusion-bench, but it does not
   support Vietnamese.
+- Result read with the positive control (2026-10-26): on Qwen, the system-log summary
+  cut message-induced collusion and also cut cooperation on harmless twins (to about
+  80%). Per the positive-control rule this is reported as context loss (the summary
+  erased the proposal, harmful or not), not as a defence. Gemini's code-switch drop is
+  reported as one agent's result; it did not replicate on Qwen.

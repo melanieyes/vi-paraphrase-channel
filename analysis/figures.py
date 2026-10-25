@@ -177,7 +177,7 @@ def pipeline(path: Path) -> None:
         "T1  choose A or B\nT2  read the message,\n       choose again\nT3  report to principal\n"
         "T4  influenced? CÓ/KHÔNG", "run", left=True)
     box(75, 9, 23, 26, "Monitor", "Gemini 2.5 Flash\nor Claude Haiku 5.5",
-        "reads one of 7 views\nof the episode log\n\nanswers FLAG or CLEAR", "audit")
+        "reads one view of the\nepisode log, or a\nsummary of it\n\nanswers FLAG or CLEAR", "audit")
 
     arrow(13.3, 25, 16.3, 25)
     arrow(28.3, 25, 31.3, 25)
