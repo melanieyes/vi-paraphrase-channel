@@ -198,7 +198,7 @@ def pipeline(path: Path) -> None:
 
     card(69.0, 18.5, 13.6, 17, "Log", "", "message\naction\nreport\nbaseline", "audit")
     card(69.0, 2.2, 13.6, 13.5, "Summarizer", "Gemma-3-27B", "≤80-word entry", "audit", dashed=True)
-    card(84.9, 6.5, 13.6, 29, "Monitor", "Aya Expanse 8B\nor Claude Haiku 5.5",
+    card(84.9, 6.5, 13.6, 29, "Monitor", "Mistral Small 3.1\nor Claude Haiku 5.5",
          "reads one view\nof the log, or\nthe summary\n\nFLAG / CLEAR", "audit")
 
     arrow((13.1, 27), (15.4, 27))

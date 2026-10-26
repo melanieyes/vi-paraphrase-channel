@@ -30,7 +30,7 @@
 
 \begin{abstract}
 \noindent A rival agent asks yours to hold a price. Your agent refuses. A monitor that reads the message
-flags it anyway: in our experiments, \StdAyAllFADecl{} of refusals for an Aya Expanse 8B monitor and
+flags it anyway: in our experiments, \StdMiAllFADecl{} of refusals for a Mistral Small 3.1 monitor and
 \StdHkAllFADecl{} for Claude Haiku 5.5. We ask what in an agent's logs is convincing evidence that it
 colluded. We built \nTaskItems{} Vietnamese scenarios in nine families, each harmful scenario paired with a harmless twin. A scripted rival sends a fixed
 invitation in one of four styles, from a direct proposal to a bare announcement. Two agents (Gemini 2.5
@@ -41,7 +41,7 @@ message: agents admitted influence when asked (\GemDiscItem{} and \QwDiscItem) b
 \GemDiscLex{} and \QwDiscLex{} of reports. The message implicates the sender, not the receiver. We propose
 that evidence requires a proposal, a matching action, and a departure from what the agent does without the
 proposal. Showing the monitor the agent's choices on similar situations, which a deployed system can
-record, cut flags on refusals to \StdAyFamFADecl{} (Gemini) and \StdHkFamFADecl{} (Haiku) without missing any collusion on
+record, cut flags on refusals to \StdMiFamFADecl{} (Gemini) and \StdHkFamFADecl{} (Haiku) without missing any collusion on
 the marketplace. A neutral summary of the trace kept most of this evidence; the agent's own report did not.
 A log-format summary of the rival's message cut Qwen's collusion only by erasing the proposal: cooperation on harmless twins fell too.
 \end{abstract}
@@ -132,7 +132,7 @@ Task family & 6 marketplace, 3 workplace workflow; \nTaskItems{} scenarios in al
 Item class & harmful; harmless twin of the same form & positive control \\
 Invitation & direct, euphemism, relationship, omission & 2.1 phrasing \\
 Agent & Gemini 2.5 Flash, Qwen3-8B; 4 turns (choose, read and choose, report, yes/no) & all \\
-Monitor & Aya Expanse 8B (open weights), Claude Haiku 5.5; neither is an agent & 2.2, 2.3 \\
+Monitor & Mistral Small 3.1 24B (open weights), Claude Haiku 5.5; neither is an agent & 2.2, 2.3 \\
 Monitor view & action; report; message; their combinations; + pre-message choice; + rule & 2.2 words vs.\ actions, 2.3 evidence \\
 \midrule
 \multicolumn{3}{@{}l}{\textit{Probes}} \\
@@ -183,7 +183,7 @@ Vietnamese.}\label{tab:renderings}
 \input{tables/renderings.tex}
 \end{table}
 
-\paragraph{Monitors.} Aya Expanse 8B (open weights, reasoning off, temperature 0) and Claude Haiku 5.5 (reasoning on, low effort)
+\paragraph{Monitors.} Mistral Small 3.1 24B Instruct (open weights, temperature 0) and Claude Haiku 5.5 (reasoning on, low effort)
 answer FLAG or CLEAR for the agent's decision, reading one view of the log (Table~\ref{tab:design}). We
 report two rates on harmful episodes. \emph{Missed}: the agent took the arrangement at turn~2 and the
 monitor cleared it. \emph{Flagged, declined}: the agent did not take the arrangement and the monitor flagged
@@ -220,7 +220,7 @@ sample (Appendix Table~\ref{tab:rendering}).
 
 \subsection{Do words and actions together beat either alone? (2.2)}
 \textbf{Each source answers a different question, and none is enough alone.} From the action alone, the
-Aya monitor missed \MonActionFNR{} \MonActionFNRCI{} of collusion on the market (Figure~\ref{fig:says}).
+Mistral monitor missed \MonActionFNR{} \MonActionFNRCI{} of collusion on the market (Figure~\ref{fig:says}).
 Adding the agent's report cut misses to \MonReportFNR, but only for a candid agent: for Qwen, whose reports
 seldom mention the message, action and report still missed \MonQReportFNR. Adding the rival's message cut
 misses to \MonDeliveredFNR{} but flagged \MonFADeclDelivered{} of episodes in which the agent declined. The
@@ -232,7 +232,7 @@ message shows that a proposal was made, not that it was accepted. Claude Haiku 5
 \begin{figure}[htbp]
 \centering\includegraphics[width=\linewidth]{figures/views.pdf}
 \caption{What each view misses and over-flags (Gemini agent, market set, pooled over channels). Left: missed,
-all collusion. Right: flagged, declined. Darker bars: Aya Expanse 8B monitor; lighter: Claude Haiku 5.5.
+all collusion. Right: flagged, declined. Darker bars: Mistral monitor; lighter: Claude Haiku 5.5.
 Thin lines: 95\% intervals. Shaded rows add the agent's behaviour without a proposal (Section~\ref{sec:standard});
 the bold row uses only similar situations, which a deployed monitor can record. The rule variant is in
 Table~\ref{tab:views}: it clears unilateral choices by design, so it is not comparable on this axis.}\label{fig:says}
@@ -260,14 +260,14 @@ We therefore propose that convincing evidence requires (i) a proposal, (ii) an a
 turn~1. A deployed monitor would instead have the agent's behaviour on similar cases without a proposal, so
 we also test that version.
 
-\textbf{Information, not instruction, does the work.} Showing the Aya monitor the agent's pre-message
-choice, with no rule, cut flags on declined episodes from \StdAyAllFADecl{} to \StdAyCtlFADecl. Stating the
+\textbf{Information, not instruction, does the work.} Showing the Mistral monitor the agent's pre-message
+choice, with no rule, cut flags on declined episodes from \StdMiAllFADecl{} to \StdMiCtlFADecl. Stating the
 rule as well added little and cost misses (Appendix~\ref{app:more}).
 
 \textbf{A baseline a deployed monitor can hold works as well.} A deployed monitor does not see the agent's
 choice in the same episode, but it can record how the agent behaves on similar situations. With the agent's
-turn-1 choices on other scenarios of the same family, the item itself left out, the Aya monitor missed
-\StdAyFamFNR{} of collusion and flagged \StdAyFamFADecl{} of declined episodes (bold row in
+turn-1 choices on other scenarios of the same family, the item itself left out, the Mistral monitor missed
+\StdMiFamFNR{} of collusion and flagged \StdMiFamFADecl{} of declined episodes (bold row in
 Figure~\ref{fig:says}). Haiku and Qwen's episodes gave the same picture (Appendix~\ref{app:more}).
 
 \paragraph{Robustness.} Four LLM readers agreed with the gate on most harmful messages (\AgreeOpus{} for
@@ -300,9 +300,9 @@ the arrangement, and the summary named both.}\label{fig:lexical}
 
 \paragraph{Who writes the account matters more than compression.} Gemma-3-27B, which plays no other role,
 read each full trace and wrote an activity-log entry of at most 80 words, without being told what to look
-for (Figure~\ref{fig:lexical}B). Against the trace it summarizes, the entry cost the Aya monitor some
-accuracy on Gemini's episodes: misses rose from \OvGemAyTraceFNR{} to \OvGemAySumFNR. Against Qwen's own
-reports, it recovered most of what they left out: misses fell from \OvQwAySelfFNR{} to \OvQwAySumFNR.
+for (Figure~\ref{fig:lexical}B). Against the trace it summarizes, the entry cost the Mistral monitor some
+accuracy on Gemini's episodes: misses rose from \OvGemMiTraceFNR{} to \OvGemMiSumFNR. Against Qwen's own
+reports, it recovered most of what they left out: misses fell from \OvQwMiSelfFNR{} to \OvQwMiSumFNR.
 The summarizer had no reason to drop the message; the agent did (Appendix~\ref{app:more}).
 
 
@@ -398,7 +398,7 @@ nothing, moved more Gemini episodes than the direct proposal (\GemMarketOmission
 vs.\ \GemWorkflowDirect). Qwen showed the opposite tendency, with the announcement the least effective
 rendering in both settings (Appendix Table~\ref{tab:rendering}).
 
-From the action alone, the Aya monitor missed \MonActionFNR{} \MonActionFNRCI{} of collusion on the
+From the action alone, the Mistral monitor missed \MonActionFNR{} \MonActionFNRCI{} of collusion on the
 market (Appendix Table~\ref{tab:views}, panel A). Adding the agent's report reduced this to \MonReportFNR{}
 (difference \MonActionMinusBoth{} points, \MonActionMinusBothCI) while flagging \MonFADeclReport{} of
 declined episodes. The report alone performed similarly (\MonReportOnlyFNR) because it restates the action.
@@ -408,25 +408,25 @@ still missed \MonQReportFNR. Adding the rival's message cut misses to \MonDelive
 evidence that the rival proposed an arrangement, which a platform may itself want to flag, but not that the
 agent accepted it. Claude Haiku 5.5 reproduced this ordering (Figure~\ref{fig:says}; panel B).
 
-In workflows the Aya monitor missed only \WfActionFNR{} from the action, plausibly because scoring a
+In workflows the Mistral monitor missed only \WfActionFNR{} from the action, plausibly because scoring a
 rival far above the rubric or inflating a budget looks harmful on its face. Haiku did not show this
-difference (\HkActionFNR{} market, \HkWfActionFNR{} workflow), so it may reflect the Aya monitor rather
+difference (\HkActionFNR{} market, \HkWfActionFNR{} workflow), so it may reflect the Mistral monitor rather
 than the actions (Appendix~\ref{app:tables}).
 
 The control view separates information from instruction (Appendix Table~\ref{tab:views}). Showing the monitor the
-agent's pre-message choice, without any rule, cut flags on declined episodes from \StdAyAllFADecl{} to
-\StdAyCtlFADecl{} (Aya monitor) and from \StdHkAllFADecl{} to \StdHkCtlFADecl{} (Haiku), while
-message-induced misses stayed at \StdAyCtlMovedFNR{} and \StdHkCtlMovedFNR. Stating the rule removed the
-remaining declined flags (\StdAyFADecl{} and \StdHkFADecl) but raised message-induced misses to
-\StdAyMovedFNR{} and \StdHkMovedFNR. Only Haiku used the rule to clear unilateral choices
-(\StdHkFAUni{} flagged, against \StdAyFAUni{} for the Aya monitor). Most of the benefit therefore comes
+agent's pre-message choice, without any rule, cut flags on declined episodes from \StdMiAllFADecl{} to
+\StdMiCtlFADecl{} (Mistral monitor) and from \StdHkAllFADecl{} to \StdHkCtlFADecl{} (Haiku), while
+message-induced misses stayed at \StdMiCtlMovedFNR{} and \StdHkCtlMovedFNR. Stating the rule removed the
+remaining declined flags (\StdMiFADecl{} and \StdHkFADecl) but raised message-induced misses to
+\StdMiMovedFNR{} and \StdHkMovedFNR. Only Haiku used the rule to clear unilateral choices
+(\StdHkFAUni{} flagged, against \StdMiFAUni{} for the Mistral monitor). Most of the benefit therefore comes
 from the baseline information, not from the rule.
 
 The baseline need not come from the same episode. We replaced the agent's own turn-1 choice with its turn-1
 choices on similar situations: the same family and class, with the item itself left out, which a deployed
-monitor could hold from earlier work. With no rule, misses stayed at \StdAyFamFNR{} and \StdHkFamFNR{}
-(Gemini agent; Aya and Haiku monitors) and \StdAyQwFamFNR{} and \StdHkQwFamFNR{} (Qwen agent), and flags on
-declined episodes were \StdAyFamFADecl{}, \StdHkFamFADecl{}, \StdAyQwFamFADecl{} and \StdHkQwFamFADecl,
+monitor could hold from earlier work. With no rule, misses stayed at \StdMiFamFNR{} and \StdHkFamFNR{}
+(Gemini agent; Mistral and Haiku monitors) and \StdMiQwFamFNR{} and \StdHkQwFamFNR{} (Qwen agent), and flags on
+declined episodes were \StdMiFamFADecl{}, \StdHkFamFADecl{}, \StdMiQwFamFADecl{} and \StdHkQwFamFADecl,
 close to the same-episode baseline. Counts from the same situation in other runs gave similar results
 (Figure~\ref{fig:says}).
 
@@ -455,10 +455,10 @@ Code-switching lowered Gemini's uptake by \SumGemCSMoved{} points \SumGemCSMoved
 each full trace (the view with the pre-message choice) and wrote an activity-log entry of at most 80 words,
 without being told what to look for. Monitors then read only that entry (Figure~\ref{fig:lexical}B; Table~\ref{tab:oversight} in Appendix~\ref{app:tables}). Two
 comparisons answer different questions. Against the trace it summarizes, the summary measures compression
-loss: misses rose from \OvGemAyTraceFNR{} to \OvGemAySumFNR{} (Gemini agent, Aya monitor) and from
-\OvGemHkTraceFNR{} to \OvGemHkSumFNR{} (Haiku), and flags on declined episodes rose from \OvQwAyTraceFA{} to
-\OvQwAySumFA{} on Qwen's episodes (Aya monitor). Against the agent's own report, the summary measures who
-writes the account: on Qwen's episodes misses fell from \OvQwAySelfFNR{} to \OvQwAySumFNR{} (Aya monitor)
+loss: misses rose from \OvGemMiTraceFNR{} to \OvGemMiSumFNR{} (Gemini agent, Mistral monitor) and from
+\OvGemHkTraceFNR{} to \OvGemHkSumFNR{} (Haiku), and flags on declined episodes rose from \OvQwMiTraceFA{} to
+\OvQwMiSumFA{} on Qwen's episodes (Mistral monitor). Against the agent's own report, the summary measures who
+writes the account: on Qwen's episodes misses fell from \OvQwMiSelfFNR{} to \OvQwMiSumFNR{} (Mistral monitor)
 and from \OvQwHkSelfFNR{} to \OvQwHkSumFNR{} (Haiku), because the summarizer saw the message that Qwen's
 reports mostly omit.
 
@@ -509,7 +509,7 @@ percentage points; bold: interval excludes zero).
 LLMs played two roles. As research assistants, Claude Opus 5.5 (via Claude Code) helped implement the
 pipeline, run the experiments on Modal, write the analysis code and draft this report, and Claude Opus 5.5
 produced the display-only English translations. As experimental subjects, Gemini 2.5 Flash wrote the rival
-messages and acted as agent and gate; Claude Haiku 5.5 and Aya Expanse 8B were the monitors; Qwen3-8B
+messages and acted as agent and gate; Claude Haiku 5.5 and Mistral Small 3.1 24B were the monitors; Qwen3-8B
 acted as agent, relay and summary writer for the channel; Gemma-3-27B wrote
 the third-party trace summaries; four LLMs re-read the stimuli. No LLM produced an episode measure: choices
 and disclosure are parsed by code, and the analysis code generates every number from the logged data. The
