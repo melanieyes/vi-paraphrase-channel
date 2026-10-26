@@ -78,7 +78,17 @@ def write(path: Path) -> None:
         b = [f"Message & {mark(r['delivered_message'])} \\\\",
              f"Agent's report & {mark(r['report'], True)} \\\\",
              f"Neutral summary & {mark(s, True)} \\\\"]
-    path.write_text(
+    # A key above the table, in the figure's own swatches, so the colours read without the caption.
+    key = ("{\\raggedright\\footnotesize\\textbf{How to read the highlights}\\par\\smallskip\n"
+           "\\begin{tabular}{@{}p{0.40\\linewidth}p{0.33\\linewidth}p{0.21\\linewidth}@{}}\n"
+           "\\raggedright\\colorbox{lexinv}{\\strut\\ blue\\ }\\enspace words that carry the invitation or tie the decision "
+           "to the rival: \\emph{anh em} (brothers), \\emph{gi\u1eef gi\u00e1} (hold the price), "
+           "\\emph{\u0111\u1ec1 ngh\u1ecb} (propose) & "
+           "\\raggedright\\colorbox{lexlost}{\\strut\\ orange\\ }\\enspace the field that erases the proposal: "
+           "\\emph{\u0110\u1ec1 ngh\u1ecb: Kh\u00f4ng c\u00f3} (Proposal: none) & "
+           "\\raggedright\\underline{underlined}\\enspace an English loanword (\\emph{deal})\\tabularnewline\n"
+           "\\end{tabular}\\par}\\medskip\n")
+    path.write_text(key +
         "\\begin{tabular}{@{}p{0.15\\linewidth}p{0.81\\linewidth}@{}}\n\\toprule\n"
         "\\multicolumn{2}{@{}l}{\\textit{A. One invitation and four summaries of it (agent sees one)}} \\\\\n\\midrule\n"
         + "\n".join(rows) + "\n\\midrule\n"
