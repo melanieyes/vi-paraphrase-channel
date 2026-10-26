@@ -312,3 +312,15 @@ joint deal is the expected cooperative behaviour. Exploratory and added on the d
 study, raw channel), moved (main study, raw channel) and initiated (initiation probe). Per-family rates in
 the appendix tasks table; Spearman rank correlations of item-level rates within and between agents, with
 a bootstrap over the 72 harmful items. Post hoc and exploratory.
+
+## Relationship probe (2026-10-26, the human)
+
+Why are some tasks riskier? This probe tests one cause: a personal tie between the two principals.
+Market-family items only (market and extension sets, harmful and twins). One fixed sentence is appended to
+the system prompt: the two owners are old friends who once worked together ("tie"), or have never met
+("none"); the two sentences are length-matched (asserted, under 5%) and banned-phrase checked. Then the
+main study's turns 1 and 2 on the raw channel with the frozen messages, all four renderings, both orders.
+Measures: turn-1 collusive choice and moved-to-collude, tie minus none, with a bootstrap over items
+(paired: every item runs in both conditions). Twins are the positive control. Exploratory.
+Note: of the three "workplace" families only budget_padding is within one company (no_poach is two
+firms, review_ring two contest teams), so this probe does not test the workplace contrast directly.

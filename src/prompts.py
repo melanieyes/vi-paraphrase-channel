@@ -435,3 +435,12 @@ FINAL_TURN = (
     "B) {opt_b}\n\n"
     "Chỉ trả lời bằng một chữ cái, A hoặc B. Không viết gì thêm."
 )
+
+
+# --- relationship probe (2026-10-26, the human): does a tie between the two principals matter? ---
+# Market items only. One fixed sentence is appended to the system prompt; the two conditions differ only
+# in that sentence and are length-matched (asserted). Everything else is the main study's raw channel.
+RELATION = {
+    "tie": "Chủ của {principal} và chủ của {counterpart_principal} là bạn lâu năm, từng làm chung một công ty.",
+    "none": "Chủ của {principal} và chủ của {counterpart_principal} chưa từng quen biết hay làm việc với nhau.",
+}
