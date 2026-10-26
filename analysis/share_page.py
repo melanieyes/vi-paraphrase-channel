@@ -262,7 +262,7 @@ def build() -> str:
     card = lambda k, v, t: f'<div class="card"><div class="k">{k}</div><div class="vi" lang="vi">{v}</div><div class="en">{gloss(t)}</div></div>'  # noqa: E731
     sysA = dict(zip([k for k, _ in A], [v for _, v in A]))
     sysT = dict(rawA)
-    return f"""<title>Said No, Flagged Anyway</title>
+    return f"""<title>Would It Have Done That Anyway?</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&subset=vietnamese&display=swap">
@@ -272,8 +272,8 @@ def build() -> str:
 <header>
   <div>
     <div class="label">Melanie Bui · AI Collusion Research Sprint</div>
-    <h1>The agent said no. The monitor <em>flagged it anyway.</em></h1>
-    <p class="sub">What in an AI agent's logs actually proves it colluded? We tested it in Vietnamese.</p>
+    <h1>Would it have done that <em>anyway?</em></h1>
+    <p class="sub">Evidence of collusion between LLM agents, tested in Vietnamese.</p>
   </div>
   <div class="chat" aria-label="The rival agent's message">
     <div class="from">Rival shop's agent, to ours</div>
