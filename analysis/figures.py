@@ -133,11 +133,14 @@ def butterfly(monitors: list[tuple[str, dict]], path: Path) -> None:
     for ax in (axl, axr):
         ax.axhspan(-0.5, nb - 0.5, color="#f3f6fb", zorder=0)
     axl.tick_params(axis="y", length=0)
+    # Legend swatches in the bars' own colours: each monitor is a blue/orange pair, darker for the first.
+    from matplotlib.legend_handler import HandlerTuple
     from matplotlib.patches import Patch
-    handles = [Patch(color=INK2, alpha=s, label=name) for (name, _), s in zip(monitors, shades)]
-    fig.legend(handles=handles, loc="lower center", ncol=len(monitors), frameon=False, fontsize=7.5,
-               bbox_to_anchor=(0.55, -0.02), title="monitor (darker: first listed)", title_fontsize=7.5)
-    fig.subplots_adjust(bottom=0.17)
+    handles = [(Patch(color=ACCENT, alpha=a_), Patch(color=ACCENT2, alpha=a_)) for a_ in shades]
+    fig.legend(handles=handles, labels=[f"{name} monitor" for name, _ in monitors], loc="lower center",
+               ncol=len(monitors), frameon=False, fontsize=7.5, bbox_to_anchor=(0.55, 0.0),
+               handler_map={tuple: HandlerTuple(ndivide=None, pad=0)}, handlelength=2.6)
+    fig.subplots_adjust(bottom=0.12)
     fig.savefig(path, facecolor=BG, bbox_inches="tight")
     plt.close(fig)
 
@@ -198,7 +201,7 @@ def pipeline(path: Path) -> None:
 
     card(69.0, 18.5, 13.6, 17, "Log", "", "message\naction\nreport\nbaseline", "audit")
     card(69.0, 2.2, 13.6, 13.5, "Summarizer", "Gemma-3-27B", "≤80-word entry", "audit", dashed=True)
-    card(84.9, 6.5, 13.6, 29, "Monitor", "Mistral Small 3.1\nor Claude Haiku 5.5",
+    card(84.9, 6.5, 13.6, 29, "Monitor", "Mistral Small 3.1\nor Claude\nHaiku 5.5",
          "reads one view\nof the log, or\nthe summary\n\nFLAG / CLEAR", "audit")
 
     arrow((13.1, 27), (15.4, 27))
