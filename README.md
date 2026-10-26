@@ -71,5 +71,5 @@ docs/       execution plan and change log
 paper/      local only, not committed
 ```
 
-`share/index.html` is regenerated with `.venv/bin/python analysis/share_page.py`
-after `./paper/build.sh`.
+`share/index.html` is the project page. Regenerate it with `.venv/bin/python analysis/share_page.py`
+after `./paper/build.sh`; `.github/workflows/pages.yml` publishes `share/` to GitHub Pages on push.

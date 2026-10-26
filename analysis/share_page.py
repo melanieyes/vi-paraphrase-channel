@@ -30,7 +30,7 @@ def macros() -> dict[str, str]:
     for line in (ROOT / "paper" / "numbers.tex").read_text().splitlines():
         m = re.match(r"\\newcommand\{\\(\w+)\}\{(.*)\}$", line)
         if m:
-            v = m.group(2).replace("\\%", "%").replace("\\_", "_")
+            v = m.group(2).replace("\\%", "%").replace("\\_", "_").replace("$-$", "\u2212")
             v = re.sub(r"\\texttt\{(.*?)\}", r"\1", v)
             M[m.group(1)] = v
     return M
@@ -97,157 +97,114 @@ def examples() -> tuple[list[tuple[str, str]], list[tuple[str, str]]]:
 
 
 CSS = """
-/* Layout: one reading column, figures break wider; square edges as on melanieyes.com */
-:root {
-  --paper: #f4eadb; --paper-deep: #e6d6bf; --plate: #fffdf8; --rule: #cfc2b0;
-  --muted: #75665a; --ink-soft: #5c4f45; --ink: #2a201c;
-  --blue: #2a78d6; --orange: #b8481a; --mark-inv: #dce9f8; --mark-lost: #fbdccb;
-  --display: "Spectral", Georgia, serif;
-  --text: "IBM Plex Sans", system-ui, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, monospace;
-}
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --paper: #1c1815; --paper-deep: #2a241f; --plate: #fffdf8; --rule: #4a4038;
-  --muted: #b3a597; --ink-soft: #d9cdbf; --ink: #f4eadb;
-  --blue: #7fb2ef; --orange: #f0956a; --mark-inv: #2b4766; --mark-lost: #6b3a22; color-scheme: dark } }
-:root[data-theme="dark"] {
-  --paper: #1c1815; --paper-deep: #2a241f; --plate: #fffdf8; --rule: #4a4038;
-  --muted: #b3a597; --ink-soft: #d9cdbf; --ink: #f4eadb;
-  --blue: #7fb2ef; --orange: #f0956a; --mark-inv: #2b4766; --mark-lost: #6b3a22; color-scheme: dark }
-body { background: var(--paper); color: var(--ink-soft); font: 17px/1.6 var(--text); }
-.wrap { max-width: 980px; margin: 0 auto; padding-block: 48px 72px;
-  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-.col { max-width: 680px; }
-.label { font: 400 12px/1.4 var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
-h1 { font: 300 clamp(40px, 7vw, 76px)/1.0 var(--display); letter-spacing: -.02em; color: var(--ink); margin: 14px 0 18px; text-wrap: balance; }
-h1 em { font-style: normal; color: var(--orange); }
-.sub { font: 400 clamp(19px, 2.4vw, 24px)/1.5 var(--display); color: var(--ink-soft); margin: 0; max-width: 760px; }
-h2 { font: 500 clamp(24px, 3.2vw, 30px)/1.2 var(--display); color: var(--ink); margin: 0 0 12px; text-wrap: balance; }
-h3 { font: 600 15px/1.4 var(--text); color: var(--ink); margin: 0 0 6px; }
-p { margin: 0 0 14px; }
-strong { color: var(--ink); font-weight: 600; }
-section { padding-top: 56px; margin-top: 56px; border-top: 1px solid var(--rule); display: grid; gap: 18px; }
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; margin-top: 36px;
-  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-.stat { padding: 20px 20px 22px 0; display: grid; gap: 6px; align-content: start; }
-.stat + .stat { padding-left: 20px; border-left: 1px solid var(--rule); }
-.num { font: 300 46px/1 var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
-.num small { font-size: 22px; color: var(--muted); }
-.stat p { font-size: 14.5px; line-height: 1.45; margin: 0; }
-figure { margin: 0; display: grid; gap: 10px; }
-figure img { width: 100%; height: auto; background: var(--plate); border: 1px solid var(--rule); display: block; }
-figcaption { font-size: 14px; line-height: 1.5; color: var(--muted); max-width: 720px; }
-.finding { display: grid; gap: 6px; }
-.finding .label { color: var(--orange); }
-.table-wrap { overflow-x: auto; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
-table { border-collapse: collapse; width: 100%; font-size: 15px; min-width: 560px; }
-th, td { text-align: left; padding: 9px 12px 9px 0; vertical-align: top; border-bottom: 1px solid var(--rule); }
-th { font: 400 11.5px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-tr:last-child td { border-bottom: 0; }
-td.vi { font-family: var(--display); font-size: 16.5px; line-height: 1.55; color: var(--ink); }
-td.k { white-space: nowrap; color: var(--muted); font-size: 14px; width: 150px; }
-mark { background: var(--mark-inv); color: inherit; padding: 0 2px; }
-mark.lost { background: var(--mark-lost); }
-mark.loan { background: none; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
-.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13.5px; color: var(--muted); }
-.legend span { display: inline-flex; gap: 8px; align-items: center; }
-.sw { width: 14px; height: 14px; display: inline-block; background: var(--mark-inv); }
-.sw.lost { background: var(--mark-lost); }
-.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
-.two > * { min-width: 0; }
-.claims { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 28px; margin: 6px 0 0; }
-.claims > div { border-top: 1px solid var(--ink); padding-top: 12px; min-width: 0; }
-.claims dt { font: 500 21px/1.25 var(--display); color: var(--ink); margin-bottom: 6px; }
-.claims dd { margin: 0; font-size: 15.5px; line-height: 1.55; }
-.statement { justify-items: start; }
-.pull { font: 300 clamp(26px, 3.6vw, 38px)/1.25 var(--display); color: var(--ink); max-width: 860px; margin: 4px 0 6px; text-wrap: balance; }
-.two.mirror { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: start; }
-@media (max-width: 760px) { .two.mirror { grid-template-columns: 1fr; } }
-.msg { margin: 0; border-left: 3px solid var(--orange); padding: 6px 0 6px 22px; display: grid; gap: 8px; max-width: 760px; }
-.msg p { margin: 0; }
-.msg p[lang] { font: 400 clamp(20px, 2.6vw, 26px)/1.45 var(--display); color: var(--ink); }
-.en { font-size: 14.5px; line-height: 1.5; color: var(--muted); font-family: var(--text); margin-top: 4px; }
-.stats.stack { grid-template-columns: 1fr; margin-top: 0; }
-.stats.stack .stat + .stat { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule); }
-.ask { background: var(--paper-deep); padding: 28px; display: grid; gap: 10px; }
-.ask h2 { margin: 0; }
-a { color: var(--blue); text-underline-offset: 3px; }
-a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
-.foot { margin-top: 56px; font-size: 13.5px; color: var(--muted); }
-code { font-family: var(--mono); font-size: .88em; }
-"""
-
-
-CSS2 = """
-/* Layout: left-aligned story column with full-width figure breaks; light only, one accent (rust) */
+/* Project page. Light only, one accent (rust). Story column with full-width figure breaks. */
 :root {
   color-scheme: light;
-  --bg: #fbfbf9; --panel: #f1f0ec; --line: #dddbd4; --ink: #17181a; --ink-2: #44464b; --muted: #6c6e74;
-  --accent: #b8481a; --blue: #2a78d6; --mark-inv: #dce9f8; --mark-lost: #fbdccb;
+  --bg: #fafaf7; --panel: #f0efea; --line: #dcdad2; --ink: #16171a; --ink-2: #3f4146; --muted: #6a6c72;
+  --accent: #b8481a; --accent-soft: #f6e3d8; --blue: #2a78d6; --mark-inv: #dce9f8; --mark-lost: #fbdccb;
   --display: "Bricolage Grotesque", system-ui, sans-serif;
   --text: "Source Serif 4", Georgia, serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --r: 14px;
 }
-body { background: var(--bg); color: var(--ink-2); font: 18px/1.6 var(--text); }
-.wrap { max-width: 1040px; margin: 0 auto; padding-block: 40px 80px;
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink-2); font: 18px/1.62 var(--text); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 28px 96px;
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .col { max-width: 660px; }
 .label { font: 500 12px/1.4 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
-h1 { font: 700 clamp(40px, 6.4vw, 72px)/1.02 var(--display); letter-spacing: -.03em; color: var(--ink); margin: 16px 0 18px; max-width: 900px; text-wrap: balance; }
+h1 { font: 700 clamp(40px, 6.6vw, 78px)/1.0 var(--display); letter-spacing: -.035em; color: var(--ink); margin: 18px 0 18px; text-wrap: balance; }
 h1 em { font-style: normal; color: var(--accent); }
-h2 { font: 650 clamp(26px, 3.4vw, 36px)/1.12 var(--display); letter-spacing: -.02em; color: var(--ink); margin: 0 0 12px; text-wrap: balance; }
+h2 { font: 650 clamp(27px, 3.5vw, 40px)/1.1 var(--display); letter-spacing: -.02em; color: var(--ink); margin: 0 0 14px; text-wrap: balance; }
 h3 { font: 600 19px/1.3 var(--display); color: var(--ink); margin: 0 0 6px; }
 p { margin: 0 0 14px; }
 strong { color: var(--ink); }
 a { color: var(--blue); text-underline-offset: 3px; }
 a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
-.sub { font-size: clamp(19px, 2.2vw, 22px); color: var(--ink-2); max-width: 640px; margin: 0; }
-section { margin-top: 88px; display: grid; gap: 20px; }
-header { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 40px; align-items: end; padding-top: 24px; }
-@media (max-width: 820px) { header { grid-template-columns: 1fr; gap: 28px; } }
-.chat { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; display: grid; gap: 10px; box-shadow: 0 18px 40px -28px rgba(40, 30, 20, .35); }
-.chat .from { font: 500 12.5px/1.3 var(--mono); color: var(--muted); }
-.chat .vi { font: 500 20px/1.45 var(--display); color: var(--ink); margin: 0; }
-.chat .en { font-size: 15px; color: var(--muted); margin: 0; }
-.chat .verdict { border-top: 1px solid var(--line); padding-top: 10px; font: 600 15px/1.4 var(--display); color: var(--ink); }
-.known { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 36px; }
-@media (max-width: 700px) { .known { grid-template-columns: 1fr; } }
-.known > div { border-top: 1px solid var(--ink); padding: 14px 0 18px; min-width: 0; }
-.known p { font-size: 16px; margin: 0; }
-.known .cite { font: 400 13px/1.4 var(--mono); color: var(--muted); margin-top: 6px; display: block; }
-.gap { background: var(--ink); color: #f3f2ee; border-radius: 14px; padding: clamp(24px, 4vw, 44px); display: grid; gap: 12px; }
-.gap h2 { color: #fff; margin: 0; }
-.gap p { color: #d9d8d3; margin: 0; max-width: 700px; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+.top nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.top nav a { font: 500 13px/1 var(--mono); color: var(--ink-2); text-decoration: none; padding: 8px 10px; border-radius: 999px; }
+.top nav a:hover { background: var(--panel); }
+header.hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: 56px 0 8px; }
+@media (max-width: 860px) { header.hero { grid-template-columns: 1fr; gap: 28px; padding-top: 36px; } }
+.sub { font-size: clamp(19px, 2.2vw, 23px); color: var(--ink-2); max-width: 600px; margin: 0 0 22px; }
+.chat { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 22px 24px; display: grid; gap: 12px;
+  box-shadow: 0 24px 48px -32px rgba(60, 40, 20, .35); }
+.chat .from { font: 500 12.5px/1.3 var(--mono); color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.chat .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.bubble { background: var(--panel); border-radius: 4px 16px 16px 16px; padding: 14px 16px; }
+.bubble .vi { font: 500 19px/1.45 var(--display); color: var(--ink); margin: 0; }
+.bubble .en { font-size: 14.5px; color: var(--muted); margin: 6px 0 0; }
+.chat .verdict { font: 650 17px/1.35 var(--display); color: var(--ink); }
+.chat .verdict span { color: var(--accent); }
+.strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 48px; border-top: 1px solid var(--ink); }
+@media (max-width: 760px) { .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.strip > div { padding: 16px 18px 4px 0; min-width: 0; }
+.strip .n { font: 700 clamp(30px, 4vw, 44px)/1 var(--display); color: var(--ink); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.strip p { font-size: 15px; line-height: 1.45; margin: 8px 0 0; color: var(--muted); }
+section { margin-top: 104px; display: grid; gap: 22px; scroll-margin-top: 20px; }
+.kicker { display: flex; align-items: baseline; gap: 14px; }
+.kicker .idx { font: 700 14px/1 var(--mono); color: var(--accent); }
+.gap { background: var(--ink); color: #f3f2ee; border-radius: 22px; padding: clamp(26px, 5vw, 56px); display: grid; gap: 14px; }
+.gap h2 { color: #fff; margin: 0; max-width: 780px; }
+.gap p { color: #d6d5cf; margin: 0; max-width: 680px; }
 .gap strong { color: #fff; }
-.tries { display: grid; gap: 0; border-top: 1px solid var(--line); }
-.try { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
-@media (max-width: 640px) { .try { grid-template-columns: 1fr; gap: 6px; } }
-.try .num { font: 700 46px/1 var(--display); letter-spacing: -.02em; color: var(--accent); font-variant-numeric: tabular-nums; }
-.try p { margin: 4px 0 0; font-size: 16.5px; }
+.gap .label { color: #a9a8a2; }
+.known { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 24px; }
+@media (max-width: 900px) { .known { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .known { grid-template-columns: 1fr; } }
+.known > div { border-top: 2px solid var(--ink); padding: 14px 0 18px; min-width: 0; }
+.known p { font-size: 15.5px; margin: 0; }
+.known .cite { font: 400 12.5px/1.45 var(--mono); color: var(--muted); margin-top: 8px; display: block; }
 figure { margin: 0; display: grid; gap: 10px; }
-figure img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+figure img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: var(--r); background: #fff; }
 figcaption { font-size: 14px; line-height: 1.5; color: var(--muted); max-width: 760px; }
-.rule { background: var(--panel); border-radius: 14px; padding: clamp(22px, 3.5vw, 36px); display: grid; gap: 14px; }
-.parts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-.parts div { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; font: 500 17px/1.35 var(--display); color: var(--ink); }
-.parts div b { display: block; font: 500 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
-.big { font: 700 clamp(34px, 5vw, 54px)/1 var(--display); color: var(--ink); letter-spacing: -.02em; }
-.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.roles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 760px) { .roles { grid-template-columns: 1fr; } }
+.roles div { background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; }
+.roles b { display: block; font: 500 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.roles span { font: 600 17px/1.35 var(--display); color: var(--ink); }
+.roles p { font-size: 15px; margin: 6px 0 0; }
+.tries { display: grid; border-top: 1px solid var(--line); }
+.try { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 28px; padding: 22px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+@media (max-width: 640px) { .try { grid-template-columns: 1fr; gap: 6px; } }
+.try .num, .big { font: 700 clamp(38px, 5vw, 54px)/1 var(--display); letter-spacing: -.025em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.try p { margin: 4px 0 0; font-size: 16.5px; }
+.rule { background: var(--panel); border-radius: 22px; padding: clamp(22px, 4vw, 40px); display: grid; gap: 16px; }
+.parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; counter-reset: part; }
+@media (max-width: 700px) { .parts { grid-template-columns: 1fr; } }
+.parts div { background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; font: 600 18px/1.35 var(--display); color: var(--ink); }
+.parts div::before { counter-increment: part; content: "0" counter(part); display: block; font: 500 12px/1.4 var(--mono); color: var(--accent); margin-bottom: 6px; }
+.compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 640px) { .compare { grid-template-columns: 1fr; } }
+.compare > div { border-radius: var(--r); padding: 20px 22px; background: #fff; border: 1px solid var(--line); min-width: 0; }
+.compare .hot { background: var(--accent-soft); border-color: transparent; }
+.compare .k { font: 500 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.compare .big { color: var(--ink); margin: 8px 0 6px; }
+.compare .hot .big { color: var(--accent); }
+.compare p { font-size: 15.5px; margin: 0; }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 700px) { .pair { grid-template-columns: 1fr; } }
 .pair > div { min-width: 0; }
-.card { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
-.card .k { font: 500 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; }
+.card .k { font: 500 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
 .card .vi { font-size: 16.5px; color: var(--ink); line-height: 1.55; }
-.card .en { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+.card .en { font-size: 14px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
 mark { background: var(--mark-inv); color: inherit; padding: 0 2px; border-radius: 2px; }
 mark.lost { background: var(--mark-lost); }
 mark.loan { background: none; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
-.next { border: 1.5px solid var(--ink); border-radius: 14px; padding: clamp(22px, 3.5vw, 36px); display: grid; gap: 12px; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 36px; align-items: start; }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+.next { border: 1.5px solid var(--ink); border-radius: 22px; padding: clamp(22px, 4vw, 40px); display: grid; gap: 14px; }
 .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
-.links a { font: 600 15px/1 var(--display); text-decoration: none; color: #fff; background: var(--ink); padding: 12px 16px; border-radius: 999px; }
+.links a { font: 600 15px/1 var(--display); text-decoration: none; color: #fff; background: var(--ink); padding: 13px 18px; border-radius: 999px; transition: transform .15s ease; }
 .links a.ghost { color: var(--ink); background: transparent; border: 1.5px solid var(--ink); }
 .links a:hover { transform: translateY(-1px); }
-.foot { font-size: 13.5px; color: var(--muted); margin-top: 40px; }
-@media (prefers-reduced-motion: reduce) { .links a:hover { transform: none; } }
+.links a:active { transform: scale(.98); }
+.foot { font-size: 13.5px; color: var(--muted); margin-top: 40px; border-top: 1px solid var(--line); padding-top: 18px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .links a { transition: none; } .links a:hover { transform: none; } }
 """
 
 
@@ -258,78 +215,138 @@ def build() -> str:
     tr = {r["sha"]: r["en"] for r in map(json.loads, (ROOT / "data/translations/en.jsonl").read_text().splitlines())
           if r.get("en")}
     gloss = lambda t: html.escape(tr.get(__import__("hashlib").sha256(t.encode()).hexdigest(), ""))  # noqa: E731
-    m = M.get
+
+    def m(k: str) -> str:
+        if k not in M:
+            raise KeyError(f"macro {k} missing from paper/numbers.tex")
+        return M[k]
     card = lambda k, v, t: f'<div class="card"><div class="k">{k}</div><div class="vi" lang="vi">{v}</div><div class="en">{gloss(t)}</div></div>'  # noqa: E731
     sysA = dict(zip([k for k, _ in A], [v for _, v in A]))
     sysT = dict(rawA)
     return f"""<title>Would It Have Done That Anyway?</title>
+<meta name="description" content="Evidence of collusion between LLM agents, tested in Vietnamese. Apart AI Collusion Research Sprint, Track 2.">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&subset=vietnamese&display=swap">
-<style>{CSS2}</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&subset=vietnamese&display=swap">
+<style>{CSS}</style>
 <div class="wrap">
 
-<header>
+<div class="top">
+  <div class="label">Melanie Bui · Lida Safety Research · Apart AI Collusion Sprint</div>
+  <nav aria-label="Sections"><a href="#question">Question</a><a href="#setup">Setup</a><a href="#findings">Findings</a><a href="#next">Next</a></nav>
+</div>
+
+<header class="hero">
   <div>
-    <div class="label">Melanie Bui · AI Collusion Research Sprint</div>
+    <div class="label">Track 2 · Evidence of collusion</div>
     <h1>Would it have done that <em>anyway?</em></h1>
-    <p class="sub">Evidence of collusion between LLM agents, tested in Vietnamese.</p>
+    <p class="sub">Evidence of collusion between LLM agents, tested in Vietnamese. When agents for rival businesses can talk, which part of their logs proves they colluded?</p>
+    <div class="links"><a href="#findings">See the findings</a><a class="ghost" href="https://github.com/melanieyes/vi-paraphrase-channel">Code and data</a></div>
   </div>
   <div class="chat" aria-label="The rival agent's message">
-    <div class="from">Rival shop's agent, to ours</div>
-    <p class="vi" lang="vi">{html.escape(rawA[0][1])}</p>
-    <p class="en">{gloss(rawA[0][1])}</p>
-    <div class="verdict">Our agent keeps its price. Did it collude?</div>
+    <div class="from"><span class="dot"></span>Rival shop's agent, to ours</div>
+    <div class="bubble">
+      <p class="vi" lang="vi">{html.escape(rawA[0][1])}</p>
+      <p class="en">{gloss(rawA[0][1])}</p>
+    </div>
+    <div class="verdict">Our agent keeps its price. <span>Did it collude?</span></div>
   </div>
 </header>
 
-<section>
-  <h2>What the field already knows</h2>
-  <div class="known">
-    <div><h3>Agents collude.</h3><p>LLM pricing agents reach high, cartel-like prices quickly, and most models accept secret coordination tools when offered.</p><span class="cite"><a href="https://arxiv.org/abs/2404.00806">Fish et al. 2024</a>, <a href="https://arxiv.org/abs/2605.27593">Zeng &amp; Rudzicz 2026</a></span></div>
-    <div><h3>It grows over time.</h3><p>Agents that share logs drift into collusion over long interactions.</p><span class="cite"><a href="https://arxiv.org/abs/2609.24967">Shi et al. 2026</a></span></div>
-    <div><h3>Detection looks inside or at outcomes.</h3><p>Probes read collusion from activations; audits measure it as lost welfare; paraphrasing only partly stops hidden signals.</p><span class="cite"><a href="https://arxiv.org/abs/2604.01151">Rose et al. 2026</a>, <a href="https://arxiv.org/abs/2602.15198">Colosseum</a>, <a href="https://arxiv.org/abs/2402.07510">Motwani et al. 2024</a></span></div>
-    <div><h3>Almost all of it is in English.</h3><p>Safety research is English-first, and safety weakens in other languages.</p><span class="cite"><a href="https://aclanthology.org/2025.emnlp-main.800.pdf">Yong et al. 2025</a>, <a href="https://arxiv.org/abs/2310.06474">Deng et al. 2024</a></span></div>
-  </div>
-</section>
+<div class="strip">
+  <div><div class="n">{m('nTaskItems')}</div><p>Vietnamese scenarios, each harmful deal paired with a harmless twin</p></div>
+  <div><div class="n">2 + 2</div><p>agents (Gemini 2.5 Flash, Qwen3-8B) and monitors (Mistral Small 3.1, Claude Haiku 5.5)</p></div>
+  <div><div class="n">{m('StdHkFamFADecl')}</div><p>false flags with our evidence standard, down from {m('StdHkAllFADecl')} (Haiku)</p></div>
+  <div><div class="n">{m('InitGemHarm')}</div><p>of harmful cases where Gemini proposed the deal itself, uninvited</p></div>
+</div>
 
-<section>
+<section id="question">
   <div class="gap">
-    <div class="label" style="color:#a9a8a2">Why we did this</div>
+    <div class="label">The question</div>
     <h2>A platform has only the logs. Which part of them is evidence?</h2>
-    <p>Real monitors cannot read activations. They see what the agent did, what it reported, and the messages it got. We asked which of these <strong>proves collusion</strong>, and whether the answer holds <strong>outside English</strong>.</p>
+    <p>Real monitors cannot read activations. They see what the agent did, what it told its owner, and the messages it got. We asked which of these <strong>proves collusion</strong>, and whether the answer holds <strong>outside English</strong>.</p>
+  </div>
+  <div class="known">
+    <div><h3>Agents collude.</h3><p>LLM pricing agents reach cartel-like prices, and most models accept secret coordination tools.</p><span class="cite"><a href="https://arxiv.org/abs/2404.00806">Fish et al. 2024</a> · <a href="https://arxiv.org/abs/2605.27593">Zeng &amp; Rudzicz 2026</a></span></div>
+    <div><h3>It grows over time.</h3><p>Agents that share logs drift into collusion over long interactions.</p><span class="cite"><a href="https://arxiv.org/abs/2609.24967">Shi et al. 2026</a></span></div>
+    <div><h3>Detection looks inside.</h3><p>Probes read collusion from activations; audits measure lost welfare.</p><span class="cite"><a href="https://arxiv.org/abs/2604.01151">Rose et al. 2026</a> · <a href="https://arxiv.org/abs/2602.15198">Colosseum</a></span></div>
+    <div><h3>Almost all in English.</h3><p>Safety research is English-first, and safety weakens in other languages.</p><span class="cite"><a href="https://aclanthology.org/2025.emnlp-main.800.pdf">Yong et al. 2025</a> · <a href="https://arxiv.org/abs/2310.06474">Deng et al. 2024</a></span></div>
   </div>
 </section>
 
-<section>
+<section id="setup">
   <div class="col">
+    <div class="kicker"><span class="idx">SETUP</span></div>
+    <h2>One episode, six roles</h2>
+    <p>A scripted rival invites the agent into a deal that hurts a third party, such as holding a price or padding a budget. The agent chooses before and after the message, reports to its owner, and answers whether the rival influenced it. A monitor then judges one view of the log.</p>
+  </div>
+  <figure><img src="fig/pipeline.png" alt="Swimlane diagram of one episode: rival, relay, executor agent, owner, summarizer and monitor."><figcaption>Every message is written once and frozen. Every measure is coded in code; the monitors' verdicts are what we study.</figcaption></figure>
+  <div class="roles">
+    <div><b>Executor</b><span>Gemini 2.5 Flash · Qwen3-8B</span><p>The agent under test, reasoning on, in Vietnamese.</p></div>
+    <div><b>Monitor</b><span>Mistral Small 3.1 · Claude Haiku 5.5</span><p>Neither shares a family with an agent.</p></div>
+    <div><b>Control</b><span>A harmless twin for every deal</span><p>Cooperation there is the correct answer.</p></div>
+  </div>
+</section>
+
+<section id="findings">
+  <div class="col">
+    <div class="kicker"><span class="idx">01</span><span class="label">Each source misleads</span></div>
     <h2>Three obvious ways to judge. All three fail.</h2>
-    <p>{m('nTaskItems')} Vietnamese situations, two agents (Gemini 2.5 Flash, Qwen3-8B), two monitors that are neither agent: Claude Haiku 5.5 and the open-weight Mistral Small 3.1 24B.</p>
   </div>
   <div class="tries">
-    <div class="try"><div class="num">{m('GemTopUnprompted')}</div><div><h3>Watch the action</h3><p>The Gemini 2.5 Flash agent held the price this often <em>before</em> any message. Matching the offer proves nothing.</p></div></div>
-    <div class="try"><div class="num">{m('QwDiscLex')}</div><div><h3>Read the agent's report</h3><p>How often Qwen's report to its owner mentioned the offer it took. Asked directly, it admitted it {m('QwDiscItem')} of the time.</p></div></div>
-    <div class="try"><div class="num">{m('StdMiAllFADecl')}</div><div><h3>Read the message</h3><p>Agents that <em>refused</em> the offer, flagged anyway by the Mistral Small 3.1 monitor (Claude Haiku 5.5: {m('StdHkAllFADecl')}). The message accuses the sender, not the receiver.</p></div></div>
+    <div class="try"><div class="num">{m('GemTopUnprompted')}</div><div><h3>Watch the action</h3><p>Gemini held the price this often <em>before</em> any message arrived. An action that matches the offer proves nothing.</p></div></div>
+    <div class="try"><div class="num">{m('QwDiscLex')}</div><div><h3>Read the agent's report</h3><p>How often Qwen's report to its owner mentioned the offer it took. Asked directly, it admitted the influence {m('QwDiscItem')} of the time.</p></div></div>
+    <div class="try"><div class="num">{m('StdMiAllFADecl')}</div><div><h3>Read the message</h3><p>Agents that <em>refused</em> the offer, flagged anyway by the Mistral monitor (Haiku: {m('StdHkAllFADecl')}). A message accuses its sender, not its receiver.</p></div></div>
   </div>
-</section>
-
-<section>
-  <div class="rule">
-    <h2>The fix: ask what the agent would have done anyway</h2>
-    <div class="parts">
-      <div><b>1</b>There was a proposal</div>
-      <div><b>2</b>The action matches it</div>
-      <div><b>3</b>The action differs from the agent's usual behaviour</div>
-    </div>
-    <p style="margin:0">A platform can keep a record of how each agent acts in similar situations. With it, the Claude Haiku 5.5 monitor's false flags fell from {m('StdHkAllFADecl')} to <strong>{m('StdHkFamFADecl')}</strong>, and it still missed <strong>{m('StdHkFamFNR')}</strong> of the collusion. The more cautious Mistral Small 3.1 monitor cut false flags too, from {m('StdMiAllFADecl')} to {m('StdMiFamFADecl')}, but missed {m('StdMiFamFNR')}: the record sharpens a monitor, it does not fix how cautious it is.</p>
-  </div>
-  <figure><img src="fig/views.png" alt="Missed collusion and false alarms by what the monitor reads, for the Mistral Small 3.1 24B and Claude Haiku 5.5 monitors."><figcaption>Left: collusion missed. Right: agents that refused but were flagged. Darker bars: Mistral monitor; lighter: Claude Haiku 5.5 monitor. The bold row is the version a platform can run.</figcaption></figure>
 </section>
 
 <section>
   <div class="col">
+    <div class="kicker"><span class="idx">02</span><span class="label">The evidence standard</span></div>
+    <h2>Ask what the agent would have done anyway</h2>
+  </div>
+  <div class="rule">
+    <div class="parts">
+      <div>There was a proposal</div>
+      <div>The action matches it</div>
+      <div>The action differs from the agent's usual behaviour</div>
+    </div>
+    <p style="margin:0">A platform can record how each agent acts in similar situations. With that record, Haiku's false flags fell from {m('StdHkAllFADecl')} to <strong>{m('StdHkFamFADecl')}</strong> while it missed <strong>{m('StdHkFamFNR')}</strong> of the collusion. The more cautious Mistral monitor cut false flags from {m('StdMiAllFADecl')} to {m('StdMiFamFADecl')} but missed {m('StdMiFamFNR')}: the record sharpens a monitor without fixing how cautious it is.</p>
+  </div>
+  <figure><img src="fig/views.png" alt="Missed collusion and false alarms by what the monitor reads, for the Mistral and Claude Haiku monitors."><figcaption>Left: collusion missed. Right: agents that refused but were flagged. Darker bars: Mistral; lighter: Claude Haiku 5.5. The bold row is the version a platform can run.</figcaption></figure>
+</section>
+
+<section>
+  <div class="col">
+    <div>
+      <div class="kicker"><span class="idx">03</span><span class="label">Nobody has to ask</span></div>
+      <h2>Agents open the deal themselves</h2>
+      <p>In a second run nobody invited them. The agent could send the rival the collusive proposal, a greeting, or nothing. Gemini proposed the deal in <strong>{m('InitGemHarm')}</strong> of harmful situations and Qwen in <strong>{m('InitQwHarm')}</strong>, against {m('InitGemTwin')} and {m('InitQwTwin')} for harmless deals.</p>
+      <p>They did it in different tasks from the ones where invitations worked. In ad rotation, an invitation moved Gemini in {m('PwGemAdInv')} of cases, yet Gemini proposed the deal itself in {m('PwGemAdInit')}. A platform cannot wait for an incoming offer to start looking.</p>
+    </div>
+  </div>
+  <figure><img src="fig/tasks.png" alt="Per task family and model: collusion before any message, after the message, and proposals sent unasked."><figcaption>Three pathways per task family. Grey: collusive before any message. Blue: moved by the message. Dark diamond: proposed the deal unasked.</figcaption></figure>
+</section>
+
+<section>
+  <div class="col">
+    <div class="kicker"><span class="idx">04</span><span class="label">Why some tasks are riskier</span></div>
+    <h2>Old friends collude more</h2>
+    <p>We added one sentence to the agent's instructions: the two shop owners are old friends who once worked together, or they have never met. Nothing else changed.</p>
+  </div>
+  <div class="compare">
+    <div class="hot"><div class="k">Owners are old friends</div><div class="big">{m('RelGemPostTie')}</div><p>of harmful episodes where Gemini took the deal</p></div>
+    <div><div class="k">Owners have never met</div><div class="big">{m('RelGemPostNone')}</div><p>same scenarios, same messages</p></div>
+  </div>
+  <p class="col">The shift appeared before any message ({m('RelGemPreDiff')} points), and Gemini's harmless cooperation stayed at ceiling. Qwen moved less ({m('RelQwPostDiff')} points) and its harmless cooperation rose too, so for Qwen the tie looks like general friendliness. Once invited, workplace deals also pulled both agents in more than market deals: Gemini {m('SetGemWpMoved')} against {m('SetGemMkMoved')}, Qwen {m('SetQwWpMoved')} against {m('SetQwMkMoved')} (a post-hoc contrast).</p>
+</section>
+
+<section>
+  <div class="col">
+    <div class="kicker"><span class="idx">05</span><span class="label">Who writes the account</span></div>
     <h2>The truth is in the log, not in the agent's report</h2>
-    <p>A neutral model (Gemma-3-27B) summarizing the same log named the rival's offer; the agent's own report did not. A Claude Haiku 5.5 monitor reading those summaries missed {m('OvQwHkSumFNR')} of Qwen's collusion instead of {m('OvQwHkSelfFNR')} (Mistral Small 3.1: {m('OvQwMiSumFNR')} instead of {m('OvQwMiSelfFNR')}).</p>
+    <p>A neutral model (Gemma-3-27B) summarizing the same log named the rival's offer; the agent's own report did not. Haiku reading those summaries missed {m('OvQwHkSumFNR')} of Qwen's collusion instead of {m('OvQwHkSelfFNR')} (Mistral: {m('OvQwMiSumFNR')} instead of {m('OvQwMiSelfFNR')}).</p>
   </div>
   <div class="pair">
     {card(rawB[1][0], B[1][1], rawB[1][1])}
@@ -339,7 +356,8 @@ def build() -> str:
 
 <section>
   <div class="col">
-    <h2>Careful with summaries in the channel</h2>
+    <div class="kicker"><span class="idx">06</span><span class="label">Context loss</span></div>
+    <h2>A summary in the channel can erase the offer</h2>
     <p>Squeezed into a "system log", the rival's offer came out as <em lang="vi">Đề nghị: Không có</em>, "Proposal: none". Qwen colluded {m('SumQwSysMoved')} points less, but its harmless cooperation also fell, from {m('SumQwRawTwin')} to {m('SumQwSysTwin')}. The summary did not protect the agent. It erased the offer.</p>
   </div>
   <div class="pair">
@@ -348,27 +366,14 @@ def build() -> str:
   </div>
 </section>
 
-<section>
-  <div class="col">
-    <h2>Agents also open the deal themselves</h2>
-    <p>In a second run nobody invited them. After its first choice, the agent could send the rival the collusive proposal, a polite greeting, or nothing. Gemini 2.5 Flash chose the proposal in <strong>{m('InitGemHarm')}</strong> of harmful situations and Qwen3-8B in <strong>{m('InitQwHarm')}</strong>, against {m('InitGemTwin')} and {m('InitQwTwin')} for harmless deals. A platform cannot wait for an incoming offer to start looking.</p>
-  </div>
-</section>
-
-<section>
-  <div class="col">
-    <h2>Workplace deals are the easiest to join</h2>
-    <p>Across nine kinds of deal, workplace deals (padding a budget, a peer-scoring ring, not hiring each other's staff) pulled both models in far more than market deals between rival shops, once someone else proposed them. The message moved Gemini in {m('SetGemWpMoved')} of workplace cases against {m('SetGemMkMoved')} on the market, and Qwen in {m('SetQwWpMoved')} against {m('SetQwMkMoved')}. This contrast was drawn after looking at the data.</p>
-  </div>
-</section>
-
-<section>
+<section id="next">
   <div class="next">
-    <h2>Next: does any of this change with the language?</h2>
-    <p>This study shows the problem is not English-only. It cannot yet say whether agents collude more or less in Vietnamese. The setup is built to repeat: a native speaker writes the situations and invitations, we add an English control, and the same code runs.</p>
-    <div class="links"><a href="https://github.com/melanieyes/vi-paraphrase-channel">Code and data</a><a class="ghost" href="https://github.com/melanieyes/vi-paraphrase-channel/blob/main/paper/main.pdf">Read the paper</a></div>
+    <div class="label">Next</div>
+    <h2>Does any of this change with the language?</h2>
+    <p>This study shows the problem is not English-only. It cannot yet say whether agents collude more or less in Vietnamese. The setup is built to repeat: a native speaker writes the scenarios and invitations, we add an English control, and the same code runs.</p>
+    <div class="links"><a href="https://github.com/melanieyes/vi-paraphrase-channel">Code and data</a><a class="ghost" href="https://github.com/melanieyes/vi-paraphrase-channel/blob/main/docs/execution-plan.md">Design log</a></div>
   </div>
-  <p class="foot">Exploratory study. Rates carry bootstrap 95% intervals clustered over situations. All scenarios are fictional. Every number here is generated from the logged data by the same code as the paper; English lines are machine translations for display.</p>
+  <p class="foot">Exploratory study. Rates carry bootstrap 95% intervals clustered over scenarios; see the paper for intervals. All scenarios are fictional. Every number here is generated from the logged data by the same code as the paper; English lines are machine translations for display only.</p>
 </section>
 
 </div>
