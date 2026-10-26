@@ -305,3 +305,10 @@ one message, chosen from three fixed options in rotated order: the item's own pr
 All 144 task items, 3 rotations x 2 option orders = 864 episodes per agent, both agents. Scored by
 code (the chosen letter); no free text is judged. Harmless twins are the control: proposing a harmless
 joint deal is the expected cooperative behaviour. Exploratory and added on the deadline day.
+
+## Pathway analysis (2026-10-26, the human; no new data)
+
+`analysis/pathways.py`. For each harmful item and agent, three rates: unprompted (turn-1 collusive, main
+study, raw channel), moved (main study, raw channel) and initiated (initiation probe). Per-family rates in
+the appendix tasks table; Spearman rank correlations of item-level rates within and between agents, with
+a bootstrap over the 72 harmful items. Post hoc and exploratory.

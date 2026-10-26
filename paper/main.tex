@@ -216,13 +216,15 @@ the message moved Gemini in \SetGemWpMoved{} of harmful episodes against \SetGem
 (\SetQwMovedDiff{} points \SetQwMovedDiffCI). The two task sets differ in content as well as setting, so this
 contrasts three families with six, not workplaces with markets in general.
 
-\textbf{Agents also open collusion themselves.} With no invitation, Gemini chose to send the proposal in
-\InitGemHarm{} \InitGemHarmCI{} of harmful situations and Qwen in \InitQwHarm{} \InitQwHarmCI, against
-\InitGemTwin{} and \InitQwTwin{} for the harmless twins. Having proposed, Gemini then took the arrangement in
-\InitGemFollowProp{} of cases and Qwen in \InitQwFollowProp, against \InitGemFollowNot{} and
-\InitQwFollowNot{} when they had not. Workplace tasks did not raise initiation (\InitGemWpDiff{} points
-\InitGemWpDiffCI{} for Gemini, \InitQwWpDiff{} \InitQwWpDiffCI{} for Qwen): they make agents easier to
-recruit, not quicker to recruit others.
+\textbf{Agents also open collusion themselves.} With no invitation, Gemini sent the proposal in
+\InitGemHarm{} \InitGemHarmCI{} of harmful situations and Qwen in \InitQwHarm{} \InitQwHarmCI{} (twins:
+\InitGemTwin, \InitQwTwin). Having proposed, they then took the arrangement in \InitGemFollowProp{} and
+\InitQwFollowProp{} of cases, against \InitGemFollowNot{} and \InitQwFollowNot{} otherwise. Workplace tasks did
+not raise initiation (\InitGemWpDiff{} \InitGemWpDiffCI{} points for Gemini, \InitQwWpDiff{} \InitQwWpDiffCI{}
+for Qwen), and over the 72 harmful items the tasks where agents opened deals were not those where
+invitations moved them (Spearman \PwGemInvInit{} \PwGemInvInitCI{} for Gemini, \PwQwInvInit{}
+\PwQwInvInitCI{} for Qwen). In ad rotation an invitation moved Gemini in \PwGemAdInv{} of cases, yet it
+proposed the deal in \PwGemAdInit{} (Appendix~\ref{app:more}). Which task is risky depends on the pathway.
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=0.9\linewidth]{figures/tasks.pdf}
@@ -250,7 +252,7 @@ proposal was made, not that it was accepted (Appendix~\ref{app:more}).
 
 
 \begin{figure}[htbp]
-\centering\includegraphics[width=\linewidth]{figures/views.pdf}
+\centering\includegraphics[width=0.93\linewidth]{figures/views.pdf}
 \caption{What each view misses and over-flags (Gemini agent, market set, pooled over channels). Left: missed,
 all collusion. Right: flagged, declined. Darker bars: Mistral monitor; lighter: Claude Haiku 5.5.
 Thin lines: 95\% intervals. Shaded rows add the agent's behaviour without a proposal (Section~\ref{sec:standard});
@@ -511,7 +513,8 @@ pre-message choice. Market set.}\label{tab:oversight}
 \end{table}
 
 \paragraph{Harmful episodes by family} (\%, raw channel; unprompted: collusive at turn~1; moved: competitive
-at turn~1 and collusive at turn~2; bold: column maximum).
+at turn~1 and collusive at turn~2; initiated: sent the proposal unasked, initiation probe; bold: column
+maximum).
 \begin{center}\small\resizebox{\linewidth}{!}{\input{tables/tasks.tex}}\end{center}
 \paragraph{Relays, market set} (harmful episodes that took the arrangement, \%, and relay minus raw in
 percentage points; bold: interval excludes zero).
