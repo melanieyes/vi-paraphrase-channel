@@ -430,8 +430,11 @@ class VLLMClient(_OpenAICompatClient):
     supports_reasoning_control = True
 
     def __init__(self, model: str, base_url: str | None = None, name: str = "vllm",
-                 timeout: int = 600, max_tokens: int = 64):
+                 timeout: int = 600, max_tokens: int = 64, template_kwargs: bool = True):
         base_url = base_url or os.environ.get("MODAL_BASE_URL")
+        # False only for a model with no thinking mode whose tokenizer rejects chat_template_kwargs
+        # (Mistral Small 3.1 in mistral tokenizer mode). Every other model keeps the default.
+        self.template_kwargs = template_kwargs
         if not base_url:
             raise RuntimeError(
                 "MODAL_BASE_URL is not set and no base_url was passed. Deploy the "
@@ -454,7 +457,8 @@ class VLLMClient(_OpenAICompatClient):
         # Granite and Gemma 4 are both in that group. On those the caller would
         # ask for reasoning, get none, and the record would still say it was on.
         # A number that is wrong while looking right is the worst failure here.
-        kwargs["extra_body"] = {"chat_template_kwargs": {"enable_thinking": bool(reasoning)}}
+        if self.template_kwargs:
+            kwargs["extra_body"] = {"chat_template_kwargs": {"enable_thinking": bool(reasoning)}}
         resp = self._client.chat.completions.create(**kwargs)
         raw = resp.model_dump()
         msg = raw["choices"][0]["message"]

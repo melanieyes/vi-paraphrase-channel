@@ -106,68 +106,68 @@ Episodes 1440, items 60.
 | mutual_gains | paraphrased | choice | choice | choice | False | 240 |
 | mutual_gains | raw | choice | choice | choice | False | 240 |
 
-## Monitor gemini
+## Monitor aya
 
-Verdicts 15360, unparsed 1.
+Verdicts 13920, unparsed 13.
 
 By channel and view (%):
 
-| metric | channel | action | report | delivered | raw | report_only | message_only | standard | baseline_info | pop_baseline | summary | family_baseline |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| missed collusion (FNR) | raw | 66.1 [41.0, 84.1] | 12.9 [6.5, 20.0] | 0.0 [0.0, 0.0] | n/a | 11.3 [4.1, 20.0] | 0.0 [0.0, 0.0] | 12.9 [4.7, 24.2] | 1.6 [0.0, 5.8] | 0.0 [0.0, 0.0] | 8.1 [1.7, 14.3] | 0.0 [0.0, 0.0] |
-| missed collusion (FNR) | paraphrased | 63.8 [37.9, 83.1] | 21.7 [11.6, 30.3] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 20.3 [11.1, 29.0] | 1.4 [0.0, 5.4] | 23.2 [12.9, 37.5] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 7.2 [1.5, 13.6] | 0.0 [0.0, 0.0] |
-| missed collusion (FNR) | neutralized | 62.0 [37.1, 81.5] | 17.7 [8.6, 26.3] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 17.7 [9.5, 24.5] | 1.3 [0.0, 4.7] | 26.6 [14.4, 42.7] | 3.8 [0.0, 9.2] | 0.0 [0.0, 0.0] | 8.9 [4.1, 13.2] | 0.0 [0.0, 0.0] |
-| missed collusion (FNR) | sum_short | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| missed collusion (FNR) | sum_long | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| missed collusion (FNR) | sum_system | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| missed collusion (FNR) | sum_codeswitch | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| missed, message-moved episodes only | raw | 61.5 [34.6, 88.0] | 3.8 [0.0, 14.3] | 0.0 [0.0, 0.0] | n/a | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 11.5 [0.0, 30.0] | 3.8 [0.0, 12.5] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| missed, message-moved episodes only | paraphrased | 45.5 [20.0, 76.9] | 4.5 [0.0, 15.8] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 4.5 [0.0, 13.0] | 4.5 [0.0, 16.0] | 13.6 [0.0, 27.8] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 4.5 [0.0, 14.3] | 0.0 [0.0, 0.0] |
-| missed, message-moved episodes only | neutralized | 64.3 [36.8, 88.0] | 3.6 [0.0, 10.8] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 3.6 [0.0, 10.8] | 3.6 [0.0, 13.0] | 25.0 [8.3, 45.0] | 7.1 [0.0, 19.2] | 0.0 [0.0, 0.0] | 3.6 [0.0, 11.8] | 0.0 [0.0, 0.0] |
-| missed, message-moved episodes only | sum_short | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| missed, message-moved episodes only | sum_long | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| missed, message-moved episodes only | sum_system | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| missed, message-moved episodes only | sum_codeswitch | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| false alarm, harmful but declined | raw | 0.0 [0.0, 0.0] | 4.5 [1.6, 8.1] | 60.1 [46.0, 73.5] | n/a | 5.1 [1.7, 9.2] | 100.0 [100.0, 100.0] | 0.0 [0.0, 0.0] | 2.8 [0.5, 5.8] | 1.7 [0.0, 4.7] | 7.9 [4.0, 12.1] | 3.9 [0.9, 7.9] |
-| false alarm, harmful but declined | paraphrased | 0.0 [0.0, 0.0] | 7.0 [3.2, 11.9] | 62.0 [48.8, 75.3] | 60.8 [47.9, 73.9] | 7.6 [3.7, 12.5] | 98.2 [95.5, 100.0] | 0.0 [0.0, 0.0] | 5.3 [2.2, 8.9] | 6.4 [2.1, 12.2] | 15.2 [9.0, 22.2] | 7.0 [1.7, 14.1] |
-| false alarm, harmful but declined | neutralized | 0.0 [0.0, 0.0] | 6.2 [2.7, 10.7] | 60.2 [45.4, 75.5] | 57.1 [41.6, 73.7] | 3.1 [0.7, 6.2] | 99.4 [98.0, 100.0] | 0.0 [0.0, 0.0] | 3.7 [1.3, 6.7] | 6.2 [1.7, 12.4] | 9.3 [4.5, 15.2] | 5.0 [1.2, 10.1] |
-| false alarm, harmful but declined | sum_short | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| false alarm, harmful but declined | sum_long | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| false alarm, harmful but declined | sum_system | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| false alarm, harmful but declined | sum_codeswitch | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| flagged, collusive before any message | raw | 30.6 [9.5, 65.0] | 80.6 [71.4, 88.9] | 100.0 [100.0, 100.0] | n/a | 80.6 [66.7, 91.8] | 100.0 [100.0, 100.0] | 86.1 [72.0, 96.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 86.1 [75.5, 96.9] | 100.0 [100.0, 100.0] |
-| flagged, collusive before any message | paraphrased | 27.7 [7.1, 60.0] | 70.2 [60.9, 80.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 72.3 [59.5, 83.9] | 100.0 [100.0, 100.0] | 72.3 [47.1, 86.8] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 91.5 [82.7, 100.0] | 100.0 [100.0, 100.0] |
-| flagged, collusive before any message | neutralized | 39.2 [14.3, 73.3] | 74.5 [60.3, 87.5] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 74.5 [64.5, 85.7] | 100.0 [100.0, 100.0] | 72.5 [50.0, 87.7] | 98.0 [93.6, 100.0] | 100.0 [100.0, 100.0] | 88.2 [82.7, 94.7] | 100.0 [100.0, 100.0] |
-| flagged, collusive before any message | sum_short | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| flagged, collusive before any message | sum_long | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| flagged, collusive before any message | sum_system | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| flagged, collusive before any message | sum_codeswitch | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| false alarm, twins | raw | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | n/a | 0.0 [0.0, 0.0] | 2.5 [0.0, 5.6] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| false alarm, twins | paraphrased | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 2.5 [0.0, 5.4] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| false alarm, twins | neutralized | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.8 [0.0, 2.1] | 0.4 [0.0, 1.4] | 0.0 [0.0, 0.0] | 1.3 [0.0, 3.3] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| false alarm, twins | sum_short | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| false alarm, twins | sum_long | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| false alarm, twins | sum_system | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| false alarm, twins | sum_codeswitch | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| metric | channel | action | report | delivered | raw | report_only | message_only | baseline_info | pop_baseline | summary | family_baseline |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| missed collusion (FNR) | raw | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | n/a | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| missed collusion (FNR) | paraphrased | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 1.4 [0.0, 5.4] | 0.0 [0.0, 0.0] |
+| missed collusion (FNR) | neutralized | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| missed collusion (FNR) | sum_short | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| missed collusion (FNR) | sum_long | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| missed collusion (FNR) | sum_system | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| missed collusion (FNR) | sum_codeswitch | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| missed, message-moved episodes only | raw | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | n/a | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| missed, message-moved episodes only | paraphrased | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 4.5 [0.0, 16.7] | 0.0 [0.0, 0.0] |
+| missed, message-moved episodes only | neutralized | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| missed, message-moved episodes only | sum_short | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| missed, message-moved episodes only | sum_long | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| missed, message-moved episodes only | sum_system | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| missed, message-moved episodes only | sum_codeswitch | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| false alarm, harmful but declined | raw | 100.0 [100.0, 100.0] | 93.8 [86.8, 99.4] | 100.0 [100.0, 100.0] | n/a | 94.9 [89.1, 99.4] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 98.9 [97.2, 100.0] | 100.0 [100.0, 100.0] |
+| false alarm, harmful but declined | paraphrased | 100.0 [100.0, 100.0] | 94.2 [89.1, 98.3] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 95.3 [90.6, 99.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] |
+| false alarm, harmful but declined | neutralized | 100.0 [100.0, 100.0] | 91.9 [83.6, 98.4] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 95.0 [89.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 99.4 [97.9, 100.0] | 100.0 [100.0, 100.0] |
+| false alarm, harmful but declined | sum_short | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| false alarm, harmful but declined | sum_long | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| false alarm, harmful but declined | sum_system | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| false alarm, harmful but declined | sum_codeswitch | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| flagged, collusive before any message | raw | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | n/a | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] |
+| flagged, collusive before any message | paraphrased | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] |
+| flagged, collusive before any message | neutralized | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] |
+| flagged, collusive before any message | sum_short | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| flagged, collusive before any message | sum_long | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| flagged, collusive before any message | sum_system | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| flagged, collusive before any message | sum_codeswitch | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| false alarm, twins | raw | 100.0 [100.0, 100.0] | 99.2 [97.9, 100.0] | 100.0 [100.0, 100.0] | n/a | 95.8 [92.1, 98.8] | 100.0 [100.0, 100.0] | 92.9 [86.3, 98.1] | 100.0 [100.0, 100.0] | 97.9 [95.7, 99.6] | 100.0 [100.0, 100.0] |
+| false alarm, twins | paraphrased | 100.0 [100.0, 100.0] | 98.8 [96.7, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 95.4 [91.6, 98.5] | 99.2 [97.2, 100.0] | 93.3 [87.1, 98.1] | 100.0 [100.0, 100.0] | 95.4 [90.5, 99.2] | 100.0 [100.0, 100.0] |
+| false alarm, twins | neutralized | 100.0 [100.0, 100.0] | 98.3 [96.1, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 96.7 [94.1, 98.8] | 100.0 [100.0, 100.0] | 94.5 [89.6, 98.6] | 100.0 [100.0, 100.0] | 97.0 [93.7, 99.5] | 100.0 [100.0, 100.0] |
+| false alarm, twins | sum_short | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| false alarm, twins | sum_long | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| false alarm, twins | sum_system | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| false alarm, twins | sum_codeswitch | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
 
 Pooled over channels (%):
 
-| metric | action | report | delivered | raw | report_only | message_only | standard | baseline_info | pop_baseline | summary | family_baseline |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| missed collusion (FNR) | 63.8 [38.9, 82.1] | 17.6 [10.6, 23.4] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 16.7 [9.9, 22.3] | 1.0 [0.0, 3.5] | 21.4 [12.3, 34.0] | 1.9 [0.0, 4.8] | 0.0 [0.0, 0.0] | 8.1 [3.5, 11.9] | 0.0 [0.0, 0.0] |
-| missed, message-moved episodes only | 57.9 [34.6, 82.1] | 3.9 [0.0, 8.8] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 2.6 [0.0, 6.3] | 2.6 [0.0, 9.1] | 17.1 [5.4, 31.3] | 3.9 [0.0, 10.0] | 0.0 [0.0, 0.0] | 2.6 [0.0, 8.1] | 0.0 [0.0, 0.0] |
-| false alarm, harmful but declined | 0.0 [0.0, 0.0] | 5.9 [3.3, 9.2] | 60.8 [47.4, 74.1] | 59.0 [45.6, 73.1] | 5.3 [2.6, 8.8] | 99.2 [98.1, 100.0] | 0.0 [0.0, 0.0] | 3.9 [1.5, 6.8] | 4.7 [1.8, 8.5] | 10.8 [6.7, 15.3] | 5.3 [1.9, 9.7] |
-| flagged, collusive before any message | 32.8 [10.8, 66.2] | 74.6 [67.7, 81.9] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 75.4 [67.7, 83.6] | 100.0 [100.0, 100.0] | 76.1 [56.0, 88.2] | 99.3 [97.5, 100.0] | 100.0 [100.0, 100.0] | 88.8 [83.5, 95.3] | 100.0 [100.0, 100.0] |
-| false alarm, twins | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.3 [0.0, 0.7] | 0.2 [0.0, 0.7] | 0.0 [0.0, 0.0] | 2.1 [0.3, 4.3] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
+| metric | action | report | delivered | raw | report_only | message_only | baseline_info | pop_baseline | summary | family_baseline |
+|---|---|---|---|---|---|---|---|---|---|---|
+| missed collusion (FNR) | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.5 [0.0, 1.8] | 0.0 [0.0, 0.0] |
+| missed, message-moved episodes only | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 1.3 [0.0, 4.7] | 0.0 [0.0, 0.0] |
+| false alarm, harmful but declined | 100.0 [100.0, 100.0] | 93.3 [86.9, 98.5] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 95.1 [89.7, 99.3] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 99.4 [98.7, 100.0] | 100.0 [100.0, 100.0] |
+| flagged, collusive before any message | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] |
+| false alarm, twins | 100.0 [100.0, 100.0] | 98.7 [97.3, 99.9] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 95.9 [93.2, 98.3] | 99.7 [99.1, 100.0] | 93.6 [88.3, 97.8] | 100.0 [100.0, 100.0] | 96.8 [93.7, 99.2] | 100.0 [100.0, 100.0] |
 
 | contrast | pp |
 |---|---|
 | C5 FNR delivered minus raw, paraphrased | 0.0 [0.0, 0.0] |
 | C5 FNR delivered minus raw, neutralized | 0.0 [0.0, 0.0] |
-| C6 FNR action minus delivered | +63.8 [38.9, 82.1] |
-| 2.2 fnr action minus both | +46.2 [22.5, 64.1] |
-| 2.2 fnr report only minus both | -1.0 [-4.2, 2.1] |
-| 2.2 fpr declined message only minus all | +38.4 [24.9, 52.2] |
+| C6 FNR action minus delivered | 0.0 [0.0, 0.0] |
+| 2.2 fnr action minus both | 0.0 [0.0, 0.0] |
+| 2.2 fnr report only minus both | 0.0 [0.0, 0.0] |
+| 2.2 fpr declined message only minus all | 0.0 [0.0, 0.0] |
 
 ## Monitor haiku
 
@@ -231,63 +231,3 @@ Pooled over channels (%):
 | 2.2 fnr action minus both | +32.4 [19.0, 44.4] |
 | 2.2 fnr report only minus both | -2.4 [-6.2, 1.1] |
 | 2.2 fpr declined message only minus all | +48.0 [38.1, 58.1] |
-
-## Monitor qwen
-
-Verdicts 5280, unparsed 0.
-
-By channel and view (%):
-
-| metric | channel | action | report | delivered | raw |
-|---|---|---|---|---|---|
-| missed collusion (FNR) | raw | 6.5 [0.0, 16.7] | 4.8 [0.0, 10.9] | 0.0 [0.0, 0.0] | n/a |
-| missed collusion (FNR) | paraphrased | 4.3 [0.0, 12.8] | 5.8 [0.0, 14.8] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| missed collusion (FNR) | neutralized | 6.3 [0.0, 15.7] | 6.3 [1.2, 13.5] | 1.3 [0.0, 3.8] | 0.0 [0.0, 0.0] |
-| missed collusion (FNR) | sum_short | n/a | n/a | n/a | n/a |
-| missed collusion (FNR) | sum_long | n/a | n/a | n/a | n/a |
-| missed collusion (FNR) | sum_system | n/a | n/a | n/a | n/a |
-| missed collusion (FNR) | sum_codeswitch | n/a | n/a | n/a | n/a |
-| missed, message-moved episodes only | raw | 15.4 [0.0, 35.7] | 7.7 [0.0, 20.0] | 0.0 [0.0, 0.0] | n/a |
-| missed, message-moved episodes only | paraphrased | 13.6 [0.0, 36.0] | 9.1 [0.0, 28.6] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| missed, message-moved episodes only | neutralized | 17.9 [0.0, 40.0] | 10.7 [0.0, 29.2] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| missed, message-moved episodes only | sum_short | n/a | n/a | n/a | n/a |
-| missed, message-moved episodes only | sum_long | n/a | n/a | n/a | n/a |
-| missed, message-moved episodes only | sum_system | n/a | n/a | n/a | n/a |
-| missed, message-moved episodes only | sum_codeswitch | n/a | n/a | n/a | n/a |
-| false alarm, harmful but declined | raw | 27.5 [11.5, 45.5] | 39.3 [25.8, 53.7] | 100.0 [100.0, 100.0] | n/a |
-| false alarm, harmful but declined | paraphrased | 27.5 [11.1, 45.7] | 37.4 [24.4, 51.5] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] |
-| false alarm, harmful but declined | neutralized | 27.3 [10.4, 46.1] | 28.6 [17.9, 40.3] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] |
-| false alarm, harmful but declined | sum_short | n/a | n/a | n/a | n/a |
-| false alarm, harmful but declined | sum_long | n/a | n/a | n/a | n/a |
-| false alarm, harmful but declined | sum_system | n/a | n/a | n/a | n/a |
-| false alarm, harmful but declined | sum_codeswitch | n/a | n/a | n/a | n/a |
-| flagged, collusive before any message | raw | 100.0 [100.0, 100.0] | 97.2 [91.7, 100.0] | 100.0 [100.0, 100.0] | n/a |
-| flagged, collusive before any message | paraphrased | 100.0 [100.0, 100.0] | 95.7 [86.4, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] |
-| flagged, collusive before any message | neutralized | 100.0 [100.0, 100.0] | 96.1 [91.4, 100.0] | 98.0 [93.8, 100.0] | 100.0 [100.0, 100.0] |
-| flagged, collusive before any message | sum_short | n/a | n/a | n/a | n/a |
-| flagged, collusive before any message | sum_long | n/a | n/a | n/a | n/a |
-| flagged, collusive before any message | sum_system | n/a | n/a | n/a | n/a |
-| flagged, collusive before any message | sum_codeswitch | n/a | n/a | n/a | n/a |
-| false alarm, twins | raw | 62.1 [44.8, 78.9] | 52.5 [36.9, 68.1] | 83.8 [74.6, 91.8] | n/a |
-| false alarm, twins | paraphrased | 61.7 [44.4, 78.6] | 52.1 [36.3, 67.9] | 77.9 [67.9, 87.5] | 88.3 [81.1, 94.6] |
-| false alarm, twins | neutralized | 61.5 [44.2, 78.3] | 53.1 [37.3, 69.0] | 78.2 [68.0, 87.5] | 87.4 [80.5, 93.7] |
-| false alarm, twins | sum_short | n/a | n/a | n/a | n/a |
-| false alarm, twins | sum_long | n/a | n/a | n/a | n/a |
-| false alarm, twins | sum_system | n/a | n/a | n/a | n/a |
-| false alarm, twins | sum_codeswitch | n/a | n/a | n/a | n/a |
-
-Pooled over channels (%):
-
-| metric | action | report | delivered | raw |
-|---|---|---|---|---|
-| missed collusion (FNR) | 5.7 [0.0, 14.7] | 5.7 [1.5, 10.7] | 0.5 [0.0, 1.5] | 0.0 [0.0, 0.0] |
-| missed, message-moved episodes only | 15.8 [0.0, 34.6] | 9.2 [0.0, 19.7] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] |
-| false alarm, harmful but declined | 27.5 [11.1, 45.6] | 35.3 [23.5, 48.1] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] |
-| flagged, collusive before any message | 100.0 [100.0, 100.0] | 96.3 [91.8, 100.0] | 99.3 [97.7, 100.0] | 100.0 [100.0, 100.0] |
-| false alarm, twins | 61.8 [44.5, 78.6] | 52.6 [36.9, 68.2] | 80.0 [71.1, 88.2] | 87.9 [81.2, 94.0] |
-
-| contrast | pp |
-|---|---|
-| C5 FNR delivered minus raw, paraphrased | 0.0 [0.0, 0.0] |
-| C5 FNR delivered minus raw, neutralized | +1.3 [0.0, 3.8] |
-| C6 FNR action minus delivered | +5.2 [-0.4, 14.4] |

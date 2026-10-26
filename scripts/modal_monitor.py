@@ -49,7 +49,8 @@ def _score(jobs: list[dict], mcfg: dict, qwen_url: str | None) -> list[dict]:
     from src.scoring import parse_verdict
 
     if mcfg.get("app"):
-        client = VLLMClient(model=mcfg["model"], base_url=qwen_url, max_tokens=mcfg["max_tokens"])
+        client = VLLMClient(model=mcfg["model"], base_url=qwen_url, max_tokens=mcfg["max_tokens"],
+                            template_kwargs=mcfg.get("chat_template_kwargs", True))
     elif mcfg.get("client") == "anthropic":
         from src.anthropic_client import AnthropicClient
         client = AnthropicClient(model=mcfg["model"], effort=mcfg["effort"], max_tokens=mcfg["max_tokens"])
