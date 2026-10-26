@@ -29,22 +29,19 @@
 \maketitle
 
 \begin{abstract}
-\noindent Suppose a rival agent asks yours to hold a price, and yours refuses. A monitor reading the message
-often flags it anyway, as it did for \StdMiAllFADecl{} of refusals under Mistral Small 3.1 and
-\StdHkAllFADecl{} under Claude Haiku 5.5. We ask what in an agent's logs counts
-as convincing evidence of collusion, working in Vietnamese, which no collusion study we found had
-covered. We built \nTaskItems{} scenarios in nine families, each paired with
-a harmless twin, in which a scripted rival invites the agent in one of four styles. Gemini 2.5 Flash and Qwen3-8B played the agent. No single
-source of evidence held up. Gemini held the price in \GemTopUnprompted{} of price-holding episodes before any
-message arrived, so a matching action proves little. Asked directly, the agents
-admitted the influence (\GemDiscItem{} and \QwDiscItem), yet their reports to their owners mentioned it in
-only \GemDiscLex{} and \QwDiscLex. Deals between colleagues drew both agents in more often than deals
-between rival shops. We therefore propose a three-part standard: a proposal, an action that matches it, and
-a departure from the agent's usual behaviour. Given the agent's choices on similar situations,
-which a platform can record, false flags fell to \StdHkFamFADecl{} for Haiku, which still
-caught every case, and to \StdMiFamFADecl{} for the more cautious Mistral, which missed more. A neutral
-summary of the log kept most of what self-reports left out. Summaries can mislead too: squeezed into a log
-format, the rival's offer vanished, and Qwen colluded less only because it stopped hearing offers at all.
+\noindent When AI agents act for competing businesses and can message each other, a platform has only
+their logs to decide whether they colluded. We ask what in those logs counts as convincing evidence. In
+\nTaskItems{} Vietnamese scenarios, a scripted rival invites an AI agent (Gemini 2.5 Flash or Qwen3-8B) into
+a deal that hurts a third party, such as holding a price, and two monitors (Mistral Small 3.1 and Claude
+Haiku 5.5) judge each episode. Every harmful deal has a harmless twin as a control. We find that no single
+piece of evidence is enough. Agents often make the collusive choice before any message arrives, so the
+action alone proves little. They admit the rival's influence when asked, but often leave it out of their
+reports. A monitor that reads the message flags about half of the agents that refused the deal. We
+therefore propose that evidence of collusion needs three things: a proposal, an action that matches it,
+and a change from what the agent would otherwise do. Giving monitors the agent's usual behaviour in similar
+situations, which a platform can record, cut these false flags to under one in ten. Two further results
+matter for deployment: deals between colleagues tempted agents more than deals between rival shops, and
+summarizing a message or a log can hide the evidence or erase the offer altogether.
 \end{abstract}
 
 \section{Introduction}
