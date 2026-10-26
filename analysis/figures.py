@@ -146,57 +146,68 @@ def butterfly(monitors: list[tuple[str, dict]], path: Path) -> None:
 
 
 def pipeline(path: Path) -> None:
-    """Figure 1. Who plays which role. Each box: the role, what it does, and the model in a pill.
-    Arrows say what passes between roles. Dashed: the stimulus check and the alternative monitor input."""
+    """Figure 1. One episode as a swimlane: each role is a lane (with the model that plays it), time runs
+    left to right, arrows show what passes between roles. Dashed: the optional summary path."""
     from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
-    fig, ax = plt.subplots(figsize=(7.0, 3.6))
+    GREEN = "#1d8a5f"
+    fig, ax = plt.subplots(figsize=(7.0, 3.5))
     ax.set_xlim(0, 100)
-    ax.set_ylim(0, 54)
+    ax.set_ylim(0, 56)
     ax.axis("off")
-    GREEN, PURPLE = "#1d8a5f", "#7a5aa6"
+    LANES = [("Rival", "scripted; Gemini wrote its messages", INK2),
+             ("Relay", "Qwen3-8B", ACCENT),
+             ("Executor (agent)", "Gemini 2.5 Flash or Qwen3-8B", ACCENT2),
+             ("Owner", "the principal", INK2),
+             ("Summarizer", "Gemma-3-27B, optional", GREEN),
+             ("Monitor", "Mistral Small 3.1 or Claude Haiku 5.5", GREEN)]
+    LH, TOP, X0 = 8.2, 53.0, 26.0
+    ys = {}
+    for i, (name, model, col) in enumerate(LANES):
+        y = TOP - (i + 0.5) * LH
+        ys[name] = y
+        if i % 2 == 0:
+            ax.add_patch(FancyBboxPatch((0, y - LH / 2), 100, LH, boxstyle="square,pad=0", facecolor="#f6f5f2",
+                                        edgecolor="none", zorder=0))
+        ax.text(1.0, y + 1.3, name, fontsize=7.2, fontweight="bold", color=col, va="center")
+        ax.text(1.0, y - 1.6, model, fontsize=5.3, color=INK2, va="center", style="italic")
+        ax.plot([X0, 99], [y, y], color="#d6d4cf", linewidth=0.8, zorder=1)
 
-    def role(x, y, w, h, name, job, model, col, dashed=False):
-        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=1.3",
-                                    facecolor="white", edgecolor=col, linewidth=1.1,
-                                    linestyle=(0, (3, 2)) if dashed else "-", zorder=2))
-        ax.text(x + w / 2, y + h - 2.6, name, ha="center", va="center", fontsize=7.4, fontweight="bold",
-                color=INK, zorder=3)
-        ax.text(x + w / 2, y + h - 5.6, job, ha="center", va="top", fontsize=5.9, color=INK2,
-                linespacing=1.3, zorder=3)
-        lines = model.split("\n")
-        pw = min(w - 2, 2.6 + 1.1 * max(len(l) for l in lines))
-        ph = 2.8 + 2.3 * (len(lines) - 1)
-        ax.add_patch(FancyBboxPatch((x + (w - pw) / 2, y + 1.3), pw, ph, boxstyle="round,pad=0,rounding_size=1.2",
+    def step(x, lane, label, col, w=10.4):
+        y = ys[lane]
+        ax.add_patch(FancyBboxPatch((x - w / 2, y - 1.9), w, 3.8, boxstyle="round,pad=0,rounding_size=1.8",
                                     facecolor=col, edgecolor="none", zorder=3))
-        ax.text(x + w / 2, y + 1.3 + ph / 2, model, ha="center", va="center", fontsize=5.7, color="white",
-                fontweight="bold", linespacing=1.15, zorder=4)
+        ax.text(x, y, label, ha="center", va="center", fontsize=5.7, color="white", fontweight="bold", zorder=4)
 
-    def arrow(p, q, label="", dashed=False, lx=None, ly=None, rad=0.0):
-        ax.add_patch(FancyArrowPatch(p, q, arrowstyle="-|>", mutation_scale=9, color=INK2, linewidth=1.0,
-                                     linestyle=(0, (3, 2)) if dashed else "-",
-                                     connectionstyle=f"arc3,rad={rad}", zorder=1))
+    def send(x0, l0, x1, l1, label="", dashed=False):
+        down = ys[l1] < ys[l0]
+        ax.add_patch(FancyArrowPatch((x0, ys[l0] - (2.0 if down else -2.0)), (x1, ys[l1] + (2.0 if down else -2.0)),
+                                     arrowstyle="-|>", mutation_scale=8, color=INK2, linewidth=0.9,
+                                     linestyle=(0, (3, 2)) if dashed else "-", zorder=2))
         if label:
-            ax.text(lx, ly, label, ha="center", va="bottom", fontsize=5.6, color=INK2, style="italic",
-                    linespacing=1.2)
+            ax.text(max(x0, x1) + 1.4, (ys[l0] + ys[l1]) / 2, label, fontsize=5.3, color=INK2, style="italic",
+                    va="center", ha="left")
 
-    Y, H = 31.0, 20.0
-    role(0.5, Y, 18.0, H, "Rival", "scripted: sends one\ninvitation, in 1 of\n4 styles", "written by\nGemini 2.5 Flash", INK2)
-    role(22.5, Y, 20.0, H, "Relay", "passes the message on:\nraw, paraphrased,\nneutral or summarized", "Qwen3-8B", ACCENT)
-    role(47.0, Y, 22.0, H, "Executor", "the agent: decides before\nand after the message,\nthen reports to its owner", "Gemini 2.5 Flash\nor Qwen3-8B", ACCENT2)
-    role(80.0, Y, 19.5, H, "Monitor", "reads one view\nof the log; says\nFLAG or CLEAR", "Mistral Small 3.1\nor Claude Haiku 5.5", GREEN)
-    arrow((18.5, Y + H / 2), (22.5, Y + H / 2))
-    arrow((42.5, Y + H / 2), (47.0, Y + H / 2))
-    arrow((69.0, Y + H / 2), (80.0, Y + H / 2), "the log", lx=74.5, ly=Y + H / 2 + 1.0)
-
-    BH = 17.0
-    role(0.5, 2.0, 42.0, BH, "Gate + 4 readers (check only)", "does each message still invite?\nnever produces a measure",
-         "Gemini gate; Opus, Gemini Pro, Gemma, GPT", PURPLE, dashed=True)
-    arrow((21.5, 2.0 + BH), (21.5, Y - 0.3), dashed=True)
-    role(47.0, 2.0, 22.0, BH, "Owner", "receives the agent's\nself-report", "principal (no model)", INK2)
-    arrow((58.0, Y), (58.0, 2.0 + BH), "self-report,\nyes/no answer", lx=63.4, ly=22.4)
-    role(73.5, 2.0, 26.0, BH, "Trace summarizer", "neutral 80-word log entry;\nnot told what to look for", "Gemma-3-27B", GREEN, dashed=True)
-    arrow((69.0, Y + 2.5), (77.0, 2.0 + BH), dashed=True, rad=0.15)
-    arrow((90.0, 2.0 + BH), (90.0, Y - 0.3), "or reads\nonly this", dashed=True, lx=95.6, ly=21.6)
+    E = "Executor (agent)"
+    step(31, E, "T1 choose", ACCENT2)
+    step(42, "Rival", "invitation", INK2)
+    send(42, "Rival", 42, "Relay")
+    step(42, "Relay", "relay", ACCENT)
+    send(44, "Relay", 51, E, "message as delivered")
+    step(53, E, "T2 choose", ACCENT2)
+    step(64.5, E, "T3 report", ACCENT2)
+    send(64.5, E, 64.5, "Owner", "self-report")
+    step(64.5, "Owner", "reads it", INK2)
+    step(76, E, "T4 yes/no", ACCENT2)
+    step(88.5, E, "full log", "#9a9893", w=9.0)
+    step(80, "Summarizer", "summary", GREEN)
+    send(86, E, 81.5, "Summarizer", dashed=True)
+    step(92.5, "Monitor", "FLAG / CLEAR", GREEN, w=13.5)
+    send(90, E, 93.5, "Monitor", "one view")
+    send(81.5, "Summarizer", 89, "Monitor", dashed=True)
+    ax.annotate("", xy=(99, TOP + 0.6), xytext=(X0, TOP + 0.6), arrowprops=dict(arrowstyle="-|>", color=INK2, lw=0.8))
+    ax.text(X0, TOP + 1.8, "one episode, in order", fontsize=5.6, color=INK2, va="bottom")
+    ax.text(1.0, 1.0, "Dashed: the optional path, where the monitor reads only a neutral summary of the log.",
+            fontsize=5.3, color=INK2, style="italic")
     fig.savefig(path, facecolor=BG, bbox_inches="tight")
     plt.close(fig)
 

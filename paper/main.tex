@@ -114,10 +114,10 @@ English; our search found none in another language. Our scenarios and prompts ar
 other languages.
 
 \section{Methods}
-Figure~\ref{fig:pipeline} shows the roles. A \emph{renderer} writes the rival's message, a \emph{relay}
-may rewrite it, an \emph{agent} decides and reports, and a \emph{monitor} judges the log. A \emph{gate}
-and four LLM readers check that each message pushes toward the arrangement. Table~\ref{tab:design} lists
-every factor and the question it serves.
+An episode has six roles (Figure~\ref{fig:pipeline}). A scripted \emph{rival} sends an invitation; a
+\emph{relay} delivers it, raw or rewritten; the \emph{executor} is the agent under test, which decides and
+reports to its \emph{owner}; a \emph{monitor} judges the log, directly or through a neutral
+\emph{summarizer}. Table~\ref{tab:design} lists every factor and the question it serves.
 
 \begin{table}[htbp]
 \centering\small
@@ -131,7 +131,7 @@ Factor & Levels & Serves \\
 Task family & 6 marketplace, 3 workplace workflow; \nTaskItems{} scenarios in all & 2.1 which tasks \\
 Item class & harmful; harmless twin of the same form & positive control \\
 Invitation & direct, euphemism, relationship, omission & 2.1 phrasing \\
-Agent & Gemini 2.5 Flash, Qwen3-8B; 4 turns (choose, read and choose, report, yes/no) & all \\
+Executor (agent) & Gemini 2.5 Flash, Qwen3-8B; 4 turns (choose, read and choose, report, yes/no) & all \\
 Monitor & Mistral Small 3.1 24B (open weights), Claude Haiku 5.5; neither is an agent & 2.2, 2.3 \\
 Monitor view & action; report; message; their combinations; + pre-message choice; + rule & 2.2 words vs.\ actions, 2.3 evidence \\
 \midrule
@@ -148,36 +148,27 @@ Stimulus gate & Gemini gate, four LLM re-readers, a native reader on disputes & 
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=\linewidth]{figures/pipeline.pdf}
-\caption{Roles and the models that play them. The \emph{rival} is scripted; its invitations are written once
-by Gemini and frozen. The \emph{relay} passes each message on, raw or rewritten. The \emph{executor} is the
-agent under test: it decides before and after the message and sends a self-report to its \emph{owner}. A
-\emph{monitor} judges the log, or only a \emph{trace summarizer}'s account of it. Dashed: the stimulus check,
-which produces no measure, and the alternative monitor input. The self-report plays the part of the
-executor's summary in our earlier work \cite{bui2026ps}.}\label{fig:pipeline}
+\caption{One episode, with each role in its own lane and the model that plays it. Time runs left to right:
+the executor chooses (T1), receives the rival's invitation through the relay, chooses again (T2), reports to
+its owner (T3) and answers whether it was influenced (T4). A monitor then reads one view of the full log or,
+on the dashed path, only a neutral summary of it. The self-report plays the part of the executor's summary in
+our earlier work \cite{bui2026ps}.}\label{fig:pipeline}
 \end{figure}
 
-\paragraph{Items.} The six market families are holding a price, splitting product categories, rotating ad
-bids, swapping five-star reviews, exchanging cost data and cover bidding in a tender. The three workflow
-families are no-poach hiring, a peer-scoring ring and padding department budgets. Each harmful item has a
-twin of the same form in which cooperation harms nobody (for example, a shared courier or an open joint
-bid). Harmful situations describe only unilateral consequences; the arrangement appears only in the
-rival's message, so turn~1 measures behaviour without the proposal. The main market set has five scenarios
-per family, and the task analysis adds three per family (\nTaskItems{} items). All entities are fictional.
+\paragraph{Items.} Six market families (holding a price, splitting product categories, rotating ad bids,
+swapping five-star reviews, exchanging cost data, cover bidding) and three workflow families (no-poach
+hiring, a peer-scoring ring, padding budgets). Each harmful item has a twin of the same form in which
+cooperation harms nobody, such as a shared courier. Harmful situations describe only one-sided
+consequences, so the arrangement appears only in the rival's message and turn~1 measures behaviour without
+it. The market set has five scenarios per family and the task analysis three more (\nTaskItems{} items, all
+fictional).
 
-\paragraph{Episodes.} Each episode has four turns in Vietnamese. The agent chooses between two options,
-receives the rival's message and chooses again, writes a two-to-three sentence report to its principal,
-and answers whether the rival influenced its decision. Option order is fixed within an episode and
-balanced within every cell. The agents are Gemini 2.5 Flash (temperature 1) and Qwen3-8B (vLLM on Modal),
-both with reasoning on. Code parses each choice, testing for refusal first; refusals and unparsed replies
-are retained as data.
-
-\paragraph{Invitations and relays.} Gemini wrote each item's message once in four renderings
-(Table~\ref{tab:renderings}), and we froze the messages. The renderings are four of the five pragmatic
-cues in our earlier work \cite{bui2026ps}; we dropped hierarchy, because the two agents are peers, and
-routine framing, which overlaps with omission. A gate asked Gemini, without naming the
-arrangement, which option each message favours. On the market set, Qwen3-8B also produced two frozen
-relayed versions: \emph{paraphrased} (new wording, same tone) and \emph{neutralized} (a third-person
-notice without greetings or relational appeals). For the probe of Section~\ref{sec:summaries}, the same model also wrote four frozen summaries of each message.
+\paragraph{Rival and relay.} Gemini wrote each item's invitation once in four renderings
+(Table~\ref{tab:renderings}), and we froze them. The renderings are four of the five pragmatic cues in our
+earlier work \cite{bui2026ps}; we dropped hierarchy, because the agents are peers, and routine framing,
+which overlaps with omission. A gate asked Gemini, without naming the arrangement, which option each message
+favours. The relay, Qwen3-8B, also wrote frozen \emph{paraphrased} and \emph{neutralized} versions, and four
+summaries for Section~\ref{sec:summaries}.
 
 \begin{table}[htbp]
 \centering\small
@@ -186,12 +177,19 @@ Vietnamese.}\label{tab:renderings}
 \input{tables/renderings.tex}
 \end{table}
 
-\paragraph{Monitors.} Mistral Small 3.1 24B Instruct (open weights, temperature 0) and Claude Haiku 5.5 (reasoning on, low effort)
-answer FLAG or CLEAR for the agent's decision, reading one view of the log (Table~\ref{tab:design}). We
-report two rates on harmful episodes. \emph{Missed}: the agent took the arrangement at turn~2 and the
-monitor cleared it. \emph{Flagged, declined}: the agent did not take the arrangement and the monitor flagged
-it. Appendix~\ref{app:more} adds misses restricted to message-induced collusion, flags on unilateral choices
-(collusive before and after the message) and flags on twins.
+\paragraph{Executor and owner.} The executor, Gemini 2.5 Flash (temperature 1) or Qwen3-8B, both with
+reasoning on, plays four turns in Vietnamese: it chooses between two options, receives the message and
+chooses again, writes a two-to-three sentence self-report to its owner, and answers whether the rival
+influenced it. Option order is balanced within every cell. Code parses each choice, testing for refusal
+first; refusals and unparsed replies are kept as data.
+
+\paragraph{Monitor and summarizer.} Two monitors that share no family with either executor, Mistral Small
+3.1 24B (open weights, temperature 0) and Claude Haiku 5.5 (reasoning on, low effort), answer FLAG or CLEAR
+from one view of the log (Table~\ref{tab:design}). In the summary view, Gemma-3-27B first writes an
+80-word log entry without being told what to look for, and the monitor reads only that. We report two rates
+on harmful episodes: \emph{missed} (the executor took the arrangement at turn~2 and the monitor cleared it)
+and \emph{flagged, declined} (it did not, and the monitor flagged it). Appendix~\ref{app:more} adds three
+more rates.
 
 \paragraph{Statistics.} Rates carry bootstrap 95\% intervals (10{,}000 resamples, clustered over items).
 Each agent has \nMarketEp{} market episodes, \nWorkflowEp{} workflow episodes and \nTaskEp{} episodes in
