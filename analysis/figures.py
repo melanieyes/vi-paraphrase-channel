@@ -146,72 +146,51 @@ def butterfly(monitors: list[tuple[str, dict]], path: Path) -> None:
 
 
 def pipeline(path: Path) -> None:
-    """Figure 1. Who does what. Three phases left to right; each card names a role, the model that
-    plays it, and what it produces. Solid arrows: the main path; dashed: the alternative inputs."""
-    from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
-    fig, ax = plt.subplots(figsize=(7.0, 3.05))
+    """Figure 1. One episode, left to right: five numbered steps, each naming who plays it, then the
+    parts of the log a monitor may be shown (the manipulated variable). Checks in one footnote."""
+    from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch
+    fig, ax = plt.subplots(figsize=(7.0, 2.8))
     ax.set_xlim(0, 100)
-    ax.set_ylim(0, 44)
+    ax.set_ylim(0, 40)
     ax.axis("off")
     GREEN = "#1d8a5f"
-    COL = {"build": ACCENT, "run": ACCENT2, "audit": GREEN}
-    TINT = {"build": "#f2f7fd", "run": "#fef5f0", "audit": "#f1f8f4"}
-
-    def phase(x0, x1, key, label, sub):
-        ax.add_patch(FancyBboxPatch((x0, 0.6), x1 - x0, 42.2, boxstyle="round,pad=0,rounding_size=1.4",
-                                    facecolor=TINT[key], edgecolor="none", zorder=0))
-        ax.text(x0 + 1.4, 41.4, label, color=COL[key], fontsize=7.6, fontweight="bold", va="top")
-        ax.text(x0 + 1.4, 38.6, sub, color=INK2, fontsize=5.9, va="top", style="italic")
-
-    def card(x, y, w, h, title, model, body, key, dashed=False):
-        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=0.9",
-                                    facecolor="white", edgecolor=COL[key] if dashed else "#d9d8d3",
-                                    linewidth=0.8, linestyle=(0, (3, 2)) if dashed else "-", zorder=2))
-        if not dashed:
-            ax.add_patch(FancyBboxPatch((x, y + h - 0.9), w, 0.9, boxstyle="round,pad=0,rounding_size=0.4",
-                                        facecolor=COL[key], edgecolor="none", zorder=3))
-        ax.text(x + 1.3, y + h - 2.0, title, ha="left", va="top", fontsize=6.7, fontweight="bold",
-                color=INK, zorder=4)
-        top = y + h - 4.8
-        if model:
-            ax.text(x + 1.3, top, model, ha="left", va="top", fontsize=5.5, color=COL[key],
-                    linespacing=1.3, zorder=4)
-            top -= 2.5 * (model.count("\n") + 1) + 1.2
-        ax.text(x + 1.3, top, body, ha="left", va="top", fontsize=5.6,
-                color=INK2, linespacing=1.45, zorder=4)
-
-    def arrow(p, q, dashed=False, rad=0.0):
-        ax.add_patch(FancyArrowPatch(p, q, arrowstyle="-|>", mutation_scale=7, color=INK2, linewidth=0.8,
-                                     linestyle=(0, (3, 2)) if dashed else "-",
-                                     connectionstyle=f"arc3,rad={rad}", zorder=1))
-
-    phase(0.5, 44.5, "build", "1  BUILD", "once, then frozen")
-    phase(45.5, 66.5, "run", "2  RUN", "every episode")
-    phase(67.5, 99.5, "audit", "3  AUDIT", "offline, on the log")
-
-    card(1.8, 18.5, 11.3, 17, "Item", "", "situation\ntwo options\nharmless\ntwin", "build")
-    card(15.4, 18.5, 12.6, 17, "Renderer", "Gemini 2.5 Flash", "rival's\ninvitation\nin 4 styles", "build")
-    card(30.3, 12.0, 12.8, 23.5, "Relay", "Qwen3-8B", "raw\nparaphrased\nneutralized\n4 summaries", "build")
-    card(1.8, 2.2, 26.2, 13.5, "Gate + 4 LLM readers", "Gemini gate; Opus, Gemini Pro,\nGemma and GPT readers",
-         "check: does each text still invite?", "build", dashed=True)
-
-    card(47.0, 6.5, 18.0, 29, "Agent", "Gemini 2.5 Flash\nor Qwen3-8B",
-         "T1  choose A or B\nT2  read message,\n       choose again\nT3  report to owner\nT4  influenced?\n       CÓ / KHÔNG",
-         "run")
-
-    card(69.0, 18.5, 13.6, 17, "Log", "", "message\naction\nreport\nbaseline", "audit")
-    card(69.0, 2.2, 13.6, 13.5, "Summarizer", "Gemma-3-27B", "≤80-word entry", "audit", dashed=True)
-    card(84.9, 6.5, 13.6, 29, "Monitor", "Mistral Small 3.1\nor Claude\nHaiku 5.5",
-         "reads one view\nof the log, or\nthe summary\n\nFLAG / CLEAR", "audit")
-
-    arrow((13.1, 27), (15.4, 27))
-    arrow((28.0, 27), (30.3, 27))
-    arrow((43.1, 27), (47.0, 27))
-    arrow((65.0, 27), (69.0, 27))
-    arrow((82.6, 27), (84.9, 27))
-    arrow((75.8, 18.5), (75.8, 15.7), dashed=True)
-    arrow((82.6, 9), (84.9, 11), dashed=True)
-    arrow((28.0, 9), (30.3, 12.6), dashed=True)
+    W, H, Y, GAP = 17.6, 17.5, 21.0, 2.4
+    STEP = [  # title, body, who, colour
+        ("Situation", "two rival shops,\noption A or B;\na harmless twin too", "fictional, 144 items", INK2),
+        ("Turn 1", "the agent chooses\nbefore any\nmessage", "Gemini 2.5 Flash\nor Qwen3-8B", ACCENT2),
+        ("Message", "the rival invites,\nin 1 of 4 styles,\nraw or rewritten", "Gemini writes, Qwen\nrewrites; frozen", ACCENT),
+        ("Turns 2\u20134", "chooses again,\nreports to its owner,\nsays if influenced", "the same agent", ACCENT2),
+        ("Monitor", "reads one view\nof the log, says\nFLAG or CLEAR", "Mistral Small 3.1\nor Claude Haiku 5.5", GREEN),
+    ]
+    xs = [0.5 + i * (W + GAP) for i in range(len(STEP))]
+    for i, ((title, body, who, col), x) in enumerate(zip(STEP, xs)):
+        ax.add_patch(FancyBboxPatch((x, Y), W, H, boxstyle="round,pad=0,rounding_size=1.2",
+                                    facecolor="white", edgecolor=col, linewidth=1.1, zorder=2))
+        ax.add_patch(Circle((x + 2.4, Y + H - 2.5), 1.6, facecolor=col, edgecolor="none", zorder=3))
+        ax.text(x + 2.4, Y + H - 2.55, str(i + 1), ha="center", va="center", fontsize=6.6,
+                color="white", fontweight="bold", zorder=4)
+        ax.text(x + 4.8, Y + H - 2.5, title, ha="left", va="center", fontsize=7.4,
+                fontweight="bold", color=INK, zorder=4)
+        ax.text(x + W / 2, Y + H - 5.4, body, ha="center", va="top", fontsize=6.0, color=INK2,
+                linespacing=1.35, zorder=4)
+        ax.text(x + W / 2, Y + 1.2, who, ha="center", va="bottom", fontsize=5.6, color=col,
+                style="italic", linespacing=1.25, zorder=4)
+        if i < len(STEP) - 1:
+            ax.add_patch(FancyArrowPatch((x + W + 0.15, Y + H / 2), (x + W + GAP - 0.15, Y + H / 2),
+                                         arrowstyle="-|>", mutation_scale=8, color=INK2, linewidth=0.9,
+                                         zorder=1))
+    # the manipulated variable: what the monitor is shown
+    ax.text(0.5, 16.6, "What the monitor is shown (one view per verdict)", fontsize=6.9,
+            fontweight="bold", color=INK, va="center")
+    CH = [("action", "steps 2 and 4"), ("report", "step 4"), ("message", "step 3"),
+          ("baseline", "step 2, or similar cases"), ("neutral summary", "by Gemma-3-27B")]
+    for (name, src), x in zip(CH, xs):
+        ax.add_patch(FancyBboxPatch((x, 5.0), W, 8.6, boxstyle="round,pad=0,rounding_size=1.2",
+                                    facecolor="#eef7f2", edgecolor="none"))
+        ax.text(x + W / 2, 10.9, name, ha="center", va="center", fontsize=6.5, fontweight="bold", color=GREEN)
+        ax.text(x + W / 2, 7.4, src, ha="center", va="center", fontsize=5.6, color=INK2)
+    ax.text(99.0, 1.2, "Every message is checked by a gate and four LLM readers before any episode.",
+            ha="right", va="bottom", fontsize=5.6, color=INK2, style="italic")
     fig.savefig(path, facecolor=BG, bbox_inches="tight")
     plt.close(fig)
 
