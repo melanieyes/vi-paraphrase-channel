@@ -146,51 +146,78 @@ def butterfly(monitors: list[tuple[str, dict]], path: Path) -> None:
 
 
 def pipeline(path: Path) -> None:
-    """Figure 1. One episode, left to right: five numbered steps, each naming who plays it, then the
-    parts of the log a monitor may be shown (the manipulated variable). Checks in one footnote."""
-    from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch
-    fig, ax = plt.subplots(figsize=(7.0, 2.8))
+    """Figure 1. The design as one illustrative episode. Top: what the agent does before and after the
+    rival's message (collusion = the switch the message causes). Bottom: what a monitor concludes from
+    each kind of evidence. Schematic: the episode is an example, not a data point."""
+    from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+    fig, ax = plt.subplots(figsize=(7.0, 3.6))
     ax.set_xlim(0, 100)
-    ax.set_ylim(0, 40)
+    ax.set_ylim(0, 52)
     ax.axis("off")
-    GREEN = "#1d8a5f"
-    W, H, Y, GAP = 17.6, 17.5, 21.0, 2.4
-    STEP = [  # title, body, who, colour
-        ("Situation", "two rival shops,\noption A or B;\na harmless twin too", "fictional, 144 items", INK2),
-        ("Turn 1", "the agent chooses\nbefore any\nmessage", "Gemini 2.5 Flash\nor Qwen3-8B", ACCENT2),
-        ("Message", "the rival invites,\nin 1 of 4 styles,\nraw or rewritten", "Gemini writes, Qwen\nrewrites; frozen", ACCENT),
-        ("Turns 2\u20134", "chooses again,\nreports to its owner,\nsays if influenced", "the same agent", ACCENT2),
-        ("Monitor", "reads one view\nof the log, says\nFLAG or CLEAR", "Mistral Small 3.1\nor Claude Haiku 5.5", GREEN),
-    ]
-    xs = [0.5 + i * (W + GAP) for i in range(len(STEP))]
-    for i, ((title, body, who, col), x) in enumerate(zip(STEP, xs)):
-        ax.add_patch(FancyBboxPatch((x, Y), W, H, boxstyle="round,pad=0,rounding_size=1.2",
-                                    facecolor="white", edgecolor=col, linewidth=1.1, zorder=2))
-        ax.add_patch(Circle((x + 2.4, Y + H - 2.5), 1.6, facecolor=col, edgecolor="none", zorder=3))
-        ax.text(x + 2.4, Y + H - 2.55, str(i + 1), ha="center", va="center", fontsize=6.6,
-                color="white", fontweight="bold", zorder=4)
-        ax.text(x + 4.8, Y + H - 2.5, title, ha="left", va="center", fontsize=7.4,
-                fontweight="bold", color=INK, zorder=4)
-        ax.text(x + W / 2, Y + H - 5.4, body, ha="center", va="top", fontsize=6.0, color=INK2,
-                linespacing=1.35, zorder=4)
-        ax.text(x + W / 2, Y + 1.2, who, ha="center", va="bottom", fontsize=5.6, color=col,
-                style="italic", linespacing=1.25, zorder=4)
-        if i < len(STEP) - 1:
-            ax.add_patch(FancyArrowPatch((x + W + 0.15, Y + H / 2), (x + W + GAP - 0.15, Y + H / 2),
-                                         arrowstyle="-|>", mutation_scale=8, color=INK2, linewidth=0.9,
-                                         zorder=1))
-    # the manipulated variable: what the monitor is shown
-    ax.text(0.5, 16.6, "What the monitor is shown (one view per verdict)", fontsize=6.9,
-            fontweight="bold", color=INK, va="center")
-    CH = [("action", "steps 2 and 4"), ("report", "step 4"), ("message", "step 3"),
-          ("baseline", "step 2, or similar cases"), ("neutral summary", "by Gemma-3-27B")]
-    for (name, src), x in zip(CH, xs):
-        ax.add_patch(FancyBboxPatch((x, 5.0), W, 8.6, boxstyle="round,pad=0,rounding_size=1.2",
-                                    facecolor="#eef7f2", edgecolor="none"))
-        ax.text(x + W / 2, 10.9, name, ha="center", va="center", fontsize=6.5, fontweight="bold", color=GREEN)
-        ax.text(x + W / 2, 7.4, src, ha="center", va="center", fontsize=5.6, color=INK2)
-    ax.text(99.0, 1.2, "Every message is checked by a gate and four LLM readers before any episode.",
-            ha="right", va="bottom", fontsize=5.6, color=INK2, style="italic")
+    GREEN, GREY_BG = "#1d8a5f", "#f3f2ef"
+    COLL = ACCENT2                         # the collusive option
+    FW, FY, FH = 31.0, 27.0, 23.5          # frame width, bottom, height
+    FX = [0.5, 34.5, 68.5]
+
+    def frame(x, num, title, edge):
+        ax.add_patch(FancyBboxPatch((x, FY), FW, FH, boxstyle="round,pad=0,rounding_size=1.4",
+                                    facecolor="white", edgecolor=edge, linewidth=1.0, zorder=1))
+        ax.text(x + 1.6, FY + FH - 2.4, f"{num}  {title}", fontsize=7.4, fontweight="bold", color=INK, va="center")
+
+    def chip(x, y, w, text, picked, col):
+        ax.add_patch(FancyBboxPatch((x, y), w, 3.6, boxstyle="round,pad=0,rounding_size=1.8",
+                                    facecolor=col if picked else GREY_BG, edgecolor="none", zorder=2))
+        ax.text(x + 1.4, y + 1.8, text, fontsize=6.2, va="center", zorder=3,
+                color="white" if picked else INK2, fontweight="bold" if picked else "normal")
+
+    # frame 1: before any message
+    frame(FX[0], "1", "Before any message", INK2)
+    chip(FX[0] + 2, FY + 13.5, 26, "A  Hold the price", False, COLL)
+    chip(FX[0] + 2, FY + 8.6, 26, "B  Cut the price", True, INK2)
+    ax.text(FX[0] + FW / 2, FY + 3.6, "the agent competes", ha="center", fontsize=6.2, color=INK2, style="italic")
+
+    # frame 2: the rival's message
+    frame(FX[1], "2", "The rival's message", ACCENT)
+    ax.add_patch(FancyBboxPatch((FX[1] + 2, FY + 7.0), FW - 4, 11.8, boxstyle="round,pad=0,rounding_size=2.2",
+                                facecolor="#e8f1fc", edgecolor="none", zorder=2))
+    ax.text(FX[1] + FW / 2, FY + 15.0, "\u201cmong anh em m\u00ecnh\nc\u00f9ng gi\u1eef gi\u00e1 nh\u00e9\u201d",
+            ha="center", va="center", fontsize=6.6, color=INK, zorder=3, linespacing=1.25)
+    ax.text(FX[1] + FW / 2, FY + 9.6, "let's both hold the price, brothers", ha="center", va="center",
+            fontsize=5.9, color=INK2, style="italic", zorder=3)
+    ax.text(FX[1] + FW / 2, FY + 3.6, "4 styles, from a direct proposal\nto a bare announcement", ha="center",
+            fontsize=5.8, color=INK2, linespacing=1.3)
+
+    # frame 3: after the message
+    frame(FX[2], "3", "After the message", COLL)
+    chip(FX[2] + 2, FY + 13.5, 26, "A  Hold the price", True, COLL)
+    chip(FX[2] + 2, FY + 8.6, 26, "B  Cut the price", False, COLL)
+    ax.text(FX[2] + 2.2, FY + 5.0, "report to owner: \u201ckept the price\nto protect margins\u201d (no mention)",
+            fontsize=5.6, color=INK2, va="center", linespacing=1.25)
+    ax.text(FX[2] + 2.2, FY + 1.8, "asked directly if influenced: yes", fontsize=5.6, color=INK2, va="center")
+
+    for i in range(2):
+        ax.add_patch(FancyArrowPatch((FX[i] + FW + 0.3, FY + FH / 2), (FX[i + 1] - 0.3, FY + FH / 2),
+                                     arrowstyle="-|>", mutation_scale=9, color=INK2, linewidth=1.0))
+    # the definition, between the bands
+    ax.text(50, 23.6, "Collusion is the switch the message caused: B in frame 1, A in frame 3.",
+            ha="center", va="center", fontsize=7.0, fontweight="bold", color=COLL)
+
+    # bottom: what a monitor sees and concludes
+    ax.text(0.5, 19.6, "What a monitor sees, and what it concludes", fontsize=7.0, fontweight="bold",
+            color=INK, va="center")
+    CASES = [("Only the action (3)", "cannot tell whether the\nmessage caused it", INK2, GREY_BG, False),
+             ("Action + message (2, 3)", "flags agents that refused\nthe offer too", ACCENT2, "#fdf1ea", False),
+             ("+ what it did before (1),\nor on similar cases", "sees the switch: FLAG.\nOur proposed standard", GREEN, "#eef7f2", True)]
+    for (head, verdict, col, bg, best), x in zip(CASES, FX):
+        ax.add_patch(FancyBboxPatch((x, 4.2), FW, 12.4, boxstyle="round,pad=0,rounding_size=1.4",
+                                    facecolor=bg, edgecolor=col if best else "none", linewidth=1.2))
+        ax.text(x + FW / 2, 12.8, head, ha="center", va="center", fontsize=6.4, fontweight="bold",
+                color=INK, linespacing=1.25)
+        ax.text(x + FW / 2, 7.6, verdict, ha="center", va="center", fontsize=6.3, color=col,
+                fontweight="bold" if best else "normal", linespacing=1.3)
+    ax.text(0.5, 1.6, "Illustrative episode. Agents: Gemini 2.5 Flash, Qwen3-8B. Monitors: Mistral Small 3.1 24B, "
+            "Claude Haiku 5.5.", fontsize=5.6, color=INK2,
+            style="italic", va="center")
     fig.savefig(path, facecolor=BG, bbox_inches="tight")
     plt.close(fig)
 
