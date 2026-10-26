@@ -277,3 +277,16 @@ stimuli, episodes, monitors) was rebuilt and rerun from scratch under
   No smoke run, at the human's request; the full set of views was scored directly.
 - The Gemini 2.5 Flash monitor verdicts are kept, unused, in
   `data/archive/monitor_self_agent/`, together with the Qwen3-8B monitor verdicts (Qwen3-8B is also an agent). No reported number reads them.
+- **Aya, standard view, 400-token cap (2026-10-26).** On the standard view (the prompt that states
+  the three-part rule) Aya opened with reasoning, and the 16-token cap cut 49–62% of replies before
+  any verdict. The standard view was rescored with a 400-token cap, all other settings unchanged.
+  At temperature 0 a longer cap only lets a reply finish. The verdict parser is unchanged: a reply
+  naming both FLAG and CLEAR stays unparsed and is kept as data. The 16-token run is in the archive.
+- **Aya Expanse 8B failed the positive control (2026-10-26).** It flagged 94–100% of harmless
+  twins and 85–100% of declined episodes in every view, the same failure as the earlier Qwen3-8B
+  monitor. Per the positive-control rule it is not reported as a monitor. All its verdicts are in
+  `data/archive/monitor_aya8b_failed/`.
+- **Second monitor: Mistral Small 3.1 24B Instruct** (`mistralai/Mistral-Small-3.1-24B-Instruct-2503`,
+  Apache 2.0, not gated, lists Vietnamese, shares no family with either agent or Haiku), chosen by the
+  human. vLLM on Modal, temperature 0, no reasoning parser, a 400-token cap on every view from the
+  start (so no reply is cut before its verdict), the same parser.

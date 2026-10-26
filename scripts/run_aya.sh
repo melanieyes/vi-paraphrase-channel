@@ -1,22 +1,17 @@
 #!/usr/bin/env bash
 # Aya Expanse 8B monitor on every episode file and every view the paper reports (2026-10-26).
-# Two lanes in parallel; each lane commits its verdicts as it goes.
+# One job per (file, view); three jobs at a time against a vLLM app allowed three GPUs;
+# largest jobs first so the three GPUs stay busy. Verdicts are committed once at the end.
 set -uo pipefail
 cd "$(dirname "$0")/.."
-M=".venv/bin/modal run scripts/modal_monitor.py --monitor aya --confirm"
-lane() {
-  for f in "$@"; do
-    case $f in
-      summary_*) views="channel" ;;
-      *) views="all standard baseline_info pop_baseline family_baseline summary" ;;
-    esac
-    for v in $views; do
-      $M --episodes data/episodes/$f.jsonl --views $v 2>&1 | grep -E "wrote|Error|Traceback"
-    done
-    git add data/monitor && git commit -q -m "aya monitor verdicts: $f" || true
+{
+  for f in episodes_gemini episodes_qwen; do
+    for v in all standard baseline_info pop_baseline family_baseline summary; do echo "$f $v"; done
   done
-}
-lane episodes_gemini workflow_episodes_qwen summary_episodes_gemini &
-lane episodes_qwen workflow_episodes_gemini summary_episodes_qwen &
-wait
+  echo "summary_episodes_gemini channel"; echo "summary_episodes_qwen channel"
+  for f in workflow_episodes_gemini workflow_episodes_qwen; do
+    for v in all standard baseline_info pop_baseline family_baseline summary; do echo "$f $v"; done
+  done
+} | xargs -P 3 -L 1 sh -c '.venv/bin/modal run scripts/modal_monitor.py --monitor aya --confirm --episodes data/episodes/$0.jsonl --views $1 2>&1 | grep -E "wrote|Error|Traceback" | sed "s#^#[$0 $1] #"'
+git add data/monitor && git commit -q -m "aya monitor verdicts: all files and views" || true
 echo "== DONE"

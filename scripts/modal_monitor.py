@@ -77,13 +77,17 @@ def _score(jobs: list[dict], mcfg: dict, qwen_url: str | None) -> list[dict]:
 
 @app.local_entrypoint()
 def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run: bool = False,
-         confirm: bool = False, local_env: str = "") -> None:
+         confirm: bool = False, local_env: str = "", max_tokens: int = 0) -> None:
     from src import prompts as P
     from src.run_meta import config_hash, git_commit, load_cfg
     from src.schema import validate_episode, validate_verdict
 
     cfg = load_cfg()
-    mcfg = cfg["monitors"][monitor]
+    mcfg = dict(cfg["monitors"][monitor])
+    if max_tokens:
+        # Logged override (docs/execution-plan.md): Aya opens the standard view with reasoning and a
+        # 16-token cap cut it before the verdict. Temperature 0, so a longer cap only lets it finish.
+        mcfg["max_tokens"] = max_tokens
     path = ROOT / episodes
     recs = [json.loads(l) for l in path.read_text().splitlines() if l.strip()]
     recs = [r for r in recs if "_meta" not in r]
@@ -138,7 +142,7 @@ def main(episodes: str, monitor: str = "gemini", views: str = "nested", dry_run:
         out = _score(jobs, mcfg, qwen_url)
     else:
         out = score.remote(jobs, mcfg, qwen_url)
-    stamp = {"monitor": monitor, "model": mcfg["model"], "config_hash": config_hash(cfg),
+    stamp = {"monitor": monitor, "model": mcfg["model"], "max_tokens": mcfg.get("max_tokens"), "config_hash": config_hash(cfg),
              "git_commit": git_commit(), "timestamp": datetime.now(timezone.utc).isoformat()}
     suffix = {"nested": "", "extra": "--extra", "all": "", "standard": "--standard",
               "baseline_info": "--baseline_info", "pop_baseline": "--pop_baseline",
