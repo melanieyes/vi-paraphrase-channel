@@ -43,13 +43,13 @@ def pct(d, digits=1) -> str:
 def ci(d) -> str:
     if not d or d.get("est") is None or d.get("lo") is None:
         return "??"
-    return f"[{100 * d['lo']:.1f}, {100 * d['hi']:.1f}]"
+    return f"[{100 * d['lo']:.1f}, {100 * d['hi']:.1f}]".replace("-", "$-$")
 
 
 def pp(d) -> str:
     if not d or d.get("est") is None:
         return "??"
-    return f"{100 * d['est']:+.1f}"
+    return f"{100 * d['est']:+.1f}".replace("-", "$-$")
 
 
 def cell(d, bold: bool = False) -> str:
@@ -376,7 +376,7 @@ def main() -> None:
     for f in fams:
         rg = tk["gemini"]["by_family_raw"][f]
         rq = tk["qwen"]["by_family_raw"].get(f) if tk["qwen"] else None
-        setting = "workflow" if f in WORKFLOW_FAMS else "market"
+        setting = "workplace" if f in WORKFLOW_FAMS else "market"
         ig, iq = ini["gemini"].get(f), ini["qwen"].get(f)
         ic = lambda v, a: cell(v, is_max(v, list(ini[a].values())))  # noqa: E731
         rows.append(f"\\texttt{{{tex_escape(f)}}} & {setting} & "
@@ -591,7 +591,7 @@ def main() -> None:
     if monitors:
         FIG.butterfly(monitors, F / "views.pdf")
     disc = []
-    for tag, T_ in (("main", "marketplace"), ("workflow", "workflow")):
+    for tag, T_ in (("main", "marketplace"), ("workflow", "workplace")):
         for a in AGENTS:
             s_ = load(f"results/{tag}_{a}/stats.json")
             if s_:

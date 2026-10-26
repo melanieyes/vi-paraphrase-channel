@@ -78,7 +78,7 @@ def tasks(by_family: dict[str, dict[str, dict]], workflow_fams: set[str], path: 
     if initiated:
         handles.append(Line2D([], [], marker="D", linestyle="-", color=INK, markersize=4.2, linewidth=1.1,
                               label="proposed it unasked"))
-    handles.append(Line2D([], [], linestyle="none", label="orange family names: workflow"))
+    handles.append(Line2D([], [], linestyle="none", label="orange family names: workplace"))
     leg = fig.legend(handles=handles, loc="lower center", ncol=len(handles), frameon=False, fontsize=7.5,
                      bbox_to_anchor=(0.5, -0.02), handlelength=1.6)
     leg.get_texts()[-1].set_color(ACCENT2)
