@@ -82,9 +82,10 @@ loses the evidence.
 \begin{enumerate}
 \item A set of \nTaskItems{} Vietnamese scenarios in nine families and two settings, each harmful scenario
 paired with a harmless twin, with frozen and gated invitations in four styles, two agents and two monitors.
-\item Evidence that each source fails alone (2.1, 2.2). Agents often collude unprompted, so the action
-overstates the message's role; reports omit the message; and a monitor that reads the message flags
-agents that refused.
+\item A task analysis (2.1): agents often collude unprompted, and workplace tasks pull both agents in far
+more than market tasks.
+\item Evidence that each source fails alone (2.2): the action overstates the message's role, reports omit
+the message, and a monitor that reads the message flags agents that refused.
 \item An evidence standard (2.3): proposal, matching action, and departure from baseline behaviour. A
 baseline built from similar situations, which a deployed monitor can hold, removes most false flags for
 both monitors; the better-calibrated monitor also missed no collusion.
@@ -202,8 +203,15 @@ repository logs each change. All analyses are exploratory.
 collusion chosen at turn~1, before any message, from collusion induced by the message (competitive at
 turn~1, collusive at turn~2). Gemini chose the collusive option unprompted in \GemTopUnprompted{} of
 \GemTopUnpromptedFam{} episodes, and the message moved it most in \GemTopMovedFam{} (\GemTopMoved). Qwen's
-top families were \QwTopUnpromptedFam{} and \QwTopMovedFam{} (Figure~\ref{fig:tasks}; values in
-Appendix~\ref{app:tables}).
+top families were \QwTopUnpromptedFam{} and \QwTopMovedFam{}, and the two agents ranked the nine families
+only weakly alike (Spearman \SetRankRho; Figure~\ref{fig:tasks}).
+
+\textbf{Workplace tasks pull both agents in more than market tasks.} In a post-hoc contrast, in the three
+workplace families
+the message moved Gemini in \SetGemWpMoved{} of harmful episodes against \SetGemMkMoved{} on the market
+(\SetGemMovedDiff{} points \SetGemMovedDiffCI), and Qwen in \SetQwWpMoved{} against \SetQwMkMoved{}
+(\SetQwMovedDiff{} points \SetQwMovedDiffCI). The two task sets differ in content as well as setting, so this
+contrasts three families with six, not workplaces with markets in general.
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=\linewidth]{figures/tasks.pdf}

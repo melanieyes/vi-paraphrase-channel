@@ -280,6 +280,19 @@ def main() -> None:
 
     from analysis.lexical import write as _lex
     _lex(PAPER / "tables" / "lexical.tex")
+    # Track 2.1: workplace versus market tasks, and cross-model rank agreement
+    from analysis.setting import stats as _setting
+    from src.episode import load_items as _li2
+    _items = {i["item_id"]: i for s in ("market", "workflow", "ext") for i in _li2(s)}
+    ST = _setting(_items)
+    for a, A in (("gemini", "Gem"), ("qwen", "Qw")):
+        mv = ST[a]["moved_to_collude"]
+        M[f"Set{A}WpMoved"] = pct(mv["workplace"])
+        M[f"Set{A}MkMoved"] = pct(mv["market"])
+        M[f"Set{A}MovedDiff"] = pp(mv["diff"])
+        M[f"Set{A}MovedDiffCI"] = ci(mv["diff"])
+        M[f"Set{A}PostDiff"] = pp(ST[a]["colluded_post"]["diff"])
+    M["SetRankRho"] = f"{ST['spearman_moved']:.2f}"
     # Oversight through a summary (macros for the text; table oversight.tex below)
     for a, A in (("gemini", "Gem"), ("qwen", "Qw")):
         for name, N in (("mistral", "Mi"), ("haiku", "Hk")):

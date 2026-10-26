@@ -290,3 +290,8 @@ stimuli, episodes, monitors) was rebuilt and rerun from scratch under
   Apache 2.0, not gated, lists Vietnamese, shares no family with either agent or Haiku), chosen by the
   human. vLLM on Modal, temperature 0, no reasoning parser, a 400-token cap on every view from the
   start (so no reply is cut before its verdict), the same parser.
+- **Post-hoc task contrast (2026-10-26).** After seeing the per-family results, we compared the three
+  workplace families with the six market families (harmful items, raw channel, all task episodes,
+  item-resampling bootstrap) and computed the Spearman agreement of the two agents' family rankings
+  (`analysis/setting.py`). Reported as post hoc. A status-quo hypothesis (collusive option = keep the
+  current state) was also checked and did not hold across agents, so it is not reported.
