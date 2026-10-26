@@ -148,11 +148,12 @@ Stimulus gate & Gemini gate, four LLM re-readers, a native reader on disputes & 
 
 \begin{figure}[htbp]
 \centering\includegraphics[width=\linewidth]{figures/pipeline.pdf}
-\caption{The design in one illustrative episode. The agent chooses before the rival's message (1), reads it
-(2), and chooses again, reports to its owner and answers whether it was influenced (3). Collusion is the
-switch the message causes. Below: what a monitor can conclude from each kind of evidence; the last is the
-standard we propose. Messages are written once and frozen. The report plays the part of the executor's
-summary in our earlier work \cite{bui2026ps}.}\label{fig:pipeline}
+\caption{Roles and the models that play them. The \emph{rival} is scripted; its invitations are written once
+by Gemini and frozen. The \emph{relay} passes each message on, raw or rewritten. The \emph{executor} is the
+agent under test: it decides before and after the message and sends a self-report to its \emph{owner}. A
+\emph{monitor} judges the log, or only a \emph{trace summarizer}'s account of it. Dashed: the stimulus check,
+which produces no measure, and the alternative monitor input. The self-report plays the part of the
+executor's summary in our earlier work \cite{bui2026ps}.}\label{fig:pipeline}
 \end{figure}
 
 \paragraph{Items.} The six market families are holding a price, splitting product categories, rotating ad

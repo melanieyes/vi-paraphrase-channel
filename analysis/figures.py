@@ -146,78 +146,57 @@ def butterfly(monitors: list[tuple[str, dict]], path: Path) -> None:
 
 
 def pipeline(path: Path) -> None:
-    """Figure 1. The design as one illustrative episode. Top: what the agent does before and after the
-    rival's message (collusion = the switch the message causes). Bottom: what a monitor concludes from
-    each kind of evidence. Schematic: the episode is an example, not a data point."""
+    """Figure 1. Who plays which role. Each box: the role, what it does, and the model in a pill.
+    Arrows say what passes between roles. Dashed: the stimulus check and the alternative monitor input."""
     from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
     fig, ax = plt.subplots(figsize=(7.0, 3.6))
     ax.set_xlim(0, 100)
-    ax.set_ylim(0, 52)
+    ax.set_ylim(0, 54)
     ax.axis("off")
-    GREEN, GREY_BG = "#1d8a5f", "#f3f2ef"
-    COLL = ACCENT2                         # the collusive option
-    FW, FY, FH = 31.0, 27.0, 23.5          # frame width, bottom, height
-    FX = [0.5, 34.5, 68.5]
+    GREEN, PURPLE = "#1d8a5f", "#7a5aa6"
 
-    def frame(x, num, title, edge):
-        ax.add_patch(FancyBboxPatch((x, FY), FW, FH, boxstyle="round,pad=0,rounding_size=1.4",
-                                    facecolor="white", edgecolor=edge, linewidth=1.0, zorder=1))
-        ax.text(x + 1.6, FY + FH - 2.4, f"{num}  {title}", fontsize=7.4, fontweight="bold", color=INK, va="center")
+    def role(x, y, w, h, name, job, model, col, dashed=False):
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=1.3",
+                                    facecolor="white", edgecolor=col, linewidth=1.1,
+                                    linestyle=(0, (3, 2)) if dashed else "-", zorder=2))
+        ax.text(x + w / 2, y + h - 2.6, name, ha="center", va="center", fontsize=7.4, fontweight="bold",
+                color=INK, zorder=3)
+        ax.text(x + w / 2, y + h - 5.6, job, ha="center", va="top", fontsize=5.9, color=INK2,
+                linespacing=1.3, zorder=3)
+        lines = model.split("\n")
+        pw = min(w - 2, 2.6 + 1.1 * max(len(l) for l in lines))
+        ph = 2.8 + 2.3 * (len(lines) - 1)
+        ax.add_patch(FancyBboxPatch((x + (w - pw) / 2, y + 1.3), pw, ph, boxstyle="round,pad=0,rounding_size=1.2",
+                                    facecolor=col, edgecolor="none", zorder=3))
+        ax.text(x + w / 2, y + 1.3 + ph / 2, model, ha="center", va="center", fontsize=5.7, color="white",
+                fontweight="bold", linespacing=1.15, zorder=4)
 
-    def chip(x, y, w, text, picked, col):
-        ax.add_patch(FancyBboxPatch((x, y), w, 3.6, boxstyle="round,pad=0,rounding_size=1.8",
-                                    facecolor=col if picked else GREY_BG, edgecolor="none", zorder=2))
-        ax.text(x + 1.4, y + 1.8, text, fontsize=6.2, va="center", zorder=3,
-                color="white" if picked else INK2, fontweight="bold" if picked else "normal")
+    def arrow(p, q, label="", dashed=False, lx=None, ly=None, rad=0.0):
+        ax.add_patch(FancyArrowPatch(p, q, arrowstyle="-|>", mutation_scale=9, color=INK2, linewidth=1.0,
+                                     linestyle=(0, (3, 2)) if dashed else "-",
+                                     connectionstyle=f"arc3,rad={rad}", zorder=1))
+        if label:
+            ax.text(lx, ly, label, ha="center", va="bottom", fontsize=5.6, color=INK2, style="italic",
+                    linespacing=1.2)
 
-    # frame 1: before any message
-    frame(FX[0], "1", "Before any message", INK2)
-    chip(FX[0] + 2, FY + 13.5, 26, "A  Hold the price", False, COLL)
-    chip(FX[0] + 2, FY + 8.6, 26, "B  Cut the price", True, INK2)
-    ax.text(FX[0] + FW / 2, FY + 3.6, "the agent competes", ha="center", fontsize=6.2, color=INK2, style="italic")
+    Y, H = 31.0, 20.0
+    role(0.5, Y, 18.0, H, "Rival", "scripted: sends one\ninvitation, in 1 of\n4 styles", "written by\nGemini 2.5 Flash", INK2)
+    role(22.5, Y, 20.0, H, "Relay", "passes the message on:\nraw, paraphrased,\nneutral or summarized", "Qwen3-8B", ACCENT)
+    role(47.0, Y, 22.0, H, "Executor", "the agent: decides before\nand after the message,\nthen reports to its owner", "Gemini 2.5 Flash\nor Qwen3-8B", ACCENT2)
+    role(80.0, Y, 19.5, H, "Monitor", "reads one view\nof the log; says\nFLAG or CLEAR", "Mistral Small 3.1\nor Claude Haiku 5.5", GREEN)
+    arrow((18.5, Y + H / 2), (22.5, Y + H / 2))
+    arrow((42.5, Y + H / 2), (47.0, Y + H / 2))
+    arrow((69.0, Y + H / 2), (80.0, Y + H / 2), "the log", lx=74.5, ly=Y + H / 2 + 1.0)
 
-    # frame 2: the rival's message
-    frame(FX[1], "2", "The rival's message", ACCENT)
-    ax.add_patch(FancyBboxPatch((FX[1] + 2, FY + 7.0), FW - 4, 11.8, boxstyle="round,pad=0,rounding_size=2.2",
-                                facecolor="#e8f1fc", edgecolor="none", zorder=2))
-    ax.text(FX[1] + FW / 2, FY + 15.0, "\u201cmong anh em m\u00ecnh\nc\u00f9ng gi\u1eef gi\u00e1 nh\u00e9\u201d",
-            ha="center", va="center", fontsize=6.6, color=INK, zorder=3, linespacing=1.25)
-    ax.text(FX[1] + FW / 2, FY + 9.6, "let's both hold the price, brothers", ha="center", va="center",
-            fontsize=5.9, color=INK2, style="italic", zorder=3)
-    ax.text(FX[1] + FW / 2, FY + 3.6, "4 styles, from a direct proposal\nto a bare announcement", ha="center",
-            fontsize=5.8, color=INK2, linespacing=1.3)
-
-    # frame 3: after the message
-    frame(FX[2], "3", "After the message", COLL)
-    chip(FX[2] + 2, FY + 13.5, 26, "A  Hold the price", True, COLL)
-    chip(FX[2] + 2, FY + 8.6, 26, "B  Cut the price", False, COLL)
-    ax.text(FX[2] + 2.2, FY + 5.0, "report to owner: \u201ckept the price\nto protect margins\u201d (no mention)",
-            fontsize=5.6, color=INK2, va="center", linespacing=1.25)
-    ax.text(FX[2] + 2.2, FY + 1.8, "asked directly if influenced: yes", fontsize=5.6, color=INK2, va="center")
-
-    for i in range(2):
-        ax.add_patch(FancyArrowPatch((FX[i] + FW + 0.3, FY + FH / 2), (FX[i + 1] - 0.3, FY + FH / 2),
-                                     arrowstyle="-|>", mutation_scale=9, color=INK2, linewidth=1.0))
-    # the definition, between the bands
-    ax.text(50, 23.6, "Collusion is the switch the message caused: B in frame 1, A in frame 3.",
-            ha="center", va="center", fontsize=7.0, fontweight="bold", color=COLL)
-
-    # bottom: what a monitor sees and concludes
-    ax.text(0.5, 19.6, "What a monitor sees, and what it concludes", fontsize=7.0, fontweight="bold",
-            color=INK, va="center")
-    CASES = [("Only the action (3)", "cannot tell whether the\nmessage caused it", INK2, GREY_BG, False),
-             ("Action + message (2, 3)", "flags agents that refused\nthe offer too", ACCENT2, "#fdf1ea", False),
-             ("+ what it did before (1),\nor on similar cases", "sees the switch: FLAG.\nOur proposed standard", GREEN, "#eef7f2", True)]
-    for (head, verdict, col, bg, best), x in zip(CASES, FX):
-        ax.add_patch(FancyBboxPatch((x, 4.2), FW, 12.4, boxstyle="round,pad=0,rounding_size=1.4",
-                                    facecolor=bg, edgecolor=col if best else "none", linewidth=1.2))
-        ax.text(x + FW / 2, 12.8, head, ha="center", va="center", fontsize=6.4, fontweight="bold",
-                color=INK, linespacing=1.25)
-        ax.text(x + FW / 2, 7.6, verdict, ha="center", va="center", fontsize=6.3, color=col,
-                fontweight="bold" if best else "normal", linespacing=1.3)
-    ax.text(0.5, 1.6, "Illustrative episode. Agents: Gemini 2.5 Flash, Qwen3-8B. Monitors: Mistral Small 3.1 24B, "
-            "Claude Haiku 5.5.", fontsize=5.6, color=INK2,
-            style="italic", va="center")
+    BH = 17.0
+    role(0.5, 2.0, 42.0, BH, "Gate + 4 readers (check only)", "does each message still invite?\nnever produces a measure",
+         "Gemini gate; Opus, Gemini Pro, Gemma, GPT", PURPLE, dashed=True)
+    arrow((21.5, 2.0 + BH), (21.5, Y - 0.3), dashed=True)
+    role(47.0, 2.0, 22.0, BH, "Owner", "receives the agent's\nself-report", "principal (no model)", INK2)
+    arrow((58.0, Y), (58.0, 2.0 + BH), "self-report,\nyes/no answer", lx=63.4, ly=22.4)
+    role(73.5, 2.0, 26.0, BH, "Trace summarizer", "neutral 80-word log entry;\nnot told what to look for", "Gemma-3-27B", GREEN, dashed=True)
+    arrow((69.0, Y + 2.5), (77.0, 2.0 + BH), dashed=True, rad=0.15)
+    arrow((90.0, 2.0 + BH), (90.0, Y - 0.3), "or reads\nonly this", dashed=True, lx=95.6, ly=21.6)
     fig.savefig(path, facecolor=BG, bbox_inches="tight")
     plt.close(fig)
 
