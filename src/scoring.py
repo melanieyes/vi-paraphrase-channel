@@ -53,7 +53,20 @@ _LEADING_BOLD = re.compile(r"^\s*\*\*\s*([ab])\s*[.):]?\s*\*\*", re.I)
 _TRAILING = re.compile(r"(?:^|[\n\.\:\-]\s*)(?:phương án\s+|option\s+)?([ab])\s*[\.\!\)]?\s*$", re.I)
 
 
-def classify(reply: str | None) -> tuple[str | None, Kind]:
+_RX_CACHE: dict[str, tuple] = {}
+
+
+def _rx(letters: str) -> tuple:
+    """The five choice patterns for a letter set; "ab" is the original A/B set, unchanged."""
+    if letters == "ab":
+        return (_BARE, _LEADING, _LEADING_BOLD, _SELECTED, _TRAILING)
+    if letters not in _RX_CACHE:
+        _RX_CACHE[letters] = tuple(re.compile(r.pattern.replace("[ab]", f"[{letters}]"), r.flags)
+                                   for r in (_BARE, _LEADING, _LEADING_BOLD, _SELECTED, _TRAILING))
+    return _RX_CACHE[letters]
+
+
+def classify(reply: str | None, letters: str = "ab") -> tuple[str | None, Kind]:
     text = _norm(reply or "")
     if not text:
         return None, "unparsed"
@@ -61,8 +74,9 @@ def classify(reply: str | None) -> tuple[str | None, Kind]:
     declines = any(p in low for p in DECLINES_ARRANGEMENT)
     if not declines and any(m in low for m in REFUSAL_MARKERS):
         return None, "refusal"
-    for rx in (_BARE, _LEADING, _LEADING_BOLD, _SELECTED, _TRAILING):
-        m = rx.match(text) if rx in (_BARE, _LEADING, _LEADING_BOLD) else rx.search(text)
+    bare, leading, leading_bold, selected, trailing = _rx(letters)
+    for rx in (bare, leading, leading_bold, selected, trailing):
+        m = rx.match(text) if rx in (bare, leading, leading_bold) else rx.search(text)
         if m:
             return m.group(1).upper(), "choice"
     return None, "unparsed"
