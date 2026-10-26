@@ -199,9 +199,7 @@ repository logs each change. All analyses are exploratory.
 
 \section{Results}
 \subsection{Which tasks lead to collusion? (2.1)}
-\textbf{Agents often collude before anyone asks, and the tempting tasks differ by model.} We separate
-collusion chosen at turn~1, before any message, from collusion induced by the message (competitive at
-turn~1, collusive at turn~2). Gemini chose the collusive option unprompted in \GemTopUnprompted{} of
+\textbf{Agents often collude before anyone asks, and the tempting tasks differ by model.} Gemini chose the collusive option unprompted in \GemTopUnprompted{} of
 \GemTopUnpromptedFam{} episodes, and the message moved it most in \GemTopMovedFam{} (\GemTopMoved). Qwen's
 top families were \QwTopUnpromptedFam{} and \QwTopMovedFam{}, and the two agents ranked the nine families
 only weakly alike (Spearman \SetRankRho; Figure~\ref{fig:tasks}).
@@ -281,10 +279,8 @@ of collusion and flagged \StdHkFamFADecl{} of declined episodes (bold row in Fig
 flagged \StdMiFamFADecl{} but missed \StdMiFamFNR{}: a cautious monitor trades false flags for misses, so the
 baseline sharpens a monitor without fixing its threshold (Appendix~\ref{app:more}).
 
-\paragraph{Robustness.} Four LLM readers agreed with the gate on most harmful messages (\AgreeOpus{} for
-Opus 5.5). Paraphrased and neutralized relays kept the invitation and did not reduce uptake, and harmless
-twins kept cooperation at or above \GemTwinMin{} (Gemini) and \QwTwinMin{} (Qwen). Details are in
-Appendix~\ref{app:more}.
+\paragraph{Robustness.} Readers agreed with the gate (\AgreeOpus{} for Opus 5.5), relays did not reduce
+uptake, and twins kept cooperation at or above \QwTwinMin{} (Appendix~\ref{app:more}).
 
 \subsection{Where is context lost? Summaries}\label{sec:summaries}
 \paragraph{A summary in the channel can erase the proposal.} Following the summary arm of a
@@ -350,7 +346,7 @@ the agent's own report, but a summary inside the channel can erase the proposal 
 \end{itemize}
 
 \section*{Author Contributions}
-Melanie Bui designed the study, made every design decision recorded in the repository's change log, checked the disputed Vietnamese readings as a native speaker, and wrote the paper with the assistance described in the LLM Usage Statement.
+Melanie Bui designed the study, made every design decision, checked disputed Vietnamese readings, and wrote the paper (see the LLM Usage Statement).
 
 \label{mainend}
 \begin{thebibliography}{99}\small
