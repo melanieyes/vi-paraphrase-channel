@@ -6,7 +6,7 @@ the message through a paraphraser stop the second agent going along, and does
 the paraphraser blind the platform's monitor?
 
 Design: [`docs/execution-plan.md`](docs/execution-plan.md). Status: data collected,
-exploratory. Paper: `paper/main.pdf`.
+exploratory. The paper is kept out of the repository; `analysis/paper.py` still writes its numbers, tables and figures to a local `paper/` folder.
 
 ## Run order
 
@@ -32,7 +32,7 @@ runs in `caffeinate -i`: an idle-sleeping laptop cancels a Modal run.
 src/        prompts, episode runner, scoring, schema, clients
 scripts/    item builder, Modal runners, gate scoring, readers, translation
 analysis/   analyze.py (stats), figures.py, paper.py (macros, tables, figures)
-paper/      main.tex, generated numbers.tex, tables/, figures/, build.sh
+paper/      local only, not committed (main.tex, generated numbers.tex, tables/, figures/, build.sh)
 data/       items, frozen stimuli, episodes, monitor verdicts, translations, archive
 results/    generated stats per run
 docs/       execution plan and change log
