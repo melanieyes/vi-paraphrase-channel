@@ -309,7 +309,7 @@ def build() -> str:
   <div class="tries">
     <div class="try"><div class="num">{m('GemTopUnprompted')}</div><div><h3>Watch the action</h3><p>The Gemini 2.5 Flash agent held the price this often <em>before</em> any message. Matching the offer proves nothing.</p></div></div>
     <div class="try"><div class="num">{m('QwDiscLex')}</div><div><h3>Read the agent's report</h3><p>How often Qwen's report to its owner mentioned the offer it took. Asked directly, it admitted it {m('QwDiscItem')} of the time.</p></div></div>
-    <div class="try"><div class="num">{m('StdMiAllFADecl')}</div><div><h3>Read the message</h3><p>Agents that <em>refused</em> the offer, flagged anyway by the Mistral monitor (Claude Haiku 5.5: {m('StdHkAllFADecl')}). The message accuses the sender, not the receiver.</p></div></div>
+    <div class="try"><div class="num">{m('StdMiAllFADecl')}</div><div><h3>Read the message</h3><p>Agents that <em>refused</em> the offer, flagged anyway by the Mistral Small 3.1 monitor (Claude Haiku 5.5: {m('StdHkAllFADecl')}). The message accuses the sender, not the receiver.</p></div></div>
   </div>
 </section>
 
@@ -321,7 +321,7 @@ def build() -> str:
       <div><b>2</b>The action matches it</div>
       <div><b>3</b>The action differs from the agent's usual behaviour</div>
     </div>
-    <p style="margin:0">A platform can keep a record of how each agent acts in similar situations. With it, the Mistral monitor's false flags fell from {m('StdMiAllFADecl')} to <strong>{m('StdMiFamFADecl')}</strong>, and it missed <strong>{m('StdMiFamFNR')}</strong> of the collusion (Claude Haiku 5.5: {m('StdHkFamFADecl')} and {m('StdHkFamFNR')}).</p>
+    <p style="margin:0">A platform can keep a record of how each agent acts in similar situations. With it, the Claude Haiku 5.5 monitor's false flags fell from {m('StdHkAllFADecl')} to <strong>{m('StdHkFamFADecl')}</strong>, and it still missed <strong>{m('StdHkFamFNR')}</strong> of the collusion. The more cautious Mistral Small 3.1 monitor cut false flags too, from {m('StdMiAllFADecl')} to {m('StdMiFamFADecl')}, but missed {m('StdMiFamFNR')}: the record sharpens a monitor, it does not fix how cautious it is.</p>
   </div>
   <figure><img src="fig/views.png" alt="Missed collusion and false alarms by what the monitor reads, for the Mistral Small 3.1 24B and Claude Haiku 5.5 monitors."><figcaption>Left: collusion missed. Right: agents that refused but were flagged. Darker bars: Mistral monitor; lighter: Claude Haiku 5.5 monitor. The bold row is the version a platform can run.</figcaption></figure>
 </section>
@@ -329,7 +329,7 @@ def build() -> str:
 <section>
   <div class="col">
     <h2>The truth is in the log, not in the agent's report</h2>
-    <p>A neutral model (Gemma-3-27B) summarizing the same log named the rival's offer; the agent's own report did not. A Mistral monitor reading those summaries missed {m('OvQwMiSumFNR')} of Qwen's collusion instead of {m('OvQwMiSelfFNR')}.</p>
+    <p>A neutral model (Gemma-3-27B) summarizing the same log named the rival's offer; the agent's own report did not. A Claude Haiku 5.5 monitor reading those summaries missed {m('OvQwHkSumFNR')} of Qwen's collusion instead of {m('OvQwHkSelfFNR')} (Mistral Small 3.1: {m('OvQwMiSumFNR')} instead of {m('OvQwMiSelfFNR')}).</p>
   </div>
   <div class="pair">
     {card(rawB[1][0], B[1][1], rawB[1][1])}

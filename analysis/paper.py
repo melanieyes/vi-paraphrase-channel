@@ -137,6 +137,10 @@ def main() -> None:
         M["HkFADeclMsgOnly"] = pct(pm["fpr_declined"]["message_only"])
         M["HkFADeclDelivered"] = pct(pm["fpr_declined"]["delivered"])
         M["HkFATwinsAction"] = pct(pm["fpr_twins"]["action"])
+        M["HkDeliveredFNR"] = pct(pm["fnr"]["delivered"])
+    hkq = S["qwen"]["monitors"].get("haiku") if S["qwen"] else None
+    if hkq:
+        M["HkQReportFNR"] = pct(hkq["pooled"]["fnr"]["report"])
     # Track 2.3: the standard view against the other views, Gemini agent, market pooled
     for mname, P in (("mistral", "StdMi"), ("haiku", "StdHk")):
         mm = S["gemini"]["monitors"].get(mname) if S["gemini"] else None

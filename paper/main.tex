@@ -41,8 +41,8 @@ message: agents admitted influence when asked (\GemDiscItem{} and \QwDiscItem) b
 \GemDiscLex{} and \QwDiscLex{} of reports. The message implicates the sender, not the receiver. We propose
 that evidence requires a proposal, a matching action, and a departure from what the agent does without the
 proposal. Showing the monitor the agent's choices on similar situations, which a deployed system can
-record, cut flags on refusals to \StdMiFamFADecl{} (Gemini) and \StdHkFamFADecl{} (Haiku) without missing any collusion on
-the marketplace. A neutral summary of the trace kept most of this evidence; the agent's own report did not.
+record, cut flags on refusals to \StdMiFamFADecl{} (Mistral) and \StdHkFamFADecl{} (Haiku); Haiku still missed no
+collusion, cautious Mistral more. A neutral summary of the trace kept most of this evidence; the agent's own report did not.
 A log-format summary of the rival's message cut Qwen's collusion only by erasing the proposal: cooperation on harmless twins fell too.
 \end{abstract}
 
@@ -86,8 +86,8 @@ paired with a harmless twin, with frozen and gated invitations in four styles, t
 overstates the message's role; reports omit the message; and a monitor that reads the message flags
 agents that refused.
 \item An evidence standard (2.3): proposal, matching action, and departure from baseline behaviour. A
-baseline built from similar situations, which a deployed monitor can hold, removes most false flags
-without adding misses.
+baseline built from similar situations, which a deployed monitor can hold, removes most false flags for
+both monitors; the better-calibrated monitor also missed no collusion.
 \item A test of oversight through summaries: a neutral third party's summary keeps the evidence that the
 agent's own report drops.
 \end{enumerate}
@@ -220,12 +220,12 @@ sample (Appendix Table~\ref{tab:rendering}).
 
 \subsection{Do words and actions together beat either alone? (2.2)}
 \textbf{Each source answers a different question, and none is enough alone.} From the action alone, the
-Mistral monitor missed \MonActionFNR{} \MonActionFNRCI{} of collusion on the market (Figure~\ref{fig:says}).
-Adding the agent's report cut misses to \MonReportFNR, but only for a candid agent: for Qwen, whose reports
-seldom mention the message, action and report still missed \MonQReportFNR. Adding the rival's message cut
-misses to \MonDeliveredFNR{} but flagged \MonFADeclDelivered{} of episodes in which the agent declined. The
-message shows that a proposal was made, not that it was accepted. Claude Haiku 5.5 reproduced this ordering
-(lighter bars; Appendix~\ref{app:more}).
+monitors missed \MonActionFNR{} (Mistral) and \HkActionFNR{} (Haiku) of collusion on the market
+(Figure~\ref{fig:says}). The agent's report helped when the agent was candid: Haiku missed \HkReportFNR{} on
+Gemini's episodes but \HkQReportFNR{} on Qwen's, whose reports seldom mention the message. Adding the rival's
+message cut misses to \MonDeliveredFNR{} (Mistral) and \HkDeliveredFNR{} (Haiku). It also flagged
+\MonFADeclDelivered{} and \HkFADeclDelivered{} of episodes in which the agent declined. The message shows that a
+proposal was made, not that it was accepted (Appendix~\ref{app:more}).
 
 
 
@@ -260,15 +260,17 @@ We therefore propose that convincing evidence requires (i) a proposal, (ii) an a
 turn~1. A deployed monitor would instead have the agent's behaviour on similar cases without a proposal, so
 we also test that version.
 
-\textbf{Information, not instruction, does the work.} Showing the Mistral monitor the agent's pre-message
-choice, with no rule, cut flags on declined episodes from \StdMiAllFADecl{} to \StdMiCtlFADecl. Stating the
-rule as well added little and cost misses (Appendix~\ref{app:more}).
+\textbf{Information, not instruction, does the work.} Showing the monitor the agent's pre-message choice,
+with no rule, cut flags on declined episodes from \StdMiAllFADecl{} to \StdMiCtlFADecl{} (Mistral) and from
+\StdHkAllFADecl{} to \StdHkCtlFADecl{} (Haiku). Stating the rule as well cost misses for both monitors
+(Appendix~\ref{app:more}).
 
 \textbf{A baseline a deployed monitor can hold works as well.} A deployed monitor does not see the agent's
 choice in the same episode, but it can record how the agent behaves on similar situations. With the agent's
-turn-1 choices on other scenarios of the same family, the item itself left out, the Mistral monitor missed
-\StdMiFamFNR{} of collusion and flagged \StdMiFamFADecl{} of declined episodes (bold row in
-Figure~\ref{fig:says}). Haiku and Qwen's episodes gave the same picture (Appendix~\ref{app:more}).
+turn-1 choices on other scenarios of the same family, the item itself left out, Haiku missed \StdHkFamFNR{}
+of collusion and flagged \StdHkFamFADecl{} of declined episodes (bold row in Figure~\ref{fig:says}). Mistral
+flagged \StdMiFamFADecl{} but missed \StdMiFamFNR{}: a cautious monitor trades false flags for misses, so the
+baseline sharpens a monitor without fixing its threshold (Appendix~\ref{app:more}).
 
 \paragraph{Robustness.} Four LLM readers agreed with the gate on most harmful messages (\AgreeOpus{} for
 Opus 5.5). Paraphrased and neutralized relays kept the invitation and did not reduce uptake, and harmless
@@ -300,40 +302,38 @@ the arrangement, and the summary named both.}\label{fig:lexical}
 
 \paragraph{Who writes the account matters more than compression.} Gemma-3-27B, which plays no other role,
 read each full trace and wrote an activity-log entry of at most 80 words, without being told what to look
-for (Figure~\ref{fig:lexical}B). Against the trace it summarizes, the entry cost the Mistral monitor some
-accuracy on Gemini's episodes: misses rose from \OvGemMiTraceFNR{} to \OvGemMiSumFNR. Against Qwen's own
-reports, it recovered most of what they left out: misses fell from \OvQwMiSelfFNR{} to \OvQwMiSumFNR.
+for (Figure~\ref{fig:lexical}B). Against Qwen's own reports, the entry recovered much of what they left out:
+misses fell from \OvQwHkSelfFNR{} to \OvQwHkSumFNR{} (Haiku) and from \OvQwMiSelfFNR{} to \OvQwMiSumFNR{}
+(Mistral). Against the trace it summarizes, it cost some accuracy (Appendix Table~\ref{tab:oversight}).
 The summarizer had no reason to drop the message; the agent did (Appendix~\ref{app:more}).
 
 
 
 \section{Discussion and Limitations}
-Detecting a collusive proposal and detecting an agent that accepts one are different tasks. A platform can
-flag proposals from messages, but judging the agent requires its action and a reference for what it would
-have done without the proposal. In our data that reference was the most useful single addition to a
-monitor's view, more useful than an explicit rule. Agent reports and direct questions are also cheap to log,
-but their value depends on the agent's candour. Detectors keyed on explicit requests would miss
-announcements, which moved Gemini most on the market. None of these problems is specific to English. Both agents took collusive invitations written in
-Vietnamese, including a bare announcement that asked for nothing, and every evidence problem above appeared
-in Vietnamese logs. Monitors and detectors validated only on English text should not be assumed to
-transfer.
+Detecting a collusive proposal and detecting an agent that accepts one are different tasks. Judging the
+agent needs its action and a reference for what it would have done without the proposal; for both monitors
+that reference did more than an explicit rule, though it did not change how cautious each monitor was.
+Detectors keyed on explicit requests would miss announcements, which moved Gemini most on the market. None
+of these problems is specific to English: both agents took invitations written in Vietnamese, including a
+bare announcement, and every problem above appeared in Vietnamese logs. Detectors validated only on English
+text should not be assumed to transfer.
 
-\paragraph{Limitations.} The rival is scripted and a model wrote the invitations, so we measure propensity
-to accept, not the ability to initiate collusion. Each family has eight scenarios, which supports only
-coarse comparisons between families. Gemini wrote the invitations and served as agent and gate; neither monitor shares a family with either agent, and
-four readers from other providers reduce but do not remove shared bias, and we ran no human validation
-sample. We ran no English condition, so we cannot say whether collusion is more or less likely in
-Vietnamese than in English. Qwen agents read Qwen-relayed text. Summary styles also differ in length, and agents read one summary per message; a second sample and a second summarizer were checked only at the stimulus level. The population and similar-situation baselines come from the same scenario set, so a deployed baseline drawn from different traffic may fit less well. The lexical disclosure code
-is our weakest measure. Appendix~\ref{app:ethics} discusses dual use.
+\paragraph{Limitations.} The rival is scripted, so we measure propensity to accept, not to initiate. Each
+family has eight scenarios. Gemini wrote the invitations and served as agent and gate; neither monitor shares
+a family with an agent, but no human validated the stimuli. There is no English condition, so we cannot say
+whether collusion is more or less likely in Vietnamese. Summary styles differ in length, and each message was
+summarized once per style. The baselines come from the same scenario set. The lexical disclosure code is our
+weakest measure. Appendix~\ref{app:ethics} discusses dual use.
 
-\paragraph{Future work.} Testing the standard on multi-round logs, where the baseline comes from earlier
-rounds; human validation of the stimuli; relays that summarise conversation history; the same design in other languages, with an English control and invitations written by native speakers in each language's own pragmatic register, to test whether collusion and its evidence differ by language; and handoffs in which one agent plans and another executes from a summary of the plan.
+\paragraph{Future work.} Multi-round logs with baselines from earlier rounds; human validation; summaries of
+conversation history; the same design in other languages, with an English control and native-speaker
+invitations; and handoffs in which one agent executes from another's summarized plan.
 
 \section{Conclusion}
 Logs hold three kinds of evidence, and each misleads on its own: the action overstates the message's role,
 the message implicates only its sender, and the agent's report leaves the message out. A monitor that also
-knows how the agent behaves on similar situations without a proposal caught the collusion we measured and
-stopped flagging most agents that refused. A neutral summary of the trace keeps this evidence better than
+knows how the agent behaves on similar situations without a proposal stopped flagging most agents that
+refused; the better-calibrated monitor still caught all the collusion we measured. A neutral summary of the trace keeps this evidence better than
 the agent's own report, but a summary inside the channel can erase the proposal itself, harmful or not.
 
 \section*{Code and Data}
@@ -402,8 +402,9 @@ From the action alone, the Mistral monitor missed \MonActionFNR{} \MonActionFNRC
 market (Appendix Table~\ref{tab:views}, panel A). Adding the agent's report reduced this to \MonReportFNR{}
 (difference \MonActionMinusBoth{} points, \MonActionMinusBothCI) while flagging \MonFADeclReport{} of
 declined episodes. The report alone performed similarly (\MonReportOnlyFNR) because it restates the action.
-Its value depends on the agent: for Qwen, whose reports seldom mentioned the message, action and report
-still missed \MonQReportFNR. Adding the rival's message cut misses to \MonDeliveredFNR{} but flagged
+For the Mistral monitor the report helped little on either agent (\MonReportFNR{} on Gemini's episodes,
+\MonQReportFNR{} on Qwen's); for Haiku it depended on the agent (\HkReportFNR{} and \HkQReportFNR), because
+Qwen's reports seldom mentioned the message. Adding the rival's message cut misses to \MonDeliveredFNR{} but flagged
 \MonFADeclDelivered{} of declined episodes (\MonFADeclMsgOnly{} for the message alone). The message is
 evidence that the rival proposed an arrangement, which a platform may itself want to flag, but not that the
 agent accepted it. Claude Haiku 5.5 reproduced this ordering (Figure~\ref{fig:says}; panel B).
@@ -416,15 +417,16 @@ than the actions (Appendix~\ref{app:tables}).
 The control view separates information from instruction (Appendix Table~\ref{tab:views}). Showing the monitor the
 agent's pre-message choice, without any rule, cut flags on declined episodes from \StdMiAllFADecl{} to
 \StdMiCtlFADecl{} (Mistral monitor) and from \StdHkAllFADecl{} to \StdHkCtlFADecl{} (Haiku), while
-message-induced misses stayed at \StdMiCtlMovedFNR{} and \StdHkCtlMovedFNR. Stating the rule removed the
+message-induced misses were \StdMiCtlMovedFNR{} (Mistral, higher than with the message alone) and
+\StdHkCtlMovedFNR{} (Haiku). Stating the rule removed the
 remaining declined flags (\StdMiFADecl{} and \StdHkFADecl) but raised message-induced misses to
-\StdMiMovedFNR{} and \StdHkMovedFNR. Only Haiku used the rule to clear unilateral choices
-(\StdHkFAUni{} flagged, against \StdMiFAUni{} for the Mistral monitor). Most of the benefit therefore comes
+\StdMiMovedFNR{} and \StdHkMovedFNR. Both monitors used the rule to clear unilateral choices
+(\StdHkFAUni{} and \StdMiFAUni{} flagged). Most of the benefit therefore comes
 from the baseline information, not from the rule.
 
 The baseline need not come from the same episode. We replaced the agent's own turn-1 choice with its turn-1
 choices on similar situations: the same family and class, with the item itself left out, which a deployed
-monitor could hold from earlier work. With no rule, misses stayed at \StdMiFamFNR{} and \StdHkFamFNR{}
+monitor could hold from earlier work. With no rule, misses were \StdMiFamFNR{} and \StdHkFamFNR{}
 (Gemini agent; Mistral and Haiku monitors) and \StdMiQwFamFNR{} and \StdHkQwFamFNR{} (Qwen agent), and flags on
 declined episodes were \StdMiFamFADecl{}, \StdHkFamFADecl{}, \StdMiQwFamFADecl{} and \StdHkQwFamFADecl,
 close to the same-episode baseline. Counts from the same situation in other runs gave similar results

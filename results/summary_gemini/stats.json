@@ -1248,6 +1248,12 @@
     "lo": 0.28255475665578406,
     "hi": 0.3800013477088949,
     "n": 469
+   },
+   "summary_lexical": {
+    "est": 0.7285714285714285,
+    "lo": 0.6283130988078695,
+    "hi": 0.8076965065502183,
+    "n": 210
    }
   },
   "by_rendering_raw": {
@@ -1762,2801 +1768,6 @@
   }
  },
  "monitors": {
-  "gemini": {
-   "n_verdicts": 19200,
-   "unparsed": 1,
-   "views": [
-    "action",
-    "report",
-    "delivered",
-    "raw",
-    "report_only",
-    "message_only",
-    "standard",
-    "baseline_info",
-    "pop_baseline",
-    "summary",
-    "family_baseline"
-   ],
-   "fnr": {
-    "raw": {
-     "action": {
-      "est": 0.6612903225806451,
-      "lo": 0.4098360655737705,
-      "hi": 0.8405797101449275,
-      "n": 62
-     },
-     "report": {
-      "est": 0.12903225806451613,
-      "lo": 0.06521739130434782,
-      "hi": 0.2,
-      "n": 62
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 62
-     },
-     "raw": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report_only": {
-      "est": 0.11290322580645161,
-      "lo": 0.04081632653061224,
-      "hi": 0.2,
-      "n": 62
-     },
-     "message_only": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 62
-     },
-     "standard": {
-      "est": 0.12903225806451613,
-      "lo": 0.046511627906976744,
-      "hi": 0.24242424242424243,
-      "n": 62
-     },
-     "baseline_info": {
-      "est": 0.016129032258064516,
-      "lo": 0.0,
-      "hi": 0.057692307692307696,
-      "n": 62
-     },
-     "pop_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 62
-     },
-     "summary": {
-      "est": 0.08064516129032258,
-      "lo": 0.017241379310344827,
-      "hi": 0.14285714285714285,
-      "n": 62
-     },
-     "family_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 62
-     }
-    },
-    "paraphrased": {
-     "action": {
-      "est": 0.6376811594202898,
-      "lo": 0.3787878787878788,
-      "hi": 0.8313253012048193,
-      "n": 69
-     },
-     "report": {
-      "est": 0.21739130434782608,
-      "lo": 0.11594202898550725,
-      "hi": 0.3026315789473684,
-      "n": 69
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 69
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 69
-     },
-     "report_only": {
-      "est": 0.2028985507246377,
-      "lo": 0.1111111111111111,
-      "hi": 0.2903225806451613,
-      "n": 69
-     },
-     "message_only": {
-      "est": 0.014492753623188406,
-      "lo": 0.0,
-      "hi": 0.05357142857142857,
-      "n": 69
-     },
-     "standard": {
-      "est": 0.2318840579710145,
-      "lo": 0.12870933521923622,
-      "hi": 0.375,
-      "n": 69
-     },
-     "baseline_info": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 69
-     },
-     "pop_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 69
-     },
-     "summary": {
-      "est": 0.07246376811594203,
-      "lo": 0.014705882352941176,
-      "hi": 0.13559845155890346,
-      "n": 69
-     },
-     "family_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 69
-     }
-    },
-    "neutralized": {
-     "action": {
-      "est": 0.620253164556962,
-      "lo": 0.37141705069124425,
-      "hi": 0.8148148148148148,
-      "n": 79
-     },
-     "report": {
-      "est": 0.17721518987341772,
-      "lo": 0.08571428571428572,
-      "hi": 0.26262626262626265,
-      "n": 79
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 79
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 79
-     },
-     "report_only": {
-      "est": 0.17721518987341772,
-      "lo": 0.09523809523809523,
-      "hi": 0.24468085106382978,
-      "n": 79
-     },
-     "message_only": {
-      "est": 0.012658227848101266,
-      "lo": 0.0,
-      "hi": 0.046875,
-      "n": 79
-     },
-     "standard": {
-      "est": 0.26582278481012656,
-      "lo": 0.14444158075601374,
-      "hi": 0.4268728222996509,
-      "n": 79
-     },
-     "baseline_info": {
-      "est": 0.0379746835443038,
-      "lo": 0.0,
-      "hi": 0.09183673469387756,
-      "n": 79
-     },
-     "pop_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 79
-     },
-     "summary": {
-      "est": 0.08860759493670886,
-      "lo": 0.04081632653061224,
-      "hi": 0.1323529411764706,
-      "n": 79
-     },
-     "family_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 79
-     }
-    },
-    "sum_short": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 74
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 74
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_long": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 64
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 64
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_system": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.015384615384615385,
-      "lo": 0.0,
-      "hi": 0.06,
-      "n": 65
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 65
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_codeswitch": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 56
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 56
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    }
-   },
-   "fnr_moved": {
-    "raw": {
-     "action": {
-      "est": 0.6153846153846154,
-      "lo": 0.34615384615384615,
-      "hi": 0.88,
-      "n": 26
-     },
-     "report": {
-      "est": 0.038461538461538464,
-      "lo": 0.0,
-      "hi": 0.14285714285714285,
-      "n": 26
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 26
-     },
-     "raw": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report_only": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 26
-     },
-     "message_only": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 26
-     },
-     "standard": {
-      "est": 0.11538461538461539,
-      "lo": 0.0,
-      "hi": 0.3,
-      "n": 26
-     },
-     "baseline_info": {
-      "est": 0.038461538461538464,
-      "lo": 0.0,
-      "hi": 0.125,
-      "n": 26
-     },
-     "pop_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 26
-     },
-     "summary": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 26
-     },
-     "family_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 26
-     }
-    },
-    "paraphrased": {
-     "action": {
-      "est": 0.45454545454545453,
-      "lo": 0.2,
-      "hi": 0.7692307692307693,
-      "n": 22
-     },
-     "report": {
-      "est": 0.045454545454545456,
-      "lo": 0.0,
-      "hi": 0.15789473684210525,
-      "n": 22
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 22
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 22
-     },
-     "report_only": {
-      "est": 0.045454545454545456,
-      "lo": 0.0,
-      "hi": 0.13043478260869565,
-      "n": 22
-     },
-     "message_only": {
-      "est": 0.045454545454545456,
-      "lo": 0.0,
-      "hi": 0.16,
-      "n": 22
-     },
-     "standard": {
-      "est": 0.13636363636363635,
-      "lo": 0.0,
-      "hi": 0.2777777777777778,
-      "n": 22
-     },
-     "baseline_info": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 22
-     },
-     "pop_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 22
-     },
-     "summary": {
-      "est": 0.045454545454545456,
-      "lo": 0.0,
-      "hi": 0.14285714285714285,
-      "n": 22
-     },
-     "family_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 22
-     }
-    },
-    "neutralized": {
-     "action": {
-      "est": 0.6428571428571429,
-      "lo": 0.3684210526315789,
-      "hi": 0.88,
-      "n": 28
-     },
-     "report": {
-      "est": 0.03571428571428571,
-      "lo": 0.0,
-      "hi": 0.10810810810810811,
-      "n": 28
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 28
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 28
-     },
-     "report_only": {
-      "est": 0.03571428571428571,
-      "lo": 0.0,
-      "hi": 0.10810810810810811,
-      "n": 28
-     },
-     "message_only": {
-      "est": 0.03571428571428571,
-      "lo": 0.0,
-      "hi": 0.13043478260869565,
-      "n": 28
-     },
-     "standard": {
-      "est": 0.25,
-      "lo": 0.08333333333333333,
-      "hi": 0.45,
-      "n": 28
-     },
-     "baseline_info": {
-      "est": 0.07142857142857142,
-      "lo": 0.0,
-      "hi": 0.19230769230769232,
-      "n": 28
-     },
-     "pop_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 28
-     },
-     "summary": {
-      "est": 0.03571428571428571,
-      "lo": 0.0,
-      "hi": 0.11764705882352941,
-      "n": 28
-     },
-     "family_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 28
-     }
-    },
-    "sum_short": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 31
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 31
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_long": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 25
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 25
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_system": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 16
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 16
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_codeswitch": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 15
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 15
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    }
-   },
-   "fpr_twins": {
-    "raw": {
-     "action": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "report": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "raw": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report_only": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "message_only": {
-      "est": 0.025,
-      "lo": 0.0,
-      "hi": 0.05555555555555555,
-      "n": 240
-     },
-     "standard": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "baseline_info": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "pop_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "summary": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "family_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     }
-    },
-    "paraphrased": {
-     "action": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "report": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 239
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "report_only": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "message_only": {
-      "est": 0.025,
-      "lo": 0.0,
-      "hi": 0.05434782608695652,
-      "n": 240
-     },
-     "standard": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "baseline_info": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "pop_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "summary": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "family_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     }
-    },
-    "neutralized": {
-     "action": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 239
-     },
-     "report": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 239
-     },
-     "delivered": {
-      "est": 0.008368200836820083,
-      "lo": 0.0,
-      "hi": 0.02092050209205021,
-      "n": 239
-     },
-     "raw": {
-      "est": 0.0041841004184100415,
-      "lo": 0.0,
-      "hi": 0.013888888888888888,
-      "n": 239
-     },
-     "report_only": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 239
-     },
-     "message_only": {
-      "est": 0.012552301255230125,
-      "lo": 0.0,
-      "hi": 0.03255813953488372,
-      "n": 239
-     },
-     "standard": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 239
-     },
-     "baseline_info": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 239
-     },
-     "pop_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 239
-     },
-     "summary": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 239
-     },
-     "family_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 239
-     }
-    },
-    "sum_short": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.004219409282700422,
-      "lo": 0.0,
-      "hi": 0.014354066985645933,
-      "n": 237
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 237
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_long": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 240
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_system": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 234
-     },
-     "raw": {
-      "est": 0.017094017094017096,
-      "lo": 0.0,
-      "hi": 0.04255773777050366,
-      "n": 234
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_codeswitch": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.004201680672268907,
-      "lo": 0.0,
-      "hi": 0.014241322399298477,
-      "n": 238
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 238
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    }
-   },
-   "fpr_declined": {
-    "raw": {
-     "action": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 178
-     },
-     "report": {
-      "est": 0.0449438202247191,
-      "lo": 0.016126875970329482,
-      "hi": 0.08064516129032258,
-      "n": 178
-     },
-     "delivered": {
-      "est": 0.601123595505618,
-      "lo": 0.4599973262032086,
-      "hi": 0.7348507667031763,
-      "n": 178
-     },
-     "raw": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report_only": {
-      "est": 0.05056179775280899,
-      "lo": 0.017341040462427744,
-      "hi": 0.09202453987730061,
-      "n": 178
-     },
-     "message_only": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 178
-     },
-     "standard": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 178
-     },
-     "baseline_info": {
-      "est": 0.028089887640449437,
-      "lo": 0.005319148936170213,
-      "hi": 0.05813953488372093,
-      "n": 178
-     },
-     "pop_baseline": {
-      "est": 0.016853932584269662,
-      "lo": 0.0,
-      "hi": 0.04651464031811057,
-      "n": 178
-     },
-     "summary": {
-      "est": 0.07865168539325842,
-      "lo": 0.04,
-      "hi": 0.12139127518921847,
-      "n": 178
-     },
-     "family_baseline": {
-      "est": 0.03932584269662921,
-      "lo": 0.008928571428571428,
-      "hi": 0.07913847140109691,
-      "n": 178
-     }
-    },
-    "paraphrased": {
-     "action": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 171
-     },
-     "report": {
-      "est": 0.07017543859649122,
-      "lo": 0.032253751940658965,
-      "hi": 0.11940298507462686,
-      "n": 171
-     },
-     "delivered": {
-      "est": 0.6198830409356725,
-      "lo": 0.4883720930232558,
-      "hi": 0.7526329937747595,
-      "n": 171
-     },
-     "raw": {
-      "est": 0.6081871345029239,
-      "lo": 0.47928994082840237,
-      "hi": 0.7393950064020486,
-      "n": 171
-     },
-     "report_only": {
-      "est": 0.07602339181286549,
-      "lo": 0.037037037037037035,
-      "hi": 0.125,
-      "n": 171
-     },
-     "message_only": {
-      "est": 0.9824561403508771,
-      "lo": 0.9547738693467337,
-      "hi": 1.0,
-      "n": 171
-     },
-     "standard": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 171
-     },
-     "baseline_info": {
-      "est": 0.05263157894736842,
-      "lo": 0.021896813050935344,
-      "hi": 0.08938768009408994,
-      "n": 171
-     },
-     "pop_baseline": {
-      "est": 0.06432748538011696,
-      "lo": 0.021095936042638243,
-      "hi": 0.12195476460578554,
-      "n": 171
-     },
-     "summary": {
-      "est": 0.15204678362573099,
-      "lo": 0.090424780622671,
-      "hi": 0.22151898734177214,
-      "n": 171
-     },
-     "family_baseline": {
-      "est": 0.07017543859649122,
-      "lo": 0.017241379310344827,
-      "hi": 0.14084507042253522,
-      "n": 171
-     }
-    },
-    "neutralized": {
-     "action": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 161
-     },
-     "report": {
-      "est": 0.062111801242236024,
-      "lo": 0.02678452062643239,
-      "hi": 0.10666666666666667,
-      "n": 161
-     },
-     "delivered": {
-      "est": 0.6024844720496895,
-      "lo": 0.45384020618556703,
-      "hi": 0.7553956834532374,
-      "n": 161
-     },
-     "raw": {
-      "est": 0.5714285714285714,
-      "lo": 0.4155844155844156,
-      "hi": 0.7368421052631579,
-      "n": 161
-     },
-     "report_only": {
-      "est": 0.031055900621118012,
-      "lo": 0.007246376811594203,
-      "hi": 0.0625,
-      "n": 161
-     },
-     "message_only": {
-      "est": 0.9937888198757764,
-      "lo": 0.980261529442418,
-      "hi": 1.0,
-      "n": 161
-     },
-     "standard": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 161
-     },
-     "baseline_info": {
-      "est": 0.037267080745341616,
-      "lo": 0.012578616352201259,
-      "hi": 0.06666666666666667,
-      "n": 161
-     },
-     "pop_baseline": {
-      "est": 0.062111801242236024,
-      "lo": 0.017241379310344827,
-      "hi": 0.12365857553497281,
-      "n": 161
-     },
-     "summary": {
-      "est": 0.09316770186335403,
-      "lo": 0.045454545454545456,
-      "hi": 0.15172413793103448,
-      "n": 161
-     },
-     "family_baseline": {
-      "est": 0.049689440993788817,
-      "lo": 0.011976047904191617,
-      "hi": 0.10055948563683845,
-      "n": 161
-     }
-    },
-    "sum_short": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.4939759036144578,
-      "lo": 0.35294117647058826,
-      "hi": 0.6363763331640425,
-      "n": 166
-     },
-     "raw": {
-      "est": 0.5903614457831325,
-      "lo": 0.4226190476190476,
-      "hi": 0.7575816761363635,
-      "n": 166
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_long": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.5965909090909091,
-      "lo": 0.4519731468245865,
-      "hi": 0.7440510797342192,
-      "n": 176
-     },
-     "raw": {
-      "est": 0.6193181818181818,
-      "lo": 0.47169543310463125,
-      "hi": 0.7662337662337663,
-      "n": 176
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_system": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.3028571428571429,
-      "lo": 0.17989417989417988,
-      "hi": 0.4378386374540221,
-      "n": 175
-     },
-     "raw": {
-      "est": 0.6,
-      "lo": 0.4430316770577492,
-      "hi": 0.755565476190476,
-      "n": 175
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_codeswitch": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.5380434782608695,
-      "lo": 0.38190726359068067,
-      "hi": 0.6926835619918699,
-      "n": 184
-     },
-     "raw": {
-      "est": 0.6032608695652174,
-      "lo": 0.4549447174447175,
-      "hi": 0.7451960403726707,
-      "n": 184
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    }
-   },
-   "fpr_unilateral": {
-    "raw": {
-     "action": {
-      "est": 0.3055555555555556,
-      "lo": 0.09523809523809523,
-      "hi": 0.65,
-      "n": 36
-     },
-     "report": {
-      "est": 0.8055555555555556,
-      "lo": 0.7142857142857143,
-      "hi": 0.8888888888888888,
-      "n": 36
-     },
-     "delivered": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 36
-     },
-     "raw": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report_only": {
-      "est": 0.8055555555555556,
-      "lo": 0.6666666666666666,
-      "hi": 0.9183811362382789,
-      "n": 36
-     },
-     "message_only": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 36
-     },
-     "standard": {
-      "est": 0.8611111111111112,
-      "lo": 0.72,
-      "hi": 0.96,
-      "n": 36
-     },
-     "baseline_info": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 36
-     },
-     "pop_baseline": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 36
-     },
-     "summary": {
-      "est": 0.8611111111111112,
-      "lo": 0.7551020408163265,
-      "hi": 0.96875,
-      "n": 36
-     },
-     "family_baseline": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 36
-     }
-    },
-    "paraphrased": {
-     "action": {
-      "est": 0.2765957446808511,
-      "lo": 0.07142857142857142,
-      "hi": 0.6,
-      "n": 47
-     },
-     "report": {
-      "est": 0.7021276595744681,
-      "lo": 0.6086956521739131,
-      "hi": 0.8,
-      "n": 47
-     },
-     "delivered": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 47
-     },
-     "raw": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 47
-     },
-     "report_only": {
-      "est": 0.723404255319149,
-      "lo": 0.5952380952380952,
-      "hi": 0.8387096774193549,
-      "n": 47
-     },
-     "message_only": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 47
-     },
-     "standard": {
-      "est": 0.723404255319149,
-      "lo": 0.47058823529411764,
-      "hi": 0.8679245283018868,
-      "n": 47
-     },
-     "baseline_info": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 47
-     },
-     "pop_baseline": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 47
-     },
-     "summary": {
-      "est": 0.9148936170212766,
-      "lo": 0.8269230769230769,
-      "hi": 1.0,
-      "n": 47
-     },
-     "family_baseline": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 47
-     }
-    },
-    "neutralized": {
-     "action": {
-      "est": 0.39215686274509803,
-      "lo": 0.14285714285714285,
-      "hi": 0.7333673469387749,
-      "n": 51
-     },
-     "report": {
-      "est": 0.7450980392156863,
-      "lo": 0.6026712328767123,
-      "hi": 0.875,
-      "n": 51
-     },
-     "delivered": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 51
-     },
-     "raw": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 51
-     },
-     "report_only": {
-      "est": 0.7450980392156863,
-      "lo": 0.6451612903225806,
-      "hi": 0.8571428571428571,
-      "n": 51
-     },
-     "message_only": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 51
-     },
-     "standard": {
-      "est": 0.7254901960784313,
-      "lo": 0.5,
-      "hi": 0.8771929824561403,
-      "n": 51
-     },
-     "baseline_info": {
-      "est": 0.9803921568627451,
-      "lo": 0.9361702127659575,
-      "hi": 1.0,
-      "n": 51
-     },
-     "pop_baseline": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 51
-     },
-     "summary": {
-      "est": 0.8823529411764706,
-      "lo": 0.8269230769230769,
-      "hi": 0.9473684210526315,
-      "n": 51
-     },
-     "family_baseline": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 51
-     }
-    },
-    "sum_short": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 43
-     },
-     "raw": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 43
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_long": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 39
-     },
-     "raw": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 39
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_system": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 0.9795918367346939,
-      "lo": 0.9166223404255319,
-      "hi": 1.0,
-      "n": 49
-     },
-     "raw": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 49
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    },
-    "sum_codeswitch": {
-     "action": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "report": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "delivered": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 41
-     },
-     "raw": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 41
-     },
-     "report_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "message_only": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "standard": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "baseline_info": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "pop_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "summary": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     },
-     "family_baseline": {
-      "est": null,
-      "lo": null,
-      "hi": null,
-      "n": 0
-     }
-    }
-   },
-   "pooled": {
-    "fnr": {
-     "action": {
-      "est": 0.638095238095238,
-      "lo": 0.389099654128837,
-      "hi": 0.8211411570637446,
-      "n": 210
-     },
-     "report": {
-      "est": 0.1761904761904762,
-      "lo": 0.1062473812849162,
-      "hi": 0.23426623376623376,
-      "n": 210
-     },
-     "delivered": {
-      "est": 0.0021321961620469083,
-      "lo": 0.0,
-      "hi": 0.007853531717051191,
-      "n": 469
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 407
-     },
-     "report_only": {
-      "est": 0.16666666666666666,
-      "lo": 0.09900990099009901,
-      "hi": 0.2229310122224135,
-      "n": 210
-     },
-     "message_only": {
-      "est": 0.009523809523809525,
-      "lo": 0.0,
-      "hi": 0.035296720458094705,
-      "n": 210
-     },
-     "standard": {
-      "est": 0.21428571428571427,
-      "lo": 0.12274327207088939,
-      "hi": 0.33962264150943394,
-      "n": 210
-     },
-     "baseline_info": {
-      "est": 0.01904761904761905,
-      "lo": 0.0,
-      "hi": 0.04832863652716151,
-      "n": 210
-     },
-     "pop_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 210
-     },
-     "summary": {
-      "est": 0.08095238095238096,
-      "lo": 0.03535204991087344,
-      "hi": 0.11894314069076199,
-      "n": 210
-     },
-     "family_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 210
-     }
-    },
-    "fnr_moved": {
-     "action": {
-      "est": 0.5789473684210527,
-      "lo": 0.34567340067340063,
-      "hi": 0.8205128205128205,
-      "n": 76
-     },
-     "report": {
-      "est": 0.039473684210526314,
-      "lo": 0.0,
-      "hi": 0.08771929824561403,
-      "n": 76
-     },
-     "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 163
-     },
-     "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 137
-     },
-     "report_only": {
-      "est": 0.02631578947368421,
-      "lo": 0.0,
-      "hi": 0.06329113924050633,
-      "n": 76
-     },
-     "message_only": {
-      "est": 0.02631578947368421,
-      "lo": 0.0,
-      "hi": 0.09090909090909091,
-      "n": 76
-     },
-     "standard": {
-      "est": 0.17105263157894737,
-      "lo": 0.05405405405405406,
-      "hi": 0.3131343556042351,
-      "n": 76
-     },
-     "baseline_info": {
-      "est": 0.039473684210526314,
-      "lo": 0.0,
-      "hi": 0.1,
-      "n": 76
-     },
-     "pop_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 76
-     },
-     "summary": {
-      "est": 0.02631578947368421,
-      "lo": 0.0,
-      "hi": 0.08108108108108109,
-      "n": 76
-     },
-     "family_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 76
-     }
-    },
-    "fpr_declined": {
-     "action": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 510
-     },
-     "report": {
-      "est": 0.058823529411764705,
-      "lo": 0.03298960123138603,
-      "hi": 0.09161793372319688,
-      "n": 510
-     },
-     "delivered": {
-      "est": 0.5359207266721717,
-      "lo": 0.40537888933102745,
-      "hi": 0.6663573249174799,
-      "n": 1211
-     },
-     "raw": {
-      "est": 0.5992255566311714,
-      "lo": 0.45749463571445453,
-      "hi": 0.7428622586008441,
-      "n": 1033
-     },
-     "report_only": {
-      "est": 0.052941176470588235,
-      "lo": 0.025925725941924646,
-      "hi": 0.08839903663960745,
-      "n": 510
-     },
-     "message_only": {
-      "est": 0.9921568627450981,
-      "lo": 0.9807683044315992,
-      "hi": 1.0,
-      "n": 510
-     },
-     "standard": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 510
-     },
-     "baseline_info": {
-      "est": 0.0392156862745098,
-      "lo": 0.0149495462884911,
-      "hi": 0.06765440151140298,
-      "n": 510
-     },
-     "pop_baseline": {
-      "est": 0.047058823529411764,
-      "lo": 0.017543161247066712,
-      "hi": 0.08534437235304677,
-      "n": 510
-     },
-     "summary": {
-      "est": 0.10784313725490197,
-      "lo": 0.06747404844290658,
-      "hi": 0.1532717995062599,
-      "n": 510
-     },
-     "family_baseline": {
-      "est": 0.052941176470588235,
-      "lo": 0.018611399103259773,
-      "hi": 0.097466062870775,
-      "n": 510
-     }
-    },
-    "fpr_unilateral": {
-     "action": {
-      "est": 0.3283582089552239,
-      "lo": 0.10795176024955437,
-      "hi": 0.661980976769709,
-      "n": 134
-     },
-     "report": {
-      "est": 0.746268656716418,
-      "lo": 0.6770817158385094,
-      "hi": 0.8188976377952756,
-      "n": 134
-     },
-     "delivered": {
-      "est": 0.9967320261437909,
-      "lo": 0.9863945578231292,
-      "hi": 1.0,
-      "n": 306
-     },
-     "raw": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 270
-     },
-     "report_only": {
-      "est": 0.753731343283582,
-      "lo": 0.6774193548387096,
-      "hi": 0.8360655737704918,
-      "n": 134
-     },
-     "message_only": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 134
-     },
-     "standard": {
-      "est": 0.7611940298507462,
-      "lo": 0.5595238095238095,
-      "hi": 0.8820237969048124,
-      "n": 134
-     },
-     "baseline_info": {
-      "est": 0.9925373134328358,
-      "lo": 0.9752066115702479,
-      "hi": 1.0,
-      "n": 134
-     },
-     "pop_baseline": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 134
-     },
-     "summary": {
-      "est": 0.8880597014925373,
-      "lo": 0.8352941176470589,
-      "hi": 0.9530227558724832,
-      "n": 134
-     },
-     "family_baseline": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 134
-     }
-    },
-    "fpr_twins": {
-     "action": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 719
-     },
-     "report": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 719
-     },
-     "delivered": {
-      "est": 0.0023995200959808036,
-      "lo": 0.0,
-      "hi": 0.00558659217877095,
-      "n": 1667
-     },
-     "raw": {
-      "est": 0.0035014005602240898,
-      "lo": 0.0,
-      "hi": 0.008911585803053108,
-      "n": 1428
-     },
-     "report_only": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 719
-     },
-     "message_only": {
-      "est": 0.02086230876216968,
-      "lo": 0.0033333333333333335,
-      "hi": 0.043115438108484005,
-      "n": 719
-     },
-     "standard": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 719
-     },
-     "baseline_info": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 719
-     },
-     "pop_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 719
-     },
-     "summary": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 719
-     },
-     "family_baseline": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 719
-     }
-    }
-   },
-   "c5_delivered_minus_raw": {
-    "paraphrased": {
-     "est": 0.0,
-     "lo": 0.0,
-     "hi": 0.0,
-     "n_a": 69,
-     "n_b": 69
-    },
-    "neutralized": {
-     "est": 0.0,
-     "lo": 0.0,
-     "hi": 0.0,
-     "n_a": 79,
-     "n_b": 79
-    }
-   },
-   "c6_action_minus_delivered": {
-    "est": 0.6359630419331911,
-    "lo": 0.3879940052748742,
-    "hi": 0.8184502586979674,
-    "n_a": 210,
-    "n_b": 469
-   },
-   "says_vs_does": {
-    "fnr_action_minus_both": {
-     "est": 0.4619047619047618,
-     "lo": 0.22533628738724487,
-     "hi": 0.6413070926657882,
-     "n_a": 210,
-     "n_b": 210
-    },
-    "fnr_report_only_minus_both": {
-     "est": -0.009523809523809545,
-     "lo": -0.042057304476143635,
-     "hi": 0.021428571428571422,
-     "n_a": 210,
-     "n_b": 210
-    },
-    "fpr_declined_message_only_minus_all": {
-     "est": 0.45623613607292635,
-     "lo": 0.3231480382286265,
-     "hi": 0.5908098620260702,
-     "n_a": 510,
-     "n_b": 1211
-    }
-   }
-  },
   "haiku": {
    "n_verdicts": 19200,
    "unparsed": 0,
@@ -7352,33 +4563,40 @@
     }
    }
   },
-  "qwen": {
-   "n_verdicts": 5280,
+  "mistral": {
+   "n_verdicts": 19200,
    "unparsed": 0,
    "views": [
     "action",
     "report",
     "delivered",
-    "raw"
+    "raw",
+    "report_only",
+    "message_only",
+    "standard",
+    "baseline_info",
+    "pop_baseline",
+    "summary",
+    "family_baseline"
    ],
    "fnr": {
     "raw": {
      "action": {
-      "est": 0.06451612903225806,
-      "lo": 0.0,
-      "hi": 0.16666666666666666,
+      "est": 0.8387096774193549,
+      "lo": 0.6521739130434783,
+      "hi": 0.961038961038961,
       "n": 62
      },
      "report": {
-      "est": 0.04838709677419355,
-      "lo": 0.0,
-      "hi": 0.10938787774725256,
+      "est": 0.5967741935483871,
+      "lo": 0.40814436885865457,
+      "hi": 0.7391304347826086,
       "n": 62
      },
      "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
+      "est": 0.20967741935483872,
+      "lo": 0.08450704225352113,
+      "hi": 0.3333333333333333,
       "n": 62
      },
      "raw": {
@@ -7386,57 +4604,183 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "report_only": {
+      "est": 0.41935483870967744,
+      "lo": 0.27450980392156865,
+      "hi": 0.5490265120132559,
+      "n": 62
+     },
+     "message_only": {
+      "est": 0.25806451612903225,
+      "lo": 0.14285714285714285,
+      "hi": 0.40540540540540543,
+      "n": 62
+     },
+     "standard": {
+      "est": 0.9193548387096774,
+      "lo": 0.8095238095238095,
+      "hi": 1.0,
+      "n": 62
+     },
+     "baseline_info": {
+      "est": 0.3709677419354839,
+      "lo": 0.23636363636363636,
+      "hi": 0.49019607843137253,
+      "n": 62
+     },
+     "pop_baseline": {
+      "est": 0.1774193548387097,
+      "lo": 0.0851063829787234,
+      "hi": 0.3,
+      "n": 62
+     },
+     "summary": {
+      "est": 0.45161290322580644,
+      "lo": 0.2916666666666667,
+      "hi": 0.5810889377749842,
+      "n": 62
+     },
+     "family_baseline": {
+      "est": 0.41935483870967744,
+      "lo": 0.22727272727272727,
+      "hi": 0.5909090909090909,
+      "n": 62
      }
     },
     "paraphrased": {
      "action": {
-      "est": 0.043478260869565216,
-      "lo": 0.0,
-      "hi": 0.12821428571428556,
+      "est": 0.8405797101449275,
+      "lo": 0.65625,
+      "hi": 0.9571428571428572,
       "n": 69
      },
      "report": {
-      "est": 0.057971014492753624,
-      "lo": 0.0,
-      "hi": 0.14814814814814814,
+      "est": 0.6086956521739131,
+      "lo": 0.38296307884856073,
+      "hi": 0.7752866315065351,
       "n": 69
      },
      "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
+      "est": 0.18840579710144928,
+      "lo": 0.06349206349206349,
+      "hi": 0.29850746268656714,
       "n": 69
      },
      "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
+      "est": 0.13043478260869565,
+      "lo": 0.03636363636363636,
+      "hi": 0.21518987341772153,
+      "n": 69
+     },
+     "report_only": {
+      "est": 0.5362318840579711,
+      "lo": 0.35714285714285715,
+      "hi": 0.6785714285714286,
+      "n": 69
+     },
+     "message_only": {
+      "est": 0.17391304347826086,
+      "lo": 0.08571428571428572,
+      "hi": 0.2982456140350877,
+      "n": 69
+     },
+     "standard": {
+      "est": 0.9130434782608695,
+      "lo": 0.8070033955857385,
+      "hi": 0.9859154929577465,
+      "n": 69
+     },
+     "baseline_info": {
+      "est": 0.4057971014492754,
+      "lo": 0.25,
+      "hi": 0.5638366066557555,
+      "n": 69
+     },
+     "pop_baseline": {
+      "est": 0.21739130434782608,
+      "lo": 0.12727272727272726,
+      "hi": 0.3157894736842105,
+      "n": 69
+     },
+     "summary": {
+      "est": 0.5797101449275363,
+      "lo": 0.3888888888888889,
+      "hi": 0.7272727272727273,
+      "n": 69
+     },
+     "family_baseline": {
+      "est": 0.36231884057971014,
+      "lo": 0.16666666666666666,
+      "hi": 0.5454545454545454,
       "n": 69
      }
     },
     "neutralized": {
      "action": {
-      "est": 0.06329113924050633,
-      "lo": 0.0,
-      "hi": 0.15663241200094488,
+      "est": 0.8354430379746836,
+      "lo": 0.660377358490566,
+      "hi": 0.9491525423728814,
       "n": 79
      },
      "report": {
-      "est": 0.06329113924050633,
-      "lo": 0.0125,
-      "hi": 0.13513513513513514,
+      "est": 0.569620253164557,
+      "lo": 0.4117647058823529,
+      "hi": 0.6896551724137931,
       "n": 79
      },
      "delivered": {
-      "est": 0.012658227848101266,
-      "lo": 0.0,
-      "hi": 0.038461538461538464,
+      "est": 0.189873417721519,
+      "lo": 0.09876543209876543,
+      "hi": 0.2835820895522388,
       "n": 79
      },
      "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
+      "est": 0.25316455696202533,
+      "lo": 0.14285714285714285,
+      "hi": 0.3670886075949367,
+      "n": 79
+     },
+     "report_only": {
+      "est": 0.45569620253164556,
+      "lo": 0.3199896907216495,
+      "hi": 0.5714285714285714,
+      "n": 79
+     },
+     "message_only": {
+      "est": 0.12658227848101267,
+      "lo": 0.047619047619047616,
+      "hi": 0.24359756097560964,
+      "n": 79
+     },
+     "standard": {
+      "est": 0.8734177215189873,
+      "lo": 0.7397260273972602,
+      "hi": 0.9615384615384616,
+      "n": 79
+     },
+     "baseline_info": {
+      "est": 0.3924050632911392,
+      "lo": 0.2599935064935065,
+      "hi": 0.5135135135135135,
+      "n": 79
+     },
+     "pop_baseline": {
+      "est": 0.2911392405063291,
+      "lo": 0.19641981792717086,
+      "hi": 0.3888888888888889,
+      "n": 79
+     },
+     "summary": {
+      "est": 0.6075949367088608,
+      "lo": 0.4313640973630832,
+      "hi": 0.7402597402597403,
+      "n": 79
+     },
+     "family_baseline": {
+      "est": 0.43037974683544306,
+      "lo": 0.2916666666666667,
+      "hi": 0.5490196078431373,
       "n": 79
      }
     },
@@ -7454,12 +4798,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.20270270270270271,
+      "lo": 0.0945945945945946,
+      "hi": 0.3181818181818182,
+      "n": 74
+     },
+     "raw": {
+      "est": 0.24324324324324326,
+      "lo": 0.14813296903460837,
+      "hi": 0.3333333333333333,
+      "n": 74
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -7480,12 +4866,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.25,
+      "lo": 0.10909090909090909,
+      "hi": 0.3888888888888889,
+      "n": 64
+     },
+     "raw": {
+      "est": 0.25,
+      "lo": 0.12764990328820117,
+      "hi": 0.373139303482587,
+      "n": 64
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -7506,12 +4934,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.36923076923076925,
+      "lo": 0.19607843137254902,
+      "hi": 0.5119047619047619,
+      "n": 65
+     },
+     "raw": {
+      "est": 0.2923076923076923,
+      "lo": 0.11764705882352941,
+      "hi": 0.4461607142857142,
+      "n": 65
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -7532,12 +5002,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.14285714285714285,
+      "lo": 0.027777777777777776,
+      "hi": 0.2391304347826087,
+      "n": 56
+     },
+     "raw": {
+      "est": 0.10714285714285714,
+      "lo": 0.0,
+      "hi": 0.19047619047619047,
+      "n": 56
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -7548,21 +5060,21 @@
    "fnr_moved": {
     "raw": {
      "action": {
-      "est": 0.15384615384615385,
-      "lo": 0.0,
-      "hi": 0.35714285714285715,
+      "est": 0.6538461538461539,
+      "lo": 0.3870967741935484,
+      "hi": 0.920076923076922,
       "n": 26
      },
      "report": {
-      "est": 0.07692307692307693,
-      "lo": 0.0,
-      "hi": 0.2,
+      "est": 0.38461538461538464,
+      "lo": 0.14285714285714285,
+      "hi": 0.6363636363636364,
       "n": 26
      },
      "delivered": {
-      "est": 0.0,
+      "est": 0.07692307692307693,
       "lo": 0.0,
-      "hi": 0.0,
+      "hi": 0.2222222222222222,
       "n": 26
      },
      "raw": {
@@ -7570,57 +5082,183 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "report_only": {
+      "est": 0.2692307692307692,
+      "lo": 0.09523809523809523,
+      "hi": 0.47619047619047616,
+      "n": 26
+     },
+     "message_only": {
+      "est": 0.34615384615384615,
+      "lo": 0.13043478260869565,
+      "hi": 0.6153846153846154,
+      "n": 26
+     },
+     "standard": {
+      "est": 0.8076923076923077,
+      "lo": 0.6206896551724138,
+      "hi": 1.0,
+      "n": 26
+     },
+     "baseline_info": {
+      "est": 0.2692307692307692,
+      "lo": 0.08695652173913043,
+      "hi": 0.5,
+      "n": 26
+     },
+     "pop_baseline": {
+      "est": 0.19230769230769232,
+      "lo": 0.03571428571428571,
+      "hi": 0.4166666666666667,
+      "n": 26
+     },
+     "summary": {
+      "est": 0.3076923076923077,
+      "lo": 0.10526315789473684,
+      "hi": 0.5384615384615384,
+      "n": 26
+     },
+     "family_baseline": {
+      "est": 0.34615384615384615,
+      "lo": 0.13793103448275862,
+      "hi": 0.5714285714285714,
+      "n": 26
      }
     },
     "paraphrased": {
      "action": {
-      "est": 0.13636363636363635,
-      "lo": 0.0,
-      "hi": 0.36,
+      "est": 0.5,
+      "lo": 0.23529411764705882,
+      "hi": 0.8181818181818182,
       "n": 22
      },
      "report": {
-      "est": 0.09090909090909091,
-      "lo": 0.0,
-      "hi": 0.2857142857142857,
+      "est": 0.3181818181818182,
+      "lo": 0.125,
+      "hi": 0.5454545454545454,
       "n": 22
      },
      "delivered": {
-      "est": 0.0,
+      "est": 0.045454545454545456,
       "lo": 0.0,
-      "hi": 0.0,
+      "hi": 0.16666666666666666,
       "n": 22
      },
      "raw": {
       "est": 0.0,
       "lo": 0.0,
       "hi": 0.0,
+      "n": 22
+     },
+     "report_only": {
+      "est": 0.3181818181818182,
+      "lo": 0.125,
+      "hi": 0.5454545454545454,
+      "n": 22
+     },
+     "message_only": {
+      "est": 0.36363636363636365,
+      "lo": 0.125,
+      "hi": 0.65,
+      "n": 22
+     },
+     "standard": {
+      "est": 0.7272727272727273,
+      "lo": 0.55,
+      "hi": 0.9411764705882353,
+      "n": 22
+     },
+     "baseline_info": {
+      "est": 0.45454545454545453,
+      "lo": 0.21428571428571427,
+      "hi": 0.7272727272727273,
+      "n": 22
+     },
+     "pop_baseline": {
+      "est": 0.2727272727272727,
+      "lo": 0.08,
+      "hi": 0.5238095238095238,
+      "n": 22
+     },
+     "summary": {
+      "est": 0.2727272727272727,
+      "lo": 0.07142857142857142,
+      "hi": 0.5416666666666666,
+      "n": 22
+     },
+     "family_baseline": {
+      "est": 0.22727272727272727,
+      "lo": 0.043478260869565216,
+      "hi": 0.4782608695652174,
       "n": 22
      }
     },
     "neutralized": {
      "action": {
-      "est": 0.17857142857142858,
-      "lo": 0.0,
-      "hi": 0.4,
+      "est": 0.6428571428571429,
+      "lo": 0.3684210526315789,
+      "hi": 0.88,
       "n": 28
      },
      "report": {
-      "est": 0.10714285714285714,
-      "lo": 0.0,
-      "hi": 0.2916666666666667,
+      "est": 0.5,
+      "lo": 0.2619047619047619,
+      "hi": 0.7619047619047619,
       "n": 28
      },
      "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
+      "est": 0.25,
+      "lo": 0.10256410256410256,
+      "hi": 0.4482758620689655,
       "n": 28
      },
      "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
+      "est": 0.32142857142857145,
+      "lo": 0.12492378048780495,
+      "hi": 0.5714285714285714,
+      "n": 28
+     },
+     "report_only": {
+      "est": 0.4642857142857143,
+      "lo": 0.25,
+      "hi": 0.7,
+      "n": 28
+     },
+     "message_only": {
+      "est": 0.32142857142857145,
+      "lo": 0.125,
+      "hi": 0.5652173913043478,
+      "n": 28
+     },
+     "standard": {
+      "est": 0.75,
+      "lo": 0.5161290322580645,
+      "hi": 0.9583333333333334,
+      "n": 28
+     },
+     "baseline_info": {
+      "est": 0.35714285714285715,
+      "lo": 0.13636363636363635,
+      "hi": 0.625,
+      "n": 28
+     },
+     "pop_baseline": {
+      "est": 0.35714285714285715,
+      "lo": 0.17857142857142858,
+      "hi": 0.5789473684210527,
+      "n": 28
+     },
+     "summary": {
+      "est": 0.42857142857142855,
+      "lo": 0.21875,
+      "hi": 0.6538461538461539,
+      "n": 28
+     },
+     "family_baseline": {
+      "est": 0.39285714285714285,
+      "lo": 0.20833333333333334,
+      "hi": 0.625,
       "n": 28
      }
     },
@@ -7638,12 +5276,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.1935483870967742,
+      "lo": 0.03333333333333333,
+      "hi": 0.39285714285714285,
+      "n": 31
+     },
+     "raw": {
+      "est": 0.1935483870967742,
+      "lo": 0.03333333333333333,
+      "hi": 0.39285714285714285,
+      "n": 31
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -7664,12 +5344,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.16,
+      "lo": 0.0,
+      "hi": 0.375,
+      "n": 25
+     },
+     "raw": {
+      "est": 0.2,
+      "lo": 0.0,
+      "hi": 0.45,
+      "n": 25
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -7690,12 +5412,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.125,
+      "lo": 0.0,
+      "hi": 0.3333333333333333,
+      "n": 16
+     },
+     "raw": {
+      "est": 0.125,
+      "lo": 0.0,
+      "hi": 0.30434782608695654,
+      "n": 16
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -7716,12 +5480,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.13333333333333333,
+      "lo": 0.0,
+      "hi": 0.36363636363636365,
+      "n": 15
+     },
+     "raw": {
+      "est": 0.13333333333333333,
+      "lo": 0.0,
+      "hi": 0.36363636363636365,
+      "n": 15
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -7732,21 +5538,21 @@
    "fpr_twins": {
     "raw": {
      "action": {
-      "est": 0.6208333333333333,
-      "lo": 0.4482758620689655,
-      "hi": 0.7890680803571428,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 240
      },
      "report": {
-      "est": 0.525,
-      "lo": 0.3693181818181818,
-      "hi": 0.6810344827586207,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 240
      },
      "delivered": {
-      "est": 0.8375,
-      "lo": 0.7459677419354839,
-      "hi": 0.9177655075187969,
+      "est": 0.004166666666666667,
+      "lo": 0.0,
+      "hi": 0.014285714285714285,
       "n": 240
      },
      "raw": {
@@ -7754,57 +5560,183 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "report_only": {
+      "est": 0.008333333333333333,
+      "lo": 0.0,
+      "hi": 0.027777777777777776,
+      "n": 240
+     },
+     "message_only": {
+      "est": 0.10833333333333334,
+      "lo": 0.03703022875816994,
+      "hi": 0.1935483870967742,
+      "n": 240
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 240
+     },
+     "baseline_info": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 240
+     },
+     "pop_baseline": {
+      "est": 0.0125,
+      "lo": 0.0,
+      "hi": 0.032407407407407406,
+      "n": 240
+     },
+     "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 240
+     },
+     "family_baseline": {
+      "est": 0.008333333333333333,
+      "lo": 0.0,
+      "hi": 0.027777777777777776,
+      "n": 240
      }
     },
     "paraphrased": {
      "action": {
-      "est": 0.6166666666666667,
-      "lo": 0.4444444444444444,
-      "hi": 0.7857142857142857,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 240
      },
      "report": {
-      "est": 0.5208333333333334,
-      "lo": 0.36328125,
-      "hi": 0.6785714285714286,
+      "est": 0.004166666666666667,
+      "lo": 0.0,
+      "hi": 0.014285714285714285,
       "n": 240
      },
      "delivered": {
-      "est": 0.7791666666666667,
-      "lo": 0.6785714285714286,
-      "hi": 0.875,
+      "est": 0.004166666666666667,
+      "lo": 0.0,
+      "hi": 0.014285714285714285,
       "n": 240
      },
      "raw": {
-      "est": 0.8833333333333333,
-      "lo": 0.8106030058651026,
-      "hi": 0.9464285714285714,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 240
+     },
+     "report_only": {
+      "est": 0.016666666666666666,
+      "lo": 0.00390625,
+      "hi": 0.03333333333333333,
+      "n": 240
+     },
+     "message_only": {
+      "est": 0.06666666666666667,
+      "lo": 0.019230769230769232,
+      "hi": 0.12121212121212122,
+      "n": 240
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 240
+     },
+     "baseline_info": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 240
+     },
+     "pop_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 240
+     },
+     "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 240
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 240
      }
     },
     "neutralized": {
      "action": {
-      "est": 0.6150627615062761,
-      "lo": 0.4419642857142857,
-      "hi": 0.7833333333333333,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 239
      },
      "report": {
-      "est": 0.5313807531380753,
-      "lo": 0.3726217102810706,
-      "hi": 0.6896647156126733,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 239
      },
      "delivered": {
-      "est": 0.7824267782426778,
-      "lo": 0.6799921875,
-      "hi": 0.875,
+      "est": 0.0041841004184100415,
+      "lo": 0.0,
+      "hi": 0.014388489208633094,
       "n": 239
      },
      "raw": {
-      "est": 0.8744769874476988,
-      "lo": 0.8053419368654422,
-      "hi": 0.9371986092155716,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 239
+     },
+     "report_only": {
+      "est": 0.02092050209205021,
+      "lo": 0.004030657962109576,
+      "hi": 0.04326923076923077,
+      "n": 239
+     },
+     "message_only": {
+      "est": 0.04184100418410042,
+      "lo": 0.0,
+      "hi": 0.09286129568106306,
+      "n": 239
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 239
+     },
+     "baseline_info": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 239
+     },
+     "pop_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 239
+     },
+     "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 239
+     },
+     "family_baseline": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 239
      }
     },
@@ -7822,12 +5754,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 237
+     },
+     "raw": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 237
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -7848,12 +5822,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.004166666666666667,
+      "lo": 0.0,
+      "hi": 0.014285714285714285,
+      "n": 240
+     },
+     "raw": {
+      "est": 0.004166666666666667,
+      "lo": 0.0,
+      "hi": 0.014285714285714285,
+      "n": 240
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -7874,12 +5890,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 234
+     },
+     "raw": {
+      "est": 0.004273504273504274,
+      "lo": 0.0,
+      "hi": 0.014707693422196438,
+      "n": 234
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -7900,12 +5958,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 238
+     },
+     "raw": {
+      "est": 0.004201680672268907,
+      "lo": 0.0,
+      "hi": 0.014018691588785047,
+      "n": 238
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -7916,21 +6016,21 @@
    "fpr_declined": {
     "raw": {
      "action": {
-      "est": 0.2752808988764045,
-      "lo": 0.11483057494705468,
-      "hi": 0.45454545454545453,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 178
      },
      "report": {
-      "est": 0.39325842696629215,
-      "lo": 0.2582772360090241,
-      "hi": 0.5365853658536586,
+      "est": 0.02247191011235955,
+      "lo": 0.0,
+      "hi": 0.05232558139534884,
       "n": 178
      },
      "delivered": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
+      "est": 0.48314606741573035,
+      "lo": 0.3333333333333333,
+      "hi": 0.6419843200865097,
       "n": 178
      },
      "raw": {
@@ -7938,57 +6038,183 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "report_only": {
+      "est": 0.07303370786516854,
+      "lo": 0.026905226867254932,
+      "hi": 0.12903774412990995,
+      "n": 178
+     },
+     "message_only": {
+      "est": 0.8651685393258427,
+      "lo": 0.8047325721153846,
+      "hi": 0.9187507931472081,
+      "n": 178
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 178
+     },
+     "baseline_info": {
+      "est": 0.0449438202247191,
+      "lo": 0.015706806282722512,
+      "hi": 0.08270676691729323,
+      "n": 178
+     },
+     "pop_baseline": {
+      "est": 0.17415730337078653,
+      "lo": 0.08629391858266149,
+      "hi": 0.27857435597189695,
+      "n": 178
+     },
+     "summary": {
+      "est": 0.0449438202247191,
+      "lo": 0.009949017289788682,
+      "hi": 0.09036144578313253,
+      "n": 178
+     },
+     "family_baseline": {
+      "est": 0.11797752808988764,
+      "lo": 0.053761636717904314,
+      "hi": 0.19689315434134086,
+      "n": 178
      }
     },
     "paraphrased": {
      "action": {
-      "est": 0.27485380116959063,
-      "lo": 0.11052478580171358,
-      "hi": 0.4572871981860522,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 171
      },
      "report": {
-      "est": 0.3742690058479532,
-      "lo": 0.24418375755356161,
-      "hi": 0.5149253731343284,
+      "est": 0.06432748538011696,
+      "lo": 0.021052631578947368,
+      "hi": 0.12337862754529418,
       "n": 171
      },
      "delivered": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
+      "est": 0.5321637426900585,
+      "lo": 0.3841033112582782,
+      "hi": 0.6879036072397048,
       "n": 171
      },
      "raw": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
+      "est": 0.5263157894736842,
+      "lo": 0.38048647932131496,
+      "hi": 0.6791469074765413,
+      "n": 171
+     },
+     "report_only": {
+      "est": 0.09941520467836257,
+      "lo": 0.03804347826086957,
+      "hi": 0.17931128185907044,
+      "n": 171
+     },
+     "message_only": {
+      "est": 0.8245614035087719,
+      "lo": 0.7604774825349302,
+      "hi": 0.8844269424043293,
+      "n": 171
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 171
+     },
+     "baseline_info": {
+      "est": 0.04678362573099415,
+      "lo": 0.01666436464088398,
+      "hi": 0.08633093525179857,
+      "n": 171
+     },
+     "pop_baseline": {
+      "est": 0.15204678362573099,
+      "lo": 0.07027027027027027,
+      "hi": 0.25735294117647056,
+      "n": 171
+     },
+     "summary": {
+      "est": 0.05263157894736842,
+      "lo": 0.018518518518518517,
+      "hi": 0.09659090909090909,
+      "n": 171
+     },
+     "family_baseline": {
+      "est": 0.08771929824561403,
+      "lo": 0.03783528811830699,
+      "hi": 0.15341049729972994,
       "n": 171
      }
     },
     "neutralized": {
      "action": {
-      "est": 0.2732919254658385,
-      "lo": 0.1038221007893139,
-      "hi": 0.4605409356725144,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 161
      },
      "report": {
-      "est": 0.2857142857142857,
-      "lo": 0.1787709497206704,
-      "hi": 0.4031084830866806,
+      "est": 0.024844720496894408,
+      "lo": 0.005375625323443161,
+      "hi": 0.05384615384615385,
       "n": 161
      },
      "delivered": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
+      "est": 0.515527950310559,
+      "lo": 0.36897810828877003,
+      "hi": 0.6698113207547169,
       "n": 161
      },
      "raw": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
+      "est": 0.4968944099378882,
+      "lo": 0.35625,
+      "hi": 0.6474854402192531,
+      "n": 161
+     },
+     "report_only": {
+      "est": 0.043478260869565216,
+      "lo": 0.013157894736842105,
+      "hi": 0.08462121212121204,
+      "n": 161
+     },
+     "message_only": {
+      "est": 0.8695652173913043,
+      "lo": 0.8076923076923077,
+      "hi": 0.9281437125748503,
+      "n": 161
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 161
+     },
+     "baseline_info": {
+      "est": 0.031055900621118012,
+      "lo": 0.005617192894356915,
+      "hi": 0.06875,
+      "n": 161
+     },
+     "pop_baseline": {
+      "est": 0.07453416149068323,
+      "lo": 0.028734944728592643,
+      "hi": 0.1342281879194631,
+      "n": 161
+     },
+     "summary": {
+      "est": 0.043478260869565216,
+      "lo": 0.01282051282051282,
+      "hi": 0.08441558441558442,
+      "n": 161
+     },
+     "family_baseline": {
+      "est": 0.049689440993788817,
+      "lo": 0.017543859649122806,
+      "hi": 0.09375524328859053,
       "n": 161
      }
     },
@@ -8006,12 +6232,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.45180722891566266,
+      "lo": 0.30625,
+      "hi": 0.6024115093916037,
+      "n": 166
+     },
+     "raw": {
+      "est": 0.4819277108433735,
+      "lo": 0.33986769465067584,
+      "hi": 0.626584388185654,
+      "n": 166
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -8032,12 +6300,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.5625,
+      "lo": 0.41059124143475095,
+      "hi": 0.7164991408934708,
+      "n": 176
+     },
+     "raw": {
+      "est": 0.5568181818181818,
+      "lo": 0.4078915431783342,
+      "hi": 0.7037088764742395,
+      "n": 176
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -8058,12 +6368,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.3314285714285714,
+      "lo": 0.2,
+      "hi": 0.47706654868905135,
+      "n": 175
+     },
+     "raw": {
+      "est": 0.36,
+      "lo": 0.2190980480603625,
+      "hi": 0.5104184877622377,
+      "n": 175
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -8084,12 +6436,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.5163043478260869,
+      "lo": 0.3620689655172414,
+      "hi": 0.6706664091172492,
+      "n": 184
+     },
+     "raw": {
+      "est": 0.5652173913043478,
+      "lo": 0.4111111111111111,
+      "hi": 0.72,
+      "n": 184
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -8100,21 +6494,21 @@
    "fpr_unilateral": {
     "raw": {
      "action": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
+      "est": 0.027777777777777776,
+      "lo": 0.0,
+      "hi": 0.1111111111111111,
       "n": 36
      },
      "report": {
-      "est": 0.9722222222222222,
-      "lo": 0.9166666666666666,
-      "hi": 1.0,
+      "est": 0.25,
+      "lo": 0.1206896551724138,
+      "hi": 0.4473911070780396,
       "n": 36
      },
      "delivered": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
+      "est": 0.6944444444444444,
+      "lo": 0.5476078167115903,
+      "hi": 0.8947368421052632,
       "n": 36
      },
      "raw": {
@@ -8122,57 +6516,183 @@
       "lo": null,
       "hi": null,
       "n": 0
+     },
+     "report_only": {
+      "est": 0.4722222222222222,
+      "lo": 0.3333333333333333,
+      "hi": 0.65,
+      "n": 36
+     },
+     "message_only": {
+      "est": 0.8055555555555556,
+      "lo": 0.6666666666666666,
+      "hi": 0.9375318877551015,
+      "n": 36
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 36
+     },
+     "baseline_info": {
+      "est": 0.5555555555555556,
+      "lo": 0.40816326530612246,
+      "hi": 0.75,
+      "n": 36
+     },
+     "pop_baseline": {
+      "est": 0.8333333333333334,
+      "lo": 0.7272727272727273,
+      "hi": 0.9230769230769231,
+      "n": 36
+     },
+     "summary": {
+      "est": 0.4444444444444444,
+      "lo": 0.32432432432432434,
+      "hi": 0.631578947368421,
+      "n": 36
+     },
+     "family_baseline": {
+      "est": 0.5277777777777778,
+      "lo": 0.32432432432432434,
+      "hi": 0.782608695652174,
+      "n": 36
      }
     },
     "paraphrased": {
      "action": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 47
      },
      "report": {
-      "est": 0.9574468085106383,
-      "lo": 0.864406779661017,
-      "hi": 1.0,
+      "est": 0.2553191489361702,
+      "lo": 0.1012341772151899,
+      "hi": 0.5,
       "n": 47
      },
      "delivered": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
+      "est": 0.7446808510638298,
+      "lo": 0.6111111111111112,
+      "hi": 0.8928571428571429,
       "n": 47
      },
      "raw": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
+      "est": 0.8085106382978723,
+      "lo": 0.7088475738396625,
+      "hi": 0.9347826086956522,
+      "n": 47
+     },
+     "report_only": {
+      "est": 0.3617021276595745,
+      "lo": 0.2127659574468085,
+      "hi": 0.55,
+      "n": 47
+     },
+     "message_only": {
+      "est": 0.9148936170212766,
+      "lo": 0.8431372549019608,
+      "hi": 0.9787234042553191,
+      "n": 47
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 47
+     },
+     "baseline_info": {
+      "est": 0.6170212765957447,
+      "lo": 0.40425531914893614,
+      "hi": 0.84,
+      "n": 47
+     },
+     "pop_baseline": {
+      "est": 0.8085106382978723,
+      "lo": 0.717391304347826,
+      "hi": 0.9166666666666666,
+      "n": 47
+     },
+     "summary": {
+      "est": 0.2765957446808511,
+      "lo": 0.15789473684210525,
+      "hi": 0.45454545454545453,
+      "n": 47
+     },
+     "family_baseline": {
+      "est": 0.574468085106383,
+      "lo": 0.35415865384615386,
+      "hi": 0.8571428571428571,
       "n": 47
      }
     },
     "neutralized": {
      "action": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
+      "est": 0.058823529411764705,
+      "lo": 0.0,
+      "hi": 0.17391304347826086,
       "n": 51
      },
      "report": {
-      "est": 0.9607843137254902,
-      "lo": 0.9137931034482759,
-      "hi": 1.0,
+      "est": 0.39215686274509803,
+      "lo": 0.2933275862068966,
+      "hi": 0.5384615384615384,
       "n": 51
      },
      "delivered": {
-      "est": 0.9803921568627451,
-      "lo": 0.9375,
-      "hi": 1.0,
+      "est": 0.8431372549019608,
+      "lo": 0.7454545454545455,
+      "hi": 0.95,
       "n": 51
      },
      "raw": {
-      "est": 1.0,
-      "lo": 1.0,
+      "est": 0.7843137254901961,
+      "lo": 0.6666666666666666,
+      "hi": 0.8974489795918366,
+      "n": 51
+     },
+     "report_only": {
+      "est": 0.5490196078431373,
+      "lo": 0.42857142857142855,
+      "hi": 0.6944562146892653,
+      "n": 51
+     },
+     "message_only": {
+      "est": 0.9803921568627451,
+      "lo": 0.9423076923076923,
       "hi": 1.0,
+      "n": 51
+     },
+     "standard": {
+      "est": 0.058823529411764705,
+      "lo": 0.0,
+      "hi": 0.15625,
+      "n": 51
+     },
+     "baseline_info": {
+      "est": 0.5882352941176471,
+      "lo": 0.47540983606557374,
+      "hi": 0.7307692307692307,
+      "n": 51
+     },
+     "pop_baseline": {
+      "est": 0.7450980392156863,
+      "lo": 0.65625,
+      "hi": 0.8363729128014841,
+      "n": 51
+     },
+     "summary": {
+      "est": 0.29411764705882354,
+      "lo": 0.15473901098901102,
+      "hi": 0.5,
+      "n": 51
+     },
+     "family_baseline": {
+      "est": 0.5490196078431373,
+      "lo": 0.41509433962264153,
+      "hi": 0.7307692307692307,
       "n": 51
      }
     },
@@ -8190,12 +6710,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.7906976744186046,
+      "lo": 0.68,
+      "hi": 0.9130434782608695,
+      "n": 43
+     },
+     "raw": {
+      "est": 0.7209302325581395,
+      "lo": 0.6444444444444445,
+      "hi": 0.8285714285714286,
+      "n": 43
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -8216,12 +6778,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.6923076923076923,
+      "lo": 0.543850114416476,
+      "hi": 0.9090909090909091,
+      "n": 39
+     },
+     "raw": {
+      "est": 0.717948717948718,
+      "lo": 0.6046390503875969,
+      "hi": 0.875,
+      "n": 39
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -8242,12 +6846,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.5510204081632653,
+      "lo": 0.37777777777777777,
+      "hi": 0.7441984166254327,
+      "n": 49
+     },
+     "raw": {
+      "est": 0.6530612244897959,
+      "lo": 0.4461111111111112,
+      "hi": 0.8775634644101541,
+      "n": 49
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -8268,12 +6914,54 @@
       "n": 0
      },
      "delivered": {
+      "est": 0.8536585365853658,
+      "lo": 0.7368421052631579,
+      "hi": 0.96875,
+      "n": 41
+     },
+     "raw": {
+      "est": 0.9024390243902439,
+      "lo": 0.8222222222222222,
+      "hi": 1.0,
+      "n": 41
+     },
+     "report_only": {
       "est": null,
       "lo": null,
       "hi": null,
       "n": 0
      },
-     "raw": {
+     "message_only": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "standard": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "baseline_info": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "pop_baseline": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "summary": {
+      "est": null,
+      "lo": null,
+      "hi": null,
+      "n": 0
+     },
+     "family_baseline": {
       "est": null,
       "lo": null,
       "hi": null,
@@ -8284,157 +6972,390 @@
    "pooled": {
     "fnr": {
      "action": {
-      "est": 0.05714285714285714,
-      "lo": 0.0,
-      "hi": 0.14674198084524168,
+      "est": 0.8380952380952381,
+      "lo": 0.6666208791208791,
+      "hi": 0.9468097954568815,
       "n": 210
      },
      "report": {
-      "est": 0.05714285714285714,
-      "lo": 0.01499813432835821,
-      "hi": 0.10714285714285714,
+      "est": 0.5904761904761905,
+      "lo": 0.421614076004939,
+      "hi": 0.7098765432098766,
       "n": 210
      },
      "delivered": {
-      "est": 0.004761904761904762,
-      "lo": 0.0,
-      "hi": 0.014634146341463415,
-      "n": 210
+      "est": 0.22174840085287847,
+      "lo": 0.12812972031078773,
+      "hi": 0.3090916769041769,
+      "n": 469
      },
      "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 148
+      "est": 0.21621621621621623,
+      "lo": 0.1306962157532458,
+      "hi": 0.29054265202702695,
+      "n": 407
+     },
+     "report_only": {
+      "est": 0.4714285714285714,
+      "lo": 0.33999056603773586,
+      "hi": 0.5738258573329935,
+      "n": 210
+     },
+     "message_only": {
+      "est": 0.18095238095238095,
+      "lo": 0.09842358332257649,
+      "hi": 0.2973086850895838,
+      "n": 210
+     },
+     "standard": {
+      "est": 0.9,
+      "lo": 0.8,
+      "hi": 0.9657559305045105,
+      "n": 210
+     },
+     "baseline_info": {
+      "est": 0.3904761904761905,
+      "lo": 0.2705291222313371,
+      "hi": 0.5048551595458713,
+      "n": 210
+     },
+     "pop_baseline": {
+      "est": 0.23333333333333334,
+      "lo": 0.16097420801794227,
+      "hi": 0.31627906976744186,
+      "n": 210
+     },
+     "summary": {
+      "est": 0.5523809523809524,
+      "lo": 0.390625,
+      "hi": 0.6737588652482269,
+      "n": 210
+     },
+     "family_baseline": {
+      "est": 0.40476190476190477,
+      "lo": 0.2594544544544545,
+      "hi": 0.5338084981136114,
+      "n": 210
      }
     },
     "fnr_moved": {
      "action": {
-      "est": 0.15789473684210525,
-      "lo": 0.0,
-      "hi": 0.3461842105263153,
+      "est": 0.6052631578947368,
+      "lo": 0.37078409531189466,
+      "hi": 0.848866279069767,
       "n": 76
      },
      "report": {
-      "est": 0.09210526315789473,
-      "lo": 0.0,
-      "hi": 0.197372482131254,
+      "est": 0.40789473684210525,
+      "lo": 0.22666666666666666,
+      "hi": 0.609375,
       "n": 76
      },
      "delivered": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 76
+      "est": 0.147239263803681,
+      "lo": 0.0674829392706969,
+      "hi": 0.2447561553030303,
+      "n": 163
      },
      "raw": {
-      "est": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 50
+      "est": 0.17518248175182483,
+      "lo": 0.07272727272727272,
+      "hi": 0.30597014925373134,
+      "n": 137
+     },
+     "report_only": {
+      "est": 0.35526315789473684,
+      "lo": 0.20192087155963304,
+      "hi": 0.5245901639344263,
+      "n": 76
+     },
+     "message_only": {
+      "est": 0.34210526315789475,
+      "lo": 0.14814814814814814,
+      "hi": 0.5595238095238095,
+      "n": 76
+     },
+     "standard": {
+      "est": 0.7631578947368421,
+      "lo": 0.6075949367088608,
+      "hi": 0.918041150886584,
+      "n": 76
+     },
+     "baseline_info": {
+      "est": 0.35526315789473684,
+      "lo": 0.17105263157894737,
+      "hi": 0.5571428571428572,
+      "n": 76
+     },
+     "pop_baseline": {
+      "est": 0.27631578947368424,
+      "lo": 0.125,
+      "hi": 0.4470763827919225,
+      "n": 76
+     },
+     "summary": {
+      "est": 0.34210526315789475,
+      "lo": 0.16666666666666666,
+      "hi": 0.55,
+      "n": 76
+     },
+     "family_baseline": {
+      "est": 0.32894736842105265,
+      "lo": 0.17458592132505177,
+      "hi": 0.5,
+      "n": 76
      }
     },
     "fpr_declined": {
      "action": {
-      "est": 0.27450980392156865,
-      "lo": 0.11086301274944568,
-      "hi": 0.4559881367645123,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 510
      },
      "report": {
-      "est": 0.35294117647058826,
-      "lo": 0.23501578604847506,
-      "hi": 0.48119181466280214,
+      "est": 0.03725490196078431,
+      "lo": 0.013481637885528997,
+      "hi": 0.06907045294142065,
       "n": 510
      },
      "delivered": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 510
+      "est": 0.4847233691164327,
+      "lo": 0.3504569057708914,
+      "hi": 0.6254084729635606,
+      "n": 1211
      },
      "raw": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 332
+      "est": 0.4985479186834463,
+      "lo": 0.36205979457079973,
+      "hi": 0.6387763476742296,
+      "n": 1033
+     },
+     "report_only": {
+      "est": 0.07254901960784314,
+      "lo": 0.03267907162865146,
+      "hi": 0.12307692307692308,
+      "n": 510
+     },
+     "message_only": {
+      "est": 0.8529411764705882,
+      "lo": 0.8012413006061513,
+      "hi": 0.9010615539792205,
+      "n": 510
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 510
+     },
+     "baseline_info": {
+      "est": 0.041176470588235294,
+      "lo": 0.01913799408770914,
+      "hi": 0.06790181691125086,
+      "n": 510
+     },
+     "pop_baseline": {
+      "est": 0.13529411764705881,
+      "lo": 0.06620768708253141,
+      "hi": 0.22268085388198416,
+      "n": 510
+     },
+     "summary": {
+      "est": 0.047058823529411764,
+      "lo": 0.019344911185036406,
+      "hi": 0.08229017130825915,
+      "n": 510
+     },
+     "family_baseline": {
+      "est": 0.08627450980392157,
+      "lo": 0.04251128449300238,
+      "hi": 0.13948497854077252,
+      "n": 510
      }
     },
     "fpr_unilateral": {
      "action": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
+      "est": 0.029850746268656716,
+      "lo": 0.005648924014473434,
+      "hi": 0.08772411798727581,
       "n": 134
      },
      "report": {
-      "est": 0.9626865671641791,
-      "lo": 0.9184722791905934,
-      "hi": 1.0,
+      "est": 0.30597014925373134,
+      "lo": 0.20832731213872835,
+      "hi": 0.47060237556561063,
       "n": 134
      },
      "delivered": {
-      "est": 0.9925373134328358,
-      "lo": 0.9770114942528736,
-      "hi": 1.0,
-      "n": 134
+      "est": 0.738562091503268,
+      "lo": 0.6435977594299223,
+      "hi": 0.8571428571428571,
+      "n": 306
      },
      "raw": {
-      "est": 1.0,
-      "lo": 1.0,
-      "hi": 1.0,
-      "n": 98
+      "est": 0.762962962962963,
+      "lo": 0.6915887850467289,
+      "hi": 0.8661971830985915,
+      "n": 270
+     },
+     "report_only": {
+      "est": 0.4626865671641791,
+      "lo": 0.3564343269433326,
+      "hi": 0.6087081459270364,
+      "n": 134
+     },
+     "message_only": {
+      "est": 0.9104477611940298,
+      "lo": 0.8571428571428571,
+      "hi": 0.9631913118007939,
+      "n": 134
+     },
+     "standard": {
+      "est": 0.022388059701492536,
+      "lo": 0.0,
+      "hi": 0.06299389941122222,
+      "n": 134
+     },
+     "baseline_info": {
+      "est": 0.5895522388059702,
+      "lo": 0.4638416049519178,
+      "hi": 0.7317073170731707,
+      "n": 134
+     },
+     "pop_baseline": {
+      "est": 0.7910447761194029,
+      "lo": 0.7297297297297297,
+      "hi": 0.8556701030927835,
+      "n": 134
+     },
+     "summary": {
+      "est": 0.3283582089552239,
+      "lo": 0.23129145408163265,
+      "hi": 0.5,
+      "n": 134
+     },
+     "family_baseline": {
+      "est": 0.5522388059701493,
+      "lo": 0.38685644768856453,
+      "hi": 0.7558162424464383,
+      "n": 134
      }
     },
     "fpr_twins": {
      "action": {
-      "est": 0.6175243393602226,
-      "lo": 0.44513137557959814,
-      "hi": 0.7857142857142857,
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
       "n": 719
      },
      "report": {
-      "est": 0.5257301808066759,
-      "lo": 0.3694503351479615,
-      "hi": 0.6819444444444445,
+      "est": 0.0013908205841446453,
+      "lo": 0.0,
+      "hi": 0.00477326968973747,
       "n": 719
      },
      "delivered": {
-      "est": 0.799721835883171,
-      "lo": 0.7113995287413009,
-      "hi": 0.8822085889570552,
-      "n": 719
+      "est": 0.002398081534772182,
+      "lo": 0.0,
+      "hi": 0.008256253949968395,
+      "n": 1668
      },
      "raw": {
-      "est": 0.8789144050104384,
-      "lo": 0.8121085594989561,
-      "hi": 0.9395973154362416,
-      "n": 479
+      "est": 0.0021008403361344537,
+      "lo": 0.0,
+      "hi": 0.0057680524936296,
+      "n": 1428
+     },
+     "report_only": {
+      "est": 0.015299026425591099,
+      "lo": 0.0037925477914415966,
+      "hi": 0.029411764705882353,
+      "n": 719
+     },
+     "message_only": {
+      "est": 0.07232267037552156,
+      "lo": 0.024225296313984283,
+      "hi": 0.13110197934380938,
+      "n": 719
+     },
+     "standard": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 719
+     },
+     "baseline_info": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 719
+     },
+     "pop_baseline": {
+      "est": 0.004172461752433936,
+      "lo": 0.0,
+      "hi": 0.010835913312693499,
+      "n": 719
+     },
+     "summary": {
+      "est": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 719
+     },
+     "family_baseline": {
+      "est": 0.0027816411682892906,
+      "lo": 0.0,
+      "hi": 0.009259259259259259,
+      "n": 719
      }
     }
    },
    "c5_delivered_minus_raw": {
     "paraphrased": {
-     "est": 0.0,
+     "est": 0.05797101449275363,
      "lo": 0.0,
-     "hi": 0.0,
+     "hi": 0.12280701754385964,
      "n_a": 69,
      "n_b": 69
     },
     "neutralized": {
-     "est": 0.012658227848101266,
-     "lo": 0.0,
-     "hi": 0.038461538461538464,
+     "est": -0.06329113924050633,
+     "lo": -0.14102564102564102,
+     "hi": 0.01887699564586346,
      "n_a": 79,
      "n_b": 79
     }
    },
    "c6_action_minus_delivered": {
-    "est": 0.052380952380952375,
-    "lo": -0.004219856254022741,
-    "hi": 0.14429754513153642,
+    "est": 0.6163468372423596,
+    "lo": 0.473679183632277,
+    "hi": 0.7305922742042611,
     "n_a": 210,
-    "n_b": 210
+    "n_b": 469
+   },
+   "says_vs_does": {
+    "fnr_action_minus_both": {
+     "est": 0.24761904761904763,
+     "lo": 0.14857142857142858,
+     "hi": 0.36363636363636365,
+     "n_a": 210,
+     "n_b": 210
+    },
+    "fnr_report_only_minus_both": {
+     "est": -0.11904761904761907,
+     "lo": -0.17664864237043154,
+     "hi": -0.046875,
+     "n_a": 210,
+     "n_b": 210
+    },
+    "fpr_declined_message_only_minus_all": {
+     "est": 0.3682178073541555,
+     "lo": 0.22996649199886612,
+     "hi": 0.5024228821700795,
+     "n_a": 510,
+     "n_b": 1211
+    }
    }
   }
  }
