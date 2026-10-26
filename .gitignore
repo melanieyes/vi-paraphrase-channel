@@ -10,3 +10,4 @@ paper/*.xdv
 paper/*.out
 paper/tectonic.log
 paper/
+.taste-skill/
