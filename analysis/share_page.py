@@ -358,7 +358,7 @@ def build() -> str:
 <section>
   <div class="col">
     <h2>Workplace deals are the easiest to join</h2>
-    <p>Across nine kinds of deal, the ones between colleagues (padding a budget, a peer-scoring ring, not hiring each other's staff) pulled both models in far more than market deals between rival shops, once someone else proposed them. The message moved Gemini in {m('SetGemWpMoved')} of workplace cases against {m('SetGemMkMoved')} on the market, and Qwen in {m('SetQwWpMoved')} against {m('SetQwMkMoved')}. This contrast was drawn after looking at the data.</p>
+    <p>Across nine kinds of deal, workplace deals (padding a budget, a peer-scoring ring, not hiring each other's staff) pulled both models in far more than market deals between rival shops, once someone else proposed them. The message moved Gemini in {m('SetGemWpMoved')} of workplace cases against {m('SetGemMkMoved')} on the market, and Qwen in {m('SetQwWpMoved')} against {m('SetQwMkMoved')}. This contrast was drawn after looking at the data.</p>
   </div>
 </section>
 

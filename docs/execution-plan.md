@@ -324,3 +324,6 @@ Measures: turn-1 collusive choice and moved-to-collude, tie minus none, with a b
 (paired: every item runs in both conditions). Twins are the positive control. Exploratory.
 Note: of the three "workplace" families only budget_padding is within one company (no_poach is two
 firms, review_ring two contest teams), so this probe does not test the workplace contrast directly.
+Result note: reported as tie versus never-met, not tie versus no sentence; the never-met sentence may itself
+lower collusion. For Qwen the twins rose with the tie as well, so its small shift is read as general
+cooperativeness.
