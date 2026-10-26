@@ -30,13 +30,19 @@ def _pct(d):
     return None if not d or d.get("est") is None else (100 * d["est"], 100 * d["lo"], 100 * d["hi"])
 
 
-def tasks(by_family: dict[str, dict[str, dict]], workflow_fams: set[str], path: Path) -> None:
-    """Figure 1. Per family: taken unprompted (grey) and pulled in by the message (blue)."""
+def tasks(by_family: dict[str, dict[str, dict]], workflow_fams: set[str], path: Path,
+          initiated: dict[str, dict[str, dict]] | None = None) -> None:
+    """Per family, three pathways: taken unprompted (grey circle), pulled in by the message (blue
+    circle) and, if given, proposed unasked in the initiation probe (dark diamond)."""
     fams = sorted(by_family["gemini"],
                   key=lambda f: -sum((by_family[a].get(f, {}).get("moved") or {}).get("est") or 0
                                      for a in by_family))
     n = len(fams)
-    fig, axes = plt.subplots(1, 2, figsize=(6.6, 0.27 * n + 1.0), sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(6.6, (0.33 if initiated else 0.27) * n + 1.0), sharey=True)
+    series = [("turn1", NEUTRAL, "o", 4.5), ("moved", ACCENT, "o", 5.5)]
+    if initiated:
+        series.append(("initiated", INK, "D", 4.2))
+    offs = [0.24, 0.0, -0.24] if initiated else [0.17, -0.17]
     for ax, agent in zip(axes, ("gemini", "qwen")):
         ax.set_facecolor(BG)
         ax.xaxis.grid(True, color=GRID, linewidth=0.7)
@@ -47,13 +53,14 @@ def tasks(by_family: dict[str, dict[str, dict]], workflow_fams: set[str], path: 
             row = by_family.get(agent, {}).get(f)
             if not row:
                 continue
-            for key, color, dy, size in (("turn1", NEUTRAL, 0.17, 4.5), ("moved", ACCENT, -0.17, 5.5)):
-                v = _pct(row[key])
+            for (key, color, mk, size), dy in zip(series, offs):
+                src = initiated.get(agent, {}).get(f) if key == "initiated" else row.get(key)
+                v = _pct(src) if src else None
                 if v is None:
                     continue
                 ax.plot([v[1], v[2]], [y + dy, y + dy], color=color, linewidth=1.1, alpha=0.75,
                         solid_capstyle="round")
-                ax.plot(v[0], y + dy, "o", color=color, markersize=size, markeredgecolor=BG,
+                ax.plot(v[0], y + dy, mk, color=color, markersize=size, markeredgecolor=BG,
                         markeredgewidth=0.8, zorder=3)
         ax.set_xlim(-2, 102)
         ax.set_xticks([0, 25, 50, 75, 100])
@@ -67,11 +74,14 @@ def tasks(by_family: dict[str, dict[str, dict]], workflow_fams: set[str], path: 
     handles = [Line2D([], [], marker="o", linestyle="-", color=NEUTRAL, markersize=4.5, linewidth=1.1,
                       label="taken unprompted (turn 1)"),
                Line2D([], [], marker="o", linestyle="-", color=ACCENT, markersize=5.5, linewidth=1.1,
-                      label="pulled in by the message"),
-               Line2D([], [], linestyle="none", label="orange family names: workflow")]
-    leg = fig.legend(handles=handles, loc="lower center", ncol=3, frameon=False, fontsize=8,
+                      label="pulled in by the message")]
+    if initiated:
+        handles.append(Line2D([], [], marker="D", linestyle="-", color=INK, markersize=4.2, linewidth=1.1,
+                              label="proposed it unasked"))
+    handles.append(Line2D([], [], linestyle="none", label="orange family names: workflow"))
+    leg = fig.legend(handles=handles, loc="lower center", ncol=len(handles), frameon=False, fontsize=7.5,
                      bbox_to_anchor=(0.5, -0.02), handlelength=1.6)
-    leg.get_texts()[2].set_color(ACCENT2)
+    leg.get_texts()[-1].set_color(ACCENT2)
     fig.tight_layout(w_pad=1.2, rect=(0, 0.06, 1, 1))
     fig.savefig(path, facecolor=BG, bbox_inches="tight")
     plt.close(fig)

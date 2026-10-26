@@ -580,7 +580,10 @@ def main() -> None:
         else:  # until the pooled task set exists, fall back to main + workflow
             by_family[a] = {**(st[a]["by_family_raw"] if st[a] else {}),
                             **(wst[a]["by_family_raw"] if wst[a] else {})}
-    FIG.tasks(by_family, set(WORKFLOW_FAMS), F / "tasks.pdf")
+    from analysis.pathways import stats as _pw
+    _P = _pw()
+    FIG.tasks(by_family, set(WORKFLOW_FAMS), F / "tasks.pdf",
+              initiated={a: _P["by_family"][a]["initiated"] for a in AGENTS})
     FIG.pipeline(F / "pipeline.pdf")
     monitors = [(title, S["gemini"]["monitors"][name]["pooled"])
                 for name, title in (("mistral", "Mistral Small 3.1"), ("haiku", "Claude Haiku 5.5"))
