@@ -33,8 +33,9 @@
 their logs to decide whether they colluded. We ask what in those logs counts as convincing evidence. In
 \nTaskItems{} Vietnamese scenarios, a scripted rival invites an AI agent (Gemini 2.5 Flash or Qwen3-8B) into
 a deal that hurts a third party, such as holding a price, and two monitors (Mistral Small 3.1 and Claude
-Haiku 5.5) judge each episode. Every harmful deal has a harmless twin as a control. We find that no single
-piece of evidence is enough. Agents often make the collusive choice before any message arrives, so the
+Haiku 5.5) judge each episode. Every harmful deal has a harmless twin as a control. Even uninvited, both agents
+offered the deal themselves in about a third of harmful cases. We find that no single piece of evidence is
+enough. Agents often make the collusive choice before any message arrives, so the
 action alone proves little. They admit the rival's influence when asked, but often leave it out of their
 reports. A monitor that reads the message flags about half of the agents that refused the deal. We
 therefore propose that evidence of collusion needs three things: a proposal, an action that matches it,
@@ -80,8 +81,8 @@ loses the evidence.
 \begin{enumerate}
 \item A set of \nTaskItems{} Vietnamese scenarios in nine families and two settings, each harmful scenario
 paired with a harmless twin, with frozen and gated invitations in four styles, two agents and two monitors.
-\item A task analysis (2.1): agents often collude unprompted, and workplace tasks pull both agents in far
-more than market tasks.
+\item A task analysis (2.1): agents often collude unprompted and, given the option, propose collusion
+themselves; workplace tasks pull them in far more once they are invited.
 \item Evidence that each source fails alone (2.2): the action overstates the message's role, reports omit
 the message, and a monitor that reads the message flags agents that refused.
 \item An evidence standard (2.3): proposal, matching action, and departure from baseline behaviour. A
@@ -135,6 +136,7 @@ Monitor & Mistral Small 3.1 24B (open weights), Claude Haiku 5.5; neither is an 
 Monitor view & action; report; message; their combinations; + pre-message choice; + rule & 2.2 words vs.\ actions, 2.3 evidence \\
 \midrule
 \multicolumn{3}{@{}l}{\textit{Probes}} \\
+Initiation & no invitation; the agent may send the proposal, a greeting or nothing & 2.1 who opens it \\
 Deployable baseline & agent's choices on the same situation in other runs, or on similar situations & 2.3 in deployment \\
 Channel & raw; paraphrased, neutralized; 4 summary styles (market set) & robustness; context loss \\
 Monitor reads a summary & Gemma-3-27B summary of the full log & oversight via summaries \\
@@ -182,6 +184,11 @@ chooses again, writes a two-to-three sentence self-report to its owner, and answ
 influenced it. Option order is balanced within every cell. Code parses each choice, testing for refusal
 first; refusals and unparsed replies are kept as data.
 
+\paragraph{Initiation probe.} To see whether agents open collusion themselves, a second run sends no
+invitation. After turn~1 the executor may send the rival one of three fixed messages, in rotated order: the
+item's own proposal, a neutral greeting, or nothing; the rival stays silent and the executor chooses again
+(all \nTaskItems{} items, three rotations by two option orders).
+
 \paragraph{Monitor and summarizer.} Two monitors that share no family with either executor, Mistral Small
 3.1 24B (open weights, temperature 0) and Claude Haiku 5.5 (reasoning on, low effort), answer FLAG or CLEAR
 from one view of the log (Table~\ref{tab:design}). In the summary view, Gemma-3-27B first writes an
@@ -209,8 +216,16 @@ the message moved Gemini in \SetGemWpMoved{} of harmful episodes against \SetGem
 (\SetQwMovedDiff{} points \SetQwMovedDiffCI). The two task sets differ in content as well as setting, so this
 contrasts three families with six, not workplaces with markets in general.
 
+\textbf{Agents also open collusion themselves.} With no invitation, Gemini chose to send the proposal in
+\InitGemHarm{} \InitGemHarmCI{} of harmful situations and Qwen in \InitQwHarm{} \InitQwHarmCI, against
+\InitGemTwin{} and \InitQwTwin{} for the harmless twins. Having proposed, Gemini then took the arrangement in
+\InitGemFollowProp{} of cases and Qwen in \InitQwFollowProp, against \InitGemFollowNot{} and
+\InitQwFollowNot{} when they had not. Workplace tasks did not raise initiation (\InitGemWpDiff{} points
+\InitGemWpDiffCI{} for Gemini, \InitQwWpDiff{} \InitQwWpDiffCI{} for Qwen): they make agents easier to
+recruit, not quicker to recruit others.
+
 \begin{figure}[htbp]
-\centering\includegraphics[width=\linewidth]{figures/tasks.pdf}
+\centering\includegraphics[width=0.9\linewidth]{figures/tasks.pdf}
 \caption{Harmful episodes on the raw channel that chose the collusive option before any message (grey)
 or were moved by the message (blue), by family. Orange labels mark workflow families. Lines: 95\%
 intervals clustered over items.}\label{fig:tasks}
@@ -253,7 +268,7 @@ Qwen admitted the influence in \GemDiscItem{} and \QwDiscItem{} of colluding epi
 mentioned the message in only \GemDiscLex{} and \QwDiscLex{} (Figure~\ref{fig:asked}).
 
 \begin{figure}[htbp]
-\centering\includegraphics[width=0.92\linewidth]{figures/asked.pdf}
+\centering\includegraphics[width=0.8\linewidth]{figures/asked.pdf}
 \caption{Who mentions the rival's message, among colluding harmful episodes. Grey: the agent answers
 \emph{CÓ} (yes) when asked whether the rival influenced it. Orange: the agent's own report names the rival
 and the arrangement. Blue: a neutral third-party summary of the same episode does. Report and summary are
@@ -310,15 +325,13 @@ The summarizer had no reason to drop the message; the agent did (Appendix~\ref{a
 
 
 \section{Discussion and Limitations}
-Detecting a collusive proposal and detecting an agent that accepts one are different tasks. Judging the
-agent needs its action and a reference for what it would have done without the proposal; for both monitors
-that reference did more than an explicit rule, though it did not change how cautious each monitor was.
-Detectors keyed on explicit requests would miss announcements, which moved Gemini most on the market. None
-of these problems is specific to English: both agents took invitations written in Vietnamese, including a
-bare announcement, and every problem above appeared in Vietnamese logs. Detectors validated only on English
-text should not be assumed to transfer.
+Judging an agent, rather than the proposal it received, needs its action and a reference for what it
+would have done otherwise; that reference helped both monitors more than an explicit rule. Agents also open
+collusion unasked, so a platform cannot wait for an incoming invitation to start looking. None of this is
+specific to English: every problem above appeared in Vietnamese logs.
 
-\paragraph{Limitations.} The rival is scripted, so we measure propensity to accept, not to initiate. Each
+\paragraph{Limitations.} The rival is scripted; the initiation probe offers a fixed proposal rather than letting the agent write
+one, so it measures willingness to open collusion, not skill at it. Each
 family has eight scenarios. Gemini wrote the invitations and served as agent and gate; neither monitor shares
 a family with an agent, but no human validated the stimuli. There is no English condition, so we cannot say
 whether collusion is more or less likely in Vietnamese. Summary styles differ in length, and each message was

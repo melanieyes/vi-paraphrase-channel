@@ -350,8 +350,15 @@ def build() -> str:
 
 <section>
   <div class="col">
-    <h2>Workplace deals are the riskiest</h2>
-    <p>Across nine kinds of deal, the ones between colleagues (padding a budget, a peer-scoring ring, not hiring each other's staff) pulled both models in far more than market deals between rival shops. The message moved Gemini in {m('SetGemWpMoved')} of workplace cases against {m('SetGemMkMoved')} on the market, and Qwen in {m('SetQwWpMoved')} against {m('SetQwMkMoved')}. This contrast was drawn after looking at the data.</p>
+    <h2>Agents also open the deal themselves</h2>
+    <p>In a second run nobody invited them. After its first choice, the agent could send the rival the collusive proposal, a polite greeting, or nothing. Gemini 2.5 Flash chose the proposal in <strong>{m('InitGemHarm')}</strong> of harmful situations and Qwen3-8B in <strong>{m('InitQwHarm')}</strong>, against {m('InitGemTwin')} and {m('InitQwTwin')} for harmless deals. A platform cannot wait for an incoming offer to start looking.</p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <h2>Workplace deals are the easiest to join</h2>
+    <p>Across nine kinds of deal, the ones between colleagues (padding a budget, a peer-scoring ring, not hiring each other's staff) pulled both models in far more than market deals between rival shops, once someone else proposed them. The message moved Gemini in {m('SetGemWpMoved')} of workplace cases against {m('SetGemMkMoved')} on the market, and Qwen in {m('SetQwWpMoved')} against {m('SetQwMkMoved')}. This contrast was drawn after looking at the data.</p>
   </div>
 </section>
 

@@ -293,6 +293,24 @@ def main() -> None:
         M[f"Set{A}MovedDiffCI"] = ci(mv["diff"])
         M[f"Set{A}PostDiff"] = pp(ST[a]["colluded_post"]["diff"])
     M["SetRankRho"] = f"{ST['spearman_moved']:.2f}"
+    # Initiation probe: does the agent open the collusion itself? (analysis/initiate.py)
+    from analysis.initiate import stats as _init
+    INI = _init()
+    for a, A in (("gemini", "Gem"), ("qwen", "Qw")):
+        s_ = INI.get(a)
+        if not s_:
+            continue
+        M[f"Init{A}Harm"] = pct(s_["propose_harmful"])
+        M[f"Init{A}HarmCI"] = ci(s_["propose_harmful"])
+        M[f"Init{A}Twin"] = pct(s_["propose_twin"])
+        M[f"Init{A}Pre"] = pct(s_["pre_collusive"])
+        M[f"Init{A}FollowProp"] = pct(s_["final_collusive_if_proposed"])
+        M[f"Init{A}FollowNot"] = pct(s_["final_collusive_if_not"])
+        top = max(s_["by_family"].items(), key=lambda kv: kv[1])
+        M[f"Init{A}TopFam"] = "\\texttt{" + top[0].replace("_", "\\_") + "}"
+        M[f"Init{A}TopFamRate"] = pct({"est": top[1]})
+        M[f"Init{A}WpDiff"] = pp(s_["propose_wp_minus_mk"])
+        M[f"Init{A}WpDiffCI"] = ci(s_["propose_wp_minus_mk"])
     # Oversight through a summary (macros for the text; table oversight.tex below)
     for a, A in (("gemini", "Gem"), ("qwen", "Qw")):
         for name, N in (("mistral", "Mi"), ("haiku", "Hk")):
