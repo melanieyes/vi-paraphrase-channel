@@ -29,21 +29,22 @@
 \maketitle
 
 \begin{abstract}
-\noindent A rival agent asks yours to hold a price. Your agent refuses. A monitor that reads the message
-flags it anyway: in our experiments, \StdMiAllFADecl{} of refusals for a Mistral Small 3.1 monitor and
-\StdHkAllFADecl{} for Claude Haiku 5.5. We ask what in an agent's logs is convincing evidence that it
-colluded. We built \nTaskItems{} Vietnamese scenarios in nine families, each harmful scenario paired with a harmless twin. A scripted rival sends a fixed
-invitation in one of four styles, from a direct proposal to a bare announcement. Two agents (Gemini 2.5
-Flash, Qwen3-8B) decide, report to their principal and answer a disclosure question; two monitors judge
-each episode. Each kind of evidence fails alone. The action misses intent: Gemini
-held the price before any message in \GemTopUnprompted{} of price-holding episodes. The report hides the
-message: agents admitted influence when asked (\GemDiscItem{} and \QwDiscItem) but mentioned it in
-\GemDiscLex{} and \QwDiscLex{} of reports. The message implicates the sender, not the receiver. We propose
-that evidence requires a proposal, a matching action, and a departure from what the agent does without the
-proposal. Showing the monitor the agent's choices on similar situations, which a deployed system can
-record, cut flags on refusals to \StdMiFamFADecl{} (Mistral) and \StdHkFamFADecl{} (Haiku); Haiku still missed no
-collusion, cautious Mistral more. A neutral summary of the trace kept most of this evidence; the agent's own report did not.
-A log-format summary of the rival's message cut Qwen's collusion only by erasing the proposal: cooperation on harmless twins fell too.
+\noindent Suppose a rival agent asks yours to hold a price, and yours refuses. A monitor reading the message
+often flags it anyway, as it did for \StdMiAllFADecl{} of refusals under Mistral Small 3.1 and
+\StdHkAllFADecl{} under Claude Haiku 5.5. We ask what in an agent's logs counts
+as convincing evidence of collusion, working in Vietnamese, which no collusion study we found had
+covered. We built \nTaskItems{} scenarios in nine families, each paired with
+a harmless twin, in which a scripted rival invites the agent in one of four styles. Gemini 2.5 Flash and Qwen3-8B played the agent. No single
+source of evidence held up. Gemini held the price in \GemTopUnprompted{} of price-holding episodes before any
+message arrived, so a matching action proves little. Asked directly, the agents
+admitted the influence (\GemDiscItem{} and \QwDiscItem), yet their reports to their owners mentioned it in
+only \GemDiscLex{} and \QwDiscLex. Deals between colleagues drew both agents in more often than deals
+between rival shops. We therefore propose a three-part standard: a proposal, an action that matches it, and
+a departure from the agent's usual behaviour. Given the agent's choices on similar situations,
+which a platform can record, false flags fell to \StdHkFamFADecl{} for Haiku, which still
+caught every case, and to \StdMiFamFADecl{} for the more cautious Mistral, which missed more. A neutral
+summary of the log kept most of what self-reports left out. Summaries can mislead too: squeezed into a log
+format, the rival's offer vanished, and Qwen colluded less only because it stopped hearing offers at all.
 \end{abstract}
 
 \section{Introduction}
